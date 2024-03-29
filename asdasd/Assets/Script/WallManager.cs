@@ -7,6 +7,7 @@ public class WallManager : MonoBehaviour
     public List<Color> colors;
     public List<WallObjects> wallObjects;
     public List<Buttons> buttons;
+    public List<Lever> levers;
 
     public Color GetColor(int index)
     {
@@ -25,6 +26,12 @@ public class WallManager : MonoBehaviour
         buttons.Add(button);
     }
 
+    public void SubscribeToBeALever(Lever lever)
+    {
+        //it gathers all the button, so they can be later found
+        levers.Add(lever);
+    }
+
     public void SetColorActive(int index)
     {
         //makes the color with the index visible
@@ -39,6 +46,18 @@ public class WallManager : MonoBehaviour
             if (buttons[i].colorIndex == index)
             {
                 buttons[i].BeActive();
+            }
+        }
+        for (int i = 0; i < levers.Count; i++)
+        {
+            if (levers[i].colorIndex == index)
+            {
+                levers[i].BeActive();
+            }
+            if (levers[i].interactWithColor == index)
+            {
+                levers[i].spriteRenderer.sprite = levers[i].stateActivated;
+                levers[i].activateTheColor = true;
             }
         }
     }
@@ -58,6 +77,18 @@ public class WallManager : MonoBehaviour
             if (buttons[i].colorIndex == index)
             {
                 buttons[i].DontBeActive();
+            }
+        }
+        for (int i = 0; i < levers.Count; i++)
+        {
+            if (levers[i].colorIndex == index)
+            {
+                levers[i].DontBeActive();
+            }
+            if (levers[i].interactWithColor == index)
+            {
+                levers[i].spriteRenderer.sprite = levers[i].stateDeactivated;
+                levers[i].activateTheColor = false;
             }
         }
     }
