@@ -12,7 +12,7 @@ public class WallObjects : MonoBehaviour
     private void Awake()
     {
         tilemap = gameObject.GetComponent<Tilemap>();
-        wallCollider = gameObject.GetComponent<Collider2D>();
+        wallCollider = gameObject.GetComponent<TilemapCollider2D>();
     }
 
     private void Start()
