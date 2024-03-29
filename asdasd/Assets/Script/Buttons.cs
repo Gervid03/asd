@@ -7,6 +7,8 @@ public class Buttons : MonoBehaviour
 {
     public int colorIndex;
     public bool state; //true it's activated, else it's not
+    public Sprite stateActivated;
+    public Sprite stateDeactivated;
     public int interactWithColor; //which color is activated or deactivated by this button
     public bool activateTheColor; //if false then deactivates that color, else activates that color
     public SpriteRenderer spriteRenderer;
@@ -48,5 +50,42 @@ public class Buttons : MonoBehaviour
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
         buttonCollider.enabled = false;
         buttonTriggerCollider.enabled = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //if it's the player it gets activated
+        if(collision.gameObject.GetComponent<movement>() != null)
+        {
+            Use();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<movement>() != null)
+        {
+            EndOfUse();
+        }
+    }
+
+    public void Use()
+    {
+        spriteRenderer.sprite = stateActivated;
+        state = true;
+        if (activateTheColor)
+        {
+            FindFirstObjectByType<WallManager>().SetColorActive(interactWithColor);
+        }
+        else
+        {
+            FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
+        }
+    }
+
+    public void EndOfUse()
+    {
+        spriteRenderer.sprite = stateDeactivated;
+        state = false;
     }
 }
