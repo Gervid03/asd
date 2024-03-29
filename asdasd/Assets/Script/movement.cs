@@ -9,6 +9,8 @@ public class movement : MonoBehaviour
     public float movementSpeed;
     public float jumpSpeed;
     public float jumpCooldown;
+    public float runningFor;
+    public float acceleration;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,6 @@ public class movement : MonoBehaviour
     }
     public void HorizontalMovement()
     {
-        characterRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal")*movementSpeed, characterRB.velocity.y);
+        characterRB.velocity = new Vector2(Mathf.Min((Mathf.Abs(characterRB.velocity.x)-9*acceleration)+10*acceleration, movementSpeed) * Input.GetAxisRaw("Horizontal"), characterRB.velocity.y);
     }
 }
