@@ -7,12 +7,12 @@ public class WallObjects : MonoBehaviour
 {
     public int colorIndex;
     public Tilemap tilemap;
-    public Collider2D wallCollider2D;
+    public Collider2D wallCollider;
 
     private void Awake()
     {
         tilemap = gameObject.GetComponent<Tilemap>();
-        wallCollider2D = gameObject.GetComponent<Collider2D>();
+        wallCollider = gameObject.GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -36,13 +36,13 @@ public class WallObjects : MonoBehaviour
     {
         //becomes active and visible
         tilemap.color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, 255);
-        wallCollider2D.enabled = true;
+        wallCollider.enabled = true;
     }
 
     public void DontBeActive()
     {
         //becomes invisible
         tilemap.color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, 0);
-        wallCollider2D.enabled = false;
+        wallCollider.enabled = false;
     }
 }
