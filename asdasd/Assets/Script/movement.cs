@@ -26,7 +26,6 @@ public class movement : MonoBehaviour
 
     public void Jump()
     {
-        Debug.Log(characterRB.velocity.y);
         if (Input.GetAxisRaw("Jump") == 1 && Mathf.Abs(characterRB.velocity.y) < 0.01f && jumpCooldown + 0.1f < Time.time)
         {
             jumpCooldown = Time.time;
