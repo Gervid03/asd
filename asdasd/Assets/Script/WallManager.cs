@@ -116,4 +116,13 @@ public class WallManager : MonoBehaviour
             }
         }
     }
+
+    public void DestroyAllCube()
+    {
+        for(int i = 0;i < cubes.Count; i++)
+        {
+            cubes[i].DontBeActive();
+        }
+        cubes.Clear();
+    }
 }
