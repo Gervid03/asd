@@ -92,6 +92,14 @@ public class Buttons : MonoBehaviour
         if(state == 0)
         {
             spriteRenderer.sprite = stateDeactivated;
+            if (!activateTheColor)
+            {
+                FindFirstObjectByType<WallManager>().SetColorActive(interactWithColor);
+            }
+            else
+            {
+                FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
+            }
         }
     }
 }
