@@ -12,6 +12,7 @@ public class Cube : MonoBehaviour
     {
         FindFirstObjectByType<WallManager>().SubscribeToBeACube(this);
         gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(gameObject.GetComponent<SpriteRenderer>().color.r, gameObject.GetComponent<SpriteRenderer>().color.g, gameObject.GetComponent<SpriteRenderer>().color.b, 255);
         characterC = FindFirstObjectByType<Player>().gameObject.GetComponent<BoxCollider2D>();
         characterRB = FindFirstObjectByType<Player>().gameObject.GetComponent<Rigidbody2D>();
         Physics2D.IgnoreCollision(characterC, gameObject.GetComponent<BoxCollider2D>(), true);
