@@ -5,9 +5,11 @@ using UnityEngine;
 public class WallManager : MonoBehaviour
 { 
     public List<Color> colors;
+    public List<int> inverzColor; //0 if there is no inverz
     public List<WallObjects> wallObjects;
     public List<Buttons> buttons;
     public List<Lever> levers;
+    public List<Cube> cubes;
 
     public Color GetColor(int index)
     {
@@ -24,6 +26,12 @@ public class WallManager : MonoBehaviour
     {
         //it gathers all the button, so they can be later found
         buttons.Add(button);
+    }
+
+    public void SubscribeToBeACube(Cube cube)
+    {
+        //it gathers all the cubes, so they can be later found
+        cubes.Add(cube);
     }
 
     public void SubscribeToBeALever(Lever lever)
