@@ -56,6 +56,13 @@ public class WallManager : MonoBehaviour
                 buttons[i].BeActive();
             }
         }
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            if (buttons[i].colorIndex == index)
+            {
+                cubes[i].BeActive();
+            }
+        }
         for (int i = 0; i < levers.Count; i++)
         {
             if (levers[i].colorIndex == index)
