@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void BeActive()
     {
-        
+        //becomes active and visible
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DontBeActive()
     {
-        
+        //becomes invisible
     }
 }
