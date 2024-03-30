@@ -149,7 +149,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -176,7 +176,7 @@ MonoBehaviour:
   characterC: {fileID: 0}
   characterRB: {fileID: 4454321049944903863}
   movementSpeed: 5
-  jumpSpeed: 400
+  jumpSpeed: 700
   jumpCooldown: 0
   runningFor: 0
   acceleration: 0.02
