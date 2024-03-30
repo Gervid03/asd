@@ -11,10 +11,14 @@ public class Cube : MonoBehaviour
         FindFirstObjectByType<WallManager>().SubscribeToBeACube(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Teleport();
+    }
+
+    public void DontBeActive()
+    {
+        
     }
 
     public void Teleport()
