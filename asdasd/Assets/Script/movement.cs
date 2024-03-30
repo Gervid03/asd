@@ -11,6 +11,7 @@ public class movement : MonoBehaviour
     public float jumpCooldown;
     public float runningFor;
     public float acceleration;
+    public float fallSpeedLimit;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class movement : MonoBehaviour
     {
         HorizontalMovement();
         Jump();
+        characterRB.velocity = new Vector2(characterRB.velocity.x, Mathf.Min(fallSpeedLimit, characterRB.velocity.y));
     }
 
     public void Jump()
