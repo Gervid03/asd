@@ -24,12 +24,10 @@ public class Portal : MonoBehaviour
     {
         if (timeOfTP + cooldownTP < Time.time)
         {
-            Debug.Log("Asd");
             Physics2D.IgnoreCollision(character.GetComponent<Collider2D>(), pairPortal.GetComponent<Collider2D>(), false);
         }
         if (this.gameObject.GetComponent<Collider2D>().IsTouching(character.GetComponent<Collider2D>()) && Input.GetAxisRaw("Interact") > 0)
         {
-            Debug.Log("tp");
             character.GetComponent<Rigidbody2D>().position = pairPortal.transform.position;
             character.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             Physics2D.IgnoreCollision(character.GetComponent<Collider2D>(), pairPortal.GetComponent<Collider2D>(), true);
