@@ -55,7 +55,7 @@ public class Buttons : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //if it's the player it gets activated
-        if(collision.gameObject.GetComponent<movement>() != null)
+        if(collision.gameObject.GetComponent<CanInteract>() != null)
         {
             Use();
         }
@@ -63,7 +63,7 @@ public class Buttons : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<movement>() != null)
+        if (collision.gameObject.GetComponent<CanInteract>() != null)
         {
             EndOfUse();
         }
