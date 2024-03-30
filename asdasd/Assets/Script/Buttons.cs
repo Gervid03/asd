@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class Buttons : MonoBehaviour
 {
     public int colorIndex;
-    public bool state; //true it's activated, else it's not
+    public int state; //how many collisions are there currently
     public Sprite stateActivated;
     public Sprite stateDeactivated;
     public int interactWithColor; //which color is activated or deactivated by this button
@@ -71,21 +71,27 @@ public class Buttons : MonoBehaviour
 
     public void Use()
     {
-        spriteRenderer.sprite = stateActivated;
-        state = true;
-        if (activateTheColor)
+        state++;
+        if(state == 1)
         {
-            FindFirstObjectByType<WallManager>().SetColorActive(interactWithColor);
-        }
-        else
-        {
-            FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
+            spriteRenderer.sprite = stateActivated;
+            if (activateTheColor)
+            {
+                FindFirstObjectByType<WallManager>().SetColorActive(interactWithColor);
+            }
+            else
+            {
+                FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
+            }
         }
     }
 
     public void EndOfUse()
     {
-        spriteRenderer.sprite = stateDeactivated;
-        state = false;
+        state--;
+        if(state == 0)
+        {
+            spriteRenderer.sprite = stateDeactivated;
+        }
     }
 }
