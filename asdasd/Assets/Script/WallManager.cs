@@ -40,10 +40,11 @@ public class WallManager : MonoBehaviour
         levers.Add(lever);
     }
 
-    public void SetColorActive(int index)
+    public void SetColorActive(int index, bool inverzed = false)
     {
+        if (inverzColor[index] != 0 && !inverzed) SetColorDeactive(inverzColor[index], true);
         //makes the color with the index visible
-        for(int i = 0; i < wallObjects.Count; i++) {
+        for (int i = 0; i < wallObjects.Count; i++) {
             if (wallObjects[i].colorIndex == index)
             {
                 wallObjects[i].BeActive();
@@ -56,9 +57,9 @@ public class WallManager : MonoBehaviour
                 buttons[i].BeActive();
             }
         }
-        for (int i = 0; i < buttons.Count; i++)
+        for (int i = 0; i < cubes.Count; i++)
         {
-            if (buttons[i].colorIndex == index)
+            if (cubes[i].colorIndex == index)
             {
                 cubes[i].BeActive();
             }
@@ -77,8 +78,9 @@ public class WallManager : MonoBehaviour
         }
     }
 
-    public void SetColorDeactive(int index)
+    public void SetColorDeactive(int index, bool inverzed = false)
     {
+        if (inverzColor[index] != 0 && !inverzed) SetColorActive(inverzColor[index], true); 
         //makes the color with the index invisible
         for (int i = 0; i < wallObjects.Count; i++)
         {
@@ -92,6 +94,13 @@ public class WallManager : MonoBehaviour
             if (buttons[i].colorIndex == index)
             {
                 buttons[i].DontBeActive();
+            }
+        }
+        for (int i = 0; i < cubes.Count; i++)
+        {
+            if (cubes[i].colorIndex == index)
+            {
+                cubes[i].DontBeActive();
             }
         }
         for (int i = 0; i < levers.Count; i++)
