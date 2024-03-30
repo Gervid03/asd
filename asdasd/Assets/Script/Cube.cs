@@ -11,11 +11,14 @@ public class Cube : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FindFirstObjectByType<WallManager>().SubscribeToBeACube(this);
-        gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-
         characterC = characterRB.gameObject.GetComponent<BoxCollider2D>();
         Physics2D.IgnoreCollision(characterC, gameObject.GetComponent<BoxCollider2D>(), true);
+    }
+
+    public void Set()
+    {
+        FindFirstObjectByType<WallManager>().SubscribeToBeACube(this);
+        gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
     }
 
     private void Update()
