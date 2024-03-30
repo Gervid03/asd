@@ -12,7 +12,7 @@ public class Cube : MonoBehaviour
     void Start()
     {
         FindFirstObjectByType<WallManager>().SubscribeToBeACube(this);
-        FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
 
         characterC = characterRB.gameObject.GetComponent<BoxCollider2D>();
         Physics2D.IgnoreCollision(characterC, gameObject.GetComponent<BoxCollider2D>(), true);
@@ -30,7 +30,7 @@ public class Cube : MonoBehaviour
 
     public void DontBeActive()
     {
-        
+        Destroy(this.gameObject);
     }
 
     public void Teleport()
@@ -38,6 +38,7 @@ public class Cube : MonoBehaviour
         if (Input.GetAxisRaw("CubeTP") > 0)
         {
             gameObject.transform.position = characterRB.position;
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
     }
 }
