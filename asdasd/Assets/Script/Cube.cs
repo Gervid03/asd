@@ -9,11 +9,17 @@ public class Cube : MonoBehaviour
     void Start()
     {
         FindFirstObjectByType<WallManager>().SubscribeToBeACube(this);
+        FindFirstObjectByType<WallManager>().GetColor(colorIndex);
     }
 
     private void Update()
     {
         Teleport();
+    }
+
+    public void BeActive()
+    {
+
     }
 
     public void DontBeActive()
