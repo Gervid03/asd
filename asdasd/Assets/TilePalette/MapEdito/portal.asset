@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: portal
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 1566683764, guid: 9d99dede61396da49b62a355f60193ca, type: 3}
+  m_Sprite: {fileID: 244520901, guid: 3acf1bb8edb6c564da0cb7a1e41fbbc8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
