@@ -10,6 +10,7 @@ public class WallManager : MonoBehaviour
     public List<Buttons> buttons;
     public List<Lever> levers;
     public List<Cube> cubes;
+    public List<TimerCube> timerCubes;
 
     public Color GetColor(int index)
     {
@@ -32,6 +33,12 @@ public class WallManager : MonoBehaviour
     {
         //it gathers all the cubes, so they can be later found
         cubes.Add(cube);
+    }
+
+    public void SubscribeToBeATimerCube(TimerCube timerCube)
+    {
+        //it gathers all the cubes, so they can be later found
+        timerCubes.Add(timerCube);
     }
 
     public void SubscribeToBeALever(Lever lever)
@@ -124,5 +131,17 @@ public class WallManager : MonoBehaviour
             cubes[i].DontBeActive();
         }
         cubes.Clear();
+    }
+
+    public void DestroyTimerCube(int color)
+    {
+        for (int i = 0; i < timerCubes.Count; i++)
+        {
+            if (timerCubes[i].colorIndex == color)
+            {
+                timerCubes[i].DontBeActive();
+                i--;
+            }
+        }
     }
 }

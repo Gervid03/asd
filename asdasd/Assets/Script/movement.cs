@@ -25,7 +25,7 @@ public class movement : MonoBehaviour
     {
         HorizontalMovement();
         Jump();
-        characterRB.velocity = new Vector2(characterRB.velocity.x, Mathf.Min(fallSpeedLimit, characterRB.velocity.y));
+        characterRB.velocity = new Vector2(characterRB.velocity.x, Mathf.Max(-fallSpeedLimit, characterRB.velocity.y));
     }
 
     public void Jump()
