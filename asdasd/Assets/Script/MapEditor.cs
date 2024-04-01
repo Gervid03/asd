@@ -65,7 +65,6 @@ public class MapEditor : MonoBehaviour
 
     public void Use(int x, int y)
     {
-        Debug.Log(x + " " + y);
         if (currentTool == 0) RemoveTile(x, y);
         else AddTile(x, y);
     }
