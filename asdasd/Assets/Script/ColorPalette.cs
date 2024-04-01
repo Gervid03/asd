@@ -14,10 +14,13 @@ public class ColorPalette : MonoBehaviour
     public float spacing;
     public List<GameObject> colorDisplayButtons;
     public GameObject colorSettings;
+    public GameObject selectedButton; //set by the clicked button
+    public GameObject colorTweaker;
 
     void Start()
     {
         ReadInColors();
+        UpdateColorPaletteGrid();
     }
 
     private void OnApplicationQuit()
@@ -47,11 +50,6 @@ public class ColorPalette : MonoBehaviour
         fileColorPalette.Close();
     }
 
-    private void Update()
-    {
-
-    }
-
     public void UpdateColorPaletteGrid()
     {
         foreach (Transform child in this.transform) //destroy every child (:<
@@ -65,9 +63,59 @@ public class ColorPalette : MonoBehaviour
             colorDisplayButtons[colorDisplayButtons.Count - 1].transform.SetParent(this.transform);
             colorDisplayButtons[colorDisplayButtons.Count - 1].GetComponent<Image>().color = colors[i];
             colorDisplayButtons[colorDisplayButtons.Count - 1].transform.localPosition = new Vector2((i%rowLength)*spacing, -((i/rowLength)*spacing));
-            
-            colorSettings.GetComponent<RectTransform>().sizeDelta = new Vector2(700, (colors.Count / rowLength + 1) * spacing);
+
+            int rows = colors.Count / rowLength;
+            if (colors.Count % rowLength != 0) rows++;
+            this.GetComponent<RectTransform>().sizeDelta = new Vector2(700, rows * spacing);
         }
 
+    }
+
+    public void AddNewColor()
+    {
+        colorTweaker.GetComponent<ColorTweaker>().BeActive();
+        colorTweaker.GetComponent<ColorTweaker>().color = new Vector4(0, 0, 0, 1);
+        colorTweaker.GetComponent<ColorTweaker>().UpdateTextsFromColor();
+    }
+
+    public void FinishedTweaking()
+    {
+        colors.Add(colorTweaker.GetComponent<ColorTweaker>().color);
+        UpdateColorPaletteGrid();
+        colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
+    }
+
+    public void CancelTweaking()
+    {
+        colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
+    }
+
+    public void ModifySelectedColor()
+    {
+        if (SelectWarning()) return;
+
+        colorTweaker.GetComponent<ColorTweaker>().BeActive();
+        colorTweaker.GetComponent<ColorTweaker>().color = selectedButton.GetComponent<Image>().color;
+        colorTweaker.GetComponent<ColorTweaker>().UpdateTextsFromColor();
+    }
+
+    public bool SelectWarning()
+    {
+        if (selectedButton == null)
+        {
+            Debug.Log("SELECT A COLOR!!!");
+            //throw maybe something nicer at user
+            return true;
+        }
+        return false;
+    }
+
+    public void DeleteSelectedColor()
+    {
+        if (SelectWarning()) return;
+
+        colors.Remove(selectedButton.GetComponent<Image>().color);
+        Destroy(selectedButton);
+        UpdateColorPaletteGrid();
     }
 }

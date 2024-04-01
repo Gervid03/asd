@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5430199550939486936}
   - component: {fileID: 7725519284538101083}
+  - component: {fileID: 4507090805752392415}
   - component: {fileID: 4565551372226456}
   - component: {fileID: 2027131528783065000}
   m_Layer: 5
@@ -46,6 +47,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3250328000443600179}
   m_CullTransparentMesh: 1
+--- !u!114 &4507090805752392415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3250328000443600179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39441245308d137459dd5fae40457075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4565551372226456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,4 +132,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4565551372226456}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4507090805752392415}
+        m_TargetAssemblyTypeName: ColorDisplayButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
