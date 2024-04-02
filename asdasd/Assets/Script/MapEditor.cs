@@ -24,6 +24,7 @@ public class MapEditor : MonoBehaviour
     public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal
     public List<tool> tools;
     public GameObject menu;
+    public GameObject showMenuButton;
     public List<SettingForInteract> infos;
     public GameObject buttonSettingsPrefab;
     public GameObject buttonForCubeSettingsPrefab;
@@ -76,34 +77,47 @@ public class MapEditor : MonoBehaviour
     public void InteractiveAdded(int x, int y)
     {
         //open menu, add settings
+        OpenMenu();
         if(tilemaps[currentTilemap].GetTile(new Vector3Int(x, y, 0)) == tools[2].tile) AddButton(x, y);
         else if(tilemaps[currentTilemap].GetTile(new Vector3Int(x, y, 0)) == tools[3].tile) AddButtonForCube(x, y);
         else if(tilemaps[currentTilemap].GetTile(new Vector3Int(x, y, 0)) == tools[4].tile) AddLever(x, y);
         else if(tilemaps[currentTilemap].GetTile(new Vector3Int(x, y, 0)) == tools[5].tile) AddPortal(x, y);
     }
 
+
+
+    public void OpenMenu()
+    {
+        menu.SetActive(true);
+        showMenuButton.SetActive(true);
+    }
+
     public void AddButton(int x, int y)
     {
         GameObject a = Instantiate(buttonSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+        infos.Add(a.GetComponent<SettingForInteract>());
     }
 
     public void AddButtonForCube(int x, int y)
     {
         GameObject a = Instantiate(buttonForCubeSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+        infos.Add(a.GetComponent<SettingForInteract>());
     }
 
     public void AddLever(int x, int y)
     {
         GameObject a = Instantiate(LeverSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+        infos.Add(a.GetComponent<SettingForInteract>());
     }
 
     public void AddPortal(int x, int y)
     {
         GameObject a = Instantiate(portalSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+        infos.Add(a.GetComponent<SettingForInteract>());
     }
 
     public void RemoveAllTileAtThisPositon(int x, int y)
@@ -119,12 +133,21 @@ public class MapEditor : MonoBehaviour
 
     public void RemoveTile(int x, int y)
     {
+        InteractiveRemoved(x, y);
         tilemaps[currentTilemap].SetTile(new Vector3Int(x, y, 0), clear);
     }
 
     public void InteractiveRemoved(int x, int y)
     {
-        
+        for(int i = 0; i < infos.Count; i++)
+        {
+            if (infos[i].x == x && infos[i].y == y)
+            {
+                infos[i].CommitSuicide();
+                infos.RemoveAt(i);
+                break;
+            }
+        }
     }
 
     public void Use(int x, int y)

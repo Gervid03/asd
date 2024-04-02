@@ -17,6 +17,8 @@ public class SettingForInteract : MonoBehaviour
     public void Set(int x1, int y1, int i, Color c)
     {
         coordinates.text = "(" + x1 + ", " + y1 + ")";
+        x = x1;
+        y = y1;
         index = i;
         color.color = c;
     }
@@ -33,17 +35,24 @@ public class SettingForInteract : MonoBehaviour
 
     public void SetTimer(string t)
     {
+        if (t == null) return;
         timer = int.Parse(t);
     }
     
     public void SetPortalIndex(string pt)
     {
+        if(pt == null) return;
         portalIndex = int.Parse(pt);
     }
 
     public void SetActivate(bool a)
     {
         activate = a;
+    }
+
+    public void CommitSuicide()
+    {
+        Destroy(this.gameObject);
     }
 
 }
