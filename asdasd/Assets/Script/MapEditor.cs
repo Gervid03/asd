@@ -20,7 +20,7 @@ public class MapEditor : MonoBehaviour
     public float xBottomLeft, yBottomLeft, xTopRight, yTopRight;
     public int numberOfCellsInARow;
     public int numberOfCellsInAColumn;
-    public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal
+    public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal, 6 select
     public List<tool> tools;
 
     [System.Serializable]
@@ -28,6 +28,15 @@ public class MapEditor : MonoBehaviour
     {
         public string name;
         public TileBase tile;
+    }
+
+    [System.Serializable]
+    public struct details
+    {
+        //it stores with which colors the object will interact
+        public int interactColor; //by button which color it activates deactivates, by buttonforcube the color of the cube, etc.
+        public int activate; //0 if it deactivates, 1 if it activates, -1 if it's not a button
+
     }
 
     private void Start()
@@ -80,7 +89,17 @@ public class MapEditor : MonoBehaviour
     public void Use(int x, int y)
     {
         if (currentTool == 0) RemoveTile(x, y);
+        if(currentTool == 6) AddDetails(x, y);
         else AddTile(x, y);
+    }
+
+    public void AddDetails(int x, int y)
+    {
+        //if it's a lever, button, buttonforcube or anything that interacts with other colors it shows the settings
+        for(int i = 0; i < tilemaps.Count; i++)
+        {
+
+        }
     }
 
     public void ChangeColor(int index)
