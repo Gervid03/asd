@@ -8,24 +8,36 @@ public class ColorPalette : MonoBehaviour
 {
     public string colorPalettePath; //the location of ColorPalette.txt
     public string[] colorPaletteLines; //strings consisting of 3 RGB floats separated by ' '
-    public List<Color> colors;
+    public List<ColorDisplayButton> colors;
     public GameObject colorDisplay;
     public int rowLength;
     public float spacing;
-    public List<GameObject> colorDisplayButtons;
     public GameObject colorSettings;
-    public GameObject selectedButton; //set by the clicked button
+    public ColorDisplayButton selectedButton; //set by the clicked button
     public GameObject colorTweaker;
+    public MapEditor mapEditor;
 
     void Start()
     {
+        mapEditor = FindAnyObjectByType<MapEditor>();
         ReadInColors();
-        UpdateColorPaletteGrid();
     }
 
     private void OnApplicationQuit()
     {
         SaveColors();
+    }
+
+    public void CreateColor(Color szin)
+    {
+        GameObject c = Instantiate(colorDisplay, this.transform, false);
+
+        c.GetComponent<Image>().color = szin;
+        c.GetComponent<ColorDisplayButton>().color = szin;
+
+        int a = mapEditor.AddColor(szin);
+        c.GetComponent<ColorDisplayButton>().index = a;
+        colors.Add(c.GetComponent<ColorDisplayButton>());
     }
 
     public void ReadInColors() //Read from ColorPalette.txt into colors list
@@ -36,7 +48,7 @@ public class ColorPalette : MonoBehaviour
         for (int i = 0; i < colorPaletteLines.Length; i++)
         {
             string[] stringRGB = colorPaletteLines[i].Trim().Split(' ');
-            colors.Add(new Color(float.Parse(stringRGB[0]), float.Parse(stringRGB[1]), float.Parse(stringRGB[2]), 255)); 
+            CreateColor(new Color(float.Parse(stringRGB[0]), float.Parse(stringRGB[1]), float.Parse(stringRGB[2]), 255));
         }
     }
 
@@ -45,30 +57,9 @@ public class ColorPalette : MonoBehaviour
         StreamWriter fileColorPalette = new StreamWriter(colorPalettePath);
         for (int i = 0; i < colors.Count; i++)
         {
-            fileColorPalette.WriteLine(colors[i][0].ToString() + ' ' + colors[i][1].ToString() + ' ' + colors[i][2].ToString());
+            fileColorPalette.WriteLine(colors[i].color.r.ToString() + ' ' + colors[i].color.g.ToString() + ' ' + colors[i].color.b.ToString());
         }
         fileColorPalette.Close();
-    }
-
-    public void UpdateColorPaletteGrid()
-    {
-        foreach (Transform child in this.transform) //destroy every child (:<
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-
-        for (int i = 0; i < colors.Count; i++)
-        {
-            colorDisplayButtons.Add(Instantiate(colorDisplay, this.transform, false));
-            colorDisplayButtons[colorDisplayButtons.Count - 1].transform.SetParent(this.transform);
-            colorDisplayButtons[colorDisplayButtons.Count - 1].GetComponent<Image>().color = colors[i];
-            colorDisplayButtons[colorDisplayButtons.Count - 1].transform.localPosition = new Vector2((i%rowLength)*spacing, -((i/rowLength)*spacing));
-
-            int rows = colors.Count / rowLength;
-            if (colors.Count % rowLength != 0) rows++;
-            this.GetComponent<RectTransform>().sizeDelta = new Vector2(700, rows * spacing);
-        }
-
     }
 
     public void AddNewColor()
@@ -80,8 +71,7 @@ public class ColorPalette : MonoBehaviour
 
     public void FinishedTweaking()
     {
-        colors.Add(colorTweaker.GetComponent<ColorTweaker>().color);
-        UpdateColorPaletteGrid();
+        CreateColor(colorTweaker.GetComponent<ColorTweaker>().color);
         colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
     }
 
@@ -113,9 +103,9 @@ public class ColorPalette : MonoBehaviour
     public void DeleteSelectedColor()
     {
         if (SelectWarning()) return;
-
-        colors.Remove(selectedButton.GetComponent<Image>().color);
-        Destroy(selectedButton);
-        UpdateColorPaletteGrid();
+        
+        mapEditor.RemoveColor(selectedButton.index);
+        colors.Remove(selectedButton);
+        Destroy(selectedButton.gameObject);
     }
 }

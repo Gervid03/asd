@@ -22,6 +22,7 @@ public class MapEditor : MonoBehaviour
     public int numberOfCellsInAColumn;
     public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal, 6 select
     public List<tool> tools;
+    public GameObject menu;
 
     [System.Serializable]
     public struct tool
@@ -57,7 +58,7 @@ public class MapEditor : MonoBehaviour
 
     public void HandleClick()
     {//     If clicked inside the editor board
-        if (Input.GetMouseButton(0) && Input.mousePosition.x > xBottomLeft && Input.mousePosition.x < xTopRight && Input.mousePosition.y > yBottomLeft && Input.mousePosition.y < yTopRight)
+        if (!menu.activeSelf && Input.GetMouseButton(0) && Input.mousePosition.x > xBottomLeft && Input.mousePosition.x < xTopRight && Input.mousePosition.y > yBottomLeft && Input.mousePosition.y < yTopRight)
         {
             Use(Mathf.FloorToInt((Input.mousePosition.x - xBottomLeft) / calculatedCellWith),
                 Mathf.FloorToInt((Input.mousePosition.y - yBottomLeft) / calculatedCellHeight));

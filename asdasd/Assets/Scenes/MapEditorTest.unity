@@ -4360,6 +4360,7 @@ GameObject:
   - component: {fileID: 1271317029}
   - component: {fileID: 1271317028}
   - component: {fileID: 1271317026}
+  - component: {fileID: 1271317031}
   m_Layer: 5
   m_Name: ColorPalette
   m_TagString: Untagged
@@ -4404,10 +4405,10 @@ MonoBehaviour:
   colorDisplay: {fileID: 3250328000443600179, guid: 3fc6195fadcd4374888b2063b476788d, type: 3}
   rowLength: 7
   spacing: 100
-  colorDisplayButtons: []
   colorSettings: {fileID: 1161291245}
   selectedButton: {fileID: 0}
   colorTweaker: {fileID: 1670085168}
+  mapEditor: {fileID: 0}
 --- !u!114 &1271317028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4460,6 +4461,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1271317024}
   m_CullTransparentMesh: 1
+--- !u!114 &1271317031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271317024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 70, y: 70}
+  m_Spacing: {x: 30, y: 30}
+  m_Constraint: 1
+  m_ConstraintCount: 7
 --- !u!1 &1314693134
 GameObject:
   m_ObjectHideFlags: 0
@@ -5101,6 +5126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1479138010}
+  - component: {fileID: 1479138012}
   - component: {fileID: 1479138011}
   m_Layer: 5
   m_Name: ColorDisplaySprite
@@ -5125,61 +5151,47 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -163, y: -43}
+  m_AnchoredPosition: {x: -120, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 1, y: 1}
---- !u!212 &1479138011
-SpriteRenderer:
+--- !u!114 &1479138011
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479138009}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -1009406056, guid: 3acf1bb8edb6c564da0cb7a1e41fbbc8, type: 3}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -1009406056, guid: 3acf1bb8edb6c564da0cb7a1e41fbbc8, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1479138012
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479138009}
+  m_CullTransparentMesh: 1
 --- !u!1 &1506691531
 GameObject:
   m_ObjectHideFlags: 0
@@ -5773,6 +5785,7 @@ MonoBehaviour:
   g1: {fileID: 851625668}
   b1: {fileID: 975741453}
   color: {r: 0, g: 0, b: 0, a: 0}
+  IndexOfcolor: 0
   colorDisplayImage: {fileID: 1369477170}
   colorDisplaySprite: {fileID: 1479138009}
   inputMethodTexts: {fileID: 1739275656}
@@ -7034,6 +7047,8 @@ MonoBehaviour:
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
   tilemaps:
   - {fileID: 1298342321396587178}
+  tilemapPrefab: {fileID: 5388603436775313307, guid: b5d33dec41e5f3d40af7861e9f2b14a6, type: 3}
+  parentTilemap: {fileID: 8203861692100095573}
   currentTilemap: 0
   calculatedCellWith: 0
   calculatedCellHeight: 0
@@ -7058,6 +7073,7 @@ MonoBehaviour:
     tile: {fileID: 11400000, guid: 392f3c675c06c9a448685d076b71a164, type: 2}
   - name: portal
     tile: {fileID: 11400000, guid: d7390df413ff204498de9ed3974d6aa5, type: 2}
+  menu: {fileID: 565916781}
 --- !u!1 &1976374710
 GameObject:
   m_ObjectHideFlags: 0

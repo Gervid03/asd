@@ -8,6 +8,7 @@ public class ColorTweaker : MonoBehaviour
 {
     public GameObject r255, g255, b255, r1, g1, b1;
     public Color color;
+    public int IndexOfcolor;
     public GameObject colorDisplayImage, colorDisplaySprite;
     public GameObject inputMethodTexts;
 
