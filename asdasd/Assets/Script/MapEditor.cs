@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -18,12 +19,17 @@ public class MapEditor : MonoBehaviour
     public float calculatedCellHeight;
     public bool add; //false remove
     public float xBottomLeft, yBottomLeft, xTopRight, yTopRight;
-    public int numberOfCellsInARow;
-    public int numberOfCellsInAColumn;
-    public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal, 6 select
+    public int columns;
+    public int rows;
+    public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal
     public List<tool> tools;
     public GameObject menu;
-    public details[][] detail;
+    public List<SettingForInteract> infos;
+    public GameObject buttonSettingsPrefab;
+    public GameObject buttonForCubeSettingsPrefab;
+    public GameObject LeverSettingsPrefab;
+    public GameObject portalSettingsPrefab;
+    public Transform settingParentTr;
 
     [System.Serializable]
     public struct tool
@@ -32,49 +38,10 @@ public class MapEditor : MonoBehaviour
         public TileBase tile;
     }
 
-    [System.Serializable]
-    public struct details
-    {
-        //it stores with which colors the object will interact
-        public int interactColor; //by button which color it activates deactivates, by buttonforcube the color of the cube, by portals the portalindex etc.
-        public int activate; //0 if it deactivates, 1 if it activates, -1 if it's not a button
-
-        public void SetButton(int colorIndex, bool itActivates)
-        {
-            if(itActivates) activate = 1;
-            else activate = 0;
-            interactColor = colorIndex;
-        }
-
-        public void SetButtonForCube(int colorIndex)
-        {
-            activate = -1;
-            interactColor = colorIndex;
-        }
-
-        public void SetLever(int colorIndex)
-        {
-            activate = -1;
-            interactColor = colorIndex;
-        }
-
-        public void SetPortal(int portalIndex)
-        {
-            activate = -1;
-            interactColor = portalIndex;
-        }
-
-    }
-
     private void Start()
     {
-        calculatedCellWith = (xTopRight - xBottomLeft) / numberOfCellsInARow;
-        calculatedCellHeight = (yTopRight - xBottomLeft) / numberOfCellsInAColumn;
-        detail = new details[numberOfCellsInAColumn][];
-        for(int i = 0; i < numberOfCellsInAColumn; i++)
-        {
-            detail[i] = new details[numberOfCellsInARow];
-        }
+        calculatedCellWith = (xTopRight - xBottomLeft) / columns;
+        calculatedCellHeight = (yTopRight - xBottomLeft) / rows;
     }
 
     private void Update()
@@ -100,6 +67,43 @@ public class MapEditor : MonoBehaviour
     {
         RemoveAllTileAtThisPositon(x, y);
         tilemaps[currentTilemap].SetTile(new Vector3Int(x, y, 0), tools[currentTool].tile);
+        if(currentTool != 0 && currentTool != 1)
+        {
+            InteractiveAdded(x, y);
+        }
+    }
+
+    public void InteractiveAdded(int x, int y)
+    {
+        //open menu, add settings
+        if(tilemaps[currentTilemap].GetTile(new Vector3Int(x, y, 0)) == tools[2].tile) AddButton(x, y);
+        else if(tilemaps[currentTilemap].GetTile(new Vector3Int(x, y, 0)) == tools[3].tile) AddButtonForCube(x, y);
+        else if(tilemaps[currentTilemap].GetTile(new Vector3Int(x, y, 0)) == tools[4].tile) AddLever(x, y);
+        else if(tilemaps[currentTilemap].GetTile(new Vector3Int(x, y, 0)) == tools[5].tile) AddPortal(x, y);
+    }
+
+    public void AddButton(int x, int y)
+    {
+        GameObject a = Instantiate(buttonSettingsPrefab, settingParentTr);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+    }
+
+    public void AddButtonForCube(int x, int y)
+    {
+        GameObject a = Instantiate(buttonForCubeSettingsPrefab, settingParentTr);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+    }
+
+    public void AddLever(int x, int y)
+    {
+        GameObject a = Instantiate(LeverSettingsPrefab, settingParentTr);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+    }
+
+    public void AddPortal(int x, int y)
+    {
+        GameObject a = Instantiate(portalSettingsPrefab, settingParentTr);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
     }
 
     public void RemoveAllTileAtThisPositon(int x, int y)
@@ -118,28 +122,15 @@ public class MapEditor : MonoBehaviour
         tilemaps[currentTilemap].SetTile(new Vector3Int(x, y, 0), clear);
     }
 
+    public void InteractiveRemoved(int x, int y)
+    {
+        
+    }
+
     public void Use(int x, int y)
     {
         if (currentTool == 0) RemoveTile(x, y);
-        //if(currentTool == 6) AddDetails(x, y);
         else AddTile(x, y);
-    }
-
-    public void AddDetails(int x, int y)
-    {
-        //if it's a lever, button, buttonforcube or anything that interacts with other colors it shows the settings
-        for(int i = 0; i < tilemaps.Count; i++)
-        {
-            TileBase tileBase = tilemaps[currentTilemap].GetTile(new Vector3Int(x, y, 0));
-            if (tileBase != null && tileBase != clear)
-            {
-                if(tileBase != tools[1].tile)
-                {
-
-                }
-                break;
-            }
-        }
     }
 
     public void ChangeColor(int index)
@@ -163,9 +154,9 @@ public class MapEditor : MonoBehaviour
     public void RemoveColor(int index) {
         int a = currentTool;
         currentTool = index;
-        for(int i = 0; i < numberOfCellsInARow; i++)
+        for(int i = 0; i < columns; i++)
         {
-            for(int j = 0; j < numberOfCellsInAColumn; j++)
+            for(int j = 0; j < rows; j++)
             {
                 RemoveTile(i, j);
             }
