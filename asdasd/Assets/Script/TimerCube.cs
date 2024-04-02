@@ -8,6 +8,7 @@ public class TimerCube : MonoBehaviour
     public Rigidbody2D characterRB;
     public Collider2D characterC;
     public float lifeTime;
+    public float fallSpeedLimit;
     public float birthTime;
 
     private void Start()
@@ -32,6 +33,7 @@ public class TimerCube : MonoBehaviour
         {
             DontBeActive();
         }
+        characterRB.velocity = new Vector2(characterRB.velocity.x, Mathf.Max(-fallSpeedLimit, characterRB.velocity.y));
     }
 
     public void BeActive()

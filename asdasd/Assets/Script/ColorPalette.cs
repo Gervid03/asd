@@ -28,6 +28,11 @@ public class ColorPalette : MonoBehaviour
         SaveColors();
     }
 
+    public void AdjustHeight()
+    {
+        this.gameObject.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(700, (Mathf.CeilToInt(colors.Count / 7f))*100);
+    }
+
     public void CreateColor(Color szin)
     {
         GameObject c = Instantiate(colorDisplay, this.transform, false);
@@ -38,6 +43,8 @@ public class ColorPalette : MonoBehaviour
         int a = mapEditor.AddColor(szin);
         c.GetComponent<ColorDisplayButton>().index = a;
         colors.Add(c.GetComponent<ColorDisplayButton>());
+
+        AdjustHeight();
     }
 
     public void ReadInColors() //Read from ColorPalette.txt into colors list
@@ -65,7 +72,7 @@ public class ColorPalette : MonoBehaviour
     public void AddNewColor()
     {
         colorTweaker.GetComponent<ColorTweaker>().BeActive();
-        colorTweaker.GetComponent<ColorTweaker>().color = new Vector4(0, 0, 0, 1);
+        colorTweaker.GetComponent<ColorTweaker>().color = new Vector4(1, 1, 1, 1);
         colorTweaker.GetComponent<ColorTweaker>().UpdateTextsFromColor();
     }
 
@@ -82,6 +89,7 @@ public class ColorPalette : MonoBehaviour
 
     public void ModifySelectedColor()
     {
+        Debug.Log("asd");
         if (SelectWarning()) return;
 
         colorTweaker.GetComponent<ColorTweaker>().BeActive();
@@ -107,5 +115,7 @@ public class ColorPalette : MonoBehaviour
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);
         Destroy(selectedButton.gameObject);
+
+        AdjustHeight();
     }
 }

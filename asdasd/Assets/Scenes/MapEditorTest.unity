@@ -4239,7 +4239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Modify selected color
+  m_text: Copy selected color
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4358,7 +4358,6 @@ GameObject:
   - component: {fileID: 1271317025}
   - component: {fileID: 1271317030}
   - component: {fileID: 1271317029}
-  - component: {fileID: 1271317028}
   - component: {fileID: 1271317026}
   - component: {fileID: 1271317031}
   m_Layer: 5
@@ -4409,20 +4408,6 @@ MonoBehaviour:
   selectedButton: {fileID: 0}
   colorTweaker: {fileID: 1670085168}
   mapEditor: {fileID: 0}
---- !u!114 &1271317028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1271317024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 0
 --- !u!114 &1271317029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5697,7 +5682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1670085169
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5723,9 +5708,9 @@ RectTransform:
   - {fileID: 509640197}
   m_Father: {fileID: 1161291246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 350, y: -280}
   m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1670085170
@@ -5806,7 +5791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1739275657
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5823,9 +5808,9 @@ RectTransform:
   - {fileID: 320940199}
   m_Father: {fileID: 1161291246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 350, y: -240}
   m_SizeDelta: {x: 700, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1739275658
@@ -6859,7 +6844,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1928922972}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1271317026}
+        m_TargetAssemblyTypeName: ColorPalette, Assembly-CSharp
+        m_MethodName: ModifySelectedColor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1928922972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7073,7 +7070,7 @@ MonoBehaviour:
     tile: {fileID: 11400000, guid: 392f3c675c06c9a448685d076b71a164, type: 2}
   - name: portal
     tile: {fileID: 11400000, guid: d7390df413ff204498de9ed3974d6aa5, type: 2}
-  menu: {fileID: 565916781}
+  menu: {fileID: 619131312}
 --- !u!1 &1976374710
 GameObject:
   m_ObjectHideFlags: 0

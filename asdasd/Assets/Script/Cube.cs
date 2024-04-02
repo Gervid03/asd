@@ -7,6 +7,7 @@ public class Cube : MonoBehaviour
     public int colorIndex;
     public Rigidbody2D characterRB;
     public Collider2D characterC;
+    public float fallSpeedLimit;
 
     public void Set()
     {
@@ -21,6 +22,7 @@ public class Cube : MonoBehaviour
     private void Update()
     {
         Teleport();
+        characterRB.velocity = new Vector2(characterRB.velocity.x, Mathf.Max(-fallSpeedLimit, characterRB.velocity.y));
     }
 
     public void BeActive()

@@ -14,7 +14,7 @@ public class ColorTweaker : MonoBehaviour
 
     private void Start()
     {
-        color = new Vector4(0, 0, 0, 1);
+        color = new Vector4(1, 1, 1, 1);
     }
 
     public void BeActive()
