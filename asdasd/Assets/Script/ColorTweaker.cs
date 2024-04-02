@@ -31,7 +31,7 @@ public class ColorTweaker : MonoBehaviour
     public void UpdateDisplayColor()
     {
         colorDisplayImage.GetComponent<Image>().color = color;
-        colorDisplaySprite.GetComponent<SpriteRenderer>().color = color;
+        colorDisplaySprite.GetComponent<Image>().color = color;
     }
 
     public void UpdateTextsFromColor()
