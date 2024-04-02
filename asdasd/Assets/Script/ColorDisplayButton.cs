@@ -13,5 +13,6 @@ public class ColorDisplayButton : MonoBehaviour
 
         ColorPalette colorPalette = GetComponentInParent<ColorPalette>();
         colorPalette.selectedButton = this;
+        colorPalette.UpdateColorCarousel();
     }
 }

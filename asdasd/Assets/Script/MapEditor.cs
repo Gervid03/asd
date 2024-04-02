@@ -71,7 +71,7 @@ public class MapEditor : MonoBehaviour
         calculatedCellWith = (xTopRight - xBottomLeft) / numberOfCellsInARow;
         calculatedCellHeight = (yTopRight - xBottomLeft) / numberOfCellsInAColumn;
         detail = new details[numberOfCellsInAColumn][];
-        for(int i = 0; i < numberOfCellsInARow; i++)
+        for(int i = 0; i < numberOfCellsInAColumn; i++)
         {
             detail[i] = new details[numberOfCellsInARow];
         }

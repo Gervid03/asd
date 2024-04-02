@@ -16,10 +16,14 @@ public class ColorPalette : MonoBehaviour
     public ColorDisplayButton selectedButton; //set by the clicked button
     public GameObject colorTweaker;
     public MapEditor mapEditor;
+    public GameObject overwriteColorButton;
+    public ColorDisplayButton colorUnderModification;
+    public Image colorCarouselImage;
 
     void Start()
     {
         mapEditor = FindAnyObjectByType<MapEditor>();
+        colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
         ReadInColors();
     }
 
@@ -49,7 +53,6 @@ public class ColorPalette : MonoBehaviour
 
     public void ReadInColors() //Read from ColorPalette.txt into colors list
     {
-        colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
         colorPaletteLines = File.ReadAllLines(colorPalettePath);
 
         for (int i = 0; i < colorPaletteLines.Length; i++)
@@ -80,21 +83,39 @@ public class ColorPalette : MonoBehaviour
     {
         CreateColor(colorTweaker.GetComponent<ColorTweaker>().color);
         colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
+        overwriteColorButton.SetActive(false);
     }
 
     public void CancelTweaking()
     {
         colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
+        overwriteColorButton.SetActive(false);
     }
 
     public void ModifySelectedColor()
     {
-        Debug.Log("asd");
         if (SelectWarning()) return;
+
+        colorUnderModification = selectedButton;
+        overwriteColorButton.SetActive(true);
 
         colorTweaker.GetComponent<ColorTweaker>().BeActive();
         colorTweaker.GetComponent<ColorTweaker>().color = selectedButton.GetComponent<Image>().color;
         colorTweaker.GetComponent<ColorTweaker>().UpdateTextsFromColor();
+
+        UpdateColorCarousel();
+    }
+
+    public void OverwriteSelectedColor()
+    {
+        colors[colors.IndexOf(colorUnderModification)].color = colorTweaker.GetComponent<ColorTweaker>().color;
+        colors[colors.IndexOf(colorUnderModification)].GetComponent<Image>().color = colorTweaker.GetComponent<ColorTweaker>().color;
+        mapEditor.ModifyColor(colorUnderModification.index, colorTweaker.GetComponent<ColorTweaker>().color);
+        
+        colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
+        overwriteColorButton.SetActive(false);
+
+        UpdateColorCarousel();
     }
 
     public bool SelectWarning()
@@ -116,6 +137,57 @@ public class ColorPalette : MonoBehaviour
         colors.Remove(selectedButton);
         Destroy(selectedButton.gameObject);
 
+        overwriteColorButton.SetActive(false);
         AdjustHeight();
+    }
+
+    public void ResetPalette()
+    {
+        colorPalettePath = Application.dataPath + "/Saves/DefaultColorPalette.txt";
+        
+        foreach (Transform child in this.transform)
+        {
+            mapEditor.RemoveColor(child.GetComponent<ColorDisplayButton>().index);
+            GameObject.Destroy(child.gameObject);
+            colors.Clear();
+        }
+
+        ReadInColors();
+        colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
+    }
+
+    public void SelectedColorDecrement()
+    {
+        if (colors.IndexOf(selectedButton) - 1 < 0)
+        {
+            selectedButton = colors[colors.Count - 1];
+        }
+        else
+        {
+            selectedButton = colors[colors.IndexOf(selectedButton) - 1];
+        }
+        mapEditor.ChangeColor(selectedButton.index);
+
+        UpdateColorCarousel();
+    }
+
+    public void SelectedColorIncrement()
+    {
+        if (colors.IndexOf(selectedButton) + 1 >= colors.Count)
+        {
+            selectedButton = colors[0];
+        }
+        else
+        {
+            selectedButton = colors[colors.IndexOf(selectedButton) + 1];
+        }
+        mapEditor.ChangeColor(selectedButton.index);
+
+        UpdateColorCarousel();
+    }
+
+    public void UpdateColorCarousel()
+    {
+        colorCarouselImage.color = selectedButton.color;
     }
 }
