@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ColorPalette : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class ColorPalette : MonoBehaviour
     public GameObject overwriteColorButton;
     public ColorDisplayButton colorUnderModification;
     public Image colorCarouselImage;
+    public TMP_Text selectSMHWarning;
 
     void Start()
     {
@@ -122,8 +124,7 @@ public class ColorPalette : MonoBehaviour
     {
         if (selectedButton == null)
         {
-            Debug.Log("SELECT A COLOR!!!");
-            //throw maybe something nicer at user
+            selectSMHWarning.gameObject.SetActive(true);
             return true;
         }
         return false;
@@ -189,5 +190,6 @@ public class ColorPalette : MonoBehaviour
     public void UpdateColorCarousel()
     {
         colorCarouselImage.color = selectedButton.color;
+        selectSMHWarning.gameObject.SetActive(false); //just here to abuse the frequent updates (:
     }
 }
