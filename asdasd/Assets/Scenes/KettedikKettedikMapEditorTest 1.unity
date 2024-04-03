@@ -3846,7 +3846,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1009406056, guid: 3acf1bb8edb6c564da0cb7a1e41fbbc8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8586,6 +8586,8 @@ MonoBehaviour:
   inverseColor: 
   inversePair: {fileID: 6411660702630826397, guid: 4db4433a744e47148a3ca4542418946e, type: 3}
   inversePairParent: {fileID: 434271958}
+  inversePairs: []
+  countInversePair: 0
 --- !u!1 &1976374710
 GameObject:
   m_ObjectHideFlags: 0
@@ -14123,7 +14125,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 10
   m_Viewport: {fileID: 9156856834466071652}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}

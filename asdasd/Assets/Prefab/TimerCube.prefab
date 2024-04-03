@@ -116,6 +116,7 @@ MonoBehaviour:
   characterRB: {fileID: 0}
   characterC: {fileID: 0}
   lifeTime: 10
+  fallSpeedLimit: 10
   birthTime: 0
 --- !u!61 &6403815566535329461
 BoxCollider2D:

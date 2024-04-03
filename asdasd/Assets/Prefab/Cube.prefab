@@ -103,6 +103,7 @@ MonoBehaviour:
   colorIndex: 0
   characterRB: {fileID: 0}
   characterC: {fileID: 0}
+  fallSpeedLimit: 10
 --- !u!114 &8310792080999837708
 MonoBehaviour:
   m_ObjectHideFlags: 0

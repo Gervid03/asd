@@ -4328,6 +4328,7 @@ MonoBehaviour:
   buttonCollider: {fileID: 3755502213865599379}
   buttonTriggerCollider: {fileID: 6309204079562316306}
   character: {fileID: 683437504}
+  timer: 0
 --- !u!4 &9207466867566775834
 Transform:
   m_ObjectHideFlags: 0
