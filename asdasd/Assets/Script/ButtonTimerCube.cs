@@ -14,15 +14,15 @@ public class ButtonTimerCube : MonoBehaviour
     public Collider2D buttonCollider;
     public Collider2D buttonTriggerCollider;
     public GameObject character;
+    public float timer;
 
     private void Awake()
     {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        //spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        SubscribeToBeButtonForTimerCube();
     }
 
     public void SetColor()
@@ -83,6 +83,7 @@ public class ButtonTimerCube : MonoBehaviour
         FindFirstObjectByType<WallManager>().DestroyTimerCube(cubeColor);
         CubePlacer.hasTimerCube = true;
         CubePlacer.timerCubeColor = cubeColor;
+        CubePlacer.timer = timer;
     }
 
     public void EndOfUse()
@@ -92,5 +93,20 @@ public class ButtonTimerCube : MonoBehaviour
         {
             spriteRenderer.sprite = stateDeactivated;
         }
+    }
+
+    public void Create(int color, int cubec, int x, int y, int t)
+    {
+        colorIndex = color;
+        timer = t;
+        cubeColor = cubec;
+        SubscribeToBeButtonForTimerCube();
+        SetColor();
+        SetPosition(x, y);
+    }
+
+    public void SetPosition(int x, int y)
+    {
+
     }
 }
