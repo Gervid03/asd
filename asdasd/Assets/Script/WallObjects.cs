@@ -17,8 +17,6 @@ public class WallObjects : MonoBehaviour
 
     private void Start()
     {
-        SetColor();
-        SubscribeToBeAWallObject();
     }
 
     public void SetColor()
@@ -44,5 +42,12 @@ public class WallObjects : MonoBehaviour
         //becomes invisible
         tilemap.color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, 0);
         wallCollider.enabled = false;
+    }
+
+    public void Create(int color)
+    {
+        colorIndex = color;
+        SetColor();
+        SubscribeToBeAWallObject();
     }
 }

@@ -95,4 +95,16 @@ public class ButtonsForCube : MonoBehaviour
             spriteRenderer.sprite = stateDeactivated;
         }
     }
+
+    public void CreateNew(int color, int cubec, int x, int y)
+    {
+        colorIndex = color;
+        cubeColor = cubec;
+        SetPosition(x, y);
+    }
+
+    public void SetPosition(int x, int y)
+    {
+
+    }
 }

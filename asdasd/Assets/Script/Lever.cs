@@ -21,7 +21,7 @@ public class Lever : MonoBehaviour
 
     private void Start()
     {
-        SubscribeToBeButton();
+        
     }
 
     public void SetColor()
@@ -73,5 +73,20 @@ public class Lever : MonoBehaviour
             spriteRenderer.sprite = stateDeactivated;
             FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
         }
+    }
+
+    public void AddInformations(int color, int interactColor, int x, int y)
+    {
+        colorIndex = color;
+        interactWithColor = interactColor;
+        activateTheColor = true;
+        SetPosition(x, y);
+        SubscribeToBeButton();
+        SetColor();
+    }
+
+    public void SetPosition(int x, int y)
+    {
+
     }
 }

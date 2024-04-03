@@ -49,7 +49,7 @@ public class WallManager : MonoBehaviour
 
     public void SetColorActive(int index, bool inverzed = false)
     {
-        if (inverzColor[index] != 0 && !inverzed) SetColorDeactive(inverzColor[index], true);
+        if (inverzColor[index] != -1 && !inverzed) SetColorDeactive(inverzColor[index], true);
         //makes the color with the index visible
         for (int i = 0; i < wallObjects.Count; i++) {
             if (wallObjects[i].colorIndex == index)
@@ -87,7 +87,7 @@ public class WallManager : MonoBehaviour
 
     public void SetColorDeactive(int index, bool inverzed = false)
     {
-        if (inverzColor[index] != 0 && !inverzed) SetColorActive(inverzColor[index], true); 
+        if (inverzColor[index] != -1 && !inverzed) SetColorActive(inverzColor[index], true); 
         //makes the color with the index invisible
         for (int i = 0; i < wallObjects.Count; i++)
         {
