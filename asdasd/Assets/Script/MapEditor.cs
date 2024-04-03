@@ -4,7 +4,7 @@ using System.Data;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 
 public class MapEditor : MonoBehaviour
@@ -31,6 +31,10 @@ public class MapEditor : MonoBehaviour
     public GameObject LeverSettingsPrefab;
     public GameObject portalSettingsPrefab;
     public Transform settingParentTr;
+    public List<int> inverseColor;
+    public GameObject inversePair, inversePairParent;
+    public List<GameObject> inversePairs;
+    public int countInversePair; //because we dont remove from list
 
     [System.Serializable]
     public struct tool
@@ -41,6 +45,7 @@ public class MapEditor : MonoBehaviour
 
     private void Start()
     {
+        countInversePair = 0;
         calculatedCellWith = (xTopRight - xBottomLeft) / columns;
         calculatedCellHeight = (yTopRight - xBottomLeft) / rows;
     }
@@ -171,6 +176,7 @@ public class MapEditor : MonoBehaviour
         GameObject tm = Instantiate(tilemapPrefab, parentTilemap);
         tilemaps.Add(tm.GetComponent<Tilemap>());
         tm.GetComponent<Tilemap>().color = color;
+        inverseColor.Add(-1);
         return tilemaps.Count - 1;
     }
 
@@ -191,5 +197,24 @@ public class MapEditor : MonoBehaviour
     public void ModifyColor(int index, Color color)
     {
         tilemaps[index].color = color;
+
+        foreach (GameObject pair in inversePairs)
+        {
+            Component[] buttons = pair.GetComponentsInChildren<InverseButton>();
+            foreach (InverseButton b in buttons)
+            {
+                if (b.index == index)
+                {
+                    b.GetComponent<Image>().color = color;
+                }
+            }
+        }
+    }
+
+    public void CreateInversePair()
+    {
+        countInversePair++;
+        inversePairs.Add(Instantiate(inversePair, inversePairParent.transform));
+        inversePairParent.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + countInversePair * 120);
     }
 }
