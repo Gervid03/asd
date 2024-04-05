@@ -72,28 +72,10 @@ public class MapData
     {
         //get all the data from a map
         index = map.index;
-        //Debug.Log("i: " + index);
         row = map.row;
         column = map.column;
-        //Debug.Log(row + " " + column);
         colorIndex = map.colorIndex;
-        string s = "";
-        for(int j = 0; j < row; j++)
-        {
-            s = "";
-            for(int i = 0; i < column; i++)
-            {
-                s = s + " " + colorIndex[i][j];
-            }
-            Debug.Log(s);
-        }
         colors = map.colors;
-        s = "";
-        for (int j = 0; j < colors.Length; j++)
-        {
-            s = s + " " + colors[j];
-        }
-        //Debug.Log(s);
         portals = map.portals;
         lever = map.lever;
         buttons = map.buttons;

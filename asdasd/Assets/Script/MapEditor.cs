@@ -117,6 +117,7 @@ public class MapEditor : MonoBehaviour
     {
         GameObject a = Instantiate(leverSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+        a.GetComponent<SettingForInteract>().isLever = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
 
@@ -124,6 +125,7 @@ public class MapEditor : MonoBehaviour
     {
         GameObject a = Instantiate(portalSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+        a.GetComponent<SettingForInteract>().isPortal = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
 
@@ -251,17 +253,22 @@ public class MapEditor : MonoBehaviour
         }
 
         int buttonForCubeCount = 0;
-
+        int portalCount = 0;
         for (int i = 0; i < infos.Count; i++)
         {
             if (infos[i].isButtonsForCube)
             {
                 buttonForCubeCount++;
             }
+            else if (infos[i].isPortal)
+            {
+                portalCount++;
+            }
         }
 
         map.buttonForCubes = new MapData.ButtonForCube[buttonForCubeCount];
         int c = 0;
+        int p = 0;
         for (int i = 0; i < infos.Count; i++)
         {
             if (infos[i].isButtonsForCube)
@@ -273,6 +280,16 @@ public class MapEditor : MonoBehaviour
                 bfc.interactiveColor = infos[i].indexColorInteract;
                 map.buttonForCubes[c++] = bfc;
             }
+            else if (infos[i].isPortal)
+            {
+                MapData.Portal portal = new MapData.Portal();
+                portal.color = infos[i].index;
+                portal.x = infos[i].x;
+                portal.y = infos[i].y;
+                portal.interactiveColor = infos[i].indexColorInteract;
+                map.portals[p++] = portal;
+            }
         }
+        Debug.Log(buttonForCubeCount);
     }
 }

@@ -15,6 +15,8 @@ public class SettingForInteract : MonoBehaviour
     public int portalIndex;
     public bool activate;
     public bool isButtonsForCube;
+    public bool isPortal;
+    public bool isLever;
 
     public void Set(int x1, int y1, int i, Color c)
     {

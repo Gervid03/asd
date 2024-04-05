@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static MapData;
@@ -22,8 +23,8 @@ public class Map : MonoBehaviour
     public TileBase tileBase;
     public GameObject buttonForCubePrefab;
     public int tileSize;
-    public int tileY; //the minimum y
-    public int tileX; //the minimum x
+    public float tileX; //the minimum x
+    public float tileY; //the minimum y
     public int row;
     public int column;
 
@@ -67,12 +68,12 @@ public class Map : MonoBehaviour
             }
         }
 
-        /*
-        for(int i = 0; i < buttonForCubes.Length; i++)
+        Debug.Log(data.buttonForCubes.Length);
+        for(int i = 0; i < data.buttonForCubes.Length; i++)
         {
             GameObject b = Instantiate(buttonForCubePrefab, thingParent);
             ButtonsForCube bb = b.GetComponent<ButtonsForCube>();
-            bb.CreateNew(buttonForCubes[i].color, buttonForCubes[i].interactiveColor, buttonForCubes[i].x, buttonForCubes[i].y);
-        }*/
+            bb.CreateNew(data.buttonForCubes[i].color, data.buttonForCubes[i].interactiveColor, data.buttonForCubes[i].x, data.buttonForCubes[i].y);
+        }
     }
 }

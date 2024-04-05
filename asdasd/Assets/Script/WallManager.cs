@@ -8,9 +8,11 @@ public class WallManager : MonoBehaviour
     public List<int> inverzColor; //0 if there is no inverz
     public List<WallObjects> wallObjects;
     public List<Buttons> buttons;
+    public List<ButtonsForCube> buttonForCubes;
     public List<Lever> levers;
     public List<Cube> cubes;
     public List<TimerCube> timerCubes;
+    public List<Portal> portals;
 
     public Color GetColor(int index)
     {
@@ -41,10 +43,22 @@ public class WallManager : MonoBehaviour
         timerCubes.Add(timerCube);
     }
 
+    public void SubscribeToBeAButtonForCube(ButtonsForCube bfc)
+    {
+        //it gathers all the cubes, so they can be later found
+        buttonForCubes.Add(bfc);
+    }
+
     public void SubscribeToBeALever(Lever lever)
     {
         //it gathers all the button, so they can be later found
         levers.Add(lever);
+    }
+
+    public void SubscribeToBeAPortal(Portal portal)
+    {
+        //it gathers all the button, so they can be later found
+        portals.Add(portal);
     }
 
     public void SetColorActive(int index, bool inverzed = false)
@@ -64,11 +78,25 @@ public class WallManager : MonoBehaviour
                 buttons[i].BeActive();
             }
         }
+        for (int i = 0; i < buttonForCubes.Count; i++)
+        {
+            if (buttonForCubes[i].colorIndex == index)
+            {
+                buttonForCubes[i].BeActive();
+            }
+        }
         for (int i = 0; i < cubes.Count; i++)
         {
             if (cubes[i].colorIndex == index)
             {
                 cubes[i].BeActive();
+            }
+        }
+        for (int i = 0; i < portals.Count; i++)
+        {
+            if (portals[i].colorIndex == index)
+            {
+                //portals[i].BeActive();
             }
         }
         for (int i = 0; i < levers.Count; i++)
@@ -103,11 +131,25 @@ public class WallManager : MonoBehaviour
                 buttons[i].DontBeActive();
             }
         }
+        for (int i = 0; i < buttonForCubes.Count; i++)
+        {
+            if (buttonForCubes[i].colorIndex == index)
+            {
+                buttonForCubes[i].DontBeActive();
+            }
+        }
         for (int i = 0; i < cubes.Count; i++)
         {
             if (cubes[i].colorIndex == index)
             {
                 cubes[i].DontBeActive();
+            }
+        }
+        for (int i = 0; i < portals.Count; i++)
+        {
+            if (portals[i].colorIndex == index)
+            {
+                //portals[i].DontBeActive();
             }
         }
         for (int i = 0; i < levers.Count; i++)

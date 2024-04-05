@@ -22,7 +22,6 @@ public class ButtonsForCube : MonoBehaviour
 
     private void Start()
     {
-        SubscribeToBeButtonForCube();
     }
 
     public void SetColor()
@@ -33,6 +32,7 @@ public class ButtonsForCube : MonoBehaviour
     public void SubscribeToBeButtonForCube()
     {
         //informs the manager of the existence
+        FindFirstObjectByType<WallManager>().SubscribeToBeAButtonForCube(this);
     }
 
     public void BeActive()
@@ -96,15 +96,18 @@ public class ButtonsForCube : MonoBehaviour
         }
     }
 
-    public void CreateNew(int color, int cubec, int x, int y)
+    public void CreateNew(int color, int cubec, float x, float y)
     {
         colorIndex = color;
         cubeColor = cubec;
         SetPosition(x, y);
+        SubscribeToBeButtonForCube();
     }
 
-    public void SetPosition(int x, int y)
+    public void SetPosition(float x, float y)
     {
-
+        Debug.Log(x + " " + y);
+        Map m = FindFirstObjectByType<Map>();
+        transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
     }
 }
