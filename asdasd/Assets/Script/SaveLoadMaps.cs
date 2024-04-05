@@ -8,6 +8,7 @@ public static class SaveLoadMaps
 {
     public static void SaveMap(Map map)
     {
+        Debug.Log(Application.persistentDataPath);
         BinaryFormatter bf = new BinaryFormatter();
         string path = Application.persistentDataPath + "/" + map.index + "map.map";
         FileStream stream = new FileStream(path, FileMode.Create);

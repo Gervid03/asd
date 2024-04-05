@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -28,7 +29,7 @@ public class MapEditor : MonoBehaviour
     public List<SettingForInteract> infos;
     public GameObject buttonSettingsPrefab;
     public GameObject buttonForCubeSettingsPrefab;
-    public GameObject LeverSettingsPrefab;
+    public GameObject leverSettingsPrefab;
     public GameObject portalSettingsPrefab;
     public Transform settingParentTr;
     public List<int> inverseColor;
@@ -108,12 +109,13 @@ public class MapEditor : MonoBehaviour
     {
         GameObject a = Instantiate(buttonForCubeSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
+        a.GetComponent<SettingForInteract>().isButtonsForCube = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
 
     public void AddLever(int x, int y)
     {
-        GameObject a = Instantiate(LeverSettingsPrefab, settingParentTr);
+        GameObject a = Instantiate(leverSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps[currentTilemap].color);
         infos.Add(a.GetComponent<SettingForInteract>());
     }
@@ -216,5 +218,61 @@ public class MapEditor : MonoBehaviour
         countInversePair++;
         inversePairs.Add(Instantiate(inversePair, inversePairParent.transform));
         inversePairParent.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + countInversePair * 120);
+    }
+    
+    public void GetInfos(Map map)
+    {
+        map.row = rows;
+        map.column = columns;
+        map.colorIndex = new int[columns][];
+        for (int i = 0; i < columns; i++)
+        {
+            map.colorIndex[i] = new int[rows];
+            for (int j = 0; j < rows; j++) 
+            {
+                Debug.Log(i + " " + j);
+                map.colorIndex[i][j] = -1;
+                for (int k = 0; k < tilemaps.Count; k++)
+                {
+                    if (tilemaps[k].GetTile(new Vector3Int(i, j, 0)) == tools[1].tile)
+                    {
+                        map.colorIndex[i][j] = k;
+                        //Debug.Log(i + " " + (rows - j - 1));
+                    }
+                }
+            }
+        }
+
+        map.colors = new MapData.ColorForSave[tilemaps.Count];
+
+        for (int k = 0; k < tilemaps.Count; k++)
+        {
+            map.colors[k].Set(tilemaps[k].color);
+        }
+
+        int buttonForCubeCount = 0;
+
+        for (int i = 0; i < infos.Count; i++)
+        {
+            if (infos[i].isButtonsForCube)
+            {
+                buttonForCubeCount++;
+            }
+        }
+
+        map.buttonForCubes = new MapData.ButtonForCube[buttonForCubeCount];
+        int c = 0;
+        for (int i = 0; i < infos.Count; i++)
+        {
+            if (infos[i].isButtonsForCube)
+            {
+                MapData.ButtonForCube bfc = new MapData.ButtonForCube();
+                bfc.color = infos[i].index;
+                bfc.x = infos[i].x;
+                bfc.y = infos[i].y;
+                bfc.interactiveColor = infos[i].indexColorInteract;
+                map.buttonForCubes[c++] = bfc;
+            }
+        }
     }
 }

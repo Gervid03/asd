@@ -14,6 +14,8 @@ public class SettingForInteract : MonoBehaviour
     public int timer;
     public int portalIndex;
     public bool activate;
+    public bool isButtonsForCube;
+
     public void Set(int x1, int y1, int i, Color c)
     {
         coordinates.text = "(" + x1 + ", " + y1 + ")";
