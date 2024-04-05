@@ -437,6 +437,7 @@ MonoBehaviour:
   levers: []
   cubes: []
   timerCubes: []
+  portals: []
 --- !u!4 &1256772260
 Transform:
   m_ObjectHideFlags: 0
@@ -476,6 +477,7 @@ MonoBehaviour:
   tilemapPrefab: {fileID: 5388603436775313307, guid: b5d33dec41e5f3d40af7861e9f2b14a6, type: 3}
   tileBase: {fileID: 11400000, guid: 919d2a37e05701c478d64a4ebb506f27, type: 2}
   buttonForCubePrefab: {fileID: 4769370115901369414, guid: 4a52f28ddd3c24e48b6c666a258abd77, type: 3}
+  PortalPrefab: {fileID: 7855634067780000460, guid: 1ca234c5d06179949906b76c5488fa1d, type: 3}
   tileSize: 1
   tileX: -14.5
   tileY: -7.5
@@ -676,11 +678,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1815259564917155408, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.79
+      value: -8.6
       objectReference: {fileID: 0}
     - target: {fileID: 1815259564917155408, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.75
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 1815259564917155408, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
       propertyPath: m_LocalPosition.z

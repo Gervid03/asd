@@ -22,6 +22,7 @@ public class Map : MonoBehaviour
     public GameObject tilemapPrefab;
     public TileBase tileBase;
     public GameObject buttonForCubePrefab;
+    public GameObject PortalPrefab;
     public int tileSize;
     public float tileX; //the minimum x
     public float tileY; //the minimum y
@@ -68,12 +69,17 @@ public class Map : MonoBehaviour
             }
         }
 
-        Debug.Log(data.buttonForCubes.Length);
         for(int i = 0; i < data.buttonForCubes.Length; i++)
         {
             GameObject b = Instantiate(buttonForCubePrefab, thingParent);
             ButtonsForCube bb = b.GetComponent<ButtonsForCube>();
             bb.CreateNew(data.buttonForCubes[i].color, data.buttonForCubes[i].interactiveColor, data.buttonForCubes[i].x, data.buttonForCubes[i].y);
+        }
+        for (int i = 0; i < data.portals.Length; i++)
+        {
+            GameObject b = Instantiate(PortalPrefab, thingParent);
+            Portal bb = b.GetComponent<Portal>();
+            bb.CreateNew(data.portals[i].color, data.portals[i].interactiveColor, data.portals[i].x, data.portals[i].y);
         }
     }
 }

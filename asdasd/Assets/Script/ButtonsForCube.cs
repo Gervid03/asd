@@ -101,12 +101,12 @@ public class ButtonsForCube : MonoBehaviour
         colorIndex = color;
         cubeColor = cubec;
         SetPosition(x, y);
+        SetColor();
         SubscribeToBeButtonForCube();
     }
 
     public void SetPosition(float x, float y)
     {
-        Debug.Log(x + " " + y);
         Map m = FindFirstObjectByType<Map>();
         transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
     }

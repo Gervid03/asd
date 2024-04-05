@@ -96,7 +96,7 @@ public class WallManager : MonoBehaviour
         {
             if (portals[i].colorIndex == index)
             {
-                //portals[i].BeActive();
+                portals[i].BeActive();
             }
         }
         for (int i = 0; i < levers.Count; i++)
@@ -149,7 +149,7 @@ public class WallManager : MonoBehaviour
         {
             if (portals[i].colorIndex == index)
             {
-                //portals[i].DontBeActive();
+                portals[i].DontBeActive();
             }
         }
         for (int i = 0; i < levers.Count; i++)

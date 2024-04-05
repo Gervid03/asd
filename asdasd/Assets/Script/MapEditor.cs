@@ -267,6 +267,7 @@ public class MapEditor : MonoBehaviour
         }
 
         map.buttonForCubes = new MapData.ButtonForCube[buttonForCubeCount];
+        map.portals = new MapData.Portal[portalCount];
         int c = 0;
         int p = 0;
         for (int i = 0; i < infos.Count; i++)

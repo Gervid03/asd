@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class Portal : MonoBehaviour
@@ -11,27 +12,11 @@ public class Portal : MonoBehaviour
     public float timeOfTP;
     public float cooldownTP;
     public GameObject portalIndexDisplay;
-    // Start is called before the first frame update
-    void Start()
-    {
-        character = FindFirstObjectByType<Player>().gameObject;
-        gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-        portalIndexDisplay.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(portalIndex);
-
-        Portal[] portals = FindObjectsOfType<Portal>();
-        foreach (Portal p in portals)
-        {
-            if (p.portalIndex == portalIndex)
-            {
-                pairPortal = p.gameObject;
-            }
-        }
-    }
-
+    
     public void BeActive()
     {
         this.GetComponent<Collider2D>().enabled = true;
-        Color color = this.GetComponent<SpriteRenderer>().color;
+        UnityEngine.Color color = this.GetComponent<SpriteRenderer>().color;
         color.a = 1;
         this.GetComponent<SpriteRenderer>().color = color;
     }
@@ -39,9 +24,14 @@ public class Portal : MonoBehaviour
     public void DontBeActive()
     {
         this.GetComponent<Collider2D>().enabled = false;
-        Color color = this.GetComponent<SpriteRenderer>().color;
+        UnityEngine.Color color = this.GetComponent<SpriteRenderer>().color;
         color.a = 0;
         this.GetComponent<SpriteRenderer>().color = color;
+    }
+
+    public void SubscribeToBeAPortal()
+    {
+        FindFirstObjectByType<WallManager>().SubscribeToBeAPortal(this);
     }
 
     // Update is called once per frame
@@ -49,7 +39,7 @@ public class Portal : MonoBehaviour
     {
         if (timeOfTP + cooldownTP < Time.time)
         {
-            Physics2D.IgnoreCollision(character.GetComponent<Collider2D>(), pairPortal.GetComponent<Collider2D>(), false);
+            if(pairPortal != null) Physics2D.IgnoreCollision(character.GetComponent<Collider2D>(), pairPortal.GetComponent<Collider2D>(), false);
         }
         if (this.gameObject.GetComponent<Collider2D>().IsTouching(character.GetComponent<Collider2D>()) && Input.GetAxisRaw("Interact") > 0)
         {
@@ -58,5 +48,33 @@ public class Portal : MonoBehaviour
             Physics2D.IgnoreCollision(character.GetComponent<Collider2D>(), pairPortal.GetComponent<Collider2D>(), true);
             timeOfTP = Time.time;
         }
+        if(pairPortal == null)
+        {
+            Portal[] portals = FindObjectsOfType<Portal>();
+            foreach (Portal p in portals)
+            {
+                if (p.portalIndex == portalIndex && this != p)
+                {
+                    pairPortal = p.gameObject;
+                }
+            }
+        }
+    }
+
+    public void CreateNew(int color, int portalColor, int x, int y)
+    {
+        colorIndex = color;
+        portalIndex = portalColor;
+        SetPosition(x, y); 
+        character = FindFirstObjectByType<Player>().gameObject;
+        gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        portalIndexDisplay.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(portalIndex);
+        SubscribeToBeAPortal();
+    }
+
+    public void SetPosition(int x, int y)
+    {
+        Map m = FindFirstObjectByType<Map>();
+        transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
     }
 }
