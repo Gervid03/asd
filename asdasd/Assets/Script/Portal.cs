@@ -17,6 +17,31 @@ public class Portal : MonoBehaviour
         character = FindFirstObjectByType<Player>().gameObject;
         gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         portalIndexDisplay.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(portalIndex);
+
+        Portal[] portals = FindObjectsOfType<Portal>();
+        foreach (Portal p in portals)
+        {
+            if (p.portalIndex == portalIndex)
+            {
+                pairPortal = p.gameObject;
+            }
+        }
+    }
+
+    public void BeActive()
+    {
+        this.GetComponent<Collider2D>().enabled = true;
+        Color color = this.GetComponent<SpriteRenderer>().color;
+        color.a = 1;
+        this.GetComponent<SpriteRenderer>().color = color;
+    }
+
+    public void DontBeActive()
+    {
+        this.GetComponent<Collider2D>().enabled = false;
+        Color color = this.GetComponent<SpriteRenderer>().color;
+        color.a = 0;
+        this.GetComponent<SpriteRenderer>().color = color;
     }
 
     // Update is called once per frame
