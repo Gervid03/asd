@@ -17,7 +17,7 @@ public class Map : MonoBehaviour
     public MapData.Button[] buttons;
     public MapData.ButtonForCube[] buttonForCubes;
     public MapData.ButtonTimerCube[] buttonTimerCubes;
-    public bool[] activeAtStart; //is the index active at the beginning
+    public MapData.ActiveAtStart[] activeAtStart; //is the index active at the beginning
     public Transform tilemapParent;
     public Transform thingParent;
     public GameObject tilemapPrefab;
@@ -103,5 +103,14 @@ public class Map : MonoBehaviour
             ButtonTimerCube bb = b.GetComponent<ButtonTimerCube>();
             bb.CreateNew(data.buttonTimerCubes[i].color, data.buttonTimerCubes[i].interactiveColor, data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].timer);
         }
+
+
+        for(int i = 0; i < data.activeAtStart.Length; i++)
+        {
+            if (data.activeAtStart[i].isActive) FindFirstObjectByType<WallManager>().SetColorActive(data.activeAtStart[i].index);
+            else FindFirstObjectByType<WallManager>().SetColorDeactive(data.activeAtStart[i].index);
+        }
+
+        FindFirstObjectByType<WallManager>().activeAtStart = data.activeAtStart;
     }
 }

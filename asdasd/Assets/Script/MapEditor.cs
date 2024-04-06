@@ -65,6 +65,18 @@ public class MapEditor : MonoBehaviour
             return null;
         }
 
+        public bool atIsVisible(int index)
+        {
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                if (index == indexes[i])
+                {
+                    return visibleAtBeginning[i];
+                }
+            }
+            return true;
+        }
+
         public void remove(int index)
         {
             for (int i = 0; i < indexes.Count; i++)
@@ -357,10 +369,13 @@ public class MapEditor : MonoBehaviour
         }
 
         map.colors = new MapData.ColorForSave[tilemaps.count()];
+        map.activeAtStart = new MapData.ActiveAtStart[tilemaps.count()];
         List<int> indexes = tilemaps.getIndexes();
         for (int k = 0; k < tilemaps.count(); k++)
         {
             map.colors[k].Set(tilemaps.at(indexes[k]).color, indexes[k]);
+            map.activeAtStart[k].isActive = tilemaps.atIsVisible(indexes[k]);
+            map.activeAtStart[k].index = indexes[k];
         }
 
         int buttonForCubeCount = 0;

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class movement : MonoBehaviour
@@ -12,6 +14,7 @@ public class movement : MonoBehaviour
     public float runningFor;
     public float acceleration;
     public float fallSpeedLimit;
+    public int gatesTouch;
 
     // Start is called before the first frame update
     void Start()

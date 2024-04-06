@@ -15,7 +15,7 @@ public class MapData
     public Button[] buttons;
     public ButtonForCube[] buttonForCubes;
     public ButtonTimerCube[] buttonTimerCubes;
-    public bool[] activeAtStart; //is the index active at the beginning
+    public ActiveAtStart[] activeAtStart; //is the index active at the beginning
     public int row;
     public int column;
 
@@ -78,6 +78,14 @@ public class MapData
         public int color;
         public int x, y;
         public int interactiveColor;
+    }
+
+    
+    [System.Serializable]
+    public struct ActiveAtStart
+    {
+        public int index;
+        public bool isActive;
     }
 
     public MapData(Map map)

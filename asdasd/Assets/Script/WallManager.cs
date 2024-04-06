@@ -15,7 +15,7 @@ public class WallManager : MonoBehaviour
     public List<TimerCube> timerCubes;
     public List<Portal> portals;
     public List<Gate> gates;
-
+    public MapData.ActiveAtStart[] activeAtStart;
     public struct ColorList
     {
         List<int> indexes;
@@ -250,6 +250,15 @@ public class WallManager : MonoBehaviour
                 timerCubes[i].DontBeActive();
                 i--;
             }
+        }
+    }
+
+    public void SetDefaultState()
+    {
+        for (int i = 0; i < activeAtStart.Length; i++)
+        {
+            if (activeAtStart[i].isActive) SetColorActive(activeAtStart[i].index);
+            else SetColorDeactive(activeAtStart[i].index);
         }
     }
 }
