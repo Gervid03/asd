@@ -129,6 +129,7 @@ public class MapEditor : MonoBehaviour
         if(Input.GetAxisRaw("AddButtonForCube") == 1) currentTool = 3;
         if(Input.GetAxisRaw("AddLever") == 1) currentTool = 4;
         if(Input.GetAxisRaw("AddPortal") == 1) currentTool = 5;
+        if(Input.GetAxisRaw("AddGate") == 1) currentTool = 6;
         if(Input.GetAxisRaw("OpenMenu") == 1) OpenMenu();
         if(Input.GetAxisRaw("CloseMenu") == 1) CloseMenu();
     }
@@ -153,7 +154,7 @@ public class MapEditor : MonoBehaviour
         RemoveAllTileAtThisPositon(x, y);
         if(tilemaps.at(currentTilemap) != null) tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[currentTool].tile);
         else Debug.Log(currentTilemap + " doesnt exist");
-        if(currentTool != 0 && currentTool != 1)
+        if(currentTool != 0 && currentTool != 1 && currentTool != 6)
         {
             InteractiveAdded(x, y);
         }

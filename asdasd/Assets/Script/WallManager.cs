@@ -14,6 +14,7 @@ public class WallManager : MonoBehaviour
     public List<Cube> cubes;
     public List<TimerCube> timerCubes;
     public List<Portal> portals;
+    public List<Gate> gates;
 
     public struct ColorList
     {
@@ -62,6 +63,11 @@ public class WallManager : MonoBehaviour
             indexes = a;
             colors = b;
         }
+
+        public List<int> getIndicies()
+        {
+            return indexes;
+        }
     }
 
     private void Start()
@@ -72,6 +78,11 @@ public class WallManager : MonoBehaviour
     public Color GetColor(int index)
     {
         return colors.at(index);
+    }
+
+    public void SubscribeToBeGate(Gate gate)
+    {
+        gates.Add(gate);
     }
 
     public void SubscribeToBeAWallObject(WallObjects wallObject)

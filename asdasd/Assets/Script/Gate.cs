@@ -19,7 +19,7 @@ public class Gate : MonoBehaviour
         colorIndex = color;
         interactWithColor = interactColor;
         SetPosition(x, y);
-        wallMangager.SubscribeToBeGate();
+        wallManager.SubscribeToBeGate(this);
         SetColor();
     }
 
@@ -40,7 +40,20 @@ public class Gate : MonoBehaviour
         {
             if (interactWithColor == -1)
             {
-                //Deactivate every color;
+                foreach (int index in wallManager.colors.getIndicies())
+                {
+                    if (wallManager.inverzColor[index] != -1)
+                    {
+                        if (true)//get default color
+                        {
+                            wallManager.SetColorActive(index);
+                        }
+                        else
+                        {
+                            wallManager.SetColorDeactive(index);
+                        }
+                    }
+                }
             }
             else
             {
