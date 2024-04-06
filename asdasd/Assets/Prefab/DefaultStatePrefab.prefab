@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorIndex: 0
+  mapEditor: {fileID: 0}
 --- !u!114 &854475538978575875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,7 +420,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3644245601661498846}
         m_TargetAssemblyTypeName: SetDefaultState, Assembly-CSharp
         m_MethodName: OnClick
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

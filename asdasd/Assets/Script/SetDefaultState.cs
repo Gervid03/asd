@@ -6,14 +6,15 @@ public class SetDefaultState : MonoBehaviour
 {
     public int colorIndex;
     public MapEditor mapEditor;
+    public GameObject colorDisplay;
 
     private void Start()
     {
         mapEditor = FindAnyObjectByType<MapEditor>();
     }
 
-    public void OnClick()
+    public void OnClick(bool toggle)
     {
-
+        mapEditor.tilemaps.changeVisibleAtBeginning(colorIndex, toggle);
     }
 }

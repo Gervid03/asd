@@ -589,6 +589,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1765061212 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 101477097956081787, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
+  m_PrefabInstance: {fileID: 1946498511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1765061220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765061212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c14485129553a24388a0217aea180cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerCubePrefab: {fileID: 3935644547717490346, guid: ecdb1b8e20e8b694cb119a030f7f6012, type: 3}
+  createdTimerCube: {fileID: 0}
 --- !u!1 &1823023615
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,7 +746,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 101477097956081787, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1765061220}
   m_SourcePrefab: {fileID: 100100000, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
 --- !u!1 &2029907584
 GameObject:

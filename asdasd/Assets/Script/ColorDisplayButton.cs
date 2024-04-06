@@ -7,6 +7,8 @@ public class ColorDisplayButton : MonoBehaviour
 {
     public int index;
     public Color color;
+
+
     public void OnClick()
     {
         FindFirstObjectByType<MapEditor>().ChangeColor(index);

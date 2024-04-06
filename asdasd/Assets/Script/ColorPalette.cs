@@ -22,6 +22,8 @@ public class ColorPalette : MonoBehaviour
     public Image colorCarouselImage;
     public TMP_Text selectSMHWarning;
     public RectTransform colorPaletteParent;
+    public GameObject defaultStateTogglePrefab;
+    public Transform defaultStateToggleParent;
 
     void Start()
     {
@@ -48,13 +50,18 @@ public class ColorPalette : MonoBehaviour
     public void CreateColor(Color szin)
     {
         GameObject c = Instantiate(colorDisplay, colorPaletteParent, false);
+        GameObject defaultStateToggle = Instantiate(defaultStateTogglePrefab, defaultStateToggleParent, false);
 
         c.GetComponent<Image>().color = szin;
         c.GetComponent<ColorDisplayButton>().color = szin;
 
+        defaultStateToggle.GetComponent<SetDefaultState>().colorDisplay.GetComponent<Image>().color = szin;
+
         int a = mapEditor.AddColor(szin);
         c.GetComponent<ColorDisplayButton>().index = a;
         colors.Add(c.GetComponent<ColorDisplayButton>());
+
+        defaultStateToggle.GetComponent<SetDefaultState>().colorIndex = a;
 
         AdjustHeight();
     }
