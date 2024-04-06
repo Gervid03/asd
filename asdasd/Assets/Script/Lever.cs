@@ -29,7 +29,7 @@ public class Lever : MonoBehaviour
         spriteRenderer.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
     }
 
-    public void SubscribeToBeButton()
+    public void SubscribeToBeALever()
     {
         //informs the manager of the existence
         FindFirstObjectByType<WallManager>().SubscribeToBeALever(this);
@@ -75,13 +75,13 @@ public class Lever : MonoBehaviour
         }
     }
 
-    public void AddInformations(int color, int interactColor, int x, int y)
+    public void CreateNew(int color, int interactColor, float x, float y)
     {
         colorIndex = color;
         interactWithColor = interactColor;
         activateTheColor = true;
         SetPosition(x, y);
-        SubscribeToBeButton();
+        SubscribeToBeALever();
         SetColor();
     }
 

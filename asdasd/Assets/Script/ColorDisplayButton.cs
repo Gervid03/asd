@@ -11,7 +11,7 @@ public class ColorDisplayButton : MonoBehaviour
     {
         FindFirstObjectByType<MapEditor>().ChangeColor(index);
 
-        ColorPalette colorPalette = GetComponentInParent<ColorPalette>();
+        ColorPalette colorPalette = FindFirstObjectByType<ColorPalette>();
         colorPalette.selectedButton = this;
         colorPalette.UpdateColorCarousel();
     }

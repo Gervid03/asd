@@ -21,6 +21,7 @@ public class ColorPalette : MonoBehaviour
     public ColorDisplayButton colorUnderModification;
     public Image colorCarouselImage;
     public TMP_Text selectSMHWarning;
+    public RectTransform colorPaletteParent;
 
     void Start()
     {
@@ -34,14 +35,19 @@ public class ColorPalette : MonoBehaviour
         SaveColors();
     }
 
+    private void Update()
+    {
+        if (selectedButton == null && colors.Count > 0) selectedButton = colors[0];
+    }
+
     public void AdjustHeight()
     {
-        this.gameObject.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(700, (Mathf.CeilToInt(colors.Count / 7f))*100);
+        colorPaletteParent.sizeDelta = new Vector2(700, (Mathf.CeilToInt(colors.Count / 7f))*100);
     }
 
     public void CreateColor(Color szin)
     {
-        GameObject c = Instantiate(colorDisplay, this.transform, false);
+        GameObject c = Instantiate(colorDisplay, colorPaletteParent, false);
 
         c.GetComponent<Image>().color = szin;
         c.GetComponent<ColorDisplayButton>().color = szin;
@@ -136,9 +142,11 @@ public class ColorPalette : MonoBehaviour
         
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);
+        mapEditor.tilemaps.remove(selectedButton.index);
         Destroy(selectedButton.gameObject);
 
         overwriteColorButton.SetActive(false);
+        selectedButton = null;
         AdjustHeight();
     }
 
@@ -146,15 +154,17 @@ public class ColorPalette : MonoBehaviour
     {
         colorPalettePath = Application.dataPath + "/Saves/DefaultColorPalette.txt";
         
-        foreach (Transform child in this.transform)
+        foreach (Transform child in colorPaletteParent)
         {
             mapEditor.RemoveColor(child.GetComponent<ColorDisplayButton>().index);
+            mapEditor.tilemaps.remove(child.GetComponent<ColorDisplayButton>().index);
             GameObject.Destroy(child.gameObject);
             colors.Clear();
         }
 
         ReadInColors();
         colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
+        selectedButton = null;
     }
 
     public void SelectedColorDecrement()

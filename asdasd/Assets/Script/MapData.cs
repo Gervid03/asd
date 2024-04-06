@@ -21,12 +21,14 @@ public class MapData
     [System.Serializable]
     public struct ColorForSave
     {
+        public int index;
         public float r, g, b;
-        public void Set(Color c)
+        public void Set(Color c, int i)
         {
             r = c.r;
             g = c.g;
             b = c.b;
+            index = i;
         }
 
         public Color c()
