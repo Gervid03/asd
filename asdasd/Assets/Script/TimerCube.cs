@@ -33,7 +33,7 @@ public class TimerCube : MonoBehaviour
         {
             DontBeActive();
         }
-        this.GetComponent<Rigidbody2D>().velocity = new Vector2(characterRB.velocity.x, Mathf.Max(-fallSpeedLimit, characterRB.velocity.y));
+        this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, Mathf.Max(-fallSpeedLimit, this.GetComponent<Rigidbody2D>().velocity.y));
     }
 
     public void BeActive()
