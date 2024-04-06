@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1608183606692351152}
   - component: {fileID: 4163516167680784902}
   - component: {fileID: 4804043776455085056}
+  - component: {fileID: 1855383269320121759}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -205,3 +206,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533e0c64b04869740a6f12c7442c310a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1855383269320121759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101477097956081787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c14485129553a24388a0217aea180cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerCubePrefab: {fileID: 3935644547717490346, guid: ecdb1b8e20e8b694cb119a030f7f6012, type: 3}
+  createdTimerCube: {fileID: 0}

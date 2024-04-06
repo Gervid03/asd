@@ -50,6 +50,7 @@ public class MapEditor : MonoBehaviour
     {
         List<int> indexes;
         List<Tilemap> tilemaps;
+        List<bool> visibleAtBeginning;
         int last;
 
         public Tilemap at(int index)
@@ -72,6 +73,7 @@ public class MapEditor : MonoBehaviour
                 {
                     tilemaps.RemoveAt(i);
                     indexes.RemoveAt(i);
+                    visibleAtBeginning.RemoveAt(i);
                     return;
                 }
             }
@@ -88,6 +90,8 @@ public class MapEditor : MonoBehaviour
             else Debug.Log("tilemaps doesnt exists");
             if (indexes != null) indexes.Add(index);
             else Debug.Log("indexes doesnt exist");
+            if (visibleAtBeginning != null) visibleAtBeginning.Add(true);
+            else Debug.Log("visible doesnt exist");
             last++;
         }
 
@@ -101,16 +105,28 @@ public class MapEditor : MonoBehaviour
             return indexes;
         }
 
-        public void makeItNotNull(List<int> a, List<Tilemap> b)
+        public void makeItNotNull(List<int> a, List<Tilemap> b, List<bool> c)
         {
             indexes = a;
             tilemaps = b;
+            visibleAtBeginning = c;
+        }
+
+        public void changeVisibleAtBeginning(int index, bool to)
+        {
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                if (index == indexes[i])
+                {
+                    visibleAtBeginning[i] = to;
+                }
+            }
         }
     }
 
     private void Awake()
     {
-        tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>());
+        tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
         countInversePair = 0;
         calculatedCellWith = (xTopRight - xBottomLeft) / columns;
         calculatedCellHeight = (yTopRight - xBottomLeft) / rows;
