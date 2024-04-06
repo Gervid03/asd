@@ -85,8 +85,9 @@ public class Lever : MonoBehaviour
         SetColor();
     }
 
-    public void SetPosition(int x, int y)
+    public void SetPosition(float x, float y)
     {
-
+        Map m = FindFirstObjectByType<Map>();
+        transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
     }
 }

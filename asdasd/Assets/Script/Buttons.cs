@@ -15,14 +15,24 @@ public class Buttons : MonoBehaviour
     public Collider2D buttonCollider;
     public Collider2D buttonTriggerCollider;
 
+    public void CreateNew(int color, int interactColor, float x, float y)
+    {
+        colorIndex = color;
+        interactWithColor = interactColor;
+        SetPosition(x, y);
+        SetColor();
+        SubscribeToBeButton();
+    }
+
+    public void SetPosition(float x, float y)
+    {
+        Map m = FindFirstObjectByType<Map>();
+        transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
+    }
+
     private void Awake()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-    }
-
-    private void Start()
-    {
-        SubscribeToBeButton();
     }
 
     public void SetColor()
