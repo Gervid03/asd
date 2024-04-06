@@ -15,10 +15,11 @@ public class Buttons : MonoBehaviour
     public Collider2D buttonCollider;
     public Collider2D buttonTriggerCollider;
 
-    public void CreateNew(int color, int interactColor, float x, float y)
+    public void CreateNew(int color, int interactColor, float x, float y, bool activate)
     {
         colorIndex = color;
         interactWithColor = interactColor;
+        activateTheColor = activate;
         SetPosition(x, y);
         SetColor();
         SubscribeToBeButton();

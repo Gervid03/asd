@@ -30,7 +30,8 @@ public class MapEditor : MonoBehaviour
     public GameObject buttonSettingsPrefab;
     public GameObject buttonForCubeSettingsPrefab;
     public GameObject leverSettingsPrefab;
-    public GameObject portalSettingsPrefab;
+    public GameObject buttonTimerCubeSettingsPrefab;
+    public GameObject portalSettingsPrefab; 
     public Transform settingParentTr;
     public List<int> inverseColor;
     public GameObject inversePair, inversePairParent;
@@ -168,9 +169,8 @@ public class MapEditor : MonoBehaviour
         else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[3].tile) AddButtonForCube(x, y);
         else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[4].tile) AddLever(x, y);
         else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[5].tile) AddPortal(x, y);
+        else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[7].tile) AddButtonTimerCube(x, y);
     }
-
-
 
     public void OpenMenu()
     {
@@ -188,6 +188,7 @@ public class MapEditor : MonoBehaviour
     {
         GameObject a = Instantiate(buttonSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color);
+        a.GetComponent<SettingForInteract>().isButton = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
 
@@ -204,6 +205,14 @@ public class MapEditor : MonoBehaviour
         GameObject a = Instantiate(leverSettingsPrefab, settingParentTr);
         a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color);
         a.GetComponent<SettingForInteract>().isLever = true;
+        infos.Add(a.GetComponent<SettingForInteract>());
+    }
+
+    public void AddButtonTimerCube(int x, int y)
+    {
+        GameObject a = Instantiate(buttonTimerCubeSettingsPrefab, settingParentTr);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color);
+        a.GetComponent<SettingForInteract>().isButtonTimerCube = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
 
@@ -326,7 +335,6 @@ public class MapEditor : MonoBehaviour
                     if (tilemaps.at(k).GetTile(new Vector3Int(i, j, 0)) == tools[1].tile)
                     {
                         map.colorIndex[i][j] = k;
-                        //Debug.Log(i + " " + (rows - j - 1));
                     }
                 }
             }
@@ -342,6 +350,8 @@ public class MapEditor : MonoBehaviour
         int buttonForCubeCount = 0;
         int portalCount = 0;
         int leverCount = 0;
+        int buttonCount = 0;
+        int buttonTimerCubeCount = 0;
         for (int i = 0; i < infos.Count; i++)
         {
             if (infos[i].isButtonsForCube)
@@ -356,14 +366,26 @@ public class MapEditor : MonoBehaviour
             {
                 leverCount++;
             }
+            else if (infos[i].isButton)
+            {
+                buttonCount++;
+            }
+            else if (infos[i].isButtonTimerCube)
+            {
+                buttonTimerCubeCount++;
+            }
         }
 
         map.buttonForCubes = new MapData.ButtonForCube[buttonForCubeCount];
         map.portals = new MapData.Portal[portalCount];
         map.lever = new MapData.Lever[leverCount];
+        map.buttons = new MapData.Button[buttonCount];
+        map.buttonTimerCubes = new MapData.ButtonTimerCube[buttonCount];
         int c = 0;
         int p = 0;
         int l = 0;
+        int b = 0;
+        int btc = 0;
         for (int i = 0; i < infos.Count; i++)
         {
             if (infos[i].isButtonsForCube)
@@ -392,6 +414,26 @@ public class MapEditor : MonoBehaviour
                 lever.y = infos[i].y;
                 lever.interactiveColor = infos[i].indexColorInteract;
                 map.lever[l++] = lever;
+            }
+            else if (infos[i].isButton)
+            {
+                MapData.Button button = new MapData.Button();
+                button.color = infos[i].index;
+                button.x = infos[i].x;
+                button.y = infos[i].y;
+                button.interactiveColor = infos[i].indexColorInteract;
+                button.activateAtBeingActive = infos[i].activate;
+                map.buttons[b++] = button;
+            }
+            else if (infos[i].isButtonTimerCube)
+            {
+                MapData.ButtonTimerCube buttonTimerCube = new MapData.ButtonTimerCube();
+                buttonTimerCube.color = infos[i].index;
+                buttonTimerCube.x = infos[i].x;
+                buttonTimerCube.y = infos[i].y;
+                buttonTimerCube.interactiveColor = infos[i].indexColorInteract;
+                buttonTimerCube.timer = infos[i].timer;
+                map.buttonTimerCubes[btc++] = buttonTimerCube;
             }
         }
     }

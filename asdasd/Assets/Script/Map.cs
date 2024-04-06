@@ -16,6 +16,7 @@ public class Map : MonoBehaviour
     public MapData.Lever[] lever;
     public MapData.Button[] buttons;
     public MapData.ButtonForCube[] buttonForCubes;
+    public MapData.ButtonTimerCube[] buttonTimerCubes;
     public bool[] activeAtStart; //is the index active at the beginning
     public Transform tilemapParent;
     public Transform thingParent;
@@ -24,6 +25,8 @@ public class Map : MonoBehaviour
     public GameObject buttonForCubePrefab;
     public GameObject portalPrefab;
     public GameObject leverPrefab;
+    public GameObject buttonPrefab;
+    public GameObject buttonTimerCubePrefab;
     public int tileSize;
     public float tileX; //the minimum x
     public float tileY; //the minimum y
@@ -87,6 +90,18 @@ public class Map : MonoBehaviour
             GameObject b = Instantiate(leverPrefab, thingParent);
             Lever bb = b.GetComponent<Lever>();
             bb.CreateNew(data.lever[i].color, data.lever[i].interactiveColor, data.lever[i].x, data.lever[i].y);
+        }
+        for (int i = 0; i < data.buttons.Length; i++)
+        {
+            GameObject b = Instantiate(buttonPrefab, thingParent);
+            Buttons bb = b.GetComponent<Buttons>();
+            bb.CreateNew(data.buttons[i].color, data.buttons[i].interactiveColor, data.buttons[i].x, data.buttons[i].y, data.buttons[i].activateAtBeingActive);
+        }
+        for (int i = 0; i < data.buttonTimerCubes.Length; i++)
+        {
+            GameObject b = Instantiate(buttonTimerCubePrefab, thingParent);
+            ButtonTimerCube bb = b.GetComponent<ButtonTimerCube>();
+            bb.CreateNew(data.buttonTimerCubes[i].color, data.buttonTimerCubes[i].interactiveColor, data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].timer);
         }
     }
 }

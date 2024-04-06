@@ -95,11 +95,12 @@ public class ButtonTimerCube : MonoBehaviour
         }
     }
 
-    public void Create(int color, int cubec, float x, float y, int t)
+    public void CreateNew(int color, int cubec, float x, float y, int t)
     {
         colorIndex = color;
         timer = t;
         cubeColor = cubec;
+        character = FindFirstObjectByType<Player>().gameObject;
         SubscribeToBeButtonForTimerCube();
         SetColor();
         SetPosition(x, y);

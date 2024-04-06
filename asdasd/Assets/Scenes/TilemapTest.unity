@@ -429,7 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864f41d6e8018154b893f0d6c48eb88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors: []
   inverzColor: 
   wallObjects: []
   buttons: []
@@ -438,6 +437,7 @@ MonoBehaviour:
   cubes: []
   timerCubes: []
   portals: []
+  gates: []
 --- !u!4 &1256772260
 Transform:
   m_ObjectHideFlags: 0
@@ -471,6 +471,7 @@ MonoBehaviour:
   lever: []
   buttons: []
   buttonForCubes: []
+  buttonTimerCubes: []
   activeAtStart: 
   tilemapParent: {fileID: 2136536542559956159}
   thingParent: {fileID: 1047235889}
@@ -479,6 +480,8 @@ MonoBehaviour:
   buttonForCubePrefab: {fileID: 4769370115901369414, guid: 4a52f28ddd3c24e48b6c666a258abd77, type: 3}
   portalPrefab: {fileID: 7855634067780000460, guid: 1ca234c5d06179949906b76c5488fa1d, type: 3}
   leverPrefab: {fileID: 8136787951032838932, guid: bb2d065701cb6b5468a884be640ecffc, type: 3}
+  buttonPrefab: {fileID: 8993605711055357594, guid: 81b6f176c7799e341912348c11276555, type: 3}
+  buttonTimerCubePrefab: {fileID: 3994843704559431790, guid: b028ae6a2dd665548968f4db55700d6b, type: 3}
   tileSize: 1
   tileX: -14.5
   tileY: -7.5

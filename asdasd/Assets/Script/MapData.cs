@@ -14,6 +14,7 @@ public class MapData
     public Lever[] lever;
     public Button[] buttons;
     public ButtonForCube[] buttonForCubes;
+    public ButtonTimerCube[] buttonTimerCubes;
     public bool[] activeAtStart; //is the index active at the beginning
     public int row;
     public int column;
@@ -55,6 +56,15 @@ public class MapData
     }
 
     [System.Serializable]
+    public struct ButtonTimerCube
+    {
+        public int color;
+        public int x, y;
+        public int interactiveColor;
+        public int timer;
+    }
+
+    [System.Serializable]
     public struct Portal
     {
         public int color;
@@ -82,6 +92,7 @@ public class MapData
         lever = map.lever;
         buttons = map.buttons;
         buttonForCubes = map.buttonForCubes;
+        buttonTimerCubes = map.buttonTimerCubes;
         activeAtStart = map.activeAtStart;
     }
 }
