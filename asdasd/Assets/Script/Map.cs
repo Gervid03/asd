@@ -22,7 +22,8 @@ public class Map : MonoBehaviour
     public GameObject tilemapPrefab;
     public TileBase tileBase;
     public GameObject buttonForCubePrefab;
-    public GameObject PortalPrefab;
+    public GameObject portalPrefab;
+    public GameObject leverPrefab;
     public int tileSize;
     public float tileX; //the minimum x
     public float tileY; //the minimum y
@@ -45,10 +46,10 @@ public class Map : MonoBehaviour
             return;
         }
 
-        FindFirstObjectByType<WallManager>().colors.Clear();
+        FindFirstObjectByType<WallManager>().colors.clear();
         for(int i = 0; i < data.colors.Length; i++)
         {
-            FindFirstObjectByType<WallManager>().colors.Add(data.colors[i].c());
+            FindFirstObjectByType<WallManager>().colors.add(data.colors[i].c(), data.colors[i].index);
         }
 
         //set the informations
@@ -77,9 +78,15 @@ public class Map : MonoBehaviour
         }
         for (int i = 0; i < data.portals.Length; i++)
         {
-            GameObject b = Instantiate(PortalPrefab, thingParent);
+            GameObject b = Instantiate(portalPrefab, thingParent);
             Portal bb = b.GetComponent<Portal>();
             bb.CreateNew(data.portals[i].color, data.portals[i].interactiveColor, data.portals[i].x, data.portals[i].y);
+        }
+        for (int i = 0; i < data.lever.Length; i++)
+        {
+            GameObject b = Instantiate(leverPrefab, thingParent);
+            Lever bb = b.GetComponent<Lever>();
+            bb.CreateNew(data.lever[i].color, data.lever[i].interactiveColor, data.lever[i].x, data.lever[i].y);
         }
     }
 }

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class WallManager : MonoBehaviour
 { 
-    public List<Color> colors;
+    public ColorList colors;
     public List<int> inverzColor; //0 if there is no inverz
     public List<WallObjects> wallObjects;
     public List<Buttons> buttons;
@@ -14,9 +15,63 @@ public class WallManager : MonoBehaviour
     public List<TimerCube> timerCubes;
     public List<Portal> portals;
 
+    public struct ColorList
+    {
+        List<int> indexes;
+        List<Color> colors;
+        
+        public Color at(int index)
+        {
+            for(int i = 0; i < indexes.Count; i++)
+            {
+                if(index == indexes[i])
+                {
+                    return colors[i];
+                }
+            }
+            return Color.black;
+        }
+
+        public void remove(int index)
+        {
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                if (index == indexes[i])
+                {
+                    colors.RemoveAt(i);
+                    indexes.RemoveAt(i);
+                    return;
+                }
+            }
+        }
+
+        public void clear()
+        {
+            indexes.Clear();
+            colors.Clear();
+        }
+
+        public void add(Color t, int index)
+        {
+            colors.Add(t);
+            indexes.Add(index);
+        }
+
+        public void makeItNotNull(List<int> a, List<Color> b)
+        {
+            indexes = a;
+            colors = b;
+        }
+    }
+
+    private void Start()
+    {
+        colors.makeItNotNull(new List<int>(), new List<Color>());
+    }
+
     public Color GetColor(int index)
     {
-        return colors[index];
+        return colors.at(index);
     }
 
     public void SubscribeToBeAWallObject(WallObjects wallObject)
@@ -63,7 +118,7 @@ public class WallManager : MonoBehaviour
 
     public void SetColorActive(int index, bool inverzed = false)
     {
-        if (inverzColor[index] != -1 && !inverzed) SetColorDeactive(inverzColor[index], true);
+        if (inverzColor.Count > index && inverzColor[index] != -1 && !inverzed) SetColorDeactive(inverzColor[index], true);
         //makes the color with the index visible
         for (int i = 0; i < wallObjects.Count; i++) {
             if (wallObjects[i].colorIndex == index)
@@ -115,7 +170,7 @@ public class WallManager : MonoBehaviour
 
     public void SetColorDeactive(int index, bool inverzed = false)
     {
-        if (inverzColor[index] != -1 && !inverzed) SetColorActive(inverzColor[index], true); 
+        if (inverzColor.Count > index && inverzColor[index] != -1 && !inverzed) SetColorActive(inverzColor[index], true); 
         //makes the color with the index invisible
         for (int i = 0; i < wallObjects.Count; i++)
         {
