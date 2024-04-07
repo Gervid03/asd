@@ -45,6 +45,7 @@ public class ColorPalette : MonoBehaviour
     public void AdjustHeight()
     {
         colorPaletteParent.sizeDelta = new Vector2(700, (Mathf.CeilToInt(colors.Count / 7f))*100);
+        FindAnyObjectByType<DefaultStateHeight>().AdjustHeight((Mathf.CeilToInt(colors.Count / 7f)) * 100);
     }
 
     public void CreateColor(Color szin)
@@ -54,8 +55,9 @@ public class ColorPalette : MonoBehaviour
 
         c.GetComponent<Image>().color = szin;
         c.GetComponent<ColorDisplayButton>().color = szin;
+        c.GetComponent<ColorDisplayButton>().toggle = defaultStateToggle;
 
-        defaultStateToggle.GetComponent<SetDefaultState>().colorDisplay.GetComponent<Image>().color = szin;
+        defaultStateToggle.GetComponent<SetDefaultState>().colorDisplay.color = szin;
 
         int a = mapEditor.AddColor(szin);
         c.GetComponent<ColorDisplayButton>().index = a;
@@ -150,6 +152,7 @@ public class ColorPalette : MonoBehaviour
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);
         mapEditor.tilemaps.remove(selectedButton.index);
+        Destroy(selectedButton.GetComponent<ColorDisplayButton>().toggle.gameObject);
         Destroy(selectedButton.gameObject);
 
         overwriteColorButton.SetActive(false);

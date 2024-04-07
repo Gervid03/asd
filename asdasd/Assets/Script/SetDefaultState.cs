@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SetDefaultState : MonoBehaviour
 {
     public int colorIndex;
     public MapEditor mapEditor;
-    public GameObject colorDisplay;
+    public Image colorDisplay;
 
     private void Start()
     {

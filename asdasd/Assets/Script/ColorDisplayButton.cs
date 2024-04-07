@@ -7,7 +7,7 @@ public class ColorDisplayButton : MonoBehaviour
 {
     public int index;
     public Color color;
-
+    public GameObject toggle;
 
     public void OnClick()
     {
