@@ -344,14 +344,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 32
@@ -1520,7 +1520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4454321049944903863, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
       propertyPath: m_BodyType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6004854467496199740, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
       propertyPath: m_IsTrigger
