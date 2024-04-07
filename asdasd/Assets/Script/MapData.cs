@@ -17,9 +17,10 @@ public class MapData
     public ButtonForCube[] buttonForCubes;
     public ButtonTimerCube[] buttonTimerCubes;
     public ActiveAtStart[] activeAtStart; //is the index active at the beginning
+    public Inverse[] inversePairs;
     public int row;
     public int column;
-
+    
     [System.Serializable]
     public struct ColorForSave
     {
@@ -37,6 +38,12 @@ public class MapData
         {
             return new Color(r, g, b);
         }
+    }
+
+    [System.Serializable]
+    public struct Inverse
+    {
+        public int index1, index2;
     }
 
     [System.Serializable]
@@ -104,5 +111,6 @@ public class MapData
         buttonForCubes = map.buttonForCubes;
         buttonTimerCubes = map.buttonTimerCubes;
         activeAtStart = map.activeAtStart;
+        inversePairs = map.inversePairs;
     }
 }

@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b7846650bd44f45aee4fecb5ffa60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
+  index: -1
   other: {fileID: 5921121482075256601}
   mapEditor: {fileID: 0}
   colorPalette: {fileID: 0}
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b7846650bd44f45aee4fecb5ffa60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
+  index: -1
   other: {fileID: 5545788254741301414}
   mapEditor: {fileID: 0}
   colorPalette: {fileID: 0}

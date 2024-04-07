@@ -153,6 +153,7 @@ public class ColorPalette : MonoBehaviour
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);
         mapEditor.tilemaps.remove(selectedButton.index);
+        mapEditor.ColorDeletedDeleteInvers(selectedButton.index);
         Destroy(selectedButton.GetComponent<ColorDisplayButton>().toggle.gameObject);
         Destroy(selectedButton.gameObject);
 

@@ -19,6 +19,7 @@ public class Map : MonoBehaviour
     public MapData.ButtonForCube[] buttonForCubes;
     public MapData.ButtonTimerCube[] buttonTimerCubes;
     public MapData.ActiveAtStart[] activeAtStart; //is the index active at the beginning
+    public MapData.Inverse[] inversePairs;
     public Transform tilemapParent;
     public Transform thingParent;
     public GameObject tilemapPrefab;
@@ -126,6 +127,12 @@ public class Map : MonoBehaviour
             bb.CreateNew(data.buttonTimerCubes[i].color, data.buttonTimerCubes[i].interactiveColor, data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].timer);
         }
 
+
+        for(int i = 0; i < data.inversePairs.Length; i++)
+        {
+            FindFirstObjectByType<WallManager>().inversColor.add(data.inversePairs[i].index1, data.inversePairs[i].index2);
+            Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
+        }
 
         for(int i = 0; i < data.activeAtStart.Length; i++)
         {

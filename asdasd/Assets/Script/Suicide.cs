@@ -15,6 +15,14 @@ public class Suicide : MonoBehaviour
     public void CommitSucide()
     {
         mapEditor.countInversePair--;
+        for(int i = 0; i < mapEditor.inversePairs.Count; i++)
+        {
+            if (mapEditor.inversePairs[i] == this.gameObject)
+            {
+                mapEditor.inversePairs.RemoveAt(i);
+                break;
+            }
+        }
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + mapEditor.countInversePair);
 
         if (b1.index != -1)

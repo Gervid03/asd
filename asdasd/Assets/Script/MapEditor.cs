@@ -346,6 +346,21 @@ public class MapEditor : MonoBehaviour
         inversePairs.Add(Instantiate(inversePair, inversePairParent.transform));
         inversePairParent.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + countInversePair * 120);
     }
+
+    public void ColorDeletedDeleteInvers(int index)
+    {
+        for(int i = inversePairs.Count - 1; i >= 0; i--)
+        {
+            if (inversePairs[i].GetComponent<Suicide>().b1.GetComponent<InverseButton>().index == index)
+            {
+                inversePairs[i].GetComponent<Suicide>().CommitSucide();
+            }
+            else if (inversePairs[i].GetComponent<Suicide>().b2.GetComponent<InverseButton>().index == index)
+            {
+                inversePairs[i].GetComponent<Suicide>().CommitSucide();
+            }
+        }
+    }
     
     public void GetInfos(Map map)
     {
@@ -473,6 +488,24 @@ public class MapEditor : MonoBehaviour
                 buttonTimerCube.interactiveColor = infos[i].indexColorInteract;
                 buttonTimerCube.timer = infos[i].timer;
                 map.buttonTimerCubes[btc++] = buttonTimerCube;
+            }
+        }
+
+        int validPairs = 0;
+        for(int i = 0; i < inversePairs.Count; i++)
+        {
+            if (inversePairs[i].GetComponent<Suicide>().b1.GetComponent<InverseButton>().index != -1 && inversePairs[i].GetComponent<Suicide>().b2.GetComponent<InverseButton>().index != -1) validPairs++;
+        }
+        map.inversePairs = new MapData.Inverse[validPairs];
+        int v = 0;
+        for(int i = 0; i < inversePairs.Count; i++)
+        {
+            if (inversePairs[i].GetComponent<Suicide>().b1.GetComponent<InverseButton>().index != -1 && inversePairs[i].GetComponent<Suicide>().b2.GetComponent<InverseButton>().index != -1)
+            {
+                MapData.Inverse j = new MapData.Inverse();
+                j.index1 = inversePairs[i].GetComponent<Suicide>().b1.GetComponent<InverseButton>().index;
+                j.index2 = inversePairs[i].GetComponent<Suicide>().b2.GetComponent<InverseButton>().index;
+                map.inversePairs[v++] = j;
             }
         }
     }
