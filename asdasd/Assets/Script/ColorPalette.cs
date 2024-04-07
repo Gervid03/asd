@@ -127,6 +127,7 @@ public class ColorPalette : MonoBehaviour
     {
         colors[colors.IndexOf(colorUnderModification)].color = colorTweaker.GetComponent<ColorTweaker>().color;
         colors[colors.IndexOf(colorUnderModification)].GetComponent<Image>().color = colorTweaker.GetComponent<ColorTweaker>().color;
+        colorUnderModification.GetComponent<ColorDisplayButton>().toggle.GetComponent<Image>().color = colorTweaker.GetComponent<ColorTweaker>().color;
         mapEditor.ModifyColor(colorUnderModification.index, colorTweaker.GetComponent<ColorTweaker>().color);
         
         colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
@@ -166,6 +167,7 @@ public class ColorPalette : MonoBehaviour
         
         foreach (Transform child in colorPaletteParent)
         {
+            Destroy(child.GetComponent<ColorDisplayButton>().toggle);
             mapEditor.RemoveColor(child.GetComponent<ColorDisplayButton>().index);
             mapEditor.tilemaps.remove(child.GetComponent<ColorDisplayButton>().index);
             GameObject.Destroy(child.gameObject);
