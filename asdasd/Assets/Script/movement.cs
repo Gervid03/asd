@@ -31,6 +31,12 @@ public class movement : MonoBehaviour
         characterRB.velocity = new Vector2(characterRB.velocity.x, Mathf.Max(-fallSpeedLimit, characterRB.velocity.y));
     }
 
+    public void SetPosition(int x, int y)
+    {
+        Map m = FindFirstObjectByType<Map>();
+        transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
+    }
+
     public void Jump()
     {
         if (Input.GetAxisRaw("Jump") == 1 && Mathf.Abs(characterRB.velocity.y) < 0.01f && jumpCooldown + 0.1f < Time.time)

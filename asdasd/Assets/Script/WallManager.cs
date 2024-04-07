@@ -17,6 +17,7 @@ public class WallManager : MonoBehaviour
     public List<Portal> portals;
     public List<Gate> gates;
     public MapData.ActiveAtStart[] activeAtStart;
+    public EndThing endThing;
 
     [System.Serializable]
     public struct ColorList

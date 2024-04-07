@@ -20,6 +20,7 @@ public class MapData
     public Inverse[] inversePairs;
     public int row;
     public int column;
+    public int startx, starty, endx, endy;
     
     [System.Serializable]
     public struct ColorForSave
@@ -112,5 +113,9 @@ public class MapData
         buttonTimerCubes = map.buttonTimerCubes;
         activeAtStart = map.activeAtStart;
         inversePairs = map.inversePairs;
+        startx = map.startx;
+        starty = map.starty;
+        endx = map.endx;
+        endy = map.endy;
     }
 }

@@ -22,7 +22,7 @@ public class MapEditor : MonoBehaviour
     public float xBottomLeft, yBottomLeft, xTopRight, yTopRight;
     public int columns;
     public int rows;
-    public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal, 6 - add gate, 7 - add buttontimercube
+    public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal, 6 - add gate, 7 - add buttontimercube, 8 - startposition, 9 - endposition
     public List<tool> tools;
     public GameObject menu;
     public GameObject showMenuButton;
@@ -37,6 +37,8 @@ public class MapEditor : MonoBehaviour
     public GameObject inversePair, inversePairParent;
     public List<GameObject> inversePairs;
     public int countInversePair; //because we dont remove from list
+    public Vector2Int startPosition;
+    public Vector2Int endPosition;
 
     [System.Serializable]
     public struct tool
@@ -183,10 +185,12 @@ public class MapEditor : MonoBehaviour
         RemoveAllTileAtThisPositon(x, y);
         if(tilemaps.at(currentTilemap) != null) tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[currentTool].tile);
         else Debug.Log(currentTilemap + " doesnt exist");
-        if(currentTool != 0 && currentTool != 1 && currentTool != 6)
+        if(currentTool != 0 && currentTool != 1 && currentTool != 6 && currentTool != 8 && currentTool != 9)
         {
             InteractiveAdded(x, y);
         }
+        if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[8].tile) AddStartPosition(x, y);
+        if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[9].tile) AddEndPosition(x, y);
     }
 
     public void InteractiveAdded(int x, int y)
@@ -198,6 +202,22 @@ public class MapEditor : MonoBehaviour
         else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[4].tile) AddLever(x, y);
         else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[5].tile) AddPortal(x, y);
         else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[7].tile) AddButtonTimerCube(x, y);
+    }
+
+    public void AddStartPosition(int x, int y)
+    {
+        if(x != startPosition.x || y != startPosition.y) RemoveAllTileAtThisPositon(startPosition.x, startPosition.y);
+        startPosition.x = x; 
+        startPosition.y = y;
+        if (startPosition == endPosition) endPosition = new Vector2Int(0, 0);
+    }
+
+    public void AddEndPosition(int x, int y)
+    {
+        if (x != endPosition.x || y != endPosition.y) RemoveAllTileAtThisPositon(endPosition.x, endPosition.y);
+        endPosition.x = x;
+        endPosition.y = y;
+        if (startPosition == endPosition) startPosition = new Vector2Int(0, 0);
     }
 
     public void OpenMenu()
@@ -285,7 +305,7 @@ public class MapEditor : MonoBehaviour
 
     public void Use(int x, int y)
     {
-        if (currentTool == 0) RemoveTile(x, y);
+        if (currentTool == 0) RemoveAllTileAtThisPositon(x, y);
         else AddTile(x, y);
     }
 
@@ -508,5 +528,10 @@ public class MapEditor : MonoBehaviour
                 map.inversePairs[v++] = j;
             }
         }
+
+        map.endx = endPosition.x;
+        map.endy = endPosition.y;
+        map.startx = startPosition.x;
+        map.starty = startPosition.y;
     }
 }

@@ -36,6 +36,7 @@ public class Map : MonoBehaviour
     public float tileY; //the minimum y
     public int row;
     public int column;
+    public int startx, starty, endx, endy;
 
     public void SaveMap()
     {
@@ -141,5 +142,8 @@ public class Map : MonoBehaviour
         }
 
         FindFirstObjectByType<WallManager>().activeAtStart = data.activeAtStart;
+
+        FindFirstObjectByType<Player>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
+        FindFirstObjectByType<WallManager>().endThing.SetPosition(data.endx, data.endy);
     }
 }
