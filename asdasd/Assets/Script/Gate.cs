@@ -17,11 +17,10 @@ public class Gate : MonoBehaviour
         //Physics2D.IgnoreCollision(character.GetComponent<BoxCollider2D>(), gameObject.GetComponent<Collider2D>(), true);
     }
 
-    public void CreateNew(int color, int interactColor, int x, int y)
+    public void CreateNew(int color, int interactColor)
     {
         colorIndex = color;
         interactWithColor = interactColor;
-        SetPosition(x, y);
         wallManager.SubscribeToBeGate(this);
         SetColor();
     }
@@ -29,12 +28,6 @@ public class Gate : MonoBehaviour
     public void SetColor()
     {
         this.GetComponent<Tilemap>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-    }
-
-    public void SetPosition(float x, float y)
-    {
-        //Map m = FindFirstObjectByType<Map>();
-        //transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
     }
 
     void Update()

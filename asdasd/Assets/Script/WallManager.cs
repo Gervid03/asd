@@ -64,7 +64,7 @@ public class WallManager : MonoBehaviour
             colors = b;
         }
 
-        public List<int> getIndicies()
+        public List<int> getIndexes()
         {
             return indexes;
         }
