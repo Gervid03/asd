@@ -293,7 +293,8 @@ public class MapEditor : MonoBehaviour
     {
         if (index > tilemaps.count())
         {
-            Debug.LogError(index + " index még nem létezik, javítsd meg");
+            if(tilemaps.count() > 0) index = tilemaps.getIndexes()[0];
+            //Debug.LogError(index + " index még nem létezik, javítsd meg");
         }
         else currentTilemap = index;
     }
@@ -351,9 +352,11 @@ public class MapEditor : MonoBehaviour
         map.row = rows;
         map.column = columns;
         map.colorIndex = new int[columns][];
+        map.gate = new int[columns][];
         for (int i = 0; i < columns; i++)
         {
             map.colorIndex[i] = new int[rows];
+            map.gate[i] = new int[rows];
             for (int j = 0; j < rows; j++) 
             {
                 Debug.Log(i + " " + j);

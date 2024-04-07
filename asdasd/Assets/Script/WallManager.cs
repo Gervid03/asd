@@ -165,6 +165,13 @@ public class WallManager : MonoBehaviour
                 portals[i].BeActive();
             }
         }
+        for (int i = 0; i < gates.Count; i++)
+        {
+            if (gates[i].colorIndex == index)
+            {
+                gates[i].BeActive();
+            }
+        }
         for (int i = 0; i < levers.Count; i++)
         {
             if (levers[i].colorIndex == index)
@@ -216,6 +223,13 @@ public class WallManager : MonoBehaviour
             if (portals[i].colorIndex == index)
             {
                 portals[i].DontBeActive();
+            }
+        }
+        for (int i = 0; i < gates.Count; i++)
+        {
+            if (gates[i].colorIndex == index)
+            {
+                gates[i].DontBeActive();
             }
         }
         for (int i = 0; i < levers.Count; i++)

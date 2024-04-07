@@ -6933,16 +6933,18 @@ MonoBehaviour:
   buttons: []
   buttonForCubes: []
   buttonTimerCubes: []
-  activeAtStart: 
+  activeAtStart: []
   tilemapParent: {fileID: 0}
   thingParent: {fileID: 0}
   tilemapPrefab: {fileID: 0}
   tileBase: {fileID: 11400000, guid: 919d2a37e05701c478d64a4ebb506f27, type: 2}
+  gateBase: {fileID: 0}
   buttonForCubePrefab: {fileID: 0}
   portalPrefab: {fileID: 0}
   leverPrefab: {fileID: 0}
   buttonPrefab: {fileID: 0}
   buttonTimerCubePrefab: {fileID: 0}
+  gatePrefab: {fileID: 0}
   tileSize: 1
   tileX: -14
   tileY: 7
@@ -7262,6 +7264,8 @@ MonoBehaviour:
   colorCarouselImage: {fileID: 808200147}
   selectSMHWarning: {fileID: 418133739}
   colorPaletteParent: {fileID: 2042529732}
+  defaultStateTogglePrefab: {fileID: 0}
+  defaultStateToggleParent: {fileID: 0}
 --- !u!114 &1271317029
 MonoBehaviour:
   m_ObjectHideFlags: 0

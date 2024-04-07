@@ -484,7 +484,7 @@ MonoBehaviour:
   leverPrefab: {fileID: 8136787951032838932, guid: bb2d065701cb6b5468a884be640ecffc, type: 3}
   buttonPrefab: {fileID: 8993605711055357594, guid: 81b6f176c7799e341912348c11276555, type: 3}
   buttonTimerCubePrefab: {fileID: 3994843704559431790, guid: b028ae6a2dd665548968f4db55700d6b, type: 3}
-  gatePrefab: {fileID: 0}
+  gatePrefab: {fileID: 8399029314221495321, guid: 35103f120dda37948ac62a8c82f6d670, type: 3}
   tileSize: 1
   tileX: -14.5
   tileY: -7.5
@@ -685,11 +685,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1815259564917155408, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.61
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 1815259564917155408, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.522
+      value: -1.31
       objectReference: {fileID: 0}
     - target: {fileID: 1815259564917155408, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
       propertyPath: m_LocalPosition.z
@@ -722,6 +722,10 @@ PrefabInstance:
     - target: {fileID: 1815259564917155408, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454321049944903863, guid: 17f0605abfea62841b82feb13e0e0675, type: 3}
+      propertyPath: m_BodyType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

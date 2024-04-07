@@ -76,7 +76,7 @@ public class Map : MonoBehaviour
             }
 
             GameObject gate = Instantiate(gatePrefab, tilemapParent);
-            gate.GetComponent<WallObjects>().Create(i);
+            gate.GetComponent<Gate>().CreateNew(i);
             Tilemap gateTilemap = gate.GetComponent<Tilemap>();
             for (int j = 0; j < data.row; j++)
             {
@@ -84,7 +84,7 @@ public class Map : MonoBehaviour
                 {
                     if (data.gate[k][j] == i)
                     {
-                        t.SetTile(new Vector3Int(k, j, 0), gateBase);
+                        gateTilemap.SetTile(new Vector3Int(k, j, 0), gateBase);
                     }
                 }
             }
