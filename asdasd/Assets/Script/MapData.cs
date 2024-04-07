@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class MapData 
 {
-    public int index;
+    public string index;
     public int[][] colorIndex; //to which color belongs this wall
     public int[][] gate; //to which color belongs this gate
     public ColorForSave[] colors; //color of the indexes

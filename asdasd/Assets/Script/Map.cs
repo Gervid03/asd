@@ -8,7 +8,7 @@ using static MapData;
 
 public class Map : MonoBehaviour
 {
-    public int index;
+    public string index;
     public int[][] colorIndex; //to which color belongs this wall
     public int[][] gate; //to which color belongs this gate
     public MapData.ColorForSave[] colors; //color of the indexes
@@ -40,6 +40,11 @@ public class Map : MonoBehaviour
     {
         FindFirstObjectByType<MapEditor>().GetInfos(this);
         SaveLoadMaps.SaveMap(this);
+    }
+
+    public void SetIndex(string i)
+    {
+        index = i;
     }
 
     public void LoadMap()

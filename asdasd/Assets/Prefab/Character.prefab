@@ -183,7 +183,7 @@ MonoBehaviour:
   jumpCooldown: 0
   runningFor: 0
   acceleration: 0.02
-  fallSpeedLimit: 13
+  fallSpeedLimit: 10
   gatesTouch: 0
 --- !u!114 &4163516167680784902
 MonoBehaviour:

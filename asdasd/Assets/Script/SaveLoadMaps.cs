@@ -17,7 +17,7 @@ public static class SaveLoadMaps
         stream.Close();
     }
 
-    public static MapData LoadMap(int index)
+    public static MapData LoadMap(string index)
     {
         string path = Application.persistentDataPath + "/" + index + "map.map";
         if(File.Exists(path))
