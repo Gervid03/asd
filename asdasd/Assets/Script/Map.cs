@@ -10,6 +10,7 @@ public class Map : MonoBehaviour
 {
     public int index;
     public int[][] colorIndex; //to which color belongs this wall
+    public int[][] gate; //to which color belongs this gate
     public MapData.ColorForSave[] colors; //color of the indexes
     //start, end positions needed
     public MapData.Portal[] portals;
@@ -22,11 +23,13 @@ public class Map : MonoBehaviour
     public Transform thingParent;
     public GameObject tilemapPrefab;
     public TileBase tileBase;
+    public TileBase gateBase;
     public GameObject buttonForCubePrefab;
     public GameObject portalPrefab;
     public GameObject leverPrefab;
     public GameObject buttonPrefab;
     public GameObject buttonTimerCubePrefab;
+    public GameObject gatePrefab;
     public int tileSize;
     public float tileX; //the minimum x
     public float tileY; //the minimum y
@@ -68,6 +71,20 @@ public class Map : MonoBehaviour
                     if (data.colorIndex[k][j] == i)
                     {
                         t.SetTile(new Vector3Int(k, j, 0), tileBase);
+                    }
+                }
+            }
+
+            GameObject gate = Instantiate(gatePrefab, tilemapParent);
+            gate.GetComponent<WallObjects>().Create(i);
+            Tilemap gateTilemap = gate.GetComponent<Tilemap>();
+            for (int j = 0; j < data.row; j++)
+            {
+                for (int k = 0; k < data.column; k++)
+                {
+                    if (data.gate[k][j] == i)
+                    {
+                        t.SetTile(new Vector3Int(k, j, 0), gateBase);
                     }
                 }
             }

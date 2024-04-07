@@ -8,6 +8,7 @@ public class MapData
 {
     public int index;
     public int[][] colorIndex; //to which color belongs this wall
+    public int[][] gate; //to which color belongs this gate
     public ColorForSave[] colors; //color of the indexes
     //start, end positions needed
     public Portal[] portals; 
@@ -92,6 +93,7 @@ public class MapData
     {
         //get all the data from a map
         index = map.index;
+        gate = map.gate;
         row = map.row;
         column = map.column;
         colorIndex = map.colorIndex;

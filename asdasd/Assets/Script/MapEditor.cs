@@ -22,7 +22,7 @@ public class MapEditor : MonoBehaviour
     public float xBottomLeft, yBottomLeft, xTopRight, yTopRight;
     public int columns;
     public int rows;
-    public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal
+    public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal, 6 - add gate, 7 - add buttontimercube
     public List<tool> tools;
     public GameObject menu;
     public GameObject showMenuButton;
@@ -358,11 +358,16 @@ public class MapEditor : MonoBehaviour
             {
                 Debug.Log(i + " " + j);
                 map.colorIndex[i][j] = -1;
+                map.gate[i][j] = -1;
                 for (int k = 0; k < tilemaps.count(); k++)
                 {
                     if (tilemaps.at(k).GetTile(new Vector3Int(i, j, 0)) == tools[1].tile)
                     {
                         map.colorIndex[i][j] = k;
+                    }
+                    if (tilemaps.at(k).GetTile(new Vector3Int(i, j, 0)) == tools[6].tile)
+                    {
+                        map.gate[i][j] = k;
                     }
                 }
             }
