@@ -106,7 +106,7 @@ public class MapEditor : MonoBehaviour
             else Debug.Log("indexes doesnt exist");
             if (visibleAtBeginning != null) visibleAtBeginning.Add(true);
             else Debug.Log("visible doesnt exist");
-            last++;
+            last = Mathf.Max(last, index + 1);
         }
 
         public int lastIndex()
@@ -319,10 +319,14 @@ public class MapEditor : MonoBehaviour
         else currentTilemap = index;
     }
 
-    public int AddColor(Color color)
+    public int AddColor(Color color, int index = -1)
     {
+        int a;
+        if (index == -1) a = tilemaps.lastIndex();
+        else a = index;
+
         GameObject tm = Instantiate(tilemapPrefab, parentTilemap);
-        int a = tilemaps.lastIndex();
+        
         tilemaps.add(tm.GetComponent<Tilemap>(), a);
         tm.GetComponent<Tilemap>().color = color;
         inverseColor.Add(-1);
