@@ -100,12 +100,12 @@ public class MapData
     public MapData(Map map)
     {
         //get all the data from a map
-        index = map.index;
+        index = map.index;//OK
         gate = map.gate;
-        row = map.row;
-        column = map.column;
+        row = map.row;//ok
+        column = map.column;//ok
         colorIndex = map.colorIndex;
-        colors = map.colors;
+        colors = map.colors;//OK
         portals = map.portals;
         lever = map.lever;
         buttons = map.buttons;

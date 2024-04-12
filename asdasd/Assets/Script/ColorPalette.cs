@@ -48,7 +48,7 @@ public class ColorPalette : MonoBehaviour
         FindAnyObjectByType<DefaultStateHeight>().AdjustHeight((Mathf.CeilToInt(colors.Count / 7f)) * 100);
     }
 
-    public void CreateColor(Color szin)
+    public void CreateColor(Color szin, int index = -1)
     {
         GameObject c = Instantiate(colorDisplay, colorPaletteParent, false);
         GameObject defaultStateToggle = Instantiate(defaultStateTogglePrefab, defaultStateToggleParent, false);
@@ -59,7 +59,7 @@ public class ColorPalette : MonoBehaviour
 
         defaultStateToggle.GetComponent<SetDefaultState>().colorDisplay.color = szin;
 
-        int a = mapEditor.AddColor(szin);
+        int a = mapEditor.AddColor(szin, index);
         c.GetComponent<ColorDisplayButton>().index = a;
         colors.Add(c.GetComponent<ColorDisplayButton>());
 
@@ -165,7 +165,16 @@ public class ColorPalette : MonoBehaviour
     public void ResetPalette()
     {
         colorPalettePath = Application.dataPath + "/Saves/DefaultColorPalette.txt";
-        
+
+        KillAllTheChildren();
+
+        ReadInColors();
+        colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
+        selectedButton = null;
+    }
+
+    public void KillAllTheChildren()
+    {
         foreach (Transform child in colorPaletteParent)
         {
             Destroy(child.GetComponent<ColorDisplayButton>().toggle);
@@ -174,10 +183,6 @@ public class ColorPalette : MonoBehaviour
             GameObject.Destroy(child.gameObject);
             colors.Clear();
         }
-
-        ReadInColors();
-        colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
-        selectedButton = null;
     }
 
     public void SelectedColorDecrement()

@@ -8,6 +8,8 @@ using static MapData;
 
 public class Map : MonoBehaviour
 {
+    public MapEditor mapEditor;
+    public ColorPalette colorPalette;
     public string index;
     public int[][] colorIndex; //to which color belongs this wall
     public int[][] gate; //to which color belongs this gate
@@ -47,6 +49,47 @@ public class Map : MonoBehaviour
     public void SetIndex(string i)
     {
         index = i;
+    }
+
+    public void LoadIntoEditor()
+    {
+        int i, j;
+        mapEditor = FindAnyObjectByType<MapEditor>();
+        colorPalette = FindAnyObjectByType<ColorPalette>();
+
+        MapData data = SaveLoadMaps.LoadMap(index);
+
+        if(data == null)
+        {
+            Debug.LogWarning("vilagvege");
+            return;
+        }
+
+        colorPalette.KillAllTheChildren();
+        for (i = 0; i < data.colors.Length; i++)
+        {
+            colorPalette.CreateColor(data.colors[i].c(), data.colors[i].index);
+        }
+
+        mapEditor.columns = data.column;
+        mapEditor.rows = data.row;
+
+        mapEditor.currentTool = 1;
+
+        for (i = 0; i < data.colorIndex.Length; i++)
+        {
+            for (j = 0; j < data.colorIndex[i].Length; j++)
+            {
+                if (data.colorIndex[i][j] == -1)
+                {
+                    continue;
+                }
+
+                mapEditor.currentTilemap = data.colorIndex[i][j];
+
+                mapEditor.AddTile(i, j);
+            }
+        }
     }
 
     public void LoadMap()
