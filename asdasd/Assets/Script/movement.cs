@@ -15,6 +15,8 @@ public class movement : MonoBehaviour
     public float acceleration;
     public float fallSpeedLimit;
     public int gatesTouch;
+    public Transform transformOfParts;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,8 @@ public class movement : MonoBehaviour
     }
     public void HorizontalMovement()
     {
+        if (Input.GetAxisRaw("Horizontal") != 0) transformOfParts.localScale = new Vector2((int)Input.GetAxisRaw("Horizontal"), 1);
         characterRB.velocity = new Vector2(Mathf.Min((Mathf.Abs(characterRB.velocity.x)-9*acceleration)+10*acceleration, movementSpeed) * Input.GetAxisRaw("Horizontal"), characterRB.velocity.y);
+        animator.SetInteger("motion", (int)Input.GetAxisRaw("Horizontal"));
     }
 }

@@ -34,7 +34,7 @@ public class WallManager : MonoBehaviour
                     return colors[i];
                 }
             }
-            return Color.black;
+            return Color.white;
         }
 
         public void remove(int index)

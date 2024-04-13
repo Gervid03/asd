@@ -45,3 +45,6 @@ TagManager:
   - name: 1
     uniqueID: 3234194709
     locked: 0
+  - name: character
+    uniqueID: 1424962457
+    locked: 0
