@@ -436,6 +436,8 @@ MonoBehaviour:
   interactWithColor: 0
   activateTheColor: 0
   spriteRenderer: {fileID: 8220733140943074354}
+  displayColor: {fileID: 4979040792949451685}
+  displayInteractiveColor: {fileID: 1818589846634798730}
   buttonCollider: {fileID: 4006066407404457737}
   buttonTriggerCollider: {fileID: 6055259983121015944}
 --- !u!61 &6055259983121015944

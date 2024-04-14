@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Rendering.Universal;
+
 
 public class ButtonTimerCube : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class ButtonTimerCube : MonoBehaviour
     public Sprite stateDeactivated;
     public int cubeColor;
     public SpriteRenderer spriteRenderer;
+    public Light2D displayColor;
+    public Light2D displayInteractiveColor;
     public Collider2D buttonCollider;
     public Collider2D buttonTriggerCollider;
     public GameObject character;
@@ -27,7 +31,8 @@ public class ButtonTimerCube : MonoBehaviour
 
     public void SetColor()
     {
-        spriteRenderer.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        displayColor.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        displayInteractiveColor.color = FindFirstObjectByType<WallManager>().GetColor(cubeColor);
     }
 
     public void SubscribeToBeButtonForTimerCube()
@@ -38,7 +43,8 @@ public class ButtonTimerCube : MonoBehaviour
     public void BeActive()
     {
         //becomes active and visible
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 255);
+        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 255);
         buttonCollider.enabled = true;
         buttonTriggerCollider.enabled = true;
     }
@@ -46,7 +52,8 @@ public class ButtonTimerCube : MonoBehaviour
     public void DontBeActive()
     {
         //becomes invisible
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 0);
+        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 0);
         buttonCollider.enabled = false;
         buttonTriggerCollider.enabled = false;
     }

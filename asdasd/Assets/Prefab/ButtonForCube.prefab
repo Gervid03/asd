@@ -237,6 +237,8 @@ MonoBehaviour:
   stateDeactivated: {fileID: -1643493714, guid: 8f5c5d297f2be764ea38e0df90c38089, type: 3}
   cubeColor: 1
   spriteRenderer: {fileID: 3243003037445302254}
+  displayColor: {fileID: 2917098851295313365}
+  displayInteractiveColor: {fileID: 2612542488717494804}
   buttonCollider: {fileID: 4132401795542896317}
   buttonTriggerCollider: {fileID: 1370181698848214076}
   cubePrefab: {fileID: 1937908844362188903, guid: e4fc0cb5f7c1fcb48be854db2eccd37d, type: 3}

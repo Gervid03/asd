@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
+
 
 public class ButtonsForCube : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class ButtonsForCube : MonoBehaviour
     public Sprite stateDeactivated;
     public int cubeColor; //which color is activated or deactivated by this button
     public SpriteRenderer spriteRenderer;
+    public Light2D displayColor;
+    public Light2D displayInteractiveColor;
     public Collider2D buttonCollider;
     public Collider2D buttonTriggerCollider;
     public GameObject cubePrefab;
@@ -38,7 +42,8 @@ public class ButtonsForCube : MonoBehaviour
     public void BeActive()
     {
         //becomes active and visible
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 255);
+        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 255);
         buttonCollider.enabled = true;
         buttonTriggerCollider.enabled = true;
     }
@@ -46,7 +51,8 @@ public class ButtonsForCube : MonoBehaviour
     public void DontBeActive()
     {
         //becomes invisible
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 0);
+        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 0);
         buttonCollider.enabled = false;
         buttonTriggerCollider.enabled = false;
     }

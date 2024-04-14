@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 
 public class Lever : MonoBehaviour
@@ -9,6 +10,8 @@ public class Lever : MonoBehaviour
     public int interactWithColor; //which color is activated or deactivated by this button
     public bool activateTheColor; //if false then deactivates that color, else activates that color
     public SpriteRenderer spriteRenderer;
+    public Light2D displayColor;
+    public Light2D displayInteractiveColor;
     public Collider2D leverCollider;
     public Collider2D leverTriggerCollider;
 
@@ -36,7 +39,8 @@ public class Lever : MonoBehaviour
     public void BeActive()
     {
         //becomes active and visible
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 255);
+        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 255);
         leverCollider.enabled = true;
         leverTriggerCollider.enabled = true;
     }
@@ -44,7 +48,8 @@ public class Lever : MonoBehaviour
     public void DontBeActive()
     {
         //becomes invisible
-        spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 0);
+        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 0);
         leverCollider.enabled = false;
         leverTriggerCollider.enabled = false;
     }
