@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Cube : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Cube : MonoBehaviour
     public Rigidbody2D characterRB;
     public Collider2D characterC;
     public float fallSpeedLimit;
+    public Light2D light2D;
+    public Light2D light2Dinside;
 
     public void Set()
     {
@@ -17,6 +20,9 @@ public class Cube : MonoBehaviour
         characterC = FindFirstObjectByType<Player>().gameObject.GetComponent<BoxCollider2D>();
         characterRB = FindFirstObjectByType<Player>().gameObject.GetComponent<Rigidbody2D>();
         Physics2D.IgnoreCollision(characterC, gameObject.GetComponent<BoxCollider2D>(), true);
+        light2D.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        light2Dinside.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        FindFirstObjectByType<movement>().GotNewCube(colorIndex);
     }
 
     private void Update()

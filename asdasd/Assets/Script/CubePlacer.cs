@@ -23,6 +23,7 @@ public class CubePlacer : MonoBehaviour
         {
             CreateTimerCube();
             hasTimerCube = false;
+            FindFirstObjectByType<movement>().TimerCubeDestroyed();
         }
     }
     public void CreateTimerCube()
@@ -32,5 +33,6 @@ public class CubePlacer : MonoBehaviour
         createdTimerCube.colorIndex = timerCubeColor;
         createdTimerCube.lifeTime = timer;
         createdTimerCube.Set();
+        FindFirstObjectByType<movement>().GotNewTimerCube(timerCubeColor);
     }
 }

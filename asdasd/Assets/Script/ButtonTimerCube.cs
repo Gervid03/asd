@@ -84,6 +84,7 @@ public class ButtonTimerCube : MonoBehaviour
         CubePlacer.hasTimerCube = true;
         CubePlacer.timerCubeColor = cubeColor;
         CubePlacer.timer = timer;
+        FindFirstObjectByType<movement>().GotNewTimerCube(cubeColor);
     }
 
     public void EndOfUse()

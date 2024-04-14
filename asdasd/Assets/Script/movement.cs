@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class movement : MonoBehaviour
 {
@@ -17,6 +19,12 @@ public class movement : MonoBehaviour
     public int gatesTouch;
     public Transform transformOfParts;
     public Animator animator;
+    public SpriteRenderer basicCubeSpriteRenderer;
+    public Light2D basicCubeLight;
+    public Light2D basicCubeLightBehind;
+    public SpriteRenderer timerCubeSpriteRenderer;
+    public Light2D timerCubeLight;
+    public Light2D timerCubeLightBehind;
 
     // Start is called before the first frame update
     void Start()
@@ -52,5 +60,28 @@ public class movement : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") != 0) transformOfParts.localScale = new Vector2((int)Input.GetAxisRaw("Horizontal"), 1);
         characterRB.velocity = new Vector2(Mathf.Min((Mathf.Abs(characterRB.velocity.x)-9*acceleration)+10*acceleration, movementSpeed) * Input.GetAxisRaw("Horizontal"), characterRB.velocity.y);
         animator.SetInteger("motion", (int)Input.GetAxisRaw("Horizontal"));
+    }
+
+    public void GotNewCube(int colorIndex)
+    {
+        basicCubeSpriteRenderer.gameObject.SetActive(true);
+        Color a = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        basicCubeSpriteRenderer.color = a;
+        basicCubeLight.color = a;
+        basicCubeLightBehind.color = a;
+    }
+
+    public void GotNewTimerCube(int colorIndex)
+    {
+        timerCubeSpriteRenderer.gameObject.SetActive(true);
+        Color a = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        timerCubeSpriteRenderer.color = a;
+        timerCubeLight.color = a;
+        timerCubeLightBehind.color = a;
+    }
+
+    public void TimerCubeDestroyed()
+    {
+        timerCubeSpriteRenderer.gameObject.SetActive(false);
     }
 }
