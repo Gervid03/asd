@@ -226,7 +226,7 @@ public class WallManager : MonoBehaviour
             }
             if (levers[i].interactWithColor == index)
             {
-                levers[i].spriteRenderer.sprite = levers[i].stateActivated;
+                transform.localScale = new Vector2(1, transform.localScale.y);
                 levers[i].activateTheColor = true;
             }
         }
@@ -286,7 +286,7 @@ public class WallManager : MonoBehaviour
             }
             if (levers[i].interactWithColor == index)
             {
-                levers[i].spriteRenderer.sprite = levers[i].stateDeactivated;
+                transform.localScale = new Vector2(-1, transform.localScale.y);
                 levers[i].activateTheColor = false;
             }
         }

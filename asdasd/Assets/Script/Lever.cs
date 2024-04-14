@@ -6,8 +6,6 @@ using UnityEngine.Tilemaps;
 public class Lever : MonoBehaviour
 {
     public int colorIndex;
-    public Sprite stateActivated;
-    public Sprite stateDeactivated;
     public int interactWithColor; //which color is activated or deactivated by this button
     public bool activateTheColor; //if false then deactivates that color, else activates that color
     public SpriteRenderer spriteRenderer;
@@ -65,12 +63,12 @@ public class Lever : MonoBehaviour
         activateTheColor = !activateTheColor;
         if (activateTheColor)
         {
-            spriteRenderer.sprite = stateActivated;
+            transform.localScale = new Vector2(1, transform.localScale.y);
             FindFirstObjectByType<WallManager>().SetColorActive(interactWithColor);
         }
         else
         {
-            spriteRenderer.sprite = stateDeactivated;
+            transform.localScale = new Vector2(-1, transform.localScale.y);
             FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
         }
     }
