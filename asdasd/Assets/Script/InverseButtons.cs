@@ -10,7 +10,7 @@ public class InverseButton : MonoBehaviour
     public MapEditor mapEditor;
     public ColorPalette colorPalette;
 
-    private void Start()
+    private void Awake()
     {
         mapEditor = FindAnyObjectByType<MapEditor>();
         colorPalette = FindAnyObjectByType<ColorPalette>();
