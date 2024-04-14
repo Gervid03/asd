@@ -34,6 +34,7 @@ public class Map : MonoBehaviour
     public GameObject buttonPrefab;
     public GameObject buttonTimerCubePrefab;
     public GameObject gatePrefab;
+    public GameObject gateLightPrefab;
     public int tileSize;
     public float tileX; //the minimum x
     public float tileY; //the minimum y
@@ -153,6 +154,8 @@ public class Map : MonoBehaviour
                     if (data.gate[k][j] == i)
                     {
                         gateTilemap.SetTile(new Vector3Int(k, j, 0), gateBase);
+                        GameObject b = Instantiate(gateLightPrefab, thingParent);
+                        b.GetComponent<GateLight>().Create(i, k, j);
                     }
                 }
             }

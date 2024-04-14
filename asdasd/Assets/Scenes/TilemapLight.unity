@@ -7047,6 +7047,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 8993605711055357594, guid: 81b6f176c7799e341912348c11276555, type: 3}
   buttonTimerCubePrefab: {fileID: 3994843704559431790, guid: b028ae6a2dd665548968f4db55700d6b, type: 3}
   gatePrefab: {fileID: 8399029314221495321, guid: 35103f120dda37948ac62a8c82f6d670, type: 3}
+  gateLightPrefab: {fileID: 8432690663009679437, guid: d053f50f96ed2ea48bf12b29bf9b4f74, type: 3}
   tileSize: 1
   tileX: -14.5
   tileY: -7.5
@@ -7056,6 +7057,7 @@ MonoBehaviour:
   starty: 0
   endx: 0
   endy: 0
+  dropdown: {fileID: 0}
 --- !u!1 &1319816383
 GameObject:
   m_ObjectHideFlags: 0
