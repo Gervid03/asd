@@ -6,6 +6,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using System.IO;
+using TMPro;
 
 
 public class MapEditor : MonoBehaviour
@@ -39,6 +41,7 @@ public class MapEditor : MonoBehaviour
     public int countInversePair; //because we dont remove from list
     public Vector2Int startPosition;
     public Vector2Int endPosition;
+    public TMP_Dropdown dropdown;
 
     [System.Serializable]
     public struct tool
@@ -138,12 +141,35 @@ public class MapEditor : MonoBehaviour
         }
     }
 
+    public FileInfo[] GetMapList()
+    {
+        string path = Application.persistentDataPath;
+        DirectoryInfo dir = new DirectoryInfo(path);
+        return dir.GetFiles("*.map");
+    }
+
+    public void MapDropdownUpdate()
+    {
+        dropdown.ClearOptions();
+
+        FileInfo[] maps = GetMapList();
+        
+        List<string> options = new List<string>();
+        foreach (FileInfo map in maps)
+        {
+            options.Add(map.Name.Substring(0, map.Name.Length-7));
+        }
+        dropdown.AddOptions(options);
+    }
+
     private void Awake()
     {
         tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
         countInversePair = 0;
         calculatedCellWith = (xTopRight - xBottomLeft) / columns;
         calculatedCellHeight = (yTopRight - xBottomLeft) / rows;
+        dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+        MapDropdownUpdate();
     }
 
     private void Update()

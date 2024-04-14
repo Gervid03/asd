@@ -44,6 +44,7 @@ public class Map : MonoBehaviour
     {
         FindFirstObjectByType<MapEditor>().GetInfos(this);
         SaveLoadMaps.SaveMap(this);
+        mapEditor.MapDropdownUpdate();
     }
 
     public void SetIndex(string i)
