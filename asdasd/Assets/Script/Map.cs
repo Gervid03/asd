@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static MapData;
+using TMPro;
 
 public class Map : MonoBehaviour
 {
@@ -39,9 +40,11 @@ public class Map : MonoBehaviour
     public int row;
     public int column;
     public int startx, starty, endx, endy;
+    public TMP_Dropdown dropdown;
 
     public void SaveMap()
     {
+        mapEditor = FindAnyObjectByType<MapEditor>();
         FindFirstObjectByType<MapEditor>().GetInfos(this);
         SaveLoadMaps.SaveMap(this);
         mapEditor.MapDropdownUpdate();
@@ -52,11 +55,23 @@ public class Map : MonoBehaviour
         index = i;
     }
 
+    public void UpdateSelectedToLoad(int index2)
+    {
+        dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+        SetIndex(dropdown.options[index2].text);
+    }
+
     public void LoadIntoEditor()
     {
         int i, j;
         mapEditor = FindAnyObjectByType<MapEditor>();
         colorPalette = FindAnyObjectByType<ColorPalette>();
+        dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+
+        if (index == "")
+        {
+            index = dropdown.options[0].text;
+        }
 
         MapData data = SaveLoadMaps.LoadMap(index);
 
@@ -91,6 +106,8 @@ public class Map : MonoBehaviour
                 mapEditor.AddTile(i, j);
             }
         }
+
+
     }
 
     public void LoadMap()
