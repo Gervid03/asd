@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
 
 public class WallManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class WallManager : MonoBehaviour
     public List<Gate> gates;
     public MapData.ActiveAtStart[] activeAtStart;
     public EndThing endThing;
+    public Gradient portalColors;
 
     [System.Serializable]
     public struct ColorList
@@ -124,6 +126,11 @@ public class WallManager : MonoBehaviour
     public Color GetColor(int index)
     {
         return colors.at(index);
+    }
+
+    public Color GetPortalColor(int index)
+    {
+        return portalColors.Evaluate(index / 100);
     }
 
     public void SubscribeToBeGate(Gate gate)

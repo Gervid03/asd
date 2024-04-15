@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using UnityEngine.Rendering.Universal;
 using UnityEngine;
 
 public class Portal : MonoBehaviour
@@ -11,8 +12,9 @@ public class Portal : MonoBehaviour
     public GameObject pairPortal;
     public float timeOfTP;
     public float cooldownTP;
-    public GameObject portalIndexDisplay;
-    
+    public Light2D portalIndexDisplay;
+    public Light2D colorLight;
+
     public void BeActive()
     {
         this.GetComponent<Collider2D>().enabled = true;
@@ -67,8 +69,8 @@ public class Portal : MonoBehaviour
         portalIndex = portalColor;
         SetPosition(x, y); 
         character = FindFirstObjectByType<Player>().gameObject;
-        gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-        portalIndexDisplay.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(portalIndex);
+        colorLight.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        portalIndexDisplay.color = FindFirstObjectByType<WallManager>().GetPortalColor(portalIndex);
         SubscribeToBeAPortal();
     }
 

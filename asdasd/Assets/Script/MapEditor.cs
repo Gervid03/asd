@@ -484,7 +484,7 @@ public class MapEditor : MonoBehaviour
         map.portals = new MapData.Portal[portalCount];
         map.lever = new MapData.Lever[leverCount];
         map.buttons = new MapData.Button[buttonCount];
-        map.buttonTimerCubes = new MapData.ButtonTimerCube[buttonCount];
+        map.buttonTimerCubes = new MapData.ButtonTimerCube[buttonTimerCubeCount];
         int c = 0;
         int p = 0;
         int l = 0;
