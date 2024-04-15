@@ -34,11 +34,6 @@ public class Buttons : MonoBehaviour
         transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
     }
 
-    private void Awake()
-    {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-    }
-
     public void SetColor()
     {
         displayColor.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
@@ -54,8 +49,8 @@ public class Buttons : MonoBehaviour
     public void BeActive()
     {
         //becomes active and visible
-        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 255);
-        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 255);
+        displayColor.gameObject.SetActive(true);
+        displayInteractiveColor.gameObject.SetActive(true);
         buttonCollider.enabled = true;
         buttonTriggerCollider.enabled = true;
     }
@@ -63,8 +58,8 @@ public class Buttons : MonoBehaviour
     public void DontBeActive()
     {
         //becomes invisible
-        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 0);
-        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 0);
+        displayColor.gameObject.SetActive(false);
+        displayInteractiveColor.gameObject.SetActive(false);
         buttonCollider.enabled = false;
         buttonTriggerCollider.enabled = false;
     }

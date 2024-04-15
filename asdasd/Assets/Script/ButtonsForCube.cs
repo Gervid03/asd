@@ -43,8 +43,8 @@ public class ButtonsForCube : MonoBehaviour
     public void BeActive()
     {
         //becomes active and visible
-        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 255);
-        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 255);
+        displayColor.gameObject.SetActive(true);
+        displayInteractiveColor.gameObject.SetActive(true);
         buttonCollider.enabled = true;
         buttonTriggerCollider.enabled = true;
     }
@@ -52,8 +52,8 @@ public class ButtonsForCube : MonoBehaviour
     public void DontBeActive()
     {
         //becomes invisible
-        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 0);
-        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 0);
+        displayColor.gameObject.SetActive(false);
+        displayInteractiveColor.gameObject.SetActive(false);
         buttonCollider.enabled = false;
         buttonTriggerCollider.enabled = false;
     }

@@ -6996,6 +6996,7 @@ MonoBehaviour:
   timerCubes: []
   portals: []
   gates: []
+  gateLights: []
   activeAtStart: []
   endThing: {fileID: 1706507627}
   portalColors:

@@ -17,6 +17,7 @@ public class WallManager : MonoBehaviour
     public List<TimerCube> timerCubes;
     public List<Portal> portals;
     public List<Gate> gates;
+    public List<GateLight> gateLights;
     public MapData.ActiveAtStart[] activeAtStart;
     public EndThing endThing;
     public Gradient portalColors;
@@ -128,9 +129,9 @@ public class WallManager : MonoBehaviour
         return colors.at(index);
     }
 
-    public Color GetPortalColor(int index)
+    public Color GetPortalColor(float index)
     {
-        return portalColors.Evaluate(index / 100);
+        return portalColors.Evaluate((float)index / 100);
     }
 
     public void SubscribeToBeGate(Gate gate)
@@ -180,6 +181,11 @@ public class WallManager : MonoBehaviour
         portals.Add(portal);
     }
 
+    public void SubscribeToBeAGateLight(GateLight gateLight)
+    {
+        gateLights.Add(gateLight);
+    }
+
     public void SetColorActive(int index, bool inverzed = false)
     {
         if (inversColor.at(index) != -1 && !inverzed) SetColorDeactive(inversColor.at(index), true);
@@ -223,6 +229,13 @@ public class WallManager : MonoBehaviour
             if (gates[i].colorIndex == index)
             {
                 gates[i].BeActive();
+            }
+        }
+        for (int i = 0; i < gateLights.Count; i++)
+        {
+            if (gateLights[i].colorIndex == index)
+            {
+                gateLights[i].light2D.gameObject.SetActive(true);
             }
         }
         for (int i = 0; i < levers.Count; i++)
@@ -283,6 +296,13 @@ public class WallManager : MonoBehaviour
             if (gates[i].colorIndex == index)
             {
                 gates[i].DontBeActive();
+            }
+        }
+        for (int i = 0; i < gateLights.Count; i++)
+        {
+            if (gateLights[i].colorIndex == index)
+            {
+                gateLights[i].light2D.gameObject.SetActive(false);
             }
         }
         for (int i = 0; i < levers.Count; i++)

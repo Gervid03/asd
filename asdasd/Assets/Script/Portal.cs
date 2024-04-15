@@ -70,7 +70,7 @@ public class Portal : MonoBehaviour
         SetPosition(x, y); 
         character = FindFirstObjectByType<Player>().gameObject;
         colorLight.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-        portalIndexDisplay.color = FindFirstObjectByType<WallManager>().GetPortalColor(portalIndex);
+        portalIndexDisplay.color = FindFirstObjectByType<WallManager>().GetPortalColor((float)portalIndex);
         SubscribeToBeAPortal();
     }
 

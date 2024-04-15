@@ -507,7 +507,8 @@ public class MapEditor : MonoBehaviour
                 portal.color = infos[i].index;
                 portal.x = infos[i].x;
                 portal.y = infos[i].y;
-                portal.interactiveColor = infos[i].indexColorInteract;
+                portal.interactiveColor = infos[i].portalIndex;
+                Debug.Log(infos[i].indexColorInteract);
                 map.portals[p++] = portal;
             }
             else if (infos[i].isLever)

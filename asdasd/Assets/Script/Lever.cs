@@ -20,11 +20,6 @@ public class Lever : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
-    {
-        
-    }
-
     public void SetColor()
     {
         displayColor.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
@@ -40,8 +35,8 @@ public class Lever : MonoBehaviour
     public void BeActive()
     {
         //becomes active and visible
-        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 255);
-        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 255);
+        displayColor.gameObject.SetActive(true);
+        displayInteractiveColor.gameObject.SetActive(true);
         leverCollider.enabled = true;
         leverTriggerCollider.enabled = true;
     }
@@ -49,8 +44,8 @@ public class Lever : MonoBehaviour
     public void DontBeActive()
     {
         //becomes invisible
-        displayColor.color = new Color(displayColor.color.r, displayColor.color.g, displayColor.color.b, 0);
-        displayInteractiveColor.color = new Color(displayInteractiveColor.color.r, displayInteractiveColor.color.g, displayInteractiveColor.color.b, 0);
+        displayColor.gameObject.SetActive(false);
+        displayInteractiveColor.gameObject.SetActive(false);
         leverCollider.enabled = false;
         leverTriggerCollider.enabled = false;
     }
