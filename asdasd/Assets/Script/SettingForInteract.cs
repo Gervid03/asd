@@ -20,13 +20,15 @@ public class SettingForInteract : MonoBehaviour
     public bool isButton;
     public bool isButtonTimerCube;
 
-    public void Set(int x1, int y1, int i, Color c)
+    public void Set(int x1, int y1, int i, Color c, int interactColor)
     {
         coordinates.text = "(" + x1 + ", " + y1 + ")";
         x = x1;
         y = y1;
         index = i;
         color.color = c;
+        if(FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor) != null) colorInteract.color = FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor).color;
+        else colorInteract.color = Color.white;
     }
 
     public void SetInteractColor()
@@ -44,7 +46,19 @@ public class SettingForInteract : MonoBehaviour
         if (t == null) return;
         timer = int.Parse(t);
     }
-    
+
+    public void SetTimerAtLoading(int t)
+    {
+        timer = t;
+        GetComponentInChildren<InputField>().text = t + "";
+    }
+
+    public void SetPortalAtLoading(int t)
+    {
+        portalIndex = t;
+        GetComponentInChildren<InputField>().text = t + "";
+    }
+
     public void SetPortalIndex(string pt)
     {
         if(pt == null) return;

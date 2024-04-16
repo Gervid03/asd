@@ -90,6 +90,10 @@ public class WallManager : MonoBehaviour
                 {
                     return pairs[i].b;
                 }
+                if (index == pairs[i].b)
+                {
+                    return pairs[i].a;
+                }
             }
             return -1;
         }

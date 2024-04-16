@@ -121,28 +121,29 @@ public class Map : MonoBehaviour
         {
             mapEditor.currentTilemap = data.buttons[i].color;
             mapEditor.AddTile(data.buttons[i].x, data.buttons[i].y);
-            mapEditor.infos[mapEditor.infos.Count - 1].indexColorInteract = data.buttons[i].interactiveColor;
+            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttons[i].x, data.buttons[i].y, data.buttons[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttons[i].color).color, data.buttons[i].interactiveColor);
         }
         mapEditor.currentTool = 3; //buttonForCube
         for (i = 0; i < data.buttonForCubes.Length; i++)
         {
             mapEditor.currentTilemap = data.buttonForCubes[i].color;
             mapEditor.AddTile(data.buttonForCubes[i].x, data.buttonForCubes[i].y);
-            mapEditor.infos[mapEditor.infos.Count - 1].indexColorInteract = data.buttonForCubes[i].interactiveColor;
+            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttonForCubes[i].x, data.buttonForCubes[i].y, data.buttonForCubes[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttonForCubes[i].color).color, data.buttonForCubes[i].interactiveColor);
         }
         mapEditor.currentTool = 4; //lever
         for (i = 0; i < data.lever.Length; i++)
         {
             mapEditor.currentTilemap = data.lever[i].color;
             mapEditor.AddTile(data.lever[i].x, data.lever[i].y);
-            mapEditor.infos[mapEditor.infos.Count - 1].indexColorInteract = data.lever[i].interactiveColor;
+            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.lever[i].x, data.lever[i].y, data.lever[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.lever[i].color).color, data.lever[i].interactiveColor);
         }
         mapEditor.currentTool = 5; //portal
         for (i = 0; i < data.portals.Length; i++)
         {
             mapEditor.currentTilemap = data.portals[i].color;
             mapEditor.AddTile(data.portals[i].x, data.portals[i].y);
-            mapEditor.infos[mapEditor.infos.Count - 1].portalIndex = data.portals[i].interactiveColor;
+            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.portals[i].x, data.portals[i].y, data.portals[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.portals[i].color).color, data.portals[i].interactiveColor);
+            mapEditor.infos[mapEditor.infos.Count - 1].SetPortalAtLoading(data.portals[i].interactiveColor);
         }
         mapEditor.currentTool = 6; //gate
         for (i = 0; i < data.gate.Length; i++)
@@ -164,8 +165,8 @@ public class Map : MonoBehaviour
         {
             mapEditor.currentTilemap = data.buttonTimerCubes[i].color;
             mapEditor.AddTile(data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y);
-            mapEditor.infos[mapEditor.infos.Count - 1].indexColorInteract = data.buttonTimerCubes[i].interactiveColor;
-            mapEditor.infos[mapEditor.infos.Count - 1].timer = data.buttonTimerCubes[i].timer;
+            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttons[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttonTimerCubes[i].color).color, data.buttonTimerCubes[i].interactiveColor);
+            mapEditor.infos[mapEditor.infos.Count - 1].SetTimerAtLoading(data.buttonTimerCubes[i].timer);
         }
 
         for (i = 0; i < data.inversePairs.Length; i++)
@@ -271,7 +272,6 @@ public class Map : MonoBehaviour
             ButtonTimerCube bb = b.GetComponent<ButtonTimerCube>();
             bb.CreateNew(data.buttonTimerCubes[i].color, data.buttonTimerCubes[i].interactiveColor, data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].timer);
         }
-
 
         for(int i = 0; i < data.inversePairs.Length; i++)
         {

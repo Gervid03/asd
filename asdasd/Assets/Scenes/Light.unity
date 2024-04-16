@@ -1191,6 +1191,10 @@ PrefabInstance:
       value: Portal
       objectReference: {fileID: 0}
     - target: {fileID: 9026315201128330651, guid: 1ca234c5d06179949906b76c5488fa1d, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1805380206}
+    - target: {fileID: 9026315201128330651, guid: 1ca234c5d06179949906b76c5488fa1d, type: 3}
       propertyPath: pairPortal
       value: 
       objectReference: {fileID: 1339311927}
@@ -8116,6 +8120,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81b6f176c7799e341912348c11276555, type: 3}
+--- !u!1 &1805380206 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5901197511176713241, guid: 505d1a1f93ee7b34ab71e059e4338a31, type: 3}
+  m_PrefabInstance: {fileID: 2089880776816850472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1823023615
 GameObject:
   m_ObjectHideFlags: 0
@@ -8247,6 +8256,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9026315201128330651, guid: 1ca234c5d06179949906b76c5488fa1d, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1805380206}
     - target: {fileID: 9026315201128330651, guid: 1ca234c5d06179949906b76c5488fa1d, type: 3}
       propertyPath: pairPortal
       value: 

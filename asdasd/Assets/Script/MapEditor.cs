@@ -266,7 +266,7 @@ public class MapEditor : MonoBehaviour
     public void AddButton(int x, int y)
     {
         GameObject a = Instantiate(buttonSettingsPrefab, settingParentTr);
-        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color, -1);
         a.GetComponent<SettingForInteract>().isButton = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
@@ -274,7 +274,7 @@ public class MapEditor : MonoBehaviour
     public void AddButtonForCube(int x, int y)
     {
         GameObject a = Instantiate(buttonForCubeSettingsPrefab, settingParentTr);
-        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color, -1);
         a.GetComponent<SettingForInteract>().isButtonsForCube = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
@@ -282,7 +282,7 @@ public class MapEditor : MonoBehaviour
     public void AddLever(int x, int y)
     {
         GameObject a = Instantiate(leverSettingsPrefab, settingParentTr);
-        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color, -1);
         a.GetComponent<SettingForInteract>().isLever = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
@@ -290,7 +290,7 @@ public class MapEditor : MonoBehaviour
     public void AddButtonTimerCube(int x, int y)
     {
         GameObject a = Instantiate(buttonTimerCubeSettingsPrefab, settingParentTr);
-        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color, -1);
         a.GetComponent<SettingForInteract>().isButtonTimerCube = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
@@ -298,7 +298,7 @@ public class MapEditor : MonoBehaviour
     public void AddPortal(int x, int y)
     {
         GameObject a = Instantiate(portalSettingsPrefab, settingParentTr);
-        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color);
+        a.GetComponent<SettingForInteract>().Set(x, y, currentTilemap, tilemaps.at(currentTilemap).color, -1);
         a.GetComponent<SettingForInteract>().isPortal = true;
         infos.Add(a.GetComponent<SettingForInteract>());
     }
@@ -429,7 +429,6 @@ public class MapEditor : MonoBehaviour
             map.gate[i] = new int[rows];
             for (int j = 0; j < rows; j++) 
             {
-                Debug.Log(i + " " + j);
                 map.colorIndex[i][j] = -1;
                 map.gate[i][j] = -1;
                 for (int k = 0; k < tilemaps.count(); k++)

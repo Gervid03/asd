@@ -10,6 +10,7 @@ public class GateLight : MonoBehaviour
 
     public void Create(int color, int x, int y)
     {
+        colorIndex = color;
         light2D.color = FindFirstObjectByType<WallManager>().GetColor(color);
         SetPosition(x, y);
         SubscribeToBeAGateLight();
