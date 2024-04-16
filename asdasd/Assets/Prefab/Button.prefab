@@ -435,7 +435,8 @@ MonoBehaviour:
   stateDeactivated: {fileID: -1643493714, guid: 8f5c5d297f2be764ea38e0df90c38089, type: 3}
   interactWithColor: 0
   activateTheColor: 0
-  spriteRenderer: {fileID: 8140574101661740465}
+  spriteRenderer: {fileID: 8220733140943074354}
+  indicator: {fileID: 8140574101661740465}
   displayColor: {fileID: 4979040792949451685}
   displayInteractiveColor: {fileID: 1818589846634798730}
   buttonCollider: {fileID: 4006066407404457737}

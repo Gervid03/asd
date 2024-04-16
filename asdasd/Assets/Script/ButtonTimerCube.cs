@@ -13,6 +13,7 @@ public class ButtonTimerCube : MonoBehaviour
     public Sprite stateDeactivated;
     public int cubeColor;
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer indicator;
     public Light2D displayColor;
     public Light2D displayInteractiveColor;
     public Collider2D buttonCollider;
@@ -32,7 +33,7 @@ public class ButtonTimerCube : MonoBehaviour
     public void SetColor()
     {
         displayColor.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-        spriteRenderer.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        indicator.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         displayInteractiveColor.color = FindFirstObjectByType<WallManager>().GetColor(cubeColor);
     }
 

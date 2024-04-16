@@ -268,7 +268,8 @@ MonoBehaviour:
   stateActivated: {fileID: 21300000, guid: 16961f5fae4640b46a01be1cb3e6de64, type: 3}
   stateDeactivated: {fileID: -1643493714, guid: 8f5c5d297f2be764ea38e0df90c38089, type: 3}
   cubeColor: 0
-  spriteRenderer: {fileID: 5576136832359110232}
+  spriteRenderer: {fileID: 3019039160386860620}
+  indicator: {fileID: 5576136832359110232}
   displayColor: {fileID: 8935530369718322570}
   displayInteractiveColor: {fileID: 3051420860305849038}
   buttonCollider: {fileID: 8960096857740134639}

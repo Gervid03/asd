@@ -10,20 +10,16 @@ public class Lever : MonoBehaviour
     public int interactWithColor; //which color is activated or deactivated by this button
     public bool activateTheColor; //if false then deactivates that color, else activates that color
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer indicator;
     public Light2D displayColor;
     public Light2D displayInteractiveColor;
     public Collider2D leverCollider;
     public Collider2D leverTriggerCollider;
 
-    private void Awake()
-    {
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-    }
-
     public void SetColor()
     {
         displayColor.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-        spriteRenderer.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        indicator.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         displayInteractiveColor.color = FindFirstObjectByType<WallManager>().GetColor(interactWithColor);
     }
 

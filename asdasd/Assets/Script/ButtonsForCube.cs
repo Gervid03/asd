@@ -13,6 +13,7 @@ public class ButtonsForCube : MonoBehaviour
     public Sprite stateDeactivated;
     public int cubeColor; //which color is activated or deactivated by this button
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer indicator;
     public Light2D displayColor;
     public Light2D displayInteractiveColor;
     public Collider2D buttonCollider;
@@ -31,7 +32,7 @@ public class ButtonsForCube : MonoBehaviour
     public void SetColor()
     {
         displayColor.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-        spriteRenderer.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        indicator.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         displayInteractiveColor.color = FindFirstObjectByType<WallManager>().GetColor(cubeColor);
     }
 
