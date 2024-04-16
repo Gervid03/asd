@@ -11,18 +11,25 @@ public class Cube : MonoBehaviour
     public float fallSpeedLimit;
     public Light2D light2D;
     public Light2D light2Dinside;
+    public SpriteRenderer spriteRenderer;
 
     public void Set()
     {
         FindFirstObjectByType<WallManager>().SubscribeToBeACube(this);
         gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(gameObject.GetComponent<SpriteRenderer>().color.r, gameObject.GetComponent<SpriteRenderer>().color.g, gameObject.GetComponent<SpriteRenderer>().color.b, 255);
         characterC = FindFirstObjectByType<Player>().gameObject.GetComponent<BoxCollider2D>();
         characterRB = FindFirstObjectByType<Player>().gameObject.GetComponent<Rigidbody2D>();
         Physics2D.IgnoreCollision(characterC, gameObject.GetComponent<BoxCollider2D>(), true);
         light2D.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         light2Dinside.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         FindFirstObjectByType<movement>().GotNewCube(colorIndex);
+    }
+
+    public void SetColor()
+    {
+        spriteRenderer.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        light2D.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        light2Dinside.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
     }
 
     private void Update()

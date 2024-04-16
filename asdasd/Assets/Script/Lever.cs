@@ -23,6 +23,7 @@ public class Lever : MonoBehaviour
     public void SetColor()
     {
         displayColor.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        spriteRenderer.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         displayInteractiveColor.color = FindFirstObjectByType<WallManager>().GetColor(interactWithColor);
     }
 

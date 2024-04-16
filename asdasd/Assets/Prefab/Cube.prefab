@@ -108,6 +108,7 @@ MonoBehaviour:
   fallSpeedLimit: 10
   light2D: {fileID: 8149739696296821774}
   light2Dinside: {fileID: 7777122638726099855}
+  spriteRenderer: {fileID: 5504662996214975695}
 --- !u!114 &8310792080999837708
 MonoBehaviour:
   m_ObjectHideFlags: 0
