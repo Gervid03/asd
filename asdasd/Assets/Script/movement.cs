@@ -58,7 +58,7 @@ public class movement : MonoBehaviour
     public void HorizontalMovement()
     {
         if (Input.GetAxisRaw("Horizontal") != 0) transformOfParts.localScale = new Vector2((int)Input.GetAxisRaw("Horizontal"), 1);
-        characterRB.velocity = new Vector2(Mathf.Min((Mathf.Abs(characterRB.velocity.x)-9*acceleration)+10*acceleration, movementSpeed) * Input.GetAxisRaw("Horizontal"), characterRB.velocity.y);
+        characterRB.velocity = new Vector2(Mathf.Min((Mathf.Abs(characterRB.velocity.x)-9*acceleration*Time.deltaTime)+10*acceleration*Time.deltaTime, movementSpeed) * Input.GetAxisRaw("Horizontal"), characterRB.velocity.y);
         animator.SetInteger("motion", (int)Input.GetAxisRaw("Horizontal"));
     }
 

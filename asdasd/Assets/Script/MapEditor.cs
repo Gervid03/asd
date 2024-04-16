@@ -172,6 +172,11 @@ public class MapEditor : MonoBehaviour
         MapDropdownUpdate();
     }
 
+    private void Start()
+    {
+         FindFirstObjectByType<Vault>().GetDataBack();
+    }
+
     private void Update()
     {
         HandleClick();

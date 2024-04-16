@@ -1146,7 +1146,7 @@ MonoBehaviour:
   jumpSpeed: 700
   jumpCooldown: 0
   runningFor: 0
-  acceleration: 0.02
+  acceleration: 1
   fallSpeedLimit: 10
   gatesTouch: 0
   transformOfParts: {fileID: 2183520612677375487}

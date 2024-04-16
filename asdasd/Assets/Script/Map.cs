@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using static MapData;
 using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Map : MonoBehaviour
@@ -61,6 +62,12 @@ public class Map : MonoBehaviour
     {
         dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         SetIndex(dropdown.options[index2].text);
+    }
+
+    public void VaultAndLoad()
+    {
+        FindFirstObjectByType<Vault>().mapToLoad = index;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void LoadIntoEditor()
@@ -176,6 +183,12 @@ public class Map : MonoBehaviour
         {
             mapEditor.tilemaps.changeVisibleAtBeginning(data.activeAtStart[i].index, data.activeAtStart[i].isActive);
         }
+
+        mapEditor.currentTool = 8;
+        mapEditor.AddTile(data.startx, data.starty);
+    
+        mapEditor.currentTool = 9;
+        mapEditor.AddTile(data.endx, data.endy);
     }
 
     public void LoadMap()
