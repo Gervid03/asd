@@ -12,11 +12,6 @@ public class ColorTweaker : MonoBehaviour
     public GameObject colorDisplayImage, colorDisplaySprite;
     public GameObject inputMethodTexts;
 
-    private void Start()
-    {
-        color = new Vector4(1, 1, 1, 1);
-    }
-
     public void BeActive()
     {
         this.gameObject.SetActive(true);

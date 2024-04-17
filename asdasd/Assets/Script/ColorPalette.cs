@@ -117,7 +117,7 @@ public class ColorPalette : MonoBehaviour
         overwriteColorButton.SetActive(true);
 
         colorTweaker.GetComponent<ColorTweaker>().BeActive();
-        colorTweaker.GetComponent<ColorTweaker>().color = selectedButton.GetComponent<Image>().color;
+        colorTweaker.GetComponent<ColorTweaker>().color = selectedButton.GetComponent<ColorDisplayButton>().color;
         colorTweaker.GetComponent<ColorTweaker>().UpdateTextsFromColor();
 
         UpdateColorCarousel();
@@ -132,6 +132,19 @@ public class ColorPalette : MonoBehaviour
         
         colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
         overwriteColorButton.SetActive(false);
+
+        for (int i = 0; i < mapEditor.infos.Count; i++)     
+        {
+            if (mapEditor.infos[i].indexColorInteract == colors.IndexOf(colorUnderModification))
+            {
+                mapEditor.infos[i].colorInteract.color = colorTweaker.GetComponent<ColorTweaker>().color;
+            }
+            if (mapEditor.infos[i].index == colors.IndexOf(colorUnderModification))
+            {
+                mapEditor.infos[i].color.color = colorTweaker.GetComponent<ColorTweaker>().color;
+            }
+            
+        }
 
         UpdateColorCarousel();
     }
