@@ -71,7 +71,7 @@ public class movement : MonoBehaviour
         basicCubeLightBehind.color = a;
     }
 
-    public void GotNewTimerCube(int colorIndex)
+    public void SetNewTimerCubeColor(int colorIndex)
     {
         timerCubeSpriteRenderer.gameObject.SetActive(true);
         Color a = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
@@ -80,7 +80,7 @@ public class movement : MonoBehaviour
         timerCubeLightBehind.color = a;
     }
 
-    public void TimerCubeDestroyed()
+    public void NoMoreTimerCubes()
     {
         timerCubeSpriteRenderer.gameObject.SetActive(false);
     }

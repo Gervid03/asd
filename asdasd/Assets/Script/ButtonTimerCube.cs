@@ -90,10 +90,7 @@ public class ButtonTimerCube : MonoBehaviour
     public void GiveTimerCube()
     {
         FindFirstObjectByType<WallManager>().DestroyTimerCube(cubeColor);
-        CubePlacer.hasTimerCube = true;
-        CubePlacer.timerCubeColor = cubeColor;
-        CubePlacer.timer = timer;
-        FindFirstObjectByType<movement>().GotNewTimerCube(cubeColor);
+        FindFirstObjectByType<CubePlacer>().AddTimerCube(cubeColor, timer);
     }
 
     public void EndOfUse()

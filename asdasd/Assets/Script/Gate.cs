@@ -51,32 +51,7 @@ public class Gate : MonoBehaviour
 
     void Update()
     {
-        /*
-        if (this.GetComponent<Collider2D>().IsTouching(character.GetComponent<Collider2D>()))
-        {
-            if (interactWithColor == -1)
-            {
-                foreach (int index in wallManager.colors.getIndicies())
-                {
-                    if (wallManager.inverzColor[index] != -1)
-                    {
-                        if (true)//get default color
-                        {
-                            wallManager.SetColorActive(index);
-                        }
-                        else
-                        {
-                            wallManager.SetColorDeactive(index);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                wallManager.SetColorDeactive(interactWithColor);
-            }
-        }
-        */
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
