@@ -190,10 +190,29 @@ public class Map : MonoBehaviour
     
         mapEditor.currentTool = 9;
         mapEditor.AddTile(data.endx, data.endy);
+
+        for (i = 0; i < data.activeAtStart.Length; i++)
+        {
+            mapEditor.tilemaps.changeVisibleAtBeginning(data.activeAtStart[i].index, data.activeAtStart[i].isActive);
+        }
+
+        for (i = 0; i < data.activeAtStart.Length; i++)
+        {
+            for (j = 0; j < colorPalette.colors.Count; j++)
+            {
+                if (colorPalette.colors[j].index == data.activeAtStart[i].index)
+                {
+                    if (colorPalette.colors[j].toggle.GetComponentInChildren<Toggle>() == null) Debug.Log(i + " " + j);
+                    colorPalette.colors[j].toggle.GetComponentInChildren<Toggle>().SetIsOnWithoutNotify(data.activeAtStart[i].isActive);
+                    break;
+                }
+            }
+        }
     }
 
     public void LoadMap()
     {
+        int i;
         MapData data = SaveLoadMaps.LoadMap(index);
 
         if(data == null)
@@ -203,13 +222,13 @@ public class Map : MonoBehaviour
         }
 
         FindFirstObjectByType<WallManager>().colors.clear();
-        for(int i = 0; i < data.colors.Length; i++)
+        for(i = 0; i < data.colors.Length; i++)
         {
             FindFirstObjectByType<WallManager>().colors.add(data.colors[i].c(), data.colors[i].index);
         }
 
         //set the informations
-        for(int i = 0; i < data.colors.Length; i++)
+        for(i = 0; i < data.colors.Length; i++)
         {
             GameObject a = Instantiate(tilemapPrefab, tilemapParent);
             a.GetComponent<WallObjects>().Create(i);
@@ -242,44 +261,44 @@ public class Map : MonoBehaviour
             }
         }
 
-        for(int i = 0; i < data.buttonForCubes.Length; i++)
+        for(i = 0; i < data.buttonForCubes.Length; i++)
         {
             GameObject b = Instantiate(buttonForCubePrefab, thingParent);
             ButtonsForCube bb = b.GetComponent<ButtonsForCube>();
             bb.CreateNew(data.buttonForCubes[i].color, data.buttonForCubes[i].interactiveColor, data.buttonForCubes[i].x, data.buttonForCubes[i].y);
         }
-        for (int i = 0; i < data.portals.Length; i++)
+        for (i = 0; i < data.portals.Length; i++)
         {
             GameObject b = Instantiate(portalPrefab, thingParent);
             Portal bb = b.GetComponent<Portal>();
             bb.CreateNew(data.portals[i].color, data.portals[i].interactiveColor, data.portals[i].x, data.portals[i].y);
         }
-        for (int i = 0; i < data.lever.Length; i++)
+        for (i = 0; i < data.lever.Length; i++)
         {
             GameObject b = Instantiate(leverPrefab, thingParent);
             Lever bb = b.GetComponent<Lever>();
             bb.CreateNew(data.lever[i].color, data.lever[i].interactiveColor, data.lever[i].x, data.lever[i].y);
         }
-        for (int i = 0; i < data.buttons.Length; i++)
+        for (i = 0; i < data.buttons.Length; i++)
         {
             GameObject b = Instantiate(buttonPrefab, thingParent);
             Buttons bb = b.GetComponent<Buttons>();
             bb.CreateNew(data.buttons[i].color, data.buttons[i].interactiveColor, data.buttons[i].x, data.buttons[i].y, data.buttons[i].activateAtBeingActive);
         }
-        for (int i = 0; i < data.buttonTimerCubes.Length; i++)
+        for (i = 0; i < data.buttonTimerCubes.Length; i++)
         {
             GameObject b = Instantiate(buttonTimerCubePrefab, thingParent);
             ButtonTimerCube bb = b.GetComponent<ButtonTimerCube>();
             bb.CreateNew(data.buttonTimerCubes[i].color, data.buttonTimerCubes[i].interactiveColor, data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].timer);
         }
 
-        for(int i = 0; i < data.inversePairs.Length; i++)
+        for(i = 0; i < data.inversePairs.Length; i++)
         {
             FindFirstObjectByType<WallManager>().inversColor.add(data.inversePairs[i].index1, data.inversePairs[i].index2);
             Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
         }
 
-        for(int i = 0; i < data.activeAtStart.Length; i++)
+        for(i = 0; i < data.activeAtStart.Length; i++)
         {
             if (data.activeAtStart[i].isActive) FindFirstObjectByType<WallManager>().SetColorActive(data.activeAtStart[i].index);
             else FindFirstObjectByType<WallManager>().SetColorDeactive(data.activeAtStart[i].index);

@@ -140,7 +140,7 @@ public class MapEditor : MonoBehaviour
             }
         }
     }
-
+    
     public FileInfo[] GetMapList()
     {
         string path = Application.persistentDataPath;
