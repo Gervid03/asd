@@ -7000,6 +7000,7 @@ MonoBehaviour:
   thingParent: {fileID: 0}
   tilemapPrefab: {fileID: 0}
   tileBase: {fileID: 11400000, guid: 919d2a37e05701c478d64a4ebb506f27, type: 2}
+  tileColorBase: {fileID: 0}
   gateBase: {fileID: 0}
   buttonForCubePrefab: {fileID: 0}
   portalPrefab: {fileID: 0}
@@ -12775,7 +12776,7 @@ MonoBehaviour:
   - name: gate
     tile: {fileID: 11400000, guid: 95d1ddfa29952aa438ad61a2010f1ede, type: 2}
   - name: buttonTimerCube
-    tile: {fileID: 11400000, guid: c09126e099f77d442bd9ccb58688f173, type: 2}
+    tile: {fileID: 11400000, guid: 24272d816a4162d43a8cebb0067f8b6b, type: 2}
   - name: start
     tile: {fileID: 11400000, guid: 547a5d7bbd49b2c499dc6d7f3dbc1bc5, type: 2}
   - name: end

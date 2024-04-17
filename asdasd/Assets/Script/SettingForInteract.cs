@@ -19,8 +19,9 @@ public class SettingForInteract : MonoBehaviour
     public bool isLever;
     public bool isButton;
     public bool isButtonTimerCube;
+    public Toggle toggle;
 
-    public void Set(int x1, int y1, int i, Color c, int interactColor)
+    public void Set(int x1, int y1, int i, Color c, int interactColor, bool active = false)
     {
         coordinates.text = "(" + x1 + ", " + y1 + ")";
         x = x1;
@@ -33,6 +34,10 @@ public class SettingForInteract : MonoBehaviour
             else colorInteract.color = Color.white;
         }
         indexColorInteract = interactColor;
+        if (toggle != null)
+        {
+            toggle.SetIsOnWithoutNotify(active);
+        }
     }
 
     public void SetInteractColor()

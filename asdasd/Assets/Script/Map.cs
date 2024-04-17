@@ -137,7 +137,7 @@ public class Map : MonoBehaviour
         {
             mapEditor.currentTilemap = data.buttons[i].color;
             mapEditor.AddTile(data.buttons[i].x, data.buttons[i].y);
-            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttons[i].x, data.buttons[i].y, data.buttons[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttons[i].color).color, data.buttons[i].interactiveColor);
+            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttons[i].x, data.buttons[i].y, data.buttons[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttons[i].color).color, data.buttons[i].interactiveColor, data.buttons[i].activateAtBeingActive);
         }
         mapEditor.currentTool = 3; //buttonForCube
         for (i = 0; i < data.buttonForCubes.Length; i++)
