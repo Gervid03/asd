@@ -27,17 +27,12 @@ public class SettingForInteract : MonoBehaviour
         y = y1;
         index = i;
         color.color = c;
-<<<<<<< Updated upstream
         if(colorInteract != null)
         {
             if(FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor) != null) colorInteract.color = FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor).color;
             else colorInteract.color = Color.white;
         }
-=======
         indexColorInteract = interactColor;
-        if(FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor) != null) colorInteract.color = FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor).color;
-        else colorInteract.color = Color.white;
->>>>>>> Stashed changes
     }
 
     public void SetInteractColor()
