@@ -2012,7 +2012,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1210156908}
+        m_TargetAssemblyTypeName: Map, Assembly-CSharp
+        m_MethodName: SetIndex
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7006,6 +7018,7 @@ MonoBehaviour:
   endx: 0
   endy: 0
   dropdown: {fileID: 0}
+  saveName: {fileID: 207979532}
 --- !u!114 &1210156909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9774,7 +9787,7 @@ MonoBehaviour:
   r1: {fileID: 1779216237}
   g1: {fileID: 851625668}
   b1: {fileID: 975741453}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   IndexOfcolor: 0
   colorDisplayImage: {fileID: 1369477170}
   colorDisplaySprite: {fileID: 1479138009}
@@ -12784,6 +12797,7 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0}
   endPosition: {x: 0, y: 0}
   dropdown: {fileID: 0}
+  leftButtons: {fileID: 581006415}
 --- !u!114 &2115509125
 MonoBehaviour:
   m_ObjectHideFlags: 0

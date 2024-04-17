@@ -44,13 +44,14 @@ public class Map : MonoBehaviour
     public int column;
     public int startx, starty, endx, endy;
     public TMP_Dropdown dropdown;
+    public TMP_InputField saveName;
 
     public void SaveMap()
     {
         mapEditor = FindAnyObjectByType<MapEditor>();
         FindFirstObjectByType<MapEditor>().GetInfos(this);
         SaveLoadMaps.SaveMap(this);
-        mapEditor.MapDropdownUpdate();
+        mapEditor.MapDropdownUpdate(index);
     }
 
     public void SetIndex(string i)
@@ -81,6 +82,20 @@ public class Map : MonoBehaviour
         {
             index = dropdown.options[0].text;
         }
+
+        int dropdownIndex = 0;
+        for (i = 0; i < dropdown.options.Count; i++)
+        {
+            if (dropdown.options[i].text == index)
+            {
+                dropdownIndex = i;
+                break;
+            }
+        }
+
+        dropdown.value = dropdownIndex;
+
+        saveName.text = index;
 
         MapData data = SaveLoadMaps.LoadMap(index);
 

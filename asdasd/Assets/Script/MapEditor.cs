@@ -42,6 +42,7 @@ public class MapEditor : MonoBehaviour
     public Vector2Int startPosition;
     public Vector2Int endPosition;
     public TMP_Dropdown dropdown;
+    public GameObject leftButtons;
 
     [System.Serializable]
     public struct tool
@@ -148,7 +149,7 @@ public class MapEditor : MonoBehaviour
         return dir.GetFiles("*.map");
     }
 
-    public void MapDropdownUpdate()
+    public void MapDropdownUpdate(string currentOption = "")
     {
         dropdown.ClearOptions();
 
@@ -160,6 +161,17 @@ public class MapEditor : MonoBehaviour
             options.Add(map.Name.Substring(0, map.Name.Length-7));
         }
         dropdown.AddOptions(options);
+
+        int dropdownIndex = 0;
+        for (int i = 0; i < dropdown.options.Count; i++)
+        {
+            if (dropdown.options[i].text == currentOption)
+            {
+                dropdownIndex = i;
+                break;
+            }
+        }
+        dropdown.value = dropdownIndex;
     }
 
     private void Awake()
@@ -255,12 +267,14 @@ public class MapEditor : MonoBehaviour
     {
         menu.SetActive(true);
         showMenuButton.SetActive(false);
+        leftButtons.SetActive(false);
     }
 
     public void CloseMenu()
     {
         menu.SetActive(false);
         showMenuButton.SetActive(true);
+        leftButtons.SetActive(true);
     }
 
     public void AddButton(int x, int y)
