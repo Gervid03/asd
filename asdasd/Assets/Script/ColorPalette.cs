@@ -127,7 +127,7 @@ public class ColorPalette : MonoBehaviour
     {
         colors[colors.IndexOf(colorUnderModification)].color = colorTweaker.GetComponent<ColorTweaker>().color;
         colors[colors.IndexOf(colorUnderModification)].GetComponent<Image>().color = colorTweaker.GetComponent<ColorTweaker>().color;
-        colorUnderModification.GetComponent<ColorDisplayButton>().toggle.GetComponent<Image>().color = colorTweaker.GetComponent<ColorTweaker>().color;
+        colorUnderModification.GetComponent<ColorDisplayButton>().toggle.GetComponent<SetDefaultState>().colorDisplay.color = colorTweaker.GetComponent<ColorTweaker>().color;
         mapEditor.ModifyColor(colorUnderModification.index, colorTweaker.GetComponent<ColorTweaker>().color);
         
         colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
