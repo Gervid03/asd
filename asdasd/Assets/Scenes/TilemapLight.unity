@@ -6204,7 +6204,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.57412386, g: 0.57412386, b: 0.57412386, a: 1}
+  m_Color: {r: 0.5902965, g: 0.5902965, b: 0.5902965, a: 1}
   m_Origin: {x: -9, y: -25, z: 0}
   m_Size: {x: 46, y: 42, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -7071,6 +7071,7 @@ MonoBehaviour:
   thingParent: {fileID: 1047235889}
   tilemapPrefab: {fileID: 5388603436775313307, guid: b5d33dec41e5f3d40af7861e9f2b14a6, type: 3}
   tileBase: {fileID: 11400000, guid: 8292fcf3eabd1bd47aee888ec5542a13, type: 2}
+  tileColorBase: {fileID: 11400000, guid: 3062097fdf30a414695a20a370832a86, type: 2}
   gateBase: {fileID: 11400000, guid: fd29f70b33d7c894da77a9087109347e, type: 2}
   buttonForCubePrefab: {fileID: 4769370115901369414, guid: 4a52f28ddd3c24e48b6c666a258abd77, type: 3}
   portalPrefab: {fileID: 7855634067780000460, guid: 1ca234c5d06179949906b76c5488fa1d, type: 3}
@@ -8746,7 +8747,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 15
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -9056,7 +9057,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 14
+      m_TileSpriteIndex: 15
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -9098,9 +9099,9 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: -883277740, guid: 27cb0bb4a92754c44b84e85739ac0e44, type: 3}
-  - m_RefCount: 1
     m_Data: {fileID: -2016292006, guid: c8154dff4a1282b479e6e75c57b943b7, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -883277740, guid: 27cb0bb4a92754c44b84e85739ac0e44, type: 3}
   - m_RefCount: 14
     m_Data: {fileID: 795911838, guid: acf4eb940152db045a98f31d9f1c6790, type: 3}
   - m_RefCount: 5

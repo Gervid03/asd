@@ -29,6 +29,7 @@ public class Map : MonoBehaviour
     public Transform thingParent;
     public GameObject tilemapPrefab;
     public TileBase tileBase;
+    public TileBase tileColorBase;
     public TileBase gateBase;
     public GameObject buttonForCubePrefab;
     public GameObject portalPrefab;
@@ -239,7 +240,8 @@ public class Map : MonoBehaviour
                 {
                     if (data.colorIndex[k][j] == i)
                     {
-                        t.SetTile(new Vector3Int(k, j, 0), tileBase);
+                        if (FindFirstObjectByType<WallManager>().colors.at(i) == Color.white) t.SetTile(new Vector3Int(k, j, 0), tileBase);
+                        else t.SetTile(new Vector3Int(k, j, 0), tileColorBase);
                     }
                 }
             }
