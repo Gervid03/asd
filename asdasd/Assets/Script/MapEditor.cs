@@ -339,7 +339,7 @@ public class MapEditor : MonoBehaviour
     {
         for(int i = 0; i < infos.Count; i++)
         {
-            if (infos[i].x == x && infos[i].y == y)
+            if (infos[i].x == x && infos[i].y == y && infos[i].index == currentTilemap)
             {
                 infos[i].CommitSuicide();
                 infos.RemoveAt(i);

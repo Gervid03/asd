@@ -109,6 +109,7 @@ public class Map : MonoBehaviour
         colorPalette.KillAllTheChildren();
         for (i = 0; i < data.colors.Length; i++)
         {
+            if (data.colors[i].r == 1 && data.colors[i].g == 1 && data.colors[i].b == 1) continue; //fehéret nem bántjuk!
             colorPalette.CreateColor(data.colors[i].c(), data.colors[i].index);
         }
 
