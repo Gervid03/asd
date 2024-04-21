@@ -15,7 +15,7 @@ public class ColorPalette : MonoBehaviour
     public float spacing;
     public GameObject colorSettings;
     public ColorDisplayButton selectedButton; //set by the clicked button
-    public GameObject colorTweaker;
+    public ColorTweaker colorTweaker;
     public MapEditor mapEditor;
     public GameObject overwriteColorButton;
     public ColorDisplayButton colorUnderModification;
@@ -24,11 +24,14 @@ public class ColorPalette : MonoBehaviour
     public RectTransform colorPaletteParent;
     public GameObject defaultStateTogglePrefab;
     public Transform defaultStateToggleParent;
+    public GameObject colorExistsWarning;
 
     void Start()
     {
         mapEditor = FindAnyObjectByType<MapEditor>();
         colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
+        colorTweaker = FindAnyObjectByType<ColorTweaker>(FindObjectsInactive.Include);
+        CreateColor(new Color(1, 1, 1, 1));
         ReadInColors();
     }
 
@@ -39,13 +42,24 @@ public class ColorPalette : MonoBehaviour
 
     private void Update()
     {
-        if (selectedButton == null && colors.Count > 0) selectedButton = colors[0];
+        if (selectedButton == null && colors.Count > 0)
+        {
+            selectedButton = colors[0];
+            UpdateColorCarousel();
+        }
     }
 
     public void AdjustHeight()
     {
-        colorPaletteParent.sizeDelta = new Vector2(700, (Mathf.CeilToInt(colors.Count / 7f))*100);
+        colorPaletteParent.sizeDelta = new Vector2(700, (Mathf.CeilToInt(colors.Count / 7f)) * 100);
         FindAnyObjectByType<DefaultStateHeight>().AdjustHeight((Mathf.CeilToInt(colors.Count / 7f)) * 100);
+    }
+
+    public bool ColorExists(Color c)
+    {
+        int i;
+        for (i = 0; i < colors.Count; i++) if (colors[i].color == c) break;
+        return i != colors.Count;
     }
 
     public void CreateColor(Color szin, int index = -1)
@@ -75,6 +89,7 @@ public class ColorPalette : MonoBehaviour
         for (int i = 0; i < colorPaletteLines.Length; i++)
         {
             string[] stringRGB = colorPaletteLines[i].Trim().Split(' ');
+            if (stringRGB[0] == "1" && stringRGB[1] == "1" && stringRGB[2] == "1") continue; //fehér már van
             CreateColor(new Color(float.Parse(stringRGB[0]), float.Parse(stringRGB[1]), float.Parse(stringRGB[2]), 255));
         }
     }
@@ -91,15 +106,23 @@ public class ColorPalette : MonoBehaviour
 
     public void AddNewColor()
     {
-        colorTweaker.GetComponent<ColorTweaker>().BeActive();
-        colorTweaker.GetComponent<ColorTweaker>().color = new Vector4(1, 1, 1, 1);
-        colorTweaker.GetComponent<ColorTweaker>().UpdateTextsFromColor();
+        colorExistsWarning.SetActive(false);
+        colorTweaker.BeActive();
+        colorTweaker.color = new Vector4(1, 1, 1, 1);
+        colorTweaker.UpdateTextsFromColor();
     }
 
     public void FinishedTweaking()
     {
-        CreateColor(colorTweaker.GetComponent<ColorTweaker>().color);
-        colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
+        colorTweaker.AdjustBrightness();
+        if (ColorExists(colorTweaker.color))
+        {
+            colorTweaker.brightnessWarning.SetActive(false);
+            colorExistsWarning.SetActive(true);
+            return;
+        }
+        CreateColor(colorTweaker.color);
+        colorTweaker.BeDeactive();
         overwriteColorButton.SetActive(false);
     }
 
@@ -113,35 +136,48 @@ public class ColorPalette : MonoBehaviour
     {
         if (SelectWarning()) return;
 
-        colorUnderModification = selectedButton;
-        overwriteColorButton.SetActive(true);
+        if (selectedButton.color != new Color(1, 1, 1))
+        {
+            colorUnderModification = selectedButton;
+            overwriteColorButton.SetActive(true);
+        }
 
-        colorTweaker.GetComponent<ColorTweaker>().BeActive();
-        colorTweaker.GetComponent<ColorTweaker>().color = selectedButton.GetComponent<ColorDisplayButton>().color;
-        colorTweaker.GetComponent<ColorTweaker>().UpdateTextsFromColor();
+        colorTweaker.BeActive();
+        colorTweaker.color = selectedButton.GetComponent<ColorDisplayButton>().color;
+        colorTweaker.UpdateTextsFromColor();
 
         UpdateColorCarousel();
     }
 
     public void OverwriteSelectedColor()
     {
-        colors[colors.IndexOf(colorUnderModification)].color = colorTweaker.GetComponent<ColorTweaker>().color;
-        colors[colors.IndexOf(colorUnderModification)].GetComponent<Image>().color = colorTweaker.GetComponent<ColorTweaker>().color;
-        colorUnderModification.GetComponent<ColorDisplayButton>().toggle.GetComponent<SetDefaultState>().colorDisplay.color = colorTweaker.GetComponent<ColorTweaker>().color;
-        mapEditor.ModifyColor(colorUnderModification.index, colorTweaker.GetComponent<ColorTweaker>().color);
+        if (selectedButton.color == new Color(1, 1, 1, 1)) return; //fehéret nem bántjuk!
+
+        colorTweaker.AdjustBrightness();
+        if (ColorExists(colorTweaker.color))
+        {
+            colorTweaker.brightnessWarning.SetActive(false);
+            colorExistsWarning.SetActive(true);
+            return;
+        }
+
+        colors[colors.IndexOf(colorUnderModification)].color = colorTweaker.color;
+        colors[colors.IndexOf(colorUnderModification)].GetComponent<Image>().color = colorTweaker.color;
+        colorUnderModification.GetComponent<ColorDisplayButton>().toggle.GetComponent<SetDefaultState>().colorDisplay.color = colorTweaker.color;
+        mapEditor.ModifyColor(colorUnderModification.index, colorTweaker.color);
         
-        colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
+        colorTweaker.BeDeactive();
         overwriteColorButton.SetActive(false);
 
         for (int i = 0; i < mapEditor.infos.Count; i++)     
         {
             if (mapEditor.infos[i].indexColorInteract == colors.IndexOf(colorUnderModification))
             {
-                mapEditor.infos[i].colorInteract.color = colorTweaker.GetComponent<ColorTweaker>().color;
+                mapEditor.infos[i].colorInteract.color = colorTweaker.color;
             }
             if (mapEditor.infos[i].index == colors.IndexOf(colorUnderModification))
             {
-                mapEditor.infos[i].color.color = colorTweaker.GetComponent<ColorTweaker>().color;
+                mapEditor.infos[i].color.color = colorTweaker.color;
             }
             
         }
@@ -162,7 +198,8 @@ public class ColorPalette : MonoBehaviour
     public void DeleteSelectedColor()
     {
         if (SelectWarning()) return;
-        
+
+        if (selectedButton.color == new Color(1, 1, 1, 1)) return; //fehéret nem bántjuk!
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);
         mapEditor.tilemaps.remove(selectedButton.index);
@@ -190,6 +227,7 @@ public class ColorPalette : MonoBehaviour
     {
         foreach (Transform child in colorPaletteParent)
         {
+            if (child.GetComponent<ColorDisplayButton>().color == new Color(1, 1, 1, 1)) continue;
             Destroy(child.GetComponent<ColorDisplayButton>().toggle);
             mapEditor.RemoveColor(child.GetComponent<ColorDisplayButton>().index);
             mapEditor.tilemaps.remove(child.GetComponent<ColorDisplayButton>().index);
@@ -232,5 +270,6 @@ public class ColorPalette : MonoBehaviour
     {
         colorCarouselImage.color = selectedButton.color;
         selectSMHWarning.gameObject.SetActive(false); //just here to abuse the frequent updates (:
+        colorExistsWarning.SetActive(false);
     }
 }

@@ -356,7 +356,7 @@ public class MapEditor : MonoBehaviour
 
     public void ChangeColor(int index)
     {
-        if (index > tilemaps.count())
+        if (tilemaps.at(index) == null)
         {
             if(tilemaps.count() > 0) index = tilemaps.getIndexes()[0];
             //Debug.LogError(index + " index még nem létezik, javítsd meg");
