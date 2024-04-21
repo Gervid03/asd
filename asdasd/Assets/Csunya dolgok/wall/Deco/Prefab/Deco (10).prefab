@@ -49,7 +49,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.5584216, g: 0, b: 1, a: 1}
-  m_Intensity: 5.41
+  m_Intensity: 0.8
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: f593cc4d0000000015e5c5c09933ef547ded5c6d
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.967597, g: 0, b: 1, a: 1}
-  m_Intensity: 35
+  m_Intensity: 6.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: f593cc4d0000000015e5c5c09933ef547ded5c6d
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.33481598, g: 0, b: 1, a: 1}
-  m_Intensity: 35
+  m_Intensity: 6.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: f593cc4d0000000015e5c5c09933ef547ded5c6d
@@ -384,7 +384,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.5342212, g: 0, b: 1, a: 1}
-  m_Intensity: 35
+  m_Intensity: 6.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: f593cc4d0000000015e5c5c09933ef547ded5c6d
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 0, b: 0.87765217, a: 1}
-  m_Intensity: 35
+  m_Intensity: 6.5
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: f593cc4d0000000015e5c5c09933ef547ded5c6d
