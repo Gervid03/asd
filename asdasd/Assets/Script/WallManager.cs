@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class WallManager : MonoBehaviour
 { 
@@ -21,6 +24,11 @@ public class WallManager : MonoBehaviour
     public MapData.ActiveAtStart[] activeAtStart;
     public EndThing endThing;
     public Gradient portalColors;
+    public Transform decoParent;
+    public List<DecoDemon> decoDemons;
+    public Tilemap decoDemonTilemap;
+    public RuleTile decoDemonBase;
+    public int column, row;
 
     [System.Serializable]
     public struct ColorList
@@ -122,10 +130,44 @@ public class WallManager : MonoBehaviour
         public int a, b;
     }
 
+    [System.Serializable]
+    public struct DecoDemon
+    {
+        public Sprite sprite;
+        public GameObject prefab;
+
+        public void Create(int x, int y)
+        {
+            GameObject g = Instantiate(prefab, FindFirstObjectByType<WallManager>().decoParent);
+            Map m = FindFirstObjectByType<Map>();
+            g.GetComponent<Transform>().position = new Vector3(m.tileX + x, m.tileY + y, 0);
+        }
+    };
+
     void Awake()
     {
         colors.makeItNotNull(new List<int>(), new List<Color>());
         inversColor.makeItNotNull(new List<pair>());
+        SetDecoDemons();
+    }
+
+    public void SetDecoDemons()
+    {
+        int xRandom = UnityEngine.Random.Range(-50, 50);
+        int yRandom = UnityEngine.Random.Range(-50, 50);
+        for (int i = 0; i < column; i++)
+        {
+            for(int j = 0; j < row; j++)
+            {
+                decoDemonTilemap.SetTile(new Vector3Int(i + xRandom, j + yRandom, 0), decoDemonBase);
+                for(int k = 0; k < decoDemons.Count; k++)
+                {
+                    if (decoDemons[k].sprite == decoDemonTilemap.GetSprite(new Vector3Int(i + xRandom, j + yRandom, 0))){
+                        decoDemons[k].Create(i, j);
+                    }
+                }
+            }
+        }
     }
 
     public Color GetColor(int index)

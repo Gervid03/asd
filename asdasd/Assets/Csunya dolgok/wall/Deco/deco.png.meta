@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: db8e9e99089d968428cccb0542234f0a
+guid: e244ab4474c30ba4bb412389457f18ec
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pixil-frame-1 (2)_0
+      name: deco_0
       rect:
         serializedVersion: 2
         x: 0
@@ -144,20 +144,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7429b8ada9fc18548a17ee568e76c600
-      internalID: 706379273
+      spriteID: 307c2f1d59951f74a865675225f63f69
+      internalID: -1721285038
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-1 (2)_1
+      name: deco_1
       rect:
         serializedVersion: 2
         x: 17
@@ -165,20 +165,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39fa073e8bd5c7048a39d1e1a7d15c29
-      internalID: 514693589
+      spriteID: ba1241d28ce98fc4abda530a9b38f875
+      internalID: -317248332
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-1 (2)_2
+      name: deco_2
       rect:
         serializedVersion: 2
         x: 34
@@ -186,20 +186,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85f350770c8d5bc47a1634b29eb98405
-      internalID: 514856858
+      spriteID: 950840ee1056ea5468a3928591bd727f
+      internalID: 1749372947
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-1 (2)_3
+      name: deco_3
       rect:
         serializedVersion: 2
         x: 51
@@ -207,20 +207,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a399eeb0d5323cc48822cd6546e69012
-      internalID: 2047574027
+      spriteID: 251d1ebbcf6a2c047b99b1bbc6b43f68
+      internalID: 1935719865
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-1 (2)_4
+      name: deco_4
       rect:
         serializedVersion: 2
         x: 0
@@ -228,20 +228,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13fade49a554b5643b4c507bf7169cd5
-      internalID: 654262743
+      spriteID: 90ec8a07a06e7c141acd629d863afa9d
+      internalID: -295512382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-1 (2)_5
+      name: deco_5
       rect:
         serializedVersion: 2
         x: 17
@@ -249,20 +249,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 921214ff9fb46bf4f988196af2365521
-      internalID: 1623089448
+      spriteID: dd8ed2b41cf57f34aa65ddd07a1d8710
+      internalID: 515694765
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-1 (2)_6
+      name: deco_6
       rect:
         serializedVersion: 2
         x: 34
@@ -270,20 +270,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 496f15cdbe2c7b0478b2bfe22934a466
-      internalID: -632255546
+      spriteID: 21982f7c309cc8b48b818777362beb90
+      internalID: -1377837078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-1 (2)_7
+      name: deco_7
       rect:
         serializedVersion: 2
         x: 51
@@ -291,14 +291,98 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e7fb102b3346f54db4b40f55b7c6a27
-      internalID: 1960767493
+      spriteID: 4d15997062a2cd244b9ba3ee300c0702
+      internalID: 1174665077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deco_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6155bb37273f32d478ed1325329babbf
+      internalID: 236163868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deco_13
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66b835919fe367744b5e04d4a6ad67b5
+      internalID: 95247545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deco_14
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3e110018dd09643adf809d7e6baf1c
+      internalID: -194492480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deco_15
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cfae5ebf4252cc40a4c71aaa5815544
+      internalID: 1589454512
       vertices: []
       indices: 
       edges: []
@@ -314,14 +398,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pixil-frame-1 (2)_0: 706379273
-      pixil-frame-1 (2)_1: 514693589
-      pixil-frame-1 (2)_2: 514856858
-      pixil-frame-1 (2)_3: 2047574027
-      pixil-frame-1 (2)_4: 654262743
-      pixil-frame-1 (2)_5: 1623089448
-      pixil-frame-1 (2)_6: -632255546
-      pixil-frame-1 (2)_7: 1960767493
+      deco_0: -1721285038
+      deco_1: -317248332
+      deco_10: -1736031648
+      deco_11: 611387463
+      deco_12: 236163868
+      deco_13: 95247545
+      deco_14: -194492480
+      deco_15: 1589454512
+      deco_2: 1749372947
+      deco_3: 1935719865
+      deco_4: -295512382
+      deco_5: 515694765
+      deco_6: -1377837078
+      deco_7: 1174665077
+      deco_8: -47410925
+      deco_9: 148413645
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
