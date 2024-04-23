@@ -218,7 +218,7 @@ public class Map : MonoBehaviour
         {
             mapEditor.currentTilemap = data.buttonTimerCubes[i].color;
             mapEditor.AddTile(data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y);
-            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttons[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttonTimerCubes[i].color).color, data.buttonTimerCubes[i].interactiveColor);
+            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttonTimerCubes[i].color).color, data.buttonTimerCubes[i].interactiveColor);
             mapEditor.infos[mapEditor.infos.Count - 1].SetTimerAtLoading(data.buttonTimerCubes[i].timer);
         }
 
