@@ -1,10 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Vault : MonoBehaviour
 {
+    public string playScene;
+    public Intent intent;
     public string mapToLoad;
+
+    public enum Intent
+    {
+        none = 0,
+        loadTempIntoEditor = 1,
+        playWithTemp = 2,
+        loadMapToLoad = 3
+    }
 
     void Awake()
     {
@@ -14,14 +25,47 @@ public class Vault : MonoBehaviour
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(this.gameObject);
+        mapToLoad = "";
+        intent = Intent.none;
+        SceneManager.sceneLoaded += OnLoad;
     }
 
-    public void GetDataBack()
+    public void Load()
     {
-        if (mapToLoad == "") return;
+        if (SceneManager.GetActiveScene().name == playScene)
+        {
+            intent = Intent.loadMapToLoad;
+            mapToLoad = "temp";
+            SceneManager.LoadScene("MapEditor");
 
-        FindFirstObjectByType<Map>().index = mapToLoad;
-        FindFirstObjectByType<Map>().LoadIntoEditor();
-        mapToLoad = "";
+            return;
+        }
+        intent = Intent.playWithTemp;
+        Map map = FindAnyObjectByType<Map>();
+
+        FindAnyObjectByType<MapEditor>().GetInfos(map);
+        map.index = "temp";
+
+        SaveLoadMaps.SaveMap(map);
+
+        SceneManager.LoadScene(playScene);
+    }
+
+    public void OnLoad(Scene name, LoadSceneMode lsm)
+    {
+        if (name.name == playScene && intent == Intent.playWithTemp)
+        {
+            Map map = FindAnyObjectByType<Map>();
+            map.index = "temp";
+            map.LoadMap();
+            return;
+        }
+        else if (name.name == "MapEditor" && intent == Intent.loadTempIntoEditor)
+        {
+            Map map = FindAnyObjectByType<Map>();
+            map.index = "temp";
+            map.LoadIntoEditor();
+            return;
+        }
     }
 }

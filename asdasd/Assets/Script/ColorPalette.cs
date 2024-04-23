@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Tilemaps;
 
 public class ColorPalette : MonoBehaviour
 {
@@ -26,9 +27,10 @@ public class ColorPalette : MonoBehaviour
     public Transform defaultStateToggleParent;
     public GameObject colorExistsWarning;
 
-    void Start()
+    void Awake()
     {
         mapEditor = FindAnyObjectByType<MapEditor>();
+        mapEditor.tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
         colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
         colorTweaker = FindAnyObjectByType<ColorTweaker>(FindObjectsInactive.Include);
         CreateColor(new Color(1, 1, 1, 1));
@@ -73,6 +75,11 @@ public class ColorPalette : MonoBehaviour
 
         defaultStateToggle.GetComponent<SetDefaultState>().colorDisplay.color = szin;
 
+        if (mapEditor == null)
+        {
+            mapEditor = FindAnyObjectByType<MapEditor>();
+            Debug.Log(FindObjectsByType<MapEditor>(default).Length);
+        }
         int a = mapEditor.AddColor(szin, index);
         c.GetComponent<ColorDisplayButton>().index = a;
         colors.Add(c.GetComponent<ColorDisplayButton>());

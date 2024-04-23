@@ -176,17 +176,12 @@ public class MapEditor : MonoBehaviour
 
     private void Awake()
     {
-        tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
+        //tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
         countInversePair = 0;
         calculatedCellWith = (xTopRight - xBottomLeft) / columns;
         calculatedCellHeight = (yTopRight - xBottomLeft) / rows;
         dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         MapDropdownUpdate();
-    }
-
-    private void Start()
-    {
-         FindFirstObjectByType<Vault>().GetDataBack();
     }
 
     private void Update()
@@ -231,6 +226,11 @@ public class MapEditor : MonoBehaviour
         if(currentTool != 0 && currentTool != 1 && currentTool != 6 && currentTool != 8 && currentTool != 9)
         {
             InteractiveAdded(x, y);
+        }
+        if (tilemaps.at(currentTilemap) == null)
+        {
+            Debug.Log("gonosz, katasztrófális szánalmas függvény!");
+            return;
         }
         if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[8].tile) AddStartPosition(x, y);
         if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[9].tile) AddEndPosition(x, y);

@@ -67,6 +67,18 @@ public class Map : MonoBehaviour
         }
     };
 
+    private void Start()
+    {
+        Vault vault = FindFirstObjectByType<Vault>();
+        if (vault.intent == Vault.Intent.loadMapToLoad)
+        {
+            Debug.Log("Loading in: " + vault.mapToLoad);
+            index = vault.mapToLoad;
+            LoadIntoEditor();
+        }
+        vault.mapToLoad = "";
+    }
+
     public void SaveMap()
     {
         mapEditor = FindAnyObjectByType<MapEditor>();
@@ -88,8 +100,12 @@ public class Map : MonoBehaviour
 
     public void VaultAndLoad()
     {
-        FindFirstObjectByType<Vault>().mapToLoad = index;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Vault vault = FindFirstObjectByType<Vault>();
+        vault.mapToLoad = index;
+        vault.intent = Vault.Intent.loadMapToLoad;
+        Debug.Log("Vaulting: " + vault.mapToLoad + ", " + vault.intent.ToString());
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //reload the scene
     }
 
     public void LoadIntoEditor()
