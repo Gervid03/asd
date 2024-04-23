@@ -29,6 +29,7 @@ public class WallManager : MonoBehaviour
     public Tilemap decoDemonTilemap;
     public RuleTile decoDemonBase;
     public int column, row;
+    public Tilemap outsideWallTilemap;
 
     [System.Serializable]
     public struct ColorList
