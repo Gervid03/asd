@@ -445,15 +445,16 @@ public class MapEditor : MonoBehaviour
             {
                 map.colorIndex[i][j] = -1;
                 map.gate[i][j] = -1;
-                for (int k = 0; k < tilemaps.count(); k++)
+                List<int> indices = tilemaps.getIndexes();
+                for (int k = 0; k < indices.Count; k++)
                 {
-                    if (tilemaps.at(k).GetTile(new Vector3Int(i, j, 0)) == tools[1].tile)
+                    if (tilemaps.at(indices[k]).GetTile(new Vector3Int(i, j, 0)) == tools[1].tile)
                     {
-                        map.colorIndex[i][j] = k;
+                        map.colorIndex[i][j] = indices[k];
                     }
-                    if (tilemaps.at(k).GetTile(new Vector3Int(i, j, 0)) == tools[6].tile)
+                    if (tilemaps.at(indices[k]).GetTile(new Vector3Int(i, j, 0)) == tools[6].tile)
                     {
-                        map.gate[i][j] = k;
+                        map.gate[i][j] = indices[k];
                     }
                 }
             }

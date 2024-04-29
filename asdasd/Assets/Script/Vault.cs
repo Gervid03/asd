@@ -43,6 +43,8 @@ public class Vault : MonoBehaviour
         intent = Intent.playWithTemp;
         Map map = FindAnyObjectByType<Map>();
 
+        mapToLoad = map.index; //store map name to restore selected dropdown option
+
         FindAnyObjectByType<MapEditor>().GetInfos(map);
         map.index = "temp";
 
@@ -65,6 +67,9 @@ public class Vault : MonoBehaviour
             Map map = FindAnyObjectByType<Map>();
             map.index = "temp";
             map.LoadIntoEditor();
+
+            map.UpdateSelectedDropdownOption(mapToLoad);
+            map.saveName.text = mapToLoad;
             return;
         }
     }

@@ -92,10 +92,22 @@ public class Map : MonoBehaviour
         index = i;
     }
 
-    public void UpdateSelectedToLoad(int index2)
+    public void IndexUpdateSelectedToLoad(int index2)
     {
         dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         SetIndex(dropdown.options[index2].text);
+    }
+
+    public void UpdateSelectedDropdownOption(string name)
+    {
+        dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+        for(int i = 0; i < dropdown.options.Count; i++)
+        {
+            if (dropdown.options[i].text == name)
+            {
+                dropdown.value = i;
+            }
+        }
     }
 
     public void VaultAndLoad()
