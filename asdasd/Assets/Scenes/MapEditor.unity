@@ -2235,7 +2235,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1210156908}
         m_TargetAssemblyTypeName: Map, Assembly-CSharp
-        m_MethodName: UpdateSelectedToLoad
+        m_MethodName: IndexUpdateSelectedToLoad
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9114,7 +9114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d778934bd685449bbca64f8eae3485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapToLoad: 
 --- !u!4 &1682635541
 Transform:
   m_ObjectHideFlags: 0
@@ -9156,6 +9155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playScene: TilemapLight
+  intent: 0
+  mapToLoad: 
 --- !u!1 &1739275656
 GameObject:
   m_ObjectHideFlags: 0
@@ -10691,7 +10692,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1210156908}
         m_TargetAssemblyTypeName: Map, Assembly-CSharp
-        m_MethodName: VaultAndLoad
+        m_MethodName: LoadIntoEditorInit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

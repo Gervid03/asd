@@ -8,6 +8,7 @@ public class Vault : MonoBehaviour
     public string playScene;
     public Intent intent;
     public string mapToLoad;
+    public string mapUnderConstruction;
 
     public enum Intent
     {
@@ -34,8 +35,7 @@ public class Vault : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == playScene)
         {
-            intent = Intent.loadMapToLoad;
-            mapToLoad = "temp";
+            intent = Intent.loadTempIntoEditor;
             SceneManager.LoadScene("MapEditor");
 
             return;
@@ -43,7 +43,7 @@ public class Vault : MonoBehaviour
         intent = Intent.playWithTemp;
         Map map = FindAnyObjectByType<Map>();
 
-        mapToLoad = map.index; //store map name to restore selected dropdown option
+        mapUnderConstruction = map.index; //store map name to restore selected dropdown option
 
         FindAnyObjectByType<MapEditor>().GetInfos(map);
         map.index = "temp";
@@ -67,9 +67,6 @@ public class Vault : MonoBehaviour
             Map map = FindAnyObjectByType<Map>();
             map.index = "temp";
             map.LoadIntoEditor();
-
-            map.UpdateSelectedDropdownOption(mapToLoad);
-            map.saveName.text = mapToLoad;
             return;
         }
     }

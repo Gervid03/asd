@@ -112,6 +112,12 @@ public class Map : MonoBehaviour
 
     public void VaultAndLoad()
     {
+        FindFirstObjectByType<Vault>().Load();
+        
+    }
+
+    public void LoadIntoEditorInit()
+    {
         Vault vault = FindFirstObjectByType<Vault>();
         vault.mapToLoad = index;
         vault.intent = Vault.Intent.loadMapToLoad;
@@ -126,25 +132,34 @@ public class Map : MonoBehaviour
         mapEditor = FindAnyObjectByType<MapEditor>();
         colorPalette = FindAnyObjectByType<ColorPalette>();
         dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+        Vault vault = FindAnyObjectByType<Vault>();
 
         if (index == "")
         {
             index = dropdown.options[0].text;
         }
 
-        int dropdownIndex = 0;
         for (i = 0; i < dropdown.options.Count; i++)
         {
-            if (dropdown.options[i].text == index)
+            if (index == "temp")
             {
-                dropdownIndex = i;
-                break;
+                if (dropdown.options[i].text == vault.mapUnderConstruction)
+                {
+                    dropdown.value = i;
+                    saveName.text = vault.mapUnderConstruction;
+                    break;
+                }
+            }
+            else
+            {
+                if (dropdown.options[i].text == index)
+                {
+                    dropdown.value = i;
+                    saveName.text = vault.mapToLoad;
+                    break;
+                }
             }
         }
-
-        dropdown.value = dropdownIndex;
-
-        saveName.text = index;
 
         MapData data = SaveLoadMaps.LoadMap(index);
 
