@@ -36,7 +36,8 @@ public class WallManager : MonoBehaviour
     {
         List<int> indexes;
         List<Color> colors;
-        
+        List<bool> visible;
+
         public Color at(int index)
         {
             for(int i = 0; i < indexes.Count; i++)
@@ -49,6 +50,29 @@ public class WallManager : MonoBehaviour
             return Color.white;
         }
 
+        public bool atVisible(int index)
+        {
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                if (index == indexes[i])
+                {
+                    return visible[i];
+                }
+            }
+            return true;
+        }
+
+        public void setVisible(int index, bool to)
+        {
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                if (index == indexes[i])
+                {
+                    visible[i] = to;
+                }
+            }
+        }
+
         public void remove(int index)
         {
             for (int i = 0; i < indexes.Count; i++)
@@ -57,6 +81,7 @@ public class WallManager : MonoBehaviour
                 {
                     colors.RemoveAt(i);
                     indexes.RemoveAt(i);
+                    visible.RemoveAt(i);
                     return;
                 }
             }
@@ -66,18 +91,21 @@ public class WallManager : MonoBehaviour
         {
             indexes.Clear();
             colors.Clear();
+            visible.Clear();
         }
 
-        public void add(Color t, int index)
+        public void add(Color t, int index, bool vis = true)
         {
             colors.Add(t);
             indexes.Add(index);
+            visible.Add(vis);
         }
 
         public void makeItNotNull(List<int> a, List<Color> b)
         {
             indexes = a;
             colors = b;
+            visible = new List<bool>();
         }
 
         public List<int> getIndexes()
@@ -130,6 +158,7 @@ public class WallManager : MonoBehaviour
     {
         public int a, b;
     }
+
 
     [System.Serializable]
     public struct DecoDemon
@@ -311,6 +340,7 @@ public class WallManager : MonoBehaviour
                 levers[i].activateTheColor = true;
             }
         }
+        colors.setVisible(index, true);
     }
 
     public void SetColorDeactive(int index, bool inverzed = false)
@@ -378,6 +408,7 @@ public class WallManager : MonoBehaviour
                 levers[i].activateTheColor = false;
             }
         }
+        colors.setVisible(index, false);
     }
 
     public void DestroyAllCube()
