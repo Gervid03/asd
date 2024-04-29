@@ -152,6 +152,11 @@ public class WallManager : MonoBehaviour
         SetDecoDemons();
     }
 
+    public void ResetThings()
+    {
+
+    }
+
     public void SetDecoDemons()
     {
         int xRandom = UnityEngine.Random.Range(-50, 50);

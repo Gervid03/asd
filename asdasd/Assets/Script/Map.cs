@@ -275,6 +275,15 @@ public class Map : MonoBehaviour
         }
     }
 
+    public void KillAllTheChildren(Transform p)
+    {
+        foreach (Transform child in p)
+        {
+            if (child.gameObject.GetComponent<DontDestroyThisObject>() != null) continue;
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
     public void LoadMap(bool isStart = true)
     {
         MapData data = SaveLoadMaps.LoadMap(index);
@@ -284,6 +293,10 @@ public class Map : MonoBehaviour
             Debug.LogWarning("vilagvege");
             return;
         }
+
+        KillAllTheChildren(thingParent);
+        KillAllTheChildren(FindFirstObjectByType<WallManager>().decoParent);
+        KillAllTheChildren(tilemapParent);
 
         hasTile = new bool[data.column][];
         hasWhiteWall = new bool[data.column][];
@@ -414,7 +427,7 @@ public class Map : MonoBehaviour
                 decoTilemap.SetTile(new Vector3Int(i + xRandom, j + yRandom, 0), decoBase);
                 for (int k = 0; k < decos.Count; k++)
                 {
-                    if (decos[k].sprite == decoTilemap.GetSprite(new Vector3Int(i + xRandom, j + yRandom, 0)) && !hasTile[i][j] && (j == 0 || hasWhiteWall[i][j - 1]))
+                    if (decos[k].sprite == decoTilemap.GetSprite(new Vector3Int(i + xRandom, j + yRandom, 0)) && !hasTile[i][j] && ((j == 0 && !FindFirstObjectByType<MultipleLevel>().CurrentLevel().missingDown.Contains(i)) || (j != 0 && hasWhiteWall[i][j - 1])))
                     {
                         decos[k].Create(i, j);
                     }
