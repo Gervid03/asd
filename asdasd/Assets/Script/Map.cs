@@ -263,7 +263,7 @@ public class Map : MonoBehaviour
         }
     }
 
-    public void LoadMap()
+    public void LoadMap(bool isStart = true)
     {
         MapData data = SaveLoadMaps.LoadMap(index);
 
@@ -385,7 +385,7 @@ public class Map : MonoBehaviour
 
         FindFirstObjectByType<WallManager>().activeAtStart = data.activeAtStart;
 
-        FindFirstObjectByType<Player>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
+        if(isStart) FindFirstObjectByType<Player>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
         FindFirstObjectByType<WallManager>().endThing.SetPosition(data.endx, data.endy);
         hasTile[data.endx][data.endy] = true;
         SetDeco();

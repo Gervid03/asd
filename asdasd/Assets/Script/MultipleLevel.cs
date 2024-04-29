@@ -166,6 +166,22 @@ public class MultipleLevel : MonoBehaviour
     public void SwitchUp()
     {
         //
+        Debug.Log("^^");
+    }
+    public void SwitchDown()
+    {
+        //
+        Debug.Log("vv");
+    }
+    public void SwitchLeft()
+    {
+        //
+        Debug.Log("<<");
+    }
+    public void SwitchRight()
+    {
+        //
+        Debug.Log(">>");
     }
 
     public Level FindLevel(int x, int y)
