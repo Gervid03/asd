@@ -25,10 +25,6 @@ public class ButtonsForCube : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
-    {
-    }
-
     public void SetColor()
     {
         displayColor.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);

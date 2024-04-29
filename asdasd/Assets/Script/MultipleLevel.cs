@@ -156,19 +156,19 @@ public class MultipleLevel : MonoBehaviour
     private void Start()
     {
         Level l = new Level();
-        l.Set(currentX, currentY, "0");
+        l.Set(currentX, currentY, "10");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX + 1, currentY, "0");
+        l.Set(currentX + 1, currentY, "11");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX - 1, currentY, "0");
+        l.Set(currentX - 1, currentY, "12");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX, currentY + 1, "0");
+        l.Set(currentX, currentY + 1, "13");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX, currentY - 1, "0");
+        l.Set(currentX, currentY - 1, "14");
         levels.Add(l);
 
         levels[0].AddMissingUp(1);

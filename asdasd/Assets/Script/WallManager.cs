@@ -154,7 +154,16 @@ public class WallManager : MonoBehaviour
 
     public void ResetThings()
     {
-
+        decoDemons.Clear();
+        wallObjects.Clear();
+        buttons.Clear();
+        buttonForCubes.Clear();
+        levers.Clear();
+        cubes.Clear();
+        timerCubes.Clear();
+        portals.Clear();
+        gates.Clear();
+        gateLights.Clear();
     }
 
     public void SetDecoDemons()
@@ -373,9 +382,10 @@ public class WallManager : MonoBehaviour
 
     public void DestroyAllCube()
     {
-        for(int i = 0;i < cubes.Count; i++)
+        Cube[] c = FindObjectsByType<Cube>(default);
+        for(int i = 0; i < c.Length; i++)
         {
-            cubes[i].DontBeActive();
+            c[i].DontBeActive();
         }
         cubes.Clear();
     }

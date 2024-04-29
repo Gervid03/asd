@@ -297,6 +297,7 @@ public class Map : MonoBehaviour
         KillAllTheChildren(thingParent);
         KillAllTheChildren(FindFirstObjectByType<WallManager>().decoParent);
         KillAllTheChildren(tilemapParent);
+        FindFirstObjectByType<WallManager>().ResetThings();
 
         hasTile = new bool[data.column][];
         hasWhiteWall = new bool[data.column][];
