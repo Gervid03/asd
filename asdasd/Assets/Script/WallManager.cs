@@ -183,7 +183,6 @@ public class WallManager : MonoBehaviour
 
     public void ResetThings()
     {
-        decoDemons.Clear();
         wallObjects.Clear();
         buttons.Clear();
         buttonForCubes.Clear();

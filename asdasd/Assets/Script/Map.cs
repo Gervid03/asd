@@ -76,7 +76,6 @@ public class Map : MonoBehaviour
             index = vault.mapToLoad;
             LoadIntoEditor();
         }
-        vault.mapToLoad = "";
     }
 
     public void SaveMap()
