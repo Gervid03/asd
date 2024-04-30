@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Tilemaps;
+using System;
 
 public class ColorPalette : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class ColorPalette : MonoBehaviour
     public GameObject defaultStateTogglePrefab;
     public Transform defaultStateToggleParent;
     public GameObject colorExistsWarning;
+    public static event Action<int, Color> modifyColor;
+    public static event Action<int> deleteColor;
 
     void Awake()
     {
@@ -168,26 +171,12 @@ public class ColorPalette : MonoBehaviour
             return;
         }
 
-        colors[colors.IndexOf(colorUnderModification)].color = colorTweaker.color;
-        colors[colors.IndexOf(colorUnderModification)].GetComponent<Image>().color = colorTweaker.color;
-        colorUnderModification.GetComponent<ColorDisplayButton>().toggle.GetComponent<SetDefaultState>().colorDisplay.color = colorTweaker.color;
+        ColorPalette.modifyColor?.Invoke(colorUnderModification.index, colorTweaker.color);
+
         mapEditor.ModifyColor(colorUnderModification.index, colorTweaker.color);
         
         colorTweaker.BeDeactive();
         overwriteColorButton.SetActive(false);
-
-        for (int i = 0; i < mapEditor.infos.Count; i++)     
-        {
-            if (mapEditor.infos[i].indexColorInteract == colors.IndexOf(colorUnderModification))
-            {
-                mapEditor.infos[i].colorInteract.color = colorTweaker.color;
-            }
-            if (mapEditor.infos[i].index == colors.IndexOf(colorUnderModification))
-            {
-                mapEditor.infos[i].color.color = colorTweaker.color;
-            }
-            
-        }
 
         UpdateColorCarousel();
     }

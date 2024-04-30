@@ -153,22 +153,22 @@ public class MultipleLevel : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         Level l = new Level();
-        l.Set(currentX, currentY, "10");
+        l.Set(currentX, currentY, "100");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX + 1, currentY, "11");
+        l.Set(currentX + 1, currentY, "42");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX - 1, currentY, "12");
+        l.Set(currentX - 1, currentY, "43");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX, currentY + 1, "13");
+        l.Set(currentX, currentY + 1, "0");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX, currentY - 1, "14");
+        l.Set(currentX, currentY - 1, "3");
         levels.Add(l);
 
         levels[0].AddMissingUp(1);
@@ -248,6 +248,7 @@ public class MultipleLevel : MonoBehaviour
                 return levels[i];
             }
         }
+        Debug.Log("asd");
         return new Level();
     }
 

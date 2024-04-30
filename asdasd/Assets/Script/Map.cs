@@ -432,8 +432,8 @@ public class Map : MonoBehaviour
         if(isStart) FindFirstObjectByType<Player>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
         FindFirstObjectByType<WallManager>().endThing.SetPosition(data.endx, data.endy);
         hasTile[data.endx][data.endy] = true;
-        SetDeco();
         FindFirstObjectByType<WallManager>().SetDecoDemons();
+        SetDeco();
     }
 
     public void SetDeco()
@@ -447,9 +447,25 @@ public class Map : MonoBehaviour
                 decoTilemap.SetTile(new Vector3Int(i + xRandom, j + yRandom, 0), decoBase);
                 for (int k = 0; k < decos.Count; k++)
                 {
-                    if (decos[k].sprite == decoTilemap.GetSprite(new Vector3Int(i + xRandom, j + yRandom, 0)) && !hasTile[i][j] && ((j == 0 && !FindFirstObjectByType<MultipleLevel>().CurrentLevel().missingDown.Contains(i)) || (j != 0 && hasWhiteWall[i][j - 1])))
+                    if (decos[k].sprite == decoTilemap.GetSprite(new Vector3Int(i + xRandom, j + yRandom, 0)))
                     {
-                        decos[k].Create(i, j);
+                        if (!hasTile[i][j])
+                        {
+                            if (FindFirstObjectByType<MultipleLevel>().CurrentLevel().missingDown == null)
+                            {
+                                Debug.Log("hiba: " + i + ' ' + j);
+                            }
+                            if (j == 0 && FindFirstObjectByType<MultipleLevel>().CurrentLevel().missingDown != null && !FindFirstObjectByType<MultipleLevel>().CurrentLevel().missingDown.Contains(i))
+                            {
+                                decos[k].Create(i, j);
+
+                            }
+                            else if (j != 0 && hasWhiteWall[i][j - 1])
+                            {
+                                decos[k].Create(i, j);
+
+                            }
+                        }
                     }
                 }
             }

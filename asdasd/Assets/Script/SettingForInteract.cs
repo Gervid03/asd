@@ -21,6 +21,23 @@ public class SettingForInteract : MonoBehaviour
     public bool isButtonTimerCube;
     public Toggle toggle;
 
+    private void Start()
+    {
+        ColorPalette.modifyColor += Modify;
+    }
+
+    public void Modify(int recipient, Color newColor)
+    {
+        if (recipient == index)
+        {
+            color.color = newColor;
+        }
+        if (recipient == indexColorInteract)
+        {
+            colorInteract.color = newColor;
+        }
+    }
+
     public void Set(int x1, int y1, int i, Color c, int interactColor, bool active = false)
     {
         coordinates.text = "(" + x1 + ", " + y1 + ")";
@@ -84,4 +101,8 @@ public class SettingForInteract : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    private void OnDestroy()
+    {
+        ColorPalette.modifyColor -= Modify;
+    }
 }
