@@ -415,21 +415,6 @@ public class MapEditor : MonoBehaviour
         inversePairs.Add(Instantiate(inversePair, inversePairParent.transform));
         inversePairParent.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + countInversePair * 120);
     }
-
-    public void ColorDeletedDeleteInvers(int index)
-    {
-        for(int i = inversePairs.Count - 1; i >= 0; i--)
-        {
-            if (inversePairs[i].GetComponent<Suicide>().b1.GetComponent<InverseButton>().index == index)
-            {
-                inversePairs[i].GetComponent<Suicide>().CommitSucide();
-            }
-            else if (inversePairs[i].GetComponent<Suicide>().b2.GetComponent<InverseButton>().index == index)
-            {
-                inversePairs[i].GetComponent<Suicide>().CommitSucide();
-            }
-        }
-    }
     
     public void GetInfos(Map map)
     {

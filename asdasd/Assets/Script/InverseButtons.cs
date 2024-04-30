@@ -26,6 +26,13 @@ public class InverseButton : MonoBehaviour
         ColorPalette.deleteColor += Suicide;
     }
 
+    private void OnDestroy()
+    {
+        ColorPalette.modifyColor -= Modify;
+        ColorPalette.deleteColor -= Suicide;
+        FindAnyObjectByType<ColorPalette>().AdjustHeight();
+    }
+
     public void Modify(int recipient, Color newColor)
     {
         if (recipient == index) //if the message is for me

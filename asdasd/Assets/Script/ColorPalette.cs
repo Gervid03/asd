@@ -200,7 +200,6 @@ public class ColorPalette : MonoBehaviour
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);
         mapEditor.tilemaps.remove(selectedButton.index);
-        //mapEditor.ColorDeletedDeleteInvers(selectedButton.index);
 
         ColorPalette.deleteColor?.Invoke(selectedButton.index);
 
