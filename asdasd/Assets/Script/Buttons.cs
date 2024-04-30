@@ -19,7 +19,7 @@ public class Buttons : MonoBehaviour
     public Collider2D buttonCollider;
     public Collider2D buttonTriggerCollider;
 
-    private void Start()
+    private void Awake()
     {
         WallManager.disableColor += DontBeActive;
         WallManager.activateColor += BeActive;

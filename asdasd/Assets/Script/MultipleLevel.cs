@@ -155,20 +155,21 @@ public class MultipleLevel : MonoBehaviour
 
     private void Awake()
     {
+        /*
         Level l = new Level();
-        l.Set(currentX, currentY, "100");
+        l.Set(currentX, currentY, "10");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX + 1, currentY, "42");
+        l.Set(currentX + 1, currentY, "11");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX - 1, currentY, "43");
+        l.Set(currentX - 1, currentY, "12");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX, currentY + 1, "0");
+        l.Set(currentX, currentY + 1, "13");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX, currentY - 1, "3");
+        l.Set(currentX, currentY - 1, "14");
         levels.Add(l);
 
         levels[0].AddMissingUp(1);
@@ -186,6 +187,14 @@ public class MultipleLevel : MonoBehaviour
         levels[0].AddMissingRight(1);
         levels[0].AddMissingRight(2);
         levels[0].AddMissingRight(3);
+        */
+    }
+
+    private void Start()
+    {
+        if (levels.Count == 0) return;
+        FindFirstObjectByType<Map>().index = levels[0].levelName;
+        FindFirstObjectByType<Map>().LoadMap();
         levels[0].Loaded();
     }
 

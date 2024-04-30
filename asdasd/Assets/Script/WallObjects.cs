@@ -13,10 +13,6 @@ public class WallObjects : MonoBehaviour
     {
         tilemap = gameObject.GetComponent<Tilemap>();
         wallCollider = gameObject.GetComponent<TilemapCollider2D>();
-    }
-
-    private void Start()
-    {
         WallManager.disableColor += DontBeActive;
         WallManager.activateColor += BeActive;
     }

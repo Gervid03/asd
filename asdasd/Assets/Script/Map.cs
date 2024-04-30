@@ -324,10 +324,15 @@ public class Map : MonoBehaviour
 
         int whiteIndex = 0;
 
-        FindFirstObjectByType<WallManager>().colors.clear();
+        //FindFirstObjectByType<WallManager>().colors.clear();
         for (int i = 0; i < data.colors.Length; i++)
         {
-            FindFirstObjectByType<WallManager>().colors.add(data.colors[i].c(), data.colors[i].index);
+            bool vis = true;
+            for(int j = 0; j < data.activeAtStart.Length; j++)
+            {
+                if (data.activeAtStart[j].index == data.colors[i].index) vis = data.activeAtStart[j].isActive;
+            }
+            FindFirstObjectByType<WallManager>().colors.add(data.colors[i].c(), data.colors[i].index, vis);
             if (data.colors[i].c() == Color.white) whiteIndex = data.colors[i].index;
         }
 
@@ -418,16 +423,13 @@ public class Map : MonoBehaviour
             Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
         }
 
-        if (isStart)
-        {
-            for (int i = 0; i < data.activeAtStart.Length; i++)
-            {
-                if (data.activeAtStart[i].isActive) FindFirstObjectByType<WallManager>().SetColorActive(data.activeAtStart[i].index);
-                else FindFirstObjectByType<WallManager>().SetColorDeactive(data.activeAtStart[i].index);
-            }
+
+        if (isStart) { 
+            FindFirstObjectByType<WallManager>().activeAtStart = data.activeAtStart;
+            FindFirstObjectByType<WallManager>().SetDefaultState();
         }
 
-        FindFirstObjectByType<WallManager>().activeAtStart = data.activeAtStart;
+        else FindFirstObjectByType<WallManager>().SetCurrentState();
 
         if(isStart) FindFirstObjectByType<Player>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
         FindFirstObjectByType<WallManager>().endThing.SetPosition(data.endx, data.endy);
@@ -451,10 +453,6 @@ public class Map : MonoBehaviour
                     {
                         if (!hasTile[i][j])
                         {
-                            if (FindFirstObjectByType<MultipleLevel>().CurrentLevel().missingDown == null)
-                            {
-                                Debug.Log("hiba: " + i + ' ' + j);
-                            }
                             if (j == 0 && FindFirstObjectByType<MultipleLevel>().CurrentLevel().missingDown != null && !FindFirstObjectByType<MultipleLevel>().CurrentLevel().missingDown.Contains(i))
                             {
                                 decos[k].Create(i, j);

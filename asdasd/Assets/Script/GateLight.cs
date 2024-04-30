@@ -8,7 +8,7 @@ public class GateLight : MonoBehaviour
     public int colorIndex;
     public Light2D light2D;
 
-    private void Start()
+    private void Awake()
     {
         WallManager.disableColor += DontBeActive;
         WallManager.activateColor += BeActive;

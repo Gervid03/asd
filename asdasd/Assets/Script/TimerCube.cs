@@ -14,7 +14,7 @@ public class TimerCube : MonoBehaviour
     public Light2D light2D;
     public Light2D light2Dinside;
 
-    private void Start()
+    private void Awake()
     {
         WallManager.disableColor += DontBeActive;
         birthTime = Time.time;

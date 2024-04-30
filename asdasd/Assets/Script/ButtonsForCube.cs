@@ -21,8 +21,7 @@ public class ButtonsForCube : MonoBehaviour
     public GameObject cubePrefab;
 
     private void Awake()
-    {
-
+    { 
         WallManager.disableColor += DontBeActive;
         WallManager.activateColor += BeActive;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();

@@ -33,7 +33,7 @@ public class Portal : MonoBehaviour
         this.GetComponent<SpriteRenderer>().color = color;
     }
 
-    private void Start()
+    private void Awake()
     {
         WallManager.disableColor += DontBeActive;
         WallManager.activateColor += BeActive;

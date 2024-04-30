@@ -98,6 +98,7 @@ public class WallManager : MonoBehaviour
 
         public void add(Color t, int index, bool vis = true)
         {
+            if (indexes.Contains(index)) return;
             colors.Add(t);
             indexes.Add(index);
             visible.Add(vis);
@@ -194,6 +195,11 @@ public class WallManager : MonoBehaviour
         portals.Clear();
         gates.Clear();
         gateLights.Clear();
+        if(FindFirstObjectByType<Cube>() != null) FindFirstObjectByType<Cube>().transform.position = new Vector3(-100, -100, 0);
+        for(int i = 0; i < colors.getIndexes().Count; i++)
+        {
+            DestroyTimerCube(colors.getIndexes()[i]);
+        }
     }
 
     public void SetDecoDemons()
@@ -285,6 +291,7 @@ public class WallManager : MonoBehaviour
     {
         activateColor?.Invoke(index);
         if (inversColor.at(index) != -1 && !inverzed) SetColorDeactive(inversColor.at(index), true);
+        colors.setVisible(index, true);
         /*//makes the color with the index visible
         for (int i = 0; i < wallObjects.Count; i++) {
             if (wallObjects[i].colorIndex == index)
@@ -346,7 +353,6 @@ public class WallManager : MonoBehaviour
                 levers[i].activateTheColor = true;
             }
         }
-        colors.setVisible(index, true);
         */
     }
 
@@ -354,7 +360,8 @@ public class WallManager : MonoBehaviour
     public void SetColorDeactive(int index, bool inverzed = false)
     {
         disableColor?.Invoke(index);
-        if (inversColor.at(index) != -1 && !inverzed) SetColorActive(inversColor.at(index), true); 
+        if (inversColor.at(index) != -1 && !inverzed) SetColorActive(inversColor.at(index), true);
+        colors.setVisible(index, false);
         /*//makes the color with the index invisible
         for (int i = 0; i < wallObjects.Count; i++)
         {
@@ -417,7 +424,6 @@ public class WallManager : MonoBehaviour
                 levers[i].activateTheColor = false;
             }
         }
-        colors.setVisible(index, false);
         */
     }
     #endregion
@@ -451,6 +457,17 @@ public class WallManager : MonoBehaviour
         {
             if (activeAtStart[i].isActive) SetColorActive(activeAtStart[i].index);
             else SetColorDeactive(activeAtStart[i].index);
+            colors.setVisible(activeAtStart[i].index, activeAtStart[i].isActive);
+        }
+    }
+
+    public void SetCurrentState()
+    {
+        List<int> ind = colors.getIndexes();
+        for(int i = 0; i < ind.Count; i++)
+        {
+            if (colors.atVisible(ind[i])) SetColorActive(ind[i]);
+            else SetColorDeactive(ind[i]);
         }
     }
 }
