@@ -28,6 +28,8 @@ public class ButtonTimerCube : MonoBehaviour
 
     private void Start()
     {
+        WallManager.disableColor += DontBeActive;
+        WallManager.activateColor += BeActive;
     }
 
     public void SetColor()
@@ -37,13 +39,9 @@ public class ButtonTimerCube : MonoBehaviour
         displayInteractiveColor.color = FindFirstObjectByType<WallManager>().GetColor(cubeColor);
     }
 
-    public void SubscribeToBeButtonForTimerCube()
+    public void BeActive(int c)
     {
-        //informs the manager of the existence
-    }
-
-    public void BeActive()
-    {
+        if (c != colorIndex) return;
         //becomes active and visible
         displayColor.gameObject.SetActive(true);
         displayInteractiveColor.gameObject.SetActive(true);
@@ -51,8 +49,9 @@ public class ButtonTimerCube : MonoBehaviour
         buttonTriggerCollider.enabled = true;
     }
 
-    public void DontBeActive()
+    public void DontBeActive(int c)
     {
+        if (c != colorIndex) return;
         //becomes invisible
         displayColor.gameObject.SetActive(false);
         displayInteractiveColor.gameObject.SetActive(false);
@@ -108,7 +107,6 @@ public class ButtonTimerCube : MonoBehaviour
         timer = t;
         cubeColor = cubec;
         character = FindFirstObjectByType<Player>().gameObject;
-        SubscribeToBeButtonForTimerCube();
         SetColor();
         SetPosition(x, y);
     }
@@ -117,5 +115,11 @@ public class ButtonTimerCube : MonoBehaviour
     {
         Map m = FindFirstObjectByType<Map>();
         transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
+        WallManager.activateColor -= BeActive;
     }
 }

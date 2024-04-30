@@ -16,12 +16,12 @@ public class TimerCube : MonoBehaviour
 
     private void Start()
     {
+        WallManager.disableColor += DontBeActive;
         birthTime = Time.time;
     }
 
     public void Set()
     {
-        FindFirstObjectByType<WallManager>().SubscribeToBeATimerCube(this);
         gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         characterC = FindFirstObjectByType<Player>().gameObject.GetComponent<BoxCollider2D>();
         characterRB = FindFirstObjectByType<Player>().gameObject.GetComponent<Rigidbody2D>();
@@ -35,19 +35,20 @@ public class TimerCube : MonoBehaviour
     {
         if (Time.time - birthTime > lifeTime)
         {
-            DontBeActive();
+            DontBeActive(colorIndex);
         }
         this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, Mathf.Max(-fallSpeedLimit, this.GetComponent<Rigidbody2D>().velocity.y));
     }
 
-    public void BeActive()
+    public void DontBeActive(int c)
     {
-
-    }
-
-    public void DontBeActive()
-    {
+        if (c != colorIndex) return;
         FindFirstObjectByType<WallManager>().timerCubes.Remove(this);
         Destroy(this.gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
     }
 }

@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ce9490e313e284982dc5ee2a7f2013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorIndex: 0
+  colorIndex: -1
   tilemap: {fileID: 382488768}
   wallCollider: {fileID: 0}
 --- !u!483693784 &382488767
@@ -12594,7 +12594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ce9490e313e284982dc5ee2a7f2013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorIndex: 0
+  colorIndex: -1
   tilemap: {fileID: 8381403240011220832}
   wallCollider: {fileID: 1382292794894200526}
 --- !u!114 &8598581800622871106

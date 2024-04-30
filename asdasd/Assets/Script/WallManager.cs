@@ -31,6 +31,7 @@ public class WallManager : MonoBehaviour
     public int column, row;
     public Tilemap outsideWallTilemap;
     public static event Action<int> disableColor;
+    public static event Action<int> activateColor;
 
     [System.Serializable]
     public struct ColorList
@@ -224,6 +225,7 @@ public class WallManager : MonoBehaviour
         return portalColors.Evaluate((float)index / 100);
     }
 
+    /*
     public void SubscribeToBeGate(Gate gate)
     {
         gates.Add(gate);
@@ -275,11 +277,15 @@ public class WallManager : MonoBehaviour
     {
         gateLights.Add(gateLight);
     }
+    */
+
+    #region setColor(De)Active
 
     public void SetColorActive(int index, bool inverzed = false)
     {
+        activateColor?.Invoke(index);
         if (inversColor.at(index) != -1 && !inverzed) SetColorDeactive(inversColor.at(index), true);
-        //makes the color with the index visible
+        /*//makes the color with the index visible
         for (int i = 0; i < wallObjects.Count; i++) {
             if (wallObjects[i].colorIndex == index)
             {
@@ -318,7 +324,7 @@ public class WallManager : MonoBehaviour
         {
             if (gates[i].colorIndex == index)
             {
-                gates[i].BeActive();
+                //gates[i].BeActive();
             }
         }
         for (int i = 0; i < gateLights.Count; i++)
@@ -341,13 +347,15 @@ public class WallManager : MonoBehaviour
             }
         }
         colors.setVisible(index, true);
+        */
     }
+
 
     public void SetColorDeactive(int index, bool inverzed = false)
     {
         disableColor?.Invoke(index);
         if (inversColor.at(index) != -1 && !inverzed) SetColorActive(inversColor.at(index), true); 
-        //makes the color with the index invisible
+        /*//makes the color with the index invisible
         for (int i = 0; i < wallObjects.Count; i++)
         {
             if (wallObjects[i].colorIndex == index)
@@ -387,7 +395,7 @@ public class WallManager : MonoBehaviour
         {
             if (gates[i].colorIndex == index)
             {
-                gates[i].DontBeActive(0);
+                //gates[i].DontBeActive(0);
             }
         }
         for (int i = 0; i < gateLights.Count; i++)
@@ -410,26 +418,29 @@ public class WallManager : MonoBehaviour
             }
         }
         colors.setVisible(index, false);
+        */
     }
+    #endregion
+
 
     public void DestroyAllCube()
     {
         Cube[] c = FindObjectsByType<Cube>(default);
         for(int i = 0; i < c.Length; i++)
         {
-            c[i].DontBeActive();
+            c[i].DontBeActive(c[i].colorIndex);
         }
         cubes.Clear();
     }
 
     public void DestroyTimerCube(int color)
     {
-        for (int i = 0; i < timerCubes.Count; i++)
+        TimerCube[] tc = FindObjectsByType<TimerCube>(default); 
+        for (int i = 0; i < tc.Length; i++)
         {
-            if (timerCubes[i].colorIndex == color)
+            if (tc[i].colorIndex == color)
             {
-                timerCubes[i].DontBeActive();
-                i--;
+                tc[i].DontBeActive(tc[i].colorIndex);
             }
         }
     }

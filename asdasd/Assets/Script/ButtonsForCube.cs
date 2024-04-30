@@ -22,6 +22,9 @@ public class ButtonsForCube : MonoBehaviour
 
     private void Awake()
     {
+
+        WallManager.disableColor += DontBeActive;
+        WallManager.activateColor += BeActive;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
@@ -32,14 +35,9 @@ public class ButtonsForCube : MonoBehaviour
         displayInteractiveColor.color = FindFirstObjectByType<WallManager>().GetColor(cubeColor);
     }
 
-    public void SubscribeToBeButtonForCube()
+    public void BeActive(int c)
     {
-        //informs the manager of the existence
-        FindFirstObjectByType<WallManager>().SubscribeToBeAButtonForCube(this);
-    }
-
-    public void BeActive()
-    {
+        if (c != colorIndex) return;
         //becomes active and visible
         displayColor.gameObject.SetActive(true);
         displayInteractiveColor.gameObject.SetActive(true);
@@ -47,8 +45,9 @@ public class ButtonsForCube : MonoBehaviour
         buttonTriggerCollider.enabled = true;
     }
 
-    public void DontBeActive()
+    public void DontBeActive(int c)
     {
+        if (c != colorIndex) return;
         //becomes invisible
         displayColor.gameObject.SetActive(false);
         displayInteractiveColor.gameObject.SetActive(false);
@@ -107,12 +106,17 @@ public class ButtonsForCube : MonoBehaviour
         cubeColor = cubec;
         SetPosition(x, y);
         SetColor();
-        SubscribeToBeButtonForCube();
     }
 
     public void SetPosition(float x, float y)
     {
         Map m = FindFirstObjectByType<Map>();
         transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
+        WallManager.activateColor -= BeActive;
     }
 }

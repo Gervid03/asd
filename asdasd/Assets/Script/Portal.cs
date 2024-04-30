@@ -15,25 +15,28 @@ public class Portal : MonoBehaviour
     public Light2D portalIndexDisplay;
     public Light2D colorLight;
 
-    public void BeActive()
+    public void BeActive(int c)
     {
+        if (c != colorIndex) return;
         this.GetComponent<Collider2D>().enabled = true;
         UnityEngine.Color color = this.GetComponent<SpriteRenderer>().color;
         color.a = 1;
         this.GetComponent<SpriteRenderer>().color = color;
     }
 
-    public void DontBeActive()
+    public void DontBeActive(int c)
     {
+        if (c != colorIndex) return;
         this.GetComponent<Collider2D>().enabled = false;
         UnityEngine.Color color = this.GetComponent<SpriteRenderer>().color;
         color.a = 0;
         this.GetComponent<SpriteRenderer>().color = color;
     }
 
-    public void SubscribeToBeAPortal()
+    private void Start()
     {
-        FindFirstObjectByType<WallManager>().SubscribeToBeAPortal(this);
+        WallManager.disableColor += DontBeActive;
+        WallManager.activateColor += BeActive;
     }
 
     // Update is called once per frame
@@ -71,12 +74,17 @@ public class Portal : MonoBehaviour
         character = FindFirstObjectByType<Player>().gameObject;
         colorLight.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         portalIndexDisplay.color = FindFirstObjectByType<WallManager>().GetPortalColor((float)portalIndex);
-        SubscribeToBeAPortal();
     }
 
     public void SetPosition(int x, int y)
     {
         Map m = FindFirstObjectByType<Map>();
         transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
+        WallManager.activateColor -= BeActive;
     }
 }

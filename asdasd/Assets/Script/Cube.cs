@@ -13,9 +13,13 @@ public class Cube : MonoBehaviour
     public Light2D light2Dinside;
     public SpriteRenderer spriteRenderer;
 
+    private void Start()
+    {
+        WallManager.disableColor += DontBeActive;
+    }
+
     public void Set()
     {
-        FindFirstObjectByType<WallManager>().SubscribeToBeACube(this);
         gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         characterC = FindFirstObjectByType<Player>().gameObject.GetComponent<BoxCollider2D>();
         characterRB = FindFirstObjectByType<Player>().gameObject.GetComponent<Rigidbody2D>();
@@ -38,13 +42,9 @@ public class Cube : MonoBehaviour
         this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, Mathf.Max(-fallSpeedLimit, this.GetComponent<Rigidbody2D>().velocity.y));
     }
 
-    public void BeActive()
+    public void DontBeActive(int c)
     {
-
-    }
-
-    public void DontBeActive()
-    {
+        if (c != colorIndex) return;
         FindFirstObjectByType<WallManager>().cubes.Remove(this);
         Destroy(this.gameObject);
     }
@@ -56,5 +56,10 @@ public class Cube : MonoBehaviour
             gameObject.transform.position = characterRB.position;
             gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
     }
 }

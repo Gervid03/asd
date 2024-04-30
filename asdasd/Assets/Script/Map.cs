@@ -418,10 +418,13 @@ public class Map : MonoBehaviour
             Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
         }
 
-        for (int i = 0; i < data.activeAtStart.Length; i++)
+        if (isStart)
         {
-            if (data.activeAtStart[i].isActive) FindFirstObjectByType<WallManager>().SetColorActive(data.activeAtStart[i].index);
-            else FindFirstObjectByType<WallManager>().SetColorDeactive(data.activeAtStart[i].index);
+            for (int i = 0; i < data.activeAtStart.Length; i++)
+            {
+                if (data.activeAtStart[i].isActive) FindFirstObjectByType<WallManager>().SetColorActive(data.activeAtStart[i].index);
+                else FindFirstObjectByType<WallManager>().SetColorDeactive(data.activeAtStart[i].index);
+            }
         }
 
         FindFirstObjectByType<WallManager>().activeAtStart = data.activeAtStart;

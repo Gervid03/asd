@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
-using System.Drawing;
 
 public class Gate : MonoBehaviour
 {
@@ -18,6 +17,7 @@ public class Gate : MonoBehaviour
     private void Start()
     {
         WallManager.disableColor += DontBeActive;
+        WallManager.activateColor += BeActive;
         character = FindAnyObjectByType<Player>().gameObject;
         //Physics2D.IgnoreCollision(character.GetComponent<BoxCollider2D>(), gameObject.GetComponent<Collider2D>(), true);
     }
@@ -26,14 +26,13 @@ public class Gate : MonoBehaviour
     {
         colorIndex = color;
         //interactWithColor = interactColor;
-        FindFirstObjectByType<WallManager>().SubscribeToBeGate(this);
         SetColor();
     }
 
     public void BeActive(int color)
     {
         if (color != colorIndex) return;
-        Color a = image.color;
+        UnityEngine.Color a = image.color;
         a.a = 1;
         image.color = a;
         active = true;
@@ -42,7 +41,7 @@ public class Gate : MonoBehaviour
     public void DontBeActive(int color)
     {
         if (color != colorIndex) return;
-        Color a = image.color;
+        UnityEngine.Color a = image.color;
         a.a = 0;
         image.color = a;
         active = false;
@@ -53,11 +52,6 @@ public class Gate : MonoBehaviour
         this.GetComponent<Tilemap>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
     }
 
-    void Update()
-    {
-
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<GateChecker>() != null)
@@ -66,7 +60,6 @@ public class Gate : MonoBehaviour
             if (FindFirstObjectByType<movement>().gatesTouch > 1 && active)
             {
                 FindFirstObjectByType<WallManager>().SetDefaultState();
-                Debug.Log(":)");
             }
         }
     }
@@ -82,5 +75,6 @@ public class Gate : MonoBehaviour
     private void OnDestroy()
     {
         WallManager.disableColor -= DontBeActive;
+        WallManager.activateColor -= BeActive;
     }
 }

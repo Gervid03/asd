@@ -17,6 +17,8 @@ public class WallObjects : MonoBehaviour
 
     private void Start()
     {
+        WallManager.disableColor += DontBeActive;
+        WallManager.activateColor += BeActive;
     }
 
     public void SetColor()
@@ -24,21 +26,17 @@ public class WallObjects : MonoBehaviour
         tilemap.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
     }
 
-    public void SubscribeToBeAWallObject()
+    public void BeActive(int c)
     {
-        //informs the manager of the existence
-        FindFirstObjectByType<WallManager>().SubscribeToBeAWallObject(this);
-    }
-
-    public void BeActive()
-    {
+        if (c != colorIndex) return;
         //becomes active and visible
         tilemap.color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, 255);
         wallCollider.enabled = true;
     }
 
-    public void DontBeActive()
+    public void DontBeActive(int c)
     {
+        if (c != colorIndex) return;
         //becomes invisible
         tilemap.color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, 0);
         wallCollider.enabled = false;
@@ -48,6 +46,11 @@ public class WallObjects : MonoBehaviour
     {
         colorIndex = color;
         SetColor();
-        SubscribeToBeAWallObject();
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
+        WallManager.activateColor -= BeActive;
     }
 }

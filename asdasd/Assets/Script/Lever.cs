@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,14 @@ public class Lever : MonoBehaviour
     public Collider2D leverCollider;
     public Collider2D leverTriggerCollider;
 
+    void Start()
+    {
+        WallManager.disableColor += DontBeActive;
+        WallManager.disableColor += DeactivateInteractive;
+        WallManager.activateColor += BeActive;
+        WallManager.activateColor += ActivateInteractive;
+    }
+
     public void SetColor()
     {
         displayColor.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
@@ -23,14 +32,9 @@ public class Lever : MonoBehaviour
         displayInteractiveColor.color = FindFirstObjectByType<WallManager>().GetColor(interactWithColor);
     }
 
-    public void SubscribeToBeALever()
+    public void BeActive(int c)
     {
-        //informs the manager of the existence
-        FindFirstObjectByType<WallManager>().SubscribeToBeALever(this);
-    }
-
-    public void BeActive()
-    {
+        if (c != colorIndex) return;
         //becomes active and visible
         displayColor.gameObject.SetActive(true);
         displayInteractiveColor.gameObject.SetActive(true);
@@ -38,8 +42,9 @@ public class Lever : MonoBehaviour
         leverTriggerCollider.enabled = true;
     }
 
-    public void DontBeActive()
+    public void DontBeActive(int c)
     {
+        if (c != colorIndex) return;
         //becomes invisible
         displayColor.gameObject.SetActive(false);
         displayInteractiveColor.gameObject.SetActive(false);
@@ -77,7 +82,6 @@ public class Lever : MonoBehaviour
         interactWithColor = interactColor;
         activateTheColor = true;
         SetPosition(x, y);
-        SubscribeToBeALever();
         SetColor();
     }
 
@@ -85,5 +89,27 @@ public class Lever : MonoBehaviour
     {
         Map m = FindFirstObjectByType<Map>();
         transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
+        WallManager.disableColor -= DeactivateInteractive;
+        WallManager.activateColor -= BeActive;
+        WallManager.activateColor -= ActivateInteractive;
+    }
+
+    public void ActivateInteractive(int c)
+    {
+        if (c != interactWithColor) return;
+        transform.localScale = new Vector2(1, transform.localScale.y);
+        activateTheColor = true;
+    }
+
+    public void DeactivateInteractive(int c)
+    {
+        if (c != interactWithColor) return;
+        transform.localScale = new Vector2(-1, transform.localScale.y);
+        activateTheColor = false;
     }
 }

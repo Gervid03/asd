@@ -8,12 +8,17 @@ public class GateLight : MonoBehaviour
     public int colorIndex;
     public Light2D light2D;
 
+    private void Start()
+    {
+        WallManager.disableColor += DontBeActive;
+        WallManager.activateColor += BeActive;
+    }
+
     public void Create(int color, int x, int y)
     {
         colorIndex = color;
         light2D.color = FindFirstObjectByType<WallManager>().GetColor(color);
         SetPosition(x, y);
-        SubscribeToBeAGateLight();
     }
 
     public void SetPosition(int x, int y)
@@ -22,8 +27,21 @@ public class GateLight : MonoBehaviour
         transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
     }
 
-    public void SubscribeToBeAGateLight()
+    public void DontBeActive(int c)
     {
-        FindFirstObjectByType<WallManager>().SubscribeToBeAGateLight(this);
+        if (c != colorIndex) return;
+        gameObject.SetActive(false);
+    }
+
+    public void BeActive(int c)
+    {
+        if (c != colorIndex) return;
+        gameObject.SetActive(true);
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
+        WallManager.activateColor -= BeActive;
     }
 }

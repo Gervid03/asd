@@ -19,6 +19,12 @@ public class Buttons : MonoBehaviour
     public Collider2D buttonCollider;
     public Collider2D buttonTriggerCollider;
 
+    private void Start()
+    {
+        WallManager.disableColor += DontBeActive;
+        WallManager.activateColor += BeActive;
+    }
+
     public void CreateNew(int color, int interactColor, float x, float y, bool activate)
     {
         colorIndex = color;
@@ -26,7 +32,6 @@ public class Buttons : MonoBehaviour
         activateTheColor = activate;
         SetPosition(x, y);
         SetColor();
-        SubscribeToBeButton();
     }
 
     public void SetPosition(float x, float y)
@@ -42,14 +47,10 @@ public class Buttons : MonoBehaviour
         displayInteractiveColor.color = FindFirstObjectByType<WallManager>().GetColor(interactWithColor);
     }
 
-    public void SubscribeToBeButton()
-    {
-        //informs the manager of the existence
-        FindFirstObjectByType<WallManager>().SubscribeToBeAButton(this);
-    }
 
-    public void BeActive()
+    public void BeActive(int c)
     {
+        if (c != colorIndex) return;
         //becomes active and visible
         displayColor.gameObject.SetActive(true);
         displayInteractiveColor.gameObject.SetActive(true);
@@ -57,8 +58,9 @@ public class Buttons : MonoBehaviour
         buttonTriggerCollider.enabled = true;
     }
 
-    public void DontBeActive()
+    public void DontBeActive(int c)
     {
+        if (c != colorIndex) return;
         //becomes invisible
         displayColor.gameObject.SetActive(false);
         displayInteractiveColor.gameObject.SetActive(false);
@@ -115,5 +117,11 @@ public class Buttons : MonoBehaviour
                 FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
+        WallManager.activateColor -= BeActive;
     }
 }
