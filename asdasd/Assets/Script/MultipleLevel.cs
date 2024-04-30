@@ -42,68 +42,68 @@ public class MultipleLevel : MonoBehaviour
         public void AddMissingUp(int x1)
         {
             ml = FindFirstObjectByType<MultipleLevel>();
-            if (!ml.IsLevel(x + 1, y)) return;
+            if (!ml.IsLevel(x, y + 1)) return;
             if (!missingUp.Contains(x1)) missingUp.Add(x1);
-            Level l = ml.FindLevel(x + 1, y);
+            Level l = ml.FindLevel(x, y + 1);
             if(!l.missingDown.Contains(x1)) l.missingDown.Add(x1);
         }
         public void RemoveMissingUp(int x1)
         {
             ml = FindFirstObjectByType<MultipleLevel>();
-            if (!ml.IsLevel(x + 1, y)) return;
+            if (!ml.IsLevel(x, y + 1)) return;
             if (missingUp.Contains(x1)) missingUp.Remove(x1);
-            Level l = ml.FindLevel(x + 1, y);
+            Level l = ml.FindLevel(x, y + 1);
             if (l.missingDown.Contains(x1)) l.missingDown.Remove(x1);
         }
 
         public void AddMissingDown(int x1)
         {
             ml = FindFirstObjectByType<MultipleLevel>();
-            if (!ml.IsLevel(x - 1, y)) return;
+            if (!ml.IsLevel(x, y - 1)) return;
             if (!missingDown.Contains(x1)) missingDown.Add(x1);
-            Level l = ml.FindLevel(x - 1, y);
+            Level l = ml.FindLevel(x, y - 1);
             if (!l.missingUp.Contains(x1)) l.missingUp.Add(x1);
         }
         public void RemoveMissingDown(int x1)
         {
             ml = FindFirstObjectByType<MultipleLevel>();
-            if (!ml.IsLevel(x - 1, y)) return;
+            if (!ml.IsLevel(x, y - 1)) return;
             if (missingDown.Contains(x1)) missingDown.Remove(x1);
-            Level l = ml.FindLevel(x - 1, y);
+            Level l = ml.FindLevel(x, y - 1);
             if (l.missingUp.Contains(x1)) l.missingUp.Remove(x1);
         }
 
         public void AddMissingLeft(int y1)
         {
             ml = FindFirstObjectByType<MultipleLevel>();
-            if (!ml.IsLevel(x, y - 1)) return;
+            if (!ml.IsLevel(x - 1, y)) return;
             if (!missingLeft.Contains(y1)) missingLeft.Add(y1);
-            Level l = ml.FindLevel(x, y - 1);
+            Level l = ml.FindLevel(x - 1, y);
             if (!l.missingRight.Contains(y1)) l.missingRight.Add(y1);
         }
         public void RemoveMissingLeft(int y1)
         {
             ml = FindFirstObjectByType<MultipleLevel>();
-            if (!ml.IsLevel(x, y - 1)) return;
+            if (!ml.IsLevel(x - 1, y)) return;
             if (missingLeft.Contains(y1)) missingLeft.Remove(y1);
-            Level l = ml.FindLevel(x, y - 1);
+            Level l = ml.FindLevel(x - 1, y);
             if (l.missingRight.Contains(y1)) l.missingRight.Remove(y1);
         }
 
         public void AddMissingRight(int y1)
         {
             ml = FindFirstObjectByType<MultipleLevel>();
-            if (!ml.IsLevel(x, y + 1)) return;
+            if (!ml.IsLevel(x + 1, y)) return;
             if (!missingRight.Contains(y1)) missingRight.Add(y1);
-            Level l = ml.FindLevel(x, y + 1);
+            Level l = ml.FindLevel(x + 1, y);
             if (!l.missingLeft.Contains(y1)) l.missingLeft.Add(y1);
         }
         public void RemoveMissingRight(int y1)
         {
             ml = FindFirstObjectByType<MultipleLevel>();
-            if (!ml.IsLevel(x, y + 1)) return;
+            if (!ml.IsLevel(x + 1, y)) return;
             if (missingRight.Contains(y1)) missingRight.Remove(y1);
-            Level l = ml.FindLevel(x, y + 1);
+            Level l = ml.FindLevel(x + 1, y);
             if (l.missingLeft.Contains(y1)) l.missingLeft.Remove(y1);
         }
 
@@ -169,45 +169,30 @@ public class MultipleLevel : MonoBehaviour
     {
         /*
         Level l = new Level();
-        l.Set(currentX, currentY, "10");
+        l.Set(currentX, currentY, "10000");
         levels.Add(l);
         l = new Level();
-        l.Set(currentX + 1, currentY, "11");
+        l.Set(currentX + 1, currentY, "10001");
         levels.Add(l);
-        l = new Level();
-        l.Set(currentX - 1, currentY, "12");
-        levels.Add(l);
-        l = new Level();
-        l.Set(currentX, currentY + 1, "13");
-        levels.Add(l);
-        l = new Level();
-        l.Set(currentX, currentY - 1, "14");
-        levels.Add(l);
-
-        levels[0].AddMissingUp(1);
-        levels[0].AddMissingUp(2);
-        levels[0].AddMissingUp(3);
-
-        levels[0].AddMissingDown(1);
-        levels[0].AddMissingDown(2);
-        levels[0].AddMissingDown(3);
-
-        levels[0].AddMissingLeft(1);
-        levels[0].AddMissingLeft(2);
-        levels[0].AddMissingLeft(3);
 
         levels[0].AddMissingRight(1);
         levels[0].AddMissingRight(2);
         levels[0].AddMissingRight(3);
-        */
+        levels[0].AddMissingRight(4);
+        levels[0].AddMissingRight(5);
+        levels[0].AddMissingRight(6); 
+        levels[0].AddMissingRight(12);
+        levels[0].AddMissingRight(13);
+        levels[0].AddMissingRight(14);
+        levels[0].AddMissingRight(15);*/
     }
 
     private void Start()
     {
         if (levels.Count == 0) return;
-        FindFirstObjectByType<Map>().index = levels[0].levelName;
+        FindFirstObjectByType<Map>().index = CurrentLevel().levelName;
         FindFirstObjectByType<Map>().LoadMap();
-        levels[0].Loaded();
+        CurrentLevel().Loaded();
     }
 
     public void SwitchUp()
@@ -215,8 +200,8 @@ public class MultipleLevel : MonoBehaviour
         //
         Debug.Log("^^");
         CurrentLevel().Unloaded();
-        FindFirstObjectByType<Map>().index = FindLevel(currentX + 1, currentY).levelName;
-        currentX++;
+        FindFirstObjectByType<Map>().index = FindLevel(currentX, currentY + 1).levelName;
+        currentY++;
         FindFirstObjectByType<Map>().LoadMap(false);
         FindLevel(currentX, currentY).Loaded();
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
@@ -227,8 +212,8 @@ public class MultipleLevel : MonoBehaviour
         //
         Debug.Log("vv");
         CurrentLevel().Unloaded();
-        FindFirstObjectByType<Map>().index = FindLevel(currentX - 1, currentY).levelName;
-        currentX--;
+        FindFirstObjectByType<Map>().index = FindLevel(currentX, currentY - 1).levelName;
+        currentY--;
         FindFirstObjectByType<Map>().LoadMap(false);
         FindLevel(currentX, currentY).Loaded();
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
@@ -239,8 +224,8 @@ public class MultipleLevel : MonoBehaviour
         //
         Debug.Log("<<");
         CurrentLevel().Unloaded();
-        FindFirstObjectByType<Map>().index = FindLevel(currentX, currentY - 1).levelName;
-        currentY--;
+        FindFirstObjectByType<Map>().index = FindLevel(currentX - 1, currentY).levelName;
+        currentX--;
         FindFirstObjectByType<Map>().LoadMap(false);
         FindLevel(currentX, currentY).Loaded();
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
@@ -251,8 +236,8 @@ public class MultipleLevel : MonoBehaviour
         //
         Debug.Log(">>");
         CurrentLevel().Unloaded();
-        FindFirstObjectByType<Map>().index = FindLevel(currentX, currentY + 1).levelName;
-        currentY++;
+        FindFirstObjectByType<Map>().index = FindLevel(currentX + 1, currentY).levelName;
+        currentX++;
         FindFirstObjectByType<Map>().LoadMap(false);
         FindLevel(currentX, currentY).Loaded();
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
