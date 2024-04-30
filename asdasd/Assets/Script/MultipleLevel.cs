@@ -135,20 +135,32 @@ public class MultipleLevel : MonoBehaviour
             WallManager wm = FindFirstObjectByType<WallManager>();
             ml = FindFirstObjectByType<MultipleLevel>();
             if (wm == null || ml == null) return;
-            for(int i = 0; i < missingUp.Count; i++) {
-                wm.outsideWallTilemap.SetTile(new Vector3Int(missingUp[i], ml.upY, 0), ml.clear);
-            }
-            for (int i = 0; i < missingDown.Count; i++)
+            if (missingUp != null)
             {
-                wm.outsideWallTilemap.SetTile(new Vector3Int(missingDown[i], ml.downY, 0), ml.clear);
+                for(int i = 0; i < missingUp.Count; i++) {
+                    wm.outsideWallTilemap.SetTile(new Vector3Int(missingUp[i], ml.upY, 0), ml.clear);
+                }
             }
-            for (int i = 0; i < missingLeft.Count; i++)
+            if (missingDown != null)
             {
-                wm.outsideWallTilemap.SetTile(new Vector3Int(ml.leftX, missingLeft[i], 0), ml.clear);
+                for (int i = 0; i < missingDown.Count; i++)
+                {
+                    wm.outsideWallTilemap.SetTile(new Vector3Int(missingDown[i], ml.downY, 0), ml.clear);
+                }
             }
-            for (int i = 0; i < missingRight.Count; i++)
+            if (missingLeft != null)
             {
-                wm.outsideWallTilemap.SetTile(new Vector3Int(ml.rightX, missingRight[i], 0), ml.clear);
+                for (int i = 0; i < missingLeft.Count; i++)
+                {
+                    wm.outsideWallTilemap.SetTile(new Vector3Int(ml.leftX, missingLeft[i], 0), ml.clear);
+                }
+            }
+            if (missingRight != null)
+            {
+                for (int i = 0; i < missingRight.Count; i++)
+                {
+                    wm.outsideWallTilemap.SetTile(new Vector3Int(ml.rightX, missingRight[i], 0), ml.clear);
+                }
             }
         }
     }
@@ -257,7 +269,6 @@ public class MultipleLevel : MonoBehaviour
                 return levels[i];
             }
         }
-        Debug.Log("asd");
         return new Level();
     }
 

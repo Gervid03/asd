@@ -9,7 +9,7 @@ public class ColorDisplayButton : MonoBehaviour
     public Color color;
     public GameObject toggle;
 
-    private void Start()
+    private void Awake()
     {
         ColorPalette.deleteColor += Suicide;
         ColorPalette.modifyColor += Modify;

@@ -22,7 +22,7 @@ public class SettingForInteract : MonoBehaviour
     public Toggle toggle;
     public Sprite warning;
 
-    private void Start()
+    private void Awake()
     {
         ColorPalette.modifyColor += Modify;
         ColorPalette.deleteColor += Suicide;
@@ -60,11 +60,12 @@ public class SettingForInteract : MonoBehaviour
         y = y1;
         index = i;
         color.color = c;
-        if (FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor) != null && interactColor != -1)
+        if (FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor) != null && interactColor != -1 && colorInteract != null)
         {
             colorInteract.sprite = null;
             colorInteract.color = FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor).color;
         }
+        
         indexColorInteract = interactColor;
         if (toggle != null)
         {

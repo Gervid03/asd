@@ -220,9 +220,10 @@ public class Map : MonoBehaviour
         mapEditor.currentTool = 5; //portal
         for (i = 0; i < data.portals.Length; i++)
         {
+            //Debug.Log(data.portals[i].x + " asd " + data.portals[i].y + " asd " + data.portals[i].color + ' ' + data.portals[i].interactiveColor);
             mapEditor.currentTilemap = data.portals[i].color;
             mapEditor.AddTile(data.portals[i].x, data.portals[i].y);
-            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.portals[i].x, data.portals[i].y, data.portals[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.portals[i].color).color, data.portals[i].interactiveColor);
+            mapEditor.infos[mapEditor.infos.Count - 1].Set(data.portals[i].x, data.portals[i].y, data.portals[i].color, mapEditor.tilemaps.at(data.portals[i].color).color, data.portals[i].interactiveColor);
             mapEditor.infos[mapEditor.infos.Count - 1].SetPortalAtLoading(data.portals[i].interactiveColor);
         }
         mapEditor.currentTool = 6; //gate
