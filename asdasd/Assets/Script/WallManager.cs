@@ -30,6 +30,7 @@ public class WallManager : MonoBehaviour
     public RuleTile decoDemonBase;
     public int column, row;
     public Tilemap outsideWallTilemap;
+    public static event Action<int> disableColor;
 
     [System.Serializable]
     public struct ColorList
@@ -344,6 +345,7 @@ public class WallManager : MonoBehaviour
 
     public void SetColorDeactive(int index, bool inverzed = false)
     {
+        disableColor?.Invoke(index);
         if (inversColor.at(index) != -1 && !inverzed) SetColorActive(inversColor.at(index), true); 
         //makes the color with the index invisible
         for (int i = 0; i < wallObjects.Count; i++)
@@ -385,7 +387,7 @@ public class WallManager : MonoBehaviour
         {
             if (gates[i].colorIndex == index)
             {
-                gates[i].DontBeActive();
+                gates[i].DontBeActive(0);
             }
         }
         for (int i = 0; i < gateLights.Count; i++)

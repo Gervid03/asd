@@ -70,6 +70,7 @@ public class Map : MonoBehaviour
     private void Start()
     {
         Vault vault = FindFirstObjectByType<Vault>();
+        if (vault == null) return;
         if (vault.intent == Vault.Intent.loadMapToLoad)
         {
             Debug.Log("Loading in: " + vault.mapToLoad);
@@ -429,6 +430,7 @@ public class Map : MonoBehaviour
         FindFirstObjectByType<WallManager>().endThing.SetPosition(data.endx, data.endy);
         hasTile[data.endx][data.endy] = true;
         SetDeco();
+        FindFirstObjectByType<WallManager>().SetDecoDemons();
     }
 
     public void SetDeco()

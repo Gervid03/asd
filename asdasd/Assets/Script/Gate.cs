@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Tilemaps;
+using System.Drawing;
 
 public class Gate : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Gate : MonoBehaviour
 
     private void Start()
     {
+        WallManager.disableColor += DontBeActive;
         character = FindAnyObjectByType<Player>().gameObject;
         //Physics2D.IgnoreCollision(character.GetComponent<BoxCollider2D>(), gameObject.GetComponent<Collider2D>(), true);
     }
@@ -28,16 +30,18 @@ public class Gate : MonoBehaviour
         SetColor();
     }
 
-    public void BeActive()
+    public void BeActive(int color)
     {
+        if (color != colorIndex) return;
         Color a = image.color;
         a.a = 1;
         image.color = a;
         active = true;
     }
 
-    public void DontBeActive()
+    public void DontBeActive(int color)
     {
+        if (color != colorIndex) return;
         Color a = image.color;
         a.a = 0;
         image.color = a;
@@ -73,5 +77,10 @@ public class Gate : MonoBehaviour
         {
             FindFirstObjectByType<movement>().gatesTouch--;
         }
+    }
+
+    private void OnDestroy()
+    {
+        WallManager.disableColor -= DontBeActive;
     }
 }
