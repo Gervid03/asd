@@ -13,7 +13,7 @@ public class Cube : MonoBehaviour
     public Light2D light2Dinside;
     public SpriteRenderer spriteRenderer;
 
-    private void Start()
+    private void Awake()
     {
         WallManager.disableColor += DontBeActive;
     }

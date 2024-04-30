@@ -16,6 +16,11 @@ public class CubePlacer : MonoBehaviour
         public float timer;
     }
 
+    private void Awake()
+    {
+        WallManager.disableColor += RemoveTimerCube;
+    }
+
     public void RemoveTimerCube(int colorIndex)
     {
         for(int i = 0; i < timerCubes.Count; i++)

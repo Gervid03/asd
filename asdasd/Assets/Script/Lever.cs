@@ -17,7 +17,7 @@ public class Lever : MonoBehaviour
     public Collider2D leverCollider;
     public Collider2D leverTriggerCollider;
 
-    void Start()
+    void Awake()
     {
         WallManager.disableColor += DontBeActive;
         WallManager.disableColor += DeactivateInteractive;

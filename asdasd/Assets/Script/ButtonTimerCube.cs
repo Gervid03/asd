@@ -24,10 +24,6 @@ public class ButtonTimerCube : MonoBehaviour
     private void Awake()
     {
         //spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-    }
-
-    private void Start()
-    {
         WallManager.disableColor += DontBeActive;
         WallManager.activateColor += BeActive;
     }

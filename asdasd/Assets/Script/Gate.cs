@@ -14,7 +14,7 @@ public class Gate : MonoBehaviour
     public Tilemap image;
     public bool active;
 
-    private void Start()
+    private void Awake()
     {
         WallManager.disableColor += DontBeActive;
         WallManager.activateColor += BeActive;
@@ -60,6 +60,7 @@ public class Gate : MonoBehaviour
             if (FindFirstObjectByType<movement>().gatesTouch > 1 && active)
             {
                 FindFirstObjectByType<WallManager>().SetDefaultState();
+                Debug.Log(":)");
             }
         }
     }

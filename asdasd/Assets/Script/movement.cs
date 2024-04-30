@@ -27,7 +27,7 @@ public class movement : MonoBehaviour
     public Light2D timerCubeLightBehind;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         characterC = gameObject.GetComponent<BoxCollider2D>();
         characterRB = gameObject.GetComponent<Rigidbody2D>();
