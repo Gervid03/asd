@@ -20,10 +20,25 @@ public class SettingForInteract : MonoBehaviour
     public bool isButton;
     public bool isButtonTimerCube;
     public Toggle toggle;
+    public Sprite warning;
 
     private void Start()
     {
         ColorPalette.modifyColor += Modify;
+        ColorPalette.deleteColor += Suicide;
+    }
+
+    public void Suicide(int recipient)
+    {
+        if (recipient == index)
+        {
+            Destroy(this.gameObject);
+        }
+        if (recipient == indexColorInteract)
+        {
+            colorInteract.sprite = warning;
+            colorInteract.color = Color.white;
+        }
     }
 
     public void Modify(int recipient, Color newColor)
@@ -45,10 +60,10 @@ public class SettingForInteract : MonoBehaviour
         y = y1;
         index = i;
         color.color = c;
-        if(colorInteract != null)
+        if (FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor) != null && interactColor != -1)
         {
-            if(FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor) != null) colorInteract.color = FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor).color;
-            else colorInteract.color = Color.white;
+            colorInteract.sprite = null;
+            colorInteract.color = FindFirstObjectByType<MapEditor>().tilemaps.at(interactColor).color;
         }
         indexColorInteract = interactColor;
         if (toggle != null)
@@ -62,6 +77,7 @@ public class SettingForInteract : MonoBehaviour
         ColorPalette cp = FindFirstObjectByType<ColorPalette>();
         if(cp != null)
         {
+            colorInteract.sprite = null;
             indexColorInteract = cp.selectedButton.index;
             colorInteract.color = cp.selectedButton.color;
         }
@@ -104,5 +120,6 @@ public class SettingForInteract : MonoBehaviour
     private void OnDestroy()
     {
         ColorPalette.modifyColor -= Modify;
+        ColorPalette.deleteColor -= Suicide;
     }
 }

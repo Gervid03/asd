@@ -28,6 +28,7 @@ public class ColorDisplayButton : MonoBehaviour
     {
         if (recipient == index) //if the message is for me
         {
+            Destroy(toggle);
             Destroy(this.gameObject);
         }
     }

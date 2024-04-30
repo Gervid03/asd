@@ -9,13 +9,37 @@ public class InverseButton : MonoBehaviour
     public InverseButton other;
     public MapEditor mapEditor;
     public ColorPalette colorPalette;
+    public Sprite warning;
+    public Sprite wall;
 
     private void Awake()
     {
         mapEditor = FindAnyObjectByType<MapEditor>();
         colorPalette = FindAnyObjectByType<ColorPalette>();
         index = -1;
-        this.GetComponent<Image>().color = new Vector4(1, 1, 1, 1);
+        this.gameObject.GetComponent<Image>().sprite = warning;
+    }
+
+    private void Start()
+    {
+        ColorPalette.modifyColor += Modify;
+        ColorPalette.deleteColor += Suicide;
+    }
+
+    public void Modify(int recipient, Color newColor)
+    {
+        if (recipient == index) //if the message is for me
+        {
+            this.GetComponent<Image>().color = FindFirstObjectByType<ColorTweaker>().color;
+        }
+    }
+
+    public void Suicide(int recipient)
+    {
+        if (recipient == index) //if the message is for me
+        {
+            GetComponentInParent<Suicide>().CommitSucide();
+        }
     }
 
     public void Clicked()
@@ -29,6 +53,9 @@ public class InverseButton : MonoBehaviour
         {
             mapEditor.inverseColor[index] = -1;
         }
+
+        this.GetComponent<Image>().sprite = wall;
+
         index = colorPalette.selectedButton.index;
         this.GetComponent<Image>().color = colorPalette.selectedButton.color;
 
@@ -42,6 +69,6 @@ public class InverseButton : MonoBehaviour
 
     public void ColorAlreadyHasAnInverse()
     {
-        Debug.Log("Color already has an inverse!");
+        Debug.Log("Color already has an inverse!"); //TODO popup
     }
 }

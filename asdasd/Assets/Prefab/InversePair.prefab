@@ -301,6 +301,8 @@ MonoBehaviour:
   other: {fileID: 5921121482075256601}
   mapEditor: {fileID: 0}
   colorPalette: {fileID: 0}
+  warning: {fileID: 21300000, guid: 7ea72360e9cd35a46a0f58bd8615a0e3, type: 3}
+  wall: {fileID: -1009406056, guid: 3acf1bb8edb6c564da0cb7a1e41fbbc8, type: 3}
 --- !u!114 &153395589101918068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +681,8 @@ MonoBehaviour:
   other: {fileID: 5545788254741301414}
   mapEditor: {fileID: 0}
   colorPalette: {fileID: 0}
+  warning: {fileID: 21300000, guid: 7ea72360e9cd35a46a0f58bd8615a0e3, type: 3}
+  wall: {fileID: -1009406056, guid: 3acf1bb8edb6c564da0cb7a1e41fbbc8, type: 3}
 --- !u!114 &4696234896527863241
 MonoBehaviour:
   m_ObjectHideFlags: 0

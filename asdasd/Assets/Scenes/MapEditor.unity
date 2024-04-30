@@ -9157,6 +9157,7 @@ MonoBehaviour:
   playScene: TilemapLight
   intent: 0
   mapToLoad: 
+  mapUnderConstruction: 
 --- !u!1 &1739275656
 GameObject:
   m_ObjectHideFlags: 0

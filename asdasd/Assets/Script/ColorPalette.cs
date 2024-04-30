@@ -194,17 +194,18 @@ public class ColorPalette : MonoBehaviour
     public void DeleteSelectedColor()
     {
         if (SelectWarning()) return;
-
         if (selectedButton.color == new Color(1, 1, 1, 1)) return; //fehéret nem bántjuk!
+
+
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);
         mapEditor.tilemaps.remove(selectedButton.index);
-        mapEditor.ColorDeletedDeleteInvers(selectedButton.index);
-        Destroy(selectedButton.GetComponent<ColorDisplayButton>().toggle.gameObject);
-        Destroy(selectedButton.gameObject);
+        //mapEditor.ColorDeletedDeleteInvers(selectedButton.index);
+
+        ColorPalette.deleteColor?.Invoke(selectedButton.index);
 
         overwriteColorButton.SetActive(false);
-        selectedButton = null;
+        selectedButton = colors[0];
         AdjustHeight();
     }
 

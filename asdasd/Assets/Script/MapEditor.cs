@@ -252,7 +252,7 @@ public class MapEditor : MonoBehaviour
         if(x != startPosition.x || y != startPosition.y) RemoveAllTileAtThisPositon(startPosition.x, startPosition.y);
         startPosition.x = x; 
         startPosition.y = y;
-        if (startPosition == endPosition) endPosition = new Vector2Int(0, 0);
+        if (startPosition == endPosition) endPosition = new Vector2Int(-10, -10);
     }
 
     public void AddEndPosition(int x, int y)
