@@ -175,7 +175,7 @@ public class Map : MonoBehaviour
             if (data.colors[i].r == 1 && data.colors[i].g == 1 && data.colors[i].b == 1) continue; //feheret nem bantjuk!
             colorPalette.CreateColor(data.colors[i].c(), data.colors[i].index);
         }
-
+        
         mapEditor.columns = data.column;
         mapEditor.rows = data.row;
 
@@ -256,8 +256,11 @@ public class Map : MonoBehaviour
             InverseButton[] buttons = mapEditor.inversePairs[mapEditor.inversePairs.Count - 1].GetComponentsInChildren<InverseButton>();
 
             buttons[0].index = data.inversePairs[i].index1;
+            buttons[0].GetComponent<Image>().sprite = buttons[0].GetComponent<InverseButton>().wall;
             buttons[0].GetComponent<Image>().color = mapEditor.tilemaps.at(data.inversePairs[i].index1).color;
+
             buttons[1].index = data.inversePairs[i].index2;
+            buttons[1].GetComponent<Image>().sprite = buttons[1].GetComponent<InverseButton>().wall;
             buttons[1].GetComponent<Image>().color = mapEditor.tilemaps.at(data.inversePairs[i].index2).color;
         }
 

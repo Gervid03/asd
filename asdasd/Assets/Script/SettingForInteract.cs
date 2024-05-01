@@ -122,6 +122,5 @@ public class SettingForInteract : MonoBehaviour
     {
         ColorPalette.modifyColor -= Modify;
         ColorPalette.deleteColor -= Suicide;
-        FindAnyObjectByType<ColorPalette>().AdjustHeight();
     }
 }

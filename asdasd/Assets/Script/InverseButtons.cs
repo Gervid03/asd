@@ -26,7 +26,6 @@ public class InverseButton : MonoBehaviour
     {
         ColorPalette.modifyColor -= Modify;
         ColorPalette.deleteColor -= Suicide;
-        FindAnyObjectByType<ColorPalette>().AdjustHeight();
     }
 
     public void Modify(int recipient, Color newColor)
