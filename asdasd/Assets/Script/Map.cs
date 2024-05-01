@@ -53,6 +53,7 @@ public class Map : MonoBehaviour
     public List<Deco> decos;
     public bool[][] hasTile;
     public bool[][] hasWhiteWall;
+    public GameObject prefabOfNPC;
 
     [System.Serializable]
     public struct Deco
