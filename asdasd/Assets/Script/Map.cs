@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using static WallManager;
 using System.ComponentModel;
 using System.IO;
+using UnityEngine.Rendering;
 
 public class Map : MonoBehaviour
 {
@@ -55,6 +56,7 @@ public class Map : MonoBehaviour
     public bool[][] hasTile;
     public bool[][] hasWhiteWall;
     public GameObject prefabOfNPC;
+    public List<NPC_data> datas;
 
     [System.Serializable]
     public struct Deco
@@ -459,6 +461,7 @@ public class Map : MonoBehaviour
         if(data.endx >= 0 && data.endy >= 0) hasTile[data.endx][data.endy] = true;
         FindFirstObjectByType<WallManager>().SetDecoDemons();
         SetDeco();
+        SearchForNPCs(index);
     }
 
     public int c(MapData data, int colorIndex)
@@ -502,6 +505,20 @@ public class Map : MonoBehaviour
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public void SearchForNPCs(string mapName)
+    {
+        //Object[] datas = Resources.LoadAll("C:/Github/asd/asdasd/Assets/");
+        //Debug.Log(datas.Length);
+        for(int i = 0; i < datas.Count; i++)
+        {
+            //Debug.Log(d.name);
+            if (datas[i].mapName == mapName)
+            {
+                datas[i].Summon();
             }
         }
     }
