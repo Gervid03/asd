@@ -36,9 +36,9 @@ public class WallManager : MonoBehaviour
     [System.Serializable]
     public struct ColorList
     {
-        List<int> indexes;
-        List<Color> colors;
-        List<bool> visible;
+        public List<int> indexes;
+        public List<Color> colors;
+        public List<bool> visible;
 
         public Color at(int index)
         {

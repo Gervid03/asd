@@ -213,18 +213,11 @@ MonoBehaviour:
   levels:
   - x: 0
     y: 0
-    levelName: 10000
-    missingUp: 
-    missingDown: 
-    missingRight: 02000000030000000400000005000000060000000c0000000d0000000e0000000f000000
-    missingLeft: 
-  - x: 1
-    y: 0
-    levelName: 10001
+    levelName: -10
     missingUp: 
     missingDown: 
     missingRight: 
-    missingLeft: 02000000030000000400000005000000060000000c0000000d0000000e0000000f000000
+    missingLeft: 
 --- !u!1 &382488761
 GameObject:
   m_ObjectHideFlags: 0
@@ -9986,6 +9979,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864f41d6e8018154b893f0d6c48eb88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colors:
+    indexes: 
+    colors: []
+    visible: 
   wallObjects: []
   buttons: []
   buttonForCubes: []

@@ -277,11 +277,6 @@ public class Map : MonoBehaviour
 
         for (i = 0; i < data.activeAtStart.Length; i++)
         {
-            mapEditor.tilemaps.changeVisibleAtBeginning(data.activeAtStart[i].index, data.activeAtStart[i].isActive);
-        }
-
-        for (i = 0; i < data.activeAtStart.Length; i++)
-        {
             for (j = 0; j < colorPalette.colors.Count; j++)
             {
                 if (colorPalette.colors[j].index == data.activeAtStart[i].index)
@@ -331,12 +326,12 @@ public class Map : MonoBehaviour
         //FindFirstObjectByType<WallManager>().colors.clear();
         for (int i = 0; i < data.colors.Length; i++)
         {
-            bool vis = true;
+            /*bool vis = true;
             for(int j = 0; j < data.activeAtStart.Length; j++)
             {
                 if (data.activeAtStart[j].index == data.colors[i].index) vis = data.activeAtStart[j].isActive;
-            }
-            FindFirstObjectByType<WallManager>().colors.add(data.colors[i].c(), data.colors[i].index, vis);
+            }*/
+            FindFirstObjectByType<WallManager>().colors.add(data.colors[i].c(), data.colors[i].index);
             if (data.colors[i].c() == Color.white) whiteIndex = data.colors[i].index;
         }
 
@@ -344,35 +339,35 @@ public class Map : MonoBehaviour
         for (int i = 0; i < data.colors.Length; i++)
         {
             GameObject a = Instantiate(tilemapPrefab, tilemapParent);
-            a.GetComponent<WallObjects>().Create(i);
+            a.GetComponent<WallObjects>().Create(data.colors[i].index);
             Tilemap t = a.GetComponent<Tilemap>();
             for (int j = 0; j < data.row; j++)
             {
                 for (int k = 0; k < data.column; k++)
                 {
-                    if (data.colorIndex[k][j] == i)
+                    if (data.colorIndex[k][j] == data.colors[i].index)
                     {
-                        if (FindFirstObjectByType<WallManager>().colors.at(i) == Color.white) t.SetTile(new Vector3Int(k, j, 0), tileBase);
+                        if (FindFirstObjectByType<WallManager>().colors.at(data.colors[i].index) == Color.white) t.SetTile(new Vector3Int(k, j, 0), tileBase);
                         else t.SetTile(new Vector3Int(k, j, 0), tileColorBase);
 
-                        if (i == whiteIndex) hasTile[k][j] = true;
-                        if (i == whiteIndex) hasWhiteWall[k][j] = true;
+                        if (data.colors[i].index == whiteIndex) hasTile[k][j] = true;
+                        if (data.colors[i].index == whiteIndex) hasWhiteWall[k][j] = true;
                     }
                 }
             }
 
             GameObject gate = Instantiate(gatePrefab, tilemapParent);
-            gate.GetComponent<Gate>().CreateNew(i);
+            gate.GetComponent<Gate>().CreateNew(data.colors[i].index);
             Tilemap gateTilemap = gate.GetComponent<Tilemap>();
             for (int j = 0; j < data.row; j++)
             {
                 for (int k = 0; k < data.column; k++)
                 {
-                    if (data.gate[k][j] == i)
+                    if (data.gate[k][j] == data.colors[i].index)
                     {
                         gateTilemap.SetTile(new Vector3Int(k, j, 0), gateBase);
                         GameObject b = Instantiate(gateLightPrefab, thingParent);
-                        b.GetComponent<GateLight>().Create(i, k, j);
+                        b.GetComponent<GateLight>().Create(data.colors[i].index, k, j);
 
                         hasTile[k][j] = true;
                     }
