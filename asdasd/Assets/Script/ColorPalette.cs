@@ -194,7 +194,7 @@ public class ColorPalette : MonoBehaviour
     public void DeleteSelectedColor()
     {
         if (SelectWarning()) return;
-        if (selectedButton.color == new Color(1, 1, 1, 1)) return; //fehéret nem bántjuk!
+        if (selectedButton.index == 0) return; //fehéret nem bántjuk!
 
 
         mapEditor.RemoveColor(selectedButton.index);
@@ -223,13 +223,15 @@ public class ColorPalette : MonoBehaviour
     {
         foreach (Transform child in colorPaletteParent)
         {
-            if (child.GetComponent<ColorDisplayButton>().color == new Color(1, 1, 1, 1)) continue;
+            if (child.GetComponent<ColorDisplayButton>().index == 0) continue;
             Destroy(child.GetComponent<ColorDisplayButton>().toggle);
             mapEditor.RemoveColor(child.GetComponent<ColorDisplayButton>().index);
             mapEditor.tilemaps.remove(child.GetComponent<ColorDisplayButton>().index);
             GameObject.Destroy(child.gameObject);
-            colors.Clear();
         }
+        ColorDisplayButton temp = colors[0];
+        colors.Clear();
+        colors.Add(temp);
     }
 
     public void SelectedColorDecrement()

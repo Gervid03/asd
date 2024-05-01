@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static WallManager;
 using System.ComponentModel;
+using System.IO;
 
 public class Map : MonoBehaviour
 {
@@ -143,7 +144,7 @@ public class Map : MonoBehaviour
 
         for (i = 0; i < dropdown.options.Count; i++)
         {
-            if (index == "temp")
+            if (index == "!temp")
             {
                 if (dropdown.options[i].text == vault.mapUnderConstruction)
                 {
@@ -298,6 +299,15 @@ public class Map : MonoBehaviour
             if (child.gameObject.GetComponent<DontDestroyThisObject>() != null) continue;
             GameObject.Destroy(child.gameObject);
         }
+    }
+
+    public void ClearMap()
+    {
+        File.Delete(Application.persistentDataPath + "/!tempmap.map");
+        File.Copy(Application.persistentDataPath + "/!clearmap.map", Application.persistentDataPath + "/!tempmap.map");
+
+        FindFirstObjectByType<Vault>().intent = Vault.Intent.loadTempIntoEditor;
+        SceneManager.LoadScene("MapEditor");
     }
 
     public void LoadMap(bool isStart = true)
