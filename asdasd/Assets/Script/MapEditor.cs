@@ -43,6 +43,8 @@ public class MapEditor : MonoBehaviour
     public Vector2Int endPosition;
     public TMP_Dropdown dropdown;
     public GameObject leftButtons;
+    public bool pressedCarouselCycle;
+    public bool pressedMenu;
 
     [System.Serializable]
     public struct tool
@@ -199,8 +201,31 @@ public class MapEditor : MonoBehaviour
         if(Input.GetAxisRaw("AddLever") == 1) currentTool = 4;
         if(Input.GetAxisRaw("AddPortal") == 1) currentTool = 5;
         if(Input.GetAxisRaw("AddGate") == 1) currentTool = 6;
-        if(Input.GetAxisRaw("OpenMenu") == 1) OpenMenu();
-        if(Input.GetAxisRaw("CloseMenu") == 1) CloseMenu();
+        if(Input.GetAxisRaw("AddTimerCube") == 1) currentTool = 7;
+        if(Input.GetAxisRaw("AddStart") == 1) currentTool = 8;
+        if(Input.GetAxisRaw("AddFinish") == 1) currentTool = 9;
+
+        if (Input.GetAxisRaw("Menu") == 1)
+        {
+            if (!pressedMenu)
+            {
+                pressedMenu = true;
+                if (!menu.activeSelf) OpenMenu();
+                else CloseMenu();
+            }
+        }
+        else pressedMenu = false;
+
+        if (Input.GetAxisRaw("CarouselCycle") != 0)
+        {
+            if (!pressedCarouselCycle)
+            {
+                pressedCarouselCycle = true;
+                if (Input.GetAxisRaw("CarouselCycle") > 0) FindFirstObjectByType<ColorPalette>().SelectedColorIncrement();
+                else FindFirstObjectByType<ColorPalette>().SelectedColorDecrement();
+            }
+        }
+        else pressedCarouselCycle = false;
     }
 
     public void SetTool(int index)
@@ -367,7 +392,7 @@ public class MapEditor : MonoBehaviour
         if (tilemaps.at(index) == null)
         {
             if(tilemaps.count() > 0) index = tilemaps.getIndexes()[0];
-            //Debug.LogError(index + " index még nem létezik, javítsd meg");
+            Debug.LogError(index + " index még nem létezik, javítsd meg");
         }
         else currentTilemap = index;
     }
