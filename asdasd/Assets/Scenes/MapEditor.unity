@@ -6298,6 +6298,7 @@ MonoBehaviour:
   decoTilemap: {fileID: 0}
   decoBase: {fileID: 0}
   decos: []
+  prefabOfNPC: {fileID: 0}
 --- !u!114 &1210156909
 MonoBehaviour:
   m_ObjectHideFlags: 0
