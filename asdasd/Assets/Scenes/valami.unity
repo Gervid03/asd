@@ -10632,6 +10632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03d7939ed6412ab45b37e3d3935a841b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tr: {fileID: 1706507624}
 --- !u!61 &1706507628
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11202,7 +11203,7 @@ MonoBehaviour:
   m_Intensity: 0.33
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 0000000015e5c5c09933ef547ded5c6df593cc4de90b6be3
+  m_ApplyToSortingLayers: 0000000015e5c5c09933ef547ded5c6df593cc4de90b6be3cfff731e
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

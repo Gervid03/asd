@@ -434,7 +434,7 @@ public class Map : MonoBehaviour
 
         if(isStart) FindFirstObjectByType<Player>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
         FindFirstObjectByType<WallManager>().endThing.SetPosition(data.endx, data.endy);
-        hasTile[data.endx][data.endy] = true;
+        if(data.endx >= 0 && data.endy >= 0) hasTile[data.endx][data.endy] = true;
         FindFirstObjectByType<WallManager>().SetDecoDemons();
         SetDeco();
     }

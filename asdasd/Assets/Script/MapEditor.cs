@@ -346,6 +346,14 @@ public class MapEditor : MonoBehaviour
                 break;
             }
         }
+        if(endPosition.x == x && endPosition.y == y)
+        {
+            endPosition = new Vector2Int(-10, -10);
+        }
+        if (startPosition.x == x && startPosition.y == y)
+        {
+            startPosition = new Vector2Int(0, 0);
+        }
     }
 
     public void Use(int x, int y)
