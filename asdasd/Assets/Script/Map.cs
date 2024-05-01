@@ -283,7 +283,7 @@ public class Map : MonoBehaviour
                 if (colorPalette.colors[j].index == data.activeAtStart[i].index)
                 {
                     if (colorPalette.colors[j].toggle.GetComponentInChildren<Toggle>() == null) Debug.Log(i + " " + j);
-                    colorPalette.colors[j].toggle.GetComponentInChildren<Toggle>().SetIsOnWithoutNotify(data.activeAtStart[i].isActive);
+                    colorPalette.colors[j].toggle.GetComponentInChildren<Toggle>().isOn = data.activeAtStart[i].isActive;
                     break;
                 }
             }
@@ -435,10 +435,13 @@ public class Map : MonoBehaviour
         {
             wm.activeAtStart.add(c(data, data.activeAtStart[i].index), data.activeAtStart[i].isActive);
         }
-        if (isStart) { 
-            FindFirstObjectByType<WallManager>().SetDefaultState();
-        }
-        else FindFirstObjectByType<WallManager>().SetCurrentState();
+        //if (isStart) { 
+        //    FindFirstObjectByType<WallManager>().SetDefaultState();
+        //}
+        //else FindFirstObjectByType<WallManager>().SetCurrentState();
+
+        if (isStart) FindFirstObjectByType<movement>().needUpdate = 2;
+        else FindFirstObjectByType<movement>().needUpdate = 1;
 
         if(isStart) FindFirstObjectByType<Player>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
         FindFirstObjectByType<WallManager>().endThing.SetPosition(data.endx, data.endy);

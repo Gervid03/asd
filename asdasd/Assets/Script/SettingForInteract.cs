@@ -69,7 +69,7 @@ public class SettingForInteract : MonoBehaviour
         indexColorInteract = interactColor;
         if (toggle != null)
         {
-            toggle.SetIsOnWithoutNotify(active);
+            toggle.isOn = active;
         }
     }
 

@@ -25,6 +25,7 @@ public class movement : MonoBehaviour
     public SpriteRenderer timerCubeSpriteRenderer;
     public Light2D timerCubeLight;
     public Light2D timerCubeLightBehind;
+    public int needUpdate;
 
     // Start is called before the first frame update
     void Awake()
@@ -39,6 +40,20 @@ public class movement : MonoBehaviour
         HorizontalMovement();
         Jump();
         characterRB.velocity = new Vector2(characterRB.velocity.x, Mathf.Max(-fallSpeedLimit, characterRB.velocity.y));
+    }
+
+    private void LateUpdate() //ha ehhez hozzányúlsz, mind meghalunk!!!
+    {
+        if (needUpdate == 1)
+        {
+            FindAnyObjectByType<WallManager>().SetCurrentState();
+            needUpdate = 0;
+        }
+        else if (needUpdate == 2)
+        {
+            FindAnyObjectByType<WallManager>().SetDefaultState();
+            needUpdate = 0;
+        }
     }
 
     public void SetPosition(int x, int y)

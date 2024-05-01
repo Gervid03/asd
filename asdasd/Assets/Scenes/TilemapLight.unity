@@ -210,14 +210,7 @@ MonoBehaviour:
   downY: -1
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
   wall: {fileID: 11400000, guid: 8292fcf3eabd1bd47aee888ec5542a13, type: 2}
-  levels:
-  - x: 0
-    y: 0
-    levelName: -10
-    missingUp: 
-    missingDown: 
-    missingRight: 
-    missingLeft: 
+  levels: []
 --- !u!1 &382488761
 GameObject:
   m_ObjectHideFlags: 0
@@ -9979,6 +9972,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864f41d6e8018154b893f0d6c48eb88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colors:
+    indexes: 
+    colors: []
+    visible: 
   wallObjects: []
   buttons: []
   buttonForCubes: []
@@ -9988,7 +9985,6 @@ MonoBehaviour:
   portals: []
   gates: []
   gateLights: []
-  activeAtStart: []
   endThing: {fileID: 1706507627}
   portalColors:
     serializedVersion: 2
@@ -11305,7 +11301,7 @@ CompositeCollider2D:
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
-  - m_Collider: {fileID: 1382292794894200526}
+  - m_Collider: {fileID: 8598581800622871107}
     m_ColliderPaths:
     - - X: 310000000
         Y: 170000000
@@ -11337,42 +11333,6 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 3739870107527266390}
---- !u!19719996 &1382292794894200526
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3739870107527266390}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 1
-  m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0
-  m_UseDelaunayMesh: 0
 --- !u!4 &2136536542559956159
 Transform:
   m_ObjectHideFlags: 0
@@ -11436,10 +11396,10 @@ GameObject:
   - component: {fileID: 8381403240011220832}
   - component: {fileID: 7653226658617130205}
   - component: {fileID: 8598581800622871105}
-  - component: {fileID: 1382292794894200526}
   - component: {fileID: 68221761353188810}
   - component: {fileID: 1002681366892614994}
   - component: {fileID: 8598581800622871106}
+  - component: {fileID: 8598581800622871107}
   m_Layer: 0
   m_Name: OutsideWall
   m_TagString: Untagged
@@ -12604,7 +12564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorIndex: -1
   tilemap: {fileID: 8381403240011220832}
-  wallCollider: {fileID: 1382292794894200526}
+  wallCollider: {fileID: 0}
 --- !u!114 &8598581800622871106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12617,6 +12577,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bdb9e238fc2f9f45be99bad0164db2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!19719996 &8598581800622871107
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3739870107527266390}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 1
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
