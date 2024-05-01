@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 [CreateAssetMenu(fileName = "New NPC", menuName = "NPC")]
 public class NPC_data : ScriptableObject
@@ -11,6 +10,7 @@ public class NPC_data : ScriptableObject
     public string nameOfNPC;
     public List<string> text;
     public Sprite sprite;
+    public Color color;
 
     public void Summon()
     {
@@ -19,6 +19,8 @@ public class NPC_data : ScriptableObject
             Map m = FindFirstObjectByType<Map>();
             GameObject newNPC = Instantiate(m.prefabOfNPC);
             newNPC.transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
+            newNPC.GetComponent<SpriteRenderer>().sprite = sprite;
+            newNPC.GetComponent<SpriteRenderer>().color = color;
             newNPC.GetComponent<NPC>().data = this;
         }
         else Debug.LogError("Map doesnt exist for summoning an NPC, fix it :)");
