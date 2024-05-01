@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static WallManager;
+using System.ComponentModel;
 
 public class Map : MonoBehaviour
 {
@@ -308,10 +309,13 @@ public class Map : MonoBehaviour
             return;
         }
 
+        FindFirstObjectByType<WallManager>().ResetThings();
         KillAllTheChildren(thingParent);
         KillAllTheChildren(FindFirstObjectByType<WallManager>().decoParent);
         KillAllTheChildren(tilemapParent);
-        FindFirstObjectByType<WallManager>().ResetThings();
+        //!!!!!
+
+        WallManager wm = FindFirstObjectByType<WallManager>();
 
         hasTile = new bool[data.column][];
         hasWhiteWall = new bool[data.column][];
@@ -331,7 +335,11 @@ public class Map : MonoBehaviour
             {
                 if (data.activeAtStart[j].index == data.colors[i].index) vis = data.activeAtStart[j].isActive;
             }*/
-            FindFirstObjectByType<WallManager>().colors.add(data.colors[i].c(), data.colors[i].index);
+            if (c(data, data.colors[i].index) == -1)
+            {
+                if(!wm.colors.exist(data.colors[i].index)) wm.colors.add(data.colors[i].c(), data.colors[i].index);
+                else wm.colors.add(data.colors[i].c(), wm.colors.maxIndex() + 1);
+            }
             if (data.colors[i].c() == Color.white) whiteIndex = data.colors[i].index;
         }
 
@@ -339,7 +347,8 @@ public class Map : MonoBehaviour
         for (int i = 0; i < data.colors.Length; i++)
         {
             GameObject a = Instantiate(tilemapPrefab, tilemapParent);
-            a.GetComponent<WallObjects>().Create(data.colors[i].index);
+            int ind = wm.colors.searchColor(data.colors[i].c());
+            a.GetComponent<WallObjects>().Create(ind);
             Tilemap t = a.GetComponent<Tilemap>();
             for (int j = 0; j < data.row; j++)
             {
@@ -347,17 +356,17 @@ public class Map : MonoBehaviour
                 {
                     if (data.colorIndex[k][j] == data.colors[i].index)
                     {
-                        if (FindFirstObjectByType<WallManager>().colors.at(data.colors[i].index) == Color.white) t.SetTile(new Vector3Int(k, j, 0), tileBase);
+                        if (FindFirstObjectByType<WallManager>().colors.at(ind) == Color.white) t.SetTile(new Vector3Int(k, j, 0), tileBase);
                         else t.SetTile(new Vector3Int(k, j, 0), tileColorBase);
 
-                        if (data.colors[i].index == whiteIndex) hasTile[k][j] = true;
-                        if (data.colors[i].index == whiteIndex) hasWhiteWall[k][j] = true;
+                        if (ind == whiteIndex) hasTile[k][j] = true;
+                        if (ind == whiteIndex) hasWhiteWall[k][j] = true;
                     }
                 }
             }
 
             GameObject gate = Instantiate(gatePrefab, tilemapParent);
-            gate.GetComponent<Gate>().CreateNew(data.colors[i].index);
+            gate.GetComponent<Gate>().CreateNew(ind);
             Tilemap gateTilemap = gate.GetComponent<Tilemap>();
             for (int j = 0; j < data.row; j++)
             {
@@ -367,7 +376,7 @@ public class Map : MonoBehaviour
                     {
                         gateTilemap.SetTile(new Vector3Int(k, j, 0), gateBase);
                         GameObject b = Instantiate(gateLightPrefab, thingParent);
-                        b.GetComponent<GateLight>().Create(data.colors[i].index, k, j);
+                        b.GetComponent<GateLight>().Create(ind, k, j);
 
                         hasTile[k][j] = true;
                     }
@@ -379,55 +388,56 @@ public class Map : MonoBehaviour
         {
             GameObject b = Instantiate(buttonForCubePrefab, thingParent);
             ButtonsForCube bb = b.GetComponent<ButtonsForCube>();
-            bb.CreateNew(data.buttonForCubes[i].color, data.buttonForCubes[i].interactiveColor, data.buttonForCubes[i].x, data.buttonForCubes[i].y);
+            bb.CreateNew(c(data, data.buttonForCubes[i].color), c(data, data.buttonForCubes[i].interactiveColor), data.buttonForCubes[i].x, data.buttonForCubes[i].y);
 
-            if (data.buttonForCubes[i].color == whiteIndex) hasTile[data.buttonForCubes[i].x][data.buttonForCubes[i].y] = true;
+            if (c(data, data.buttonForCubes[i].color) == whiteIndex) hasTile[data.buttonForCubes[i].x][data.buttonForCubes[i].y] = true;
         }
         for (int i = 0; i < data.portals.Length; i++)
         {
             GameObject b = Instantiate(portalPrefab, thingParent);
             Portal bb = b.GetComponent<Portal>();
-            bb.CreateNew(data.portals[i].color, data.portals[i].interactiveColor, data.portals[i].x, data.portals[i].y);
+            bb.CreateNew(c(data, data.portals[i].color), data.portals[i].interactiveColor, data.portals[i].x, data.portals[i].y);
 
-            if (data.portals[i].color == whiteIndex) hasTile[data.portals[i].x][data.portals[i].y] = true;
+            if (c(data, data.portals[i].color) == whiteIndex) hasTile[data.portals[i].x][data.portals[i].y] = true;
         }
         for (int i = 0; i < data.lever.Length; i++)
         {
             GameObject b = Instantiate(leverPrefab, thingParent);
             Lever bb = b.GetComponent<Lever>();
-            bb.CreateNew(data.lever[i].color, data.lever[i].interactiveColor, data.lever[i].x, data.lever[i].y);
+            bb.CreateNew(c(data, data.lever[i].color), c(data, data.lever[i].interactiveColor), data.lever[i].x, data.lever[i].y);
 
-            if (data.lever[i].color == whiteIndex) hasTile[data.lever[i].x][data.lever[i].y] = true;
+            if (c(data, data.lever[i].color) == whiteIndex) hasTile[data.lever[i].x][data.lever[i].y] = true;
         }
         for (int i = 0; i < data.buttons.Length; i++)
         {
             GameObject b = Instantiate(buttonPrefab, thingParent);
             Buttons bb = b.GetComponent<Buttons>();
-            bb.CreateNew(data.buttons[i].color, data.buttons[i].interactiveColor, data.buttons[i].x, data.buttons[i].y, data.buttons[i].activateAtBeingActive);
+            bb.CreateNew(c(data, data.buttons[i].color), c(data, data.buttons[i].interactiveColor), data.buttons[i].x, data.buttons[i].y, data.buttons[i].activateAtBeingActive);
 
-            if (data.buttons[i].color == whiteIndex) hasTile[data.buttons[i].x][data.buttons[i].y] = true;
+            if (c(data, data.buttons[i].color) == whiteIndex) hasTile[data.buttons[i].x][data.buttons[i].y] = true;
         }
         for (int i = 0; i < data.buttonTimerCubes.Length; i++)
         {
             GameObject b = Instantiate(buttonTimerCubePrefab, thingParent);
             ButtonTimerCube bb = b.GetComponent<ButtonTimerCube>();
-            bb.CreateNew(data.buttonTimerCubes[i].color, data.buttonTimerCubes[i].interactiveColor, data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].timer);
+            bb.CreateNew(c(data, data.buttonTimerCubes[i].color), c(data, data.buttonTimerCubes[i].interactiveColor), data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].timer);
 
-            if (data.buttonTimerCubes[i].color == whiteIndex) hasTile[data.buttonTimerCubes[i].x][data.buttonTimerCubes[i].y] = true;
+            if (c(data, data.buttonTimerCubes[i].color) == whiteIndex) hasTile[data.buttonTimerCubes[i].x][data.buttonTimerCubes[i].y] = true;
         }
 
         for (int i = 0; i < data.inversePairs.Length; i++)
         {
-            FindFirstObjectByType<WallManager>().inversColor.add(data.inversePairs[i].index1, data.inversePairs[i].index2);
-            Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
+            FindFirstObjectByType<WallManager>().inversColor.add(c(data, data.inversePairs[i].index1), c(data, data.inversePairs[i].index2));
+            //Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
         }
 
-
+        for(int i = 0; i < data.activeAtStart.Length; i++)
+        {
+            wm.activeAtStart.add(c(data, data.activeAtStart[i].index), data.activeAtStart[i].isActive);
+        }
         if (isStart) { 
-            FindFirstObjectByType<WallManager>().activeAtStart = data.activeAtStart;
             FindFirstObjectByType<WallManager>().SetDefaultState();
         }
-
         else FindFirstObjectByType<WallManager>().SetCurrentState();
 
         if(isStart) FindFirstObjectByType<Player>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
@@ -435,6 +445,19 @@ public class Map : MonoBehaviour
         if(data.endx >= 0 && data.endy >= 0) hasTile[data.endx][data.endy] = true;
         FindFirstObjectByType<WallManager>().SetDecoDemons();
         SetDeco();
+    }
+
+    public int c(MapData data, int colorIndex)
+    {
+        WallManager wm = FindFirstObjectByType<WallManager>();
+        for(int i = 0; i < data.colors.Length; i++)
+        {
+            if (data.colors[i].index == colorIndex)
+            {
+                return wm.colors.searchColor(data.colors[i].c());
+            }
+        }
+        return -1;
     }
 
     public void SetDeco()

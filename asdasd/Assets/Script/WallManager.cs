@@ -21,7 +21,7 @@ public class WallManager : MonoBehaviour
     public List<Portal> portals;
     public List<Gate> gates;
     public List<GateLight> gateLights;
-    public MapData.ActiveAtStart[] activeAtStart;
+    public ActiveAtBeginning activeAtStart;
     public EndThing endThing;
     public Gradient portalColors;
     public Transform decoParent;
@@ -50,6 +50,18 @@ public class WallManager : MonoBehaviour
                 }
             }
             return Color.white;
+        }
+
+        public int searchColor(Color color)
+        {
+            for (int i = 0; i < colors.Count; i++)
+            {
+                if (color == colors[i])
+                {
+                    return indexes[i];
+                }
+            }
+            return -1;
         }
 
         public bool atVisible(int index)
@@ -114,6 +126,60 @@ public class WallManager : MonoBehaviour
         public List<int> getIndexes()
         {
             return indexes;
+        }
+
+        public bool exist(int index)
+        {
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                if (index == indexes[i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int maxIndex()
+        {
+            int maxi = -1;
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                maxi = Mathf.Max(maxi, indexes[i]);
+            }
+            return maxi;
+        }
+    }
+
+    public struct ActiveAtBeginning
+    {
+        List<int> index;
+        List<bool> active;
+
+        public void add(int ind, bool act)
+        {
+            if(index == null)
+            {
+                index = new List<int>();
+                active = new List<bool>();
+            }
+            if (index.Contains(ind)) return;
+            index.Add(ind);
+            active.Add(act);
+        }
+
+        public List<int> getIndexes()
+        {
+            return index;
+        }
+
+        public bool at(int ind)
+        {
+            for(int i = 0; i < index.Count; i++)
+            {
+                if(ind == index[i]) return active[i];
+            }
+            return false;
         }
     }
 
@@ -453,11 +519,11 @@ public class WallManager : MonoBehaviour
 
     public void SetDefaultState()
     {
-        for (int i = 0; i < activeAtStart.Length; i++)
+        for (int i = 0; i < activeAtStart.getIndexes().Count; i++)
         {
-            if (activeAtStart[i].isActive) SetColorActive(activeAtStart[i].index);
-            else SetColorDeactive(activeAtStart[i].index);
-            colors.setVisible(activeAtStart[i].index, activeAtStart[i].isActive);
+            if (activeAtStart.at(activeAtStart.getIndexes()[i])) SetColorActive(activeAtStart.getIndexes()[i]);
+            else SetColorDeactive(activeAtStart.getIndexes()[i]);
+            colors.setVisible(activeAtStart.getIndexes()[i], activeAtStart.at(activeAtStart.getIndexes()[i]));
         }
     }
 

@@ -213,11 +213,18 @@ MonoBehaviour:
   levels:
   - x: 0
     y: 0
+    levelName: -11
+    missingUp: 
+    missingDown: 
+    missingRight: 000000000100000002000000
+    missingLeft: 
+  - x: 1
+    y: 0
     levelName: -10
     missingUp: 
     missingDown: 
     missingRight: 
-    missingLeft: 
+    missingLeft: 000000000100000002000000
 --- !u!1 &382488761
 GameObject:
   m_ObjectHideFlags: 0
