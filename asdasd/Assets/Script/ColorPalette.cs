@@ -194,7 +194,7 @@ public class ColorPalette : MonoBehaviour
     public void DeleteSelectedColor()
     {
         if (SelectWarning()) return;
-        if (SameColor(selectedButton.color, new Color32(255, 255, 255, 255)) return; //fehéret nem bántjuk!
+        if (SameColor(selectedButton.color, new Color32(255, 255, 255, 255))) return; //fehéret nem bántjuk!
 
 
         mapEditor.RemoveColor(selectedButton.index);

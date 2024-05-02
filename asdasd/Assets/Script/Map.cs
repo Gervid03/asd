@@ -354,7 +354,7 @@ public class Map : MonoBehaviour
                 if(!wm.colors.exist(data.colors[i].index)) wm.colors.add(data.colors[i].c(), data.colors[i].index);
                 else wm.colors.add(data.colors[i].c(), wm.colors.maxIndex() + 1);
             }
-            if (wm.colors.at(c(data, data.colors[i].index)) == Color.white) whiteIndex = c(data, data.colors[i].index);
+            if (SameColor(wm.colors.at(c(data, data.colors[i].index)), new Color32(255, 255, 255, 255))) whiteIndex = c(data, data.colors[i].index);
         }
 
         //set the informations
@@ -382,7 +382,7 @@ public class Map : MonoBehaviour
                 {
                     if (data.colorIndex[k][j] == data.colors[i].index)
                     {
-                        if (FindFirstObjectByType<WallManager>().colors.at(ind) == Color.white) t.SetTile(new Vector3Int(k, j, 0), tileBase);
+                        if (SameColor(FindFirstObjectByType<WallManager>().colors.at(ind), new Color32(255, 255, 255, 255))) t.SetTile(new Vector3Int(k, j, 0), tileBase);
                         else t.SetTile(new Vector3Int(k, j, 0), tileColorBase);
 
                         if (ind == whiteIndex) hasTile[k][j] = true;
@@ -547,5 +547,10 @@ public class Map : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool SameColor(Color32 a, Color32 b)
+    {
+        return (a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a);
     }
 }

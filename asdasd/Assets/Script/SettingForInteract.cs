@@ -37,7 +37,7 @@ public class SettingForInteract : MonoBehaviour
         if (recipient == indexColorInteract)
         {
             colorInteract.sprite = warning;
-            colorInteract.color = Color.white;
+            colorInteract.color = new Color32(255, 255, 255, 255);
         }
     }
 

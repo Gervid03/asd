@@ -49,14 +49,15 @@ public class WallManager : MonoBehaviour
                     return colors[i];
                 }
             }
-            return Color.white;
+            return new Color32(255, 255, 255, 255);
         }
 
         public int searchColor(Color32 color)
         {
+            WallManager wallManager = FindFirstObjectByType<WallManager>();
             for (int i = 0; i < colors.Count; i++)
             {
-                if (FindFirstObjectByType<WallManager>().SameColor(color, colors[i]))
+                if (wallManager.SameColor(color, colors[i]))
                 {
                     return indexes[i];
                 }
@@ -355,7 +356,7 @@ public class WallManager : MonoBehaviour
 
     public void SetColorActive(int index, bool inverzed = false)
     {
-        if (colors.at(index) == Color.white) return;
+        if (SameColor(colors.at(index), new Color32(255, 255, 255, 255))) return;
         activateColor?.Invoke(index);
         if (inversColor.at(index) != -1 && !inverzed) SetColorDeactive(inversColor.at(index), true);
         colors.setVisible(index, true);
@@ -426,7 +427,7 @@ public class WallManager : MonoBehaviour
 
     public void SetColorDeactive(int index, bool inverzed = false)
     {
-        if (colors.at(index) == Color.white) return;
+        if (SameColor(colors.at(index), new Color32(255, 255, 255, 255))) return;
         disableColor?.Invoke(index);
         if (inversColor.at(index) != -1 && !inverzed) SetColorActive(inversColor.at(index), true);
         colors.setVisible(index, false);
