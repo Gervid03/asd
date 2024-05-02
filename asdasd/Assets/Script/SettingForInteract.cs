@@ -41,7 +41,7 @@ public class SettingForInteract : MonoBehaviour
         }
     }
 
-    public void Modify(int recipient, Color newColor)
+    public void Modify(int recipient, Color32 newColor)
     {
         if (recipient == index)
         {
@@ -53,7 +53,7 @@ public class SettingForInteract : MonoBehaviour
         }
     }
 
-    public void Set(int x1, int y1, int i, Color c, int interactColor, bool active = false)
+    public void Set(int x1, int y1, int i, Color32 c, int interactColor, bool active = false)
     {
         coordinates.text = "(" + x1 + ", " + y1 + ")";
         x = x1;

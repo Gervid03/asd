@@ -27,7 +27,7 @@ public class ColorPalette : MonoBehaviour
     public GameObject defaultStateTogglePrefab;
     public Transform defaultStateToggleParent;
     public GameObject colorExistsWarning;
-    public static event Action<int, Color> modifyColor;
+    public static event Action<int, Color32> modifyColor;
     public static event Action<int> deleteColor;
 
     void Awake()
@@ -36,7 +36,7 @@ public class ColorPalette : MonoBehaviour
         mapEditor.tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
         colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
         colorTweaker = FindAnyObjectByType<ColorTweaker>(FindObjectsInactive.Include);
-        CreateColor(new Color(1, 1, 1, 1));
+        CreateColor(new Color32(255, 255, 255, 255));
         ReadInColors();
     }
 
@@ -60,14 +60,14 @@ public class ColorPalette : MonoBehaviour
         FindAnyObjectByType<DefaultStateHeight>().AdjustHeight((Mathf.CeilToInt(colors.Count / 7f)) * 100);
     }
 
-    public bool ColorExists(Color c)
+    public bool ColorExists(Color32 c)
     {
         int i;
-        for (i = 0; i < colors.Count; i++) if (colors[i].color == c) break;
+        for (i = 0; i < colors.Count; i++) if (SameColor(colors[i].color, c)) break;
         return i != colors.Count;
     }
 
-    public void CreateColor(Color szin, int index = -1)
+    public void CreateColor(Color32 szin, int index = -1)
     {
         GameObject c = Instantiate(colorDisplay, colorPaletteParent, false);
         GameObject defaultStateToggle = Instantiate(defaultStateTogglePrefab, defaultStateToggleParent, false);
@@ -99,8 +99,8 @@ public class ColorPalette : MonoBehaviour
         for (int i = 0; i < colorPaletteLines.Length; i++)
         {
             string[] stringRGB = colorPaletteLines[i].Trim().Split(' ');
-            if (stringRGB[0] == "1" && stringRGB[1] == "1" && stringRGB[2] == "1") continue; //fehér már van
-            CreateColor(new Color(float.Parse(stringRGB[0]), float.Parse(stringRGB[1]), float.Parse(stringRGB[2]), 255));
+            if (stringRGB[0] == "255" && stringRGB[1] == "255" && stringRGB[2] == "255") continue; //fehér már van
+            CreateColor(new Color32(byte.Parse(stringRGB[0]), byte.Parse(stringRGB[1]), byte.Parse(stringRGB[2]), 255));
         }
     }
 
@@ -118,7 +118,7 @@ public class ColorPalette : MonoBehaviour
     {
         colorExistsWarning.SetActive(false);
         colorTweaker.BeActive();
-        colorTweaker.color = new Vector4(1, 1, 1, 1);
+        colorTweaker.color = new Color32(255, 255, 255, 255);
         colorTweaker.UpdateTextsFromColor();
     }
 
@@ -146,7 +146,7 @@ public class ColorPalette : MonoBehaviour
     {
         if (SelectWarning()) return;
 
-        if (selectedButton.color != new Color(1, 1, 1))
+        if (!SameColor(selectedButton.color, new Color32(255, 255, 255, 255)))
         {
             colorUnderModification = selectedButton;
             overwriteColorButton.SetActive(true);
@@ -161,7 +161,7 @@ public class ColorPalette : MonoBehaviour
 
     public void OverwriteSelectedColor()
     {
-        if (selectedButton.color == new Color(1, 1, 1, 1)) return; //fehéret nem bántjuk!
+        if (SameColor(selectedButton.color, new Color32(255, 255, 255, 255))) return; //fehéret nem bántjuk!
 
         colorTweaker.AdjustBrightness();
         if (ColorExists(colorTweaker.color))
@@ -194,7 +194,7 @@ public class ColorPalette : MonoBehaviour
     public void DeleteSelectedColor()
     {
         if (SelectWarning()) return;
-        if (selectedButton.index == 0) return; //fehéret nem bántjuk!
+        if (SameColor(selectedButton.color, new Color32(255, 255, 255, 255)) return; //fehéret nem bántjuk!
 
 
         mapEditor.RemoveColor(selectedButton.index);
@@ -269,5 +269,10 @@ public class ColorPalette : MonoBehaviour
         colorCarouselImage.color = selectedButton.color;
         selectSMHWarning.gameObject.SetActive(false); //just here to abuse the frequent updates (:
         colorExistsWarning.SetActive(false);
+    }
+
+    public bool SameColor(Color32 a, Color32 b)
+    {
+        return (a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a);
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ColorDisplayButton : MonoBehaviour
 {
     public int index;
-    public Color color;
+    public Color32 color;
     public GameObject toggle;
 
     private void Awake()
@@ -39,7 +39,7 @@ public class ColorDisplayButton : MonoBehaviour
         ColorPalette.modifyColor -= Modify;
     }
 
-    public void Modify(int recipient, Color newColor)
+    public void Modify(int recipient, Color32 newColor)
     {
         if (recipient == index) //if the message is for me
         {

@@ -26,8 +26,8 @@ public class MapData
     public struct ColorForSave
     {
         public int index;
-        public float r, g, b;
-        public void Set(Color c, int i)
+        public byte r, g, b;
+        public void Set(Color32 c, int i)
         {
             r = c.r;
             g = c.g;
@@ -35,9 +35,9 @@ public class MapData
             index = i;
         }
 
-        public Color c()
+        public Color32 c()
         {
-            return new Color(r, g, b);
+            return new Color32(r, g, b, 255);
         }
     }
 

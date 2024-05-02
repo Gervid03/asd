@@ -30,7 +30,9 @@ public class WallObjects : MonoBehaviour
     {
         if (c != colorIndex) return;
         //becomes active and visible
-        tilemap.color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, 255);
+        Color32 a = tilemap.color;
+        a.a = 255;
+        tilemap.color = a;
         wallCollider.enabled = true;
     }
 
@@ -38,7 +40,9 @@ public class WallObjects : MonoBehaviour
     {
         if (c != colorIndex) return;
         //becomes invisible
-        tilemap.color = new Color(tilemap.color.r, tilemap.color.g, tilemap.color.b, 0);
+        Color32 a = tilemap.color;
+        a.a = 0;
+        tilemap.color = a;
         wallCollider.enabled = false;
     }
 

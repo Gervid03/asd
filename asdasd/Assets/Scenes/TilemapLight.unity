@@ -213,8 +213,8 @@ MonoBehaviour:
   levels:
   - x: 0
     y: 0
-    levelName: 10000
-    missingUp: 00000000010000000200000003000000
+    levelName: '!01lever'
+    missingUp: 
     missingDown: 
     missingRight: 
     missingLeft: 
@@ -10061,7 +10061,8 @@ MonoBehaviour:
   colors:
     indexes: 00000000
     colors:
-    - {r: 1, g: 1, b: 1, a: 1}
+    - serializedVersion: 2
+      rgba: 2664339728
     visible: 01
   wallObjects: []
   buttons: []

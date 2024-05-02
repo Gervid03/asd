@@ -7,7 +7,7 @@ using TMPro;
 public class ColorTweaker : MonoBehaviour
 {
     public GameObject r255, g255, b255;
-    public Color color;
+    public Color32 color;
     public int IndexOfcolor;
     public GameObject colorDisplayImage, colorDisplaySprite;
     public GameObject inputMethodTexts, brightnessWarning;
@@ -15,11 +15,11 @@ public class ColorTweaker : MonoBehaviour
 
     public void AdjustBrightness()
     {
-        if (Mathf.Max(color.r, color.g, color.b) > 0.98) return;
+        if ((byte) Mathf.Max(color.r, color.g, color.b) == 255) return;
         float x = 1 / Mathf.Max(color.r, color.g, color.b);
-        color.r = Mathf.Min(1, color.r * x);
-        color.g = Mathf.Min(1, color.g * x);
-        color.b = Mathf.Min(1, color.b * x);
+        color.r = (byte) Mathf.Min(255, Mathf.RoundToInt(color.r * x));
+        color.g = (byte) Mathf.Min(255, Mathf.RoundToInt(color.g * x));
+        color.b = (byte) Mathf.Min(255, Mathf.RoundToInt(color.b * x));
         
         UpdateTextsFromColor();
         UpdateDisplayColor();
@@ -28,7 +28,7 @@ public class ColorTweaker : MonoBehaviour
     public void CheckBrightness()
     {
         FindAnyObjectByType<ColorPalette>().colorExistsWarning.SetActive(false);
-        if (Mathf.Max(color.r, color.g, color.b) < 0.98)
+        if (Mathf.Max(color.r, color.g, color.b) < 255)
         {
             brightnessWarning.SetActive(true);
             notBrightEnough = true;
@@ -62,28 +62,28 @@ public class ColorTweaker : MonoBehaviour
 
     public void UpdateTextsFromColor()
     {
-        r255.GetComponent<TMP_InputField>().text = (color.r * 255).ToString();
-        g255.GetComponent<TMP_InputField>().text = (color.g * 255).ToString();
-        b255.GetComponent<TMP_InputField>().text = (color.b * 255).ToString();
+        r255.GetComponent<TMP_InputField>().text = (color.r).ToString();
+        g255.GetComponent<TMP_InputField>().text = (color.g).ToString();
+        b255.GetComponent<TMP_InputField>().text = (color.b).ToString();
     }
 
     public void UpdateRed(string r255Value)
     {
-        if (r255Value == "" || float.Parse(r255Value) > 255 || float.Parse(r255Value) < 0) return;
-        color.r = float.Parse(r255Value) / 255f;
+        if (r255Value == "" || byte.Parse(r255Value) > 255 || byte.Parse(r255Value) < 0) return;
+        color.r = byte.Parse(r255Value);
         UpdateDisplayColor();
     }
 
     public void UpdateGreen(string g255Value)
     {
-        if (g255Value.Length == 0 || float.Parse(g255Value) > 255 || float.Parse(g255Value) < 0) return;
-        color.g = float.Parse(g255Value) / 255f;
+        if (g255Value.Length == 0 || byte.Parse(g255Value) > 255 || byte.Parse(g255Value) < 0) return;
+        color.g = byte.Parse(g255Value);
         UpdateDisplayColor();
     }
     public void UpdateBlue(string b255Value)
     {
-        if (b255Value == "" || float.Parse(b255Value) > 255 || float.Parse(b255Value) < 0) return;
-        color.b = float.Parse(b255Value) / 255f;
+        if (b255Value == "" || byte.Parse(b255Value) > 255 || byte.Parse(b255Value) < 0) return;
+        color.b = byte.Parse(b255Value);
         UpdateDisplayColor();
     }
 }

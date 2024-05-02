@@ -393,12 +393,12 @@ public class MapEditor : MonoBehaviour
         if (tilemaps.at(index) == null)
         {
             if(tilemaps.count() > 0) index = tilemaps.getIndexes()[0];
-            Debug.LogError(index + " index még nem létezik, javítsd meg");
+            //Debug.LogError(index + " index még nem létezik, javítsd meg");
         }
         else currentTilemap = index;
     }
 
-    public int AddColor(Color color, int index = -1)
+    public int AddColor(Color32 color, int index = -1)
     {
         int a;
         if (index == -1) a = tilemaps.lastIndex();
@@ -426,7 +426,7 @@ public class MapEditor : MonoBehaviour
         else ChangeColor(a);
     }
 
-    public void ModifyColor(int index, Color color)
+    public void ModifyColor(int index, Color32 color)
     {
         tilemaps.at(index).color = color;
 

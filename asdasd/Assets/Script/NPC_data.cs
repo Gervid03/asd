@@ -10,7 +10,7 @@ public class NPC_data : ScriptableObject
     public string nameOfNPC;
     public List<string> text;
     public Sprite sprite;
-    public Color color;
+    public Color32 color;
 
     public void Summon()
     {

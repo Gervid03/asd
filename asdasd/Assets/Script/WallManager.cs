@@ -37,10 +37,10 @@ public class WallManager : MonoBehaviour
     public struct ColorList
     {
         public List<int> indexes;
-        public List<Color> colors;
+        public List<Color32> colors;
         public List<bool> visible;
 
-        public Color at(int index)
+        public Color32 at(int index)
         {
             for(int i = 0; i < indexes.Count; i++)
             {
@@ -52,11 +52,11 @@ public class WallManager : MonoBehaviour
             return Color.white;
         }
 
-        public int searchColor(Color color)
+        public int searchColor(Color32 color)
         {
             for (int i = 0; i < colors.Count; i++)
             {
-                if (color == colors[i])
+                if (FindFirstObjectByType<WallManager>().SameColor(color, colors[i]))
                 {
                     return indexes[i];
                 }
@@ -108,7 +108,7 @@ public class WallManager : MonoBehaviour
             visible.Clear();
         }
 
-        public void add(Color t, int index, bool vis = true)
+        public void add(Color32 t, int index, bool vis = true)
         {
             if (indexes.Contains(index)) return;
             colors.Add(t);
@@ -116,7 +116,7 @@ public class WallManager : MonoBehaviour
             visible.Add(vis);
         }
 
-        public void makeItNotNull(List<int> a, List<Color> b)
+        public void makeItNotNull(List<int> a, List<Color32> b)
         {
             indexes = a;
             colors = b;
@@ -245,7 +245,7 @@ public class WallManager : MonoBehaviour
 
     void Awake()
     {
-        colors.makeItNotNull(new List<int>(), new List<Color>());
+        colors.makeItNotNull(new List<int>(), new List<Color32>());
         inversColor.makeItNotNull(new List<pair>());
         SetDecoDemons();
     }
@@ -287,12 +287,12 @@ public class WallManager : MonoBehaviour
         }
     }
 
-    public Color GetColor(int index)
+    public Color32 GetColor(int index)
     {
         return colors.at(index);
     }
 
-    public Color GetPortalColor(float index)
+    public Color32 GetPortalColor(float index)
     {
         return portalColors.Evaluate((float)index / 100);
     }
@@ -537,5 +537,10 @@ public class WallManager : MonoBehaviour
             if (colors.atVisible(ind[i])) SetColorActive(ind[i]);
             else SetColorDeactive(ind[i]);
         }
+    }
+
+    public bool SameColor(Color32 a, Color32 b)
+    {
+        return (a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a);
     }
 }

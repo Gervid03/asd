@@ -80,7 +80,7 @@ public class movement : MonoBehaviour
     public void GotNewCube(int colorIndex)
     {
         basicCubeSpriteRenderer.gameObject.SetActive(true);
-        Color a = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        Color32 a = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         basicCubeSpriteRenderer.color = a;
         basicCubeLight.color = a;
         basicCubeLightBehind.color = a;
@@ -89,7 +89,7 @@ public class movement : MonoBehaviour
     public void SetNewTimerCubeColor(int colorIndex)
     {
         timerCubeSpriteRenderer.gameObject.SetActive(true);
-        Color a = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
+        Color32 a = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         timerCubeSpriteRenderer.color = a;
         timerCubeLight.color = a;
         timerCubeLightBehind.color = a;
