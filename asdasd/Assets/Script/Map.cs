@@ -12,6 +12,7 @@ using static WallManager;
 using System.ComponentModel;
 using System.IO;
 using UnityEngine.Rendering;
+using JetBrains.Annotations;
 
 public class Map : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class Map : MonoBehaviour
     public bool[][] hasTile;
     public bool[][] hasWhiteWall;
     public GameObject prefabOfNPC;
-    public List<NPC_data> datas;
+    public List<NPCList> datas;
 
     [System.Serializable]
     public struct Deco
@@ -353,16 +354,28 @@ public class Map : MonoBehaviour
                 if(!wm.colors.exist(data.colors[i].index)) wm.colors.add(data.colors[i].c(), data.colors[i].index);
                 else wm.colors.add(data.colors[i].c(), wm.colors.maxIndex() + 1);
             }
-            if (data.colors[i].c() == Color.white) whiteIndex = data.colors[i].index;
+            if (wm.colors.at(c(data, data.colors[i].index)) == Color.white) whiteIndex = c(data, data.colors[i].index);
         }
 
         //set the informations
         for (int i = 0; i < data.colors.Length; i++)
         {
-            GameObject a = Instantiate(tilemapPrefab, tilemapParent);
+            WallObjects[] wo = FindObjectsOfType<WallObjects>(includeInactive: true);
             int ind = wm.colors.searchColor(data.colors[i].c());
-            a.GetComponent<WallObjects>().Create(ind);
-            Tilemap t = a.GetComponent<Tilemap>();
+            Tilemap t = null;
+            for(int j = 0; j < wo.Length; j++)
+            {
+                if (wo[j].colorIndex == ind)
+                {
+                    t = wo[j].gameObject.GetComponent<Tilemap>();
+                }
+            }
+            if(t == null)
+            {
+                GameObject a = Instantiate(tilemapPrefab, tilemapParent);
+                t = a.GetComponent<Tilemap>();
+                a.GetComponent<WallObjects>().Create(ind);
+            }
             for (int j = 0; j < data.row; j++)
             {
                 for (int k = 0; k < data.column; k++)
@@ -378,9 +391,22 @@ public class Map : MonoBehaviour
                 }
             }
 
-            GameObject gate = Instantiate(gatePrefab, tilemapParent);
-            gate.GetComponent<Gate>().CreateNew(ind);
-            Tilemap gateTilemap = gate.GetComponent<Tilemap>();
+            Gate[] gates = FindObjectsOfType<Gate>(includeInactive: true);
+            ind = wm.colors.searchColor(data.colors[i].c());
+            Tilemap gateTilemap = null;
+            for (int j = 0; j < gates.Length; j++)
+            {
+                if (gates[j].colorIndex == ind)
+                {
+                    gateTilemap = wo[j].gameObject.GetComponent<Tilemap>();
+                }
+            }
+            if (gateTilemap == null)
+            {
+                GameObject gate = Instantiate(gatePrefab, tilemapParent);
+                gate.GetComponent<Gate>().CreateNew(ind);
+                gateTilemap = gate.GetComponent<Tilemap>();
+            }
             for (int j = 0; j < data.row; j++)
             {
                 for (int k = 0; k < data.column; k++)
@@ -511,14 +537,14 @@ public class Map : MonoBehaviour
 
     public void SearchForNPCs(string mapName)
     {
-        //Object[] datas = Resources.LoadAll("C:/Github/asd/asdasd/Assets/");
-        //Debug.Log(datas.Length);
         for(int i = 0; i < datas.Count; i++)
         {
-            //Debug.Log(d.name);
-            if (datas[i].mapName == mapName)
+            for(int j = 0; j < datas[i].data.Count; j++)
             {
-                datas[i].Summon();
+                if (datas[i].data[j].mapName == mapName)
+                {
+                    datas[i].data[j].Summon();
+                }
             }
         }
     }

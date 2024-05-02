@@ -355,6 +355,7 @@ public class WallManager : MonoBehaviour
 
     public void SetColorActive(int index, bool inverzed = false)
     {
+        if (colors.at(index) == Color.white) return;
         activateColor?.Invoke(index);
         if (inversColor.at(index) != -1 && !inverzed) SetColorDeactive(inversColor.at(index), true);
         colors.setVisible(index, true);
@@ -425,6 +426,7 @@ public class WallManager : MonoBehaviour
 
     public void SetColorDeactive(int index, bool inverzed = false)
     {
+        if (colors.at(index) == Color.white) return;
         disableColor?.Invoke(index);
         if (inversColor.at(index) != -1 && !inverzed) SetColorActive(inversColor.at(index), true);
         colors.setVisible(index, false);

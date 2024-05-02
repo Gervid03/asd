@@ -214,7 +214,7 @@ MonoBehaviour:
   - x: 0
     y: 0
     levelName: 10000
-    missingUp: 
+    missingUp: 00000000010000000200000003000000
     missingDown: 
     missingRight: 
     missingLeft: 
@@ -10059,9 +10059,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors:
-    indexes: 
-    colors: []
-    visible: 
+    indexes: 00000000
+    colors:
+    - {r: 1, g: 1, b: 1, a: 1}
+    visible: 01
   wallObjects: []
   buttons: []
   buttonForCubes: []
@@ -10224,7 +10225,7 @@ MonoBehaviour:
     prefab: {fileID: 4884681658505285785, guid: dbb9b4e5641eb684f93b2b3a1d9fb8f0, type: 3}
   prefabOfNPC: {fileID: 6685188989121520819, guid: b54bc16602cf3aa48835e87ced942438, type: 3}
   datas:
-  - {fileID: 11400000, guid: c5893f9d6e547884fbceb7da51f75b10, type: 2}
+  - {fileID: 11400000, guid: b8c154aec6f1f7944afa1417d2f664f4, type: 2}
 --- !u!1 &1319816383
 GameObject:
   m_ObjectHideFlags: 0
@@ -11663,35 +11664,9 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 8598581800622871107}
-    m_ColliderPaths:
-    - - X: 310000000
-        Y: 170000000
-      - X: -10000000
-        Y: 170000000
-      - X: -10000000
-        Y: -10000000
-      - X: 310000000
-        Y: -10000000
-    - - X: 0
-        Y: 0
-      - X: 0
-        Y: 160000000
-      - X: 300000000
-        Y: 160000000
-      - X: 300000000
-        Y: 0
+  m_ColliderPaths: []
   m_CompositePaths:
-    m_Paths:
-    - - {x: 30.999971, y: -1}
-      - {x: 30.999971, y: 17}
-      - {x: -1, y: 16.999971}
-      - {x: -0.99997073, y: -1}
-    - - {x: 30, y: 0.0000294}
-      - {x: 0, y: 0.0000294}
-      - {x: 0.0000294, y: 16}
-      - {x: 30, y: 15.999971}
+    m_Paths: []
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -11762,7 +11737,6 @@ GameObject:
   - component: {fileID: 68221761353188810}
   - component: {fileID: 1002681366892614994}
   - component: {fileID: 8598581800622871106}
-  - component: {fileID: 8598581800622871107}
   m_Layer: 0
   m_Name: OutsideWall
   m_TagString: Untagged
@@ -12925,7 +12899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ce9490e313e284982dc5ee2a7f2013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorIndex: -1
+  colorIndex: 0
   tilemap: {fileID: 8381403240011220832}
   wallCollider: {fileID: 0}
 --- !u!114 &8598581800622871106
@@ -12940,42 +12914,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bdb9e238fc2f9f45be99bad0164db2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!19719996 &8598581800622871107
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3739870107527266390}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 1
-  m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0
-  m_UseDelaunayMesh: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

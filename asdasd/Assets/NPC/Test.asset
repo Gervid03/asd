@@ -17,10 +17,7 @@ MonoBehaviour:
   y: 13
   nameOfNPC: Sanyi
   text:
-  - Hi
-  - En
-  - Nem
-  - Letezek
-  - Tobbe
+  - Good Morning
+  - How are you?
   sprite: {fileID: -1647575858, guid: 56d5a6f42c4d26e498d0598a6cc521e5, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}

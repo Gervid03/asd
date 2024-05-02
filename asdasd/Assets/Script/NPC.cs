@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NPC : MonoBehaviour
 {
     public NPC_data data;
+    public bool isInteractable;
     public GameObject showInteract;
     public bool isCommunicating;
     public int currentText;
@@ -15,10 +16,7 @@ public class NPC : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Player>() == null) return;
         showInteract.SetActive(true);
-        if (Input.GetAxisRaw("Interact") == 1 && !isCommunicating)
-        {
-            StartCommunicating();
-        }
+        isInteractable = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -26,6 +24,7 @@ public class NPC : MonoBehaviour
         if (collision.gameObject.GetComponent<Player>() == null) return;
         showInteract.SetActive(false);
         EndCommunicating();
+        isInteractable = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -60,6 +59,12 @@ public class NPC : MonoBehaviour
             SelectText();
         }
         else if(Input.GetAxisRaw("Interact") != 1) canSkip = true;
+
+        if (Input.GetAxisRaw("Interact") == 1 && !isCommunicating && isInteractable && canSkip)
+        {
+            canSkip = false;
+            StartCommunicating();
+        }
     }
 
     public void SelectText()
