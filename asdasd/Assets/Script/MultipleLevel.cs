@@ -15,6 +15,7 @@ public class MultipleLevel : MonoBehaviour
     public TileBase clear;
     public TileBase wall;
     public List<Level> levels;
+    public LevelGroup levelGroup;
 
     [System.Serializable]
     public struct Level
@@ -26,6 +27,7 @@ public class MultipleLevel : MonoBehaviour
         public List<int> missingRight;
         public List<int> missingLeft;
         MultipleLevel ml;
+        public bool isSpecial; //later for the special/story maps
 
         public void Set(int x1, int y1, string name = "")
         {
@@ -167,6 +169,7 @@ public class MultipleLevel : MonoBehaviour
 
     private void Awake()
     {
+        levels = levelGroup.levels;
         /*
         Level l = new Level();
         l.Set(currentX, currentY, "10000");
