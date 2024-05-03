@@ -305,6 +305,30 @@ public class Map : MonoBehaviour
         }
     }
 
+    public void KillAllTheTilemapChildren(Transform p, MapData d)
+    {
+        int i;
+        foreach (Transform child in p)
+        {
+            for (i = 0; i < d.colors.Length; i++)
+            {
+                if (SameColor(d.colors[i].c(), child.gameObject.GetComponent<Tilemap>().color) || SameColor(new Color32(d.colors[i].r, d.colors[i].g, d.colors[i].b, 0), child.gameObject.GetComponent<Tilemap>().color))
+                {
+                    for (int j = 0; j < d.row; j++)
+                    {
+                        for (int k = 0; k < d.column; k++)
+                        {
+                            child.gameObject.GetComponent<Tilemap>().SetTile(new Vector3Int(k, j, 0), clear);
+                        }
+                    }
+                    break;
+                }
+            }
+            if (i != d.colors.Length || child.gameObject.GetComponent<DontDestroyThisObject>() != null) continue;
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
     public void ClearMap()
     {
         File.Delete(Application.persistentDataPath + "/!tempmap.map");
@@ -343,7 +367,7 @@ public class Map : MonoBehaviour
         FindFirstObjectByType<WallManager>().ResetThings();
         KillAllTheChildren(thingParent);
         KillAllTheChildren(FindFirstObjectByType<WallManager>().decoParent);
-        KillAllTheChildren(tilemapParent);
+        KillAllTheTilemapChildren(tilemapParent, data);
         //!!!!!
 
 
@@ -369,6 +393,16 @@ public class Map : MonoBehaviour
             {
                 if(!wm.colors.exist(data.colors[i].index)) wm.colors.add(data.colors[i].c(), data.colors[i].index);
                 else wm.colors.add(data.colors[i].c(), wm.colors.maxIndex() + 1);
+
+                for (int j = 0; j < data.activeAtStart.Length; j++)
+                {
+                    if (data.activeAtStart[j].index == data.colors[i].index)
+                    {
+                        wm.activeAtStart.add(c(data, data.activeAtStart[j].index), data.activeAtStart[j].isActive);
+                        wm.colors.setVisible(c(data, data.activeAtStart[j].index), data.activeAtStart[j].isActive);
+                        break;
+                    }
+                }
             }
             if (SameColor(wm.colors.at(c(data, data.colors[i].index)), new Color32(255, 255, 255, 255))) whiteIndex = c(data, data.colors[i].index);
         }
@@ -486,10 +520,6 @@ public class Map : MonoBehaviour
             //Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
         }
 
-        for(int i = 0; i < data.activeAtStart.Length; i++)
-        {
-            wm.activeAtStart.add(c(data, data.activeAtStart[i].index), data.activeAtStart[i].isActive);
-        }
         //if (isStart) { 
         //    FindFirstObjectByType<WallManager>().SetDefaultState();
         //}

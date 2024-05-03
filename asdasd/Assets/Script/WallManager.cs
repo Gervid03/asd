@@ -544,4 +544,15 @@ public class WallManager : MonoBehaviour
     {
         return (a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a);
     }
+
+    public void SaveCurrentProgress()
+    {
+        FindFirstObjectByType<ProgressGatherer>().GetInfos();
+        SaveLoadMaps.SaveProgress(FindFirstObjectByType<ProgressGatherer>());
+    }
+
+    private void OnApplicationPause()
+    {
+        SaveCurrentProgress();
+    }
 }

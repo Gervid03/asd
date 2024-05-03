@@ -6,6 +6,16 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveLoadMaps
 {
+    public static void SaveProgress(ProgressGatherer pg)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/Progress.pgs";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        Progress progress = new Progress(pg);
+        bf.Serialize(stream, progress);
+        stream.Close();
+    }
+
     public static void SaveMap(Map map)
     {
         Debug.Log(Application.persistentDataPath);

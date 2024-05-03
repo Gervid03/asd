@@ -10031,6 +10031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1256772260}
+  - component: {fileID: 1256772262}
   - component: {fileID: 1256772259}
   - component: {fileID: 1256772261}
   m_Layer: 0
@@ -10222,6 +10223,28 @@ MonoBehaviour:
   datas:
   - {fileID: 11400000, guid: 3b8bf0928365a4244a01aefb4c19cc61, type: 2}
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
+--- !u!114 &1256772262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256772258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc192589f8632c4087d72bf6858238d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 0
+  y: 0
+  roomX: 0
+  roomY: 0
+  cube:
+    index: 0
+    x: 0
+    y: 0
+  timerCubes: []
+  colors: []
 --- !u!1 &1319816383
 GameObject:
   m_ObjectHideFlags: 0
