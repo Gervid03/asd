@@ -211,7 +211,7 @@ MonoBehaviour:
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
   wall: {fileID: 11400000, guid: 8292fcf3eabd1bd47aee888ec5542a13, type: 2}
   levels: []
-  levelGroup: {fileID: 11400000, guid: 811b3468c83e98b46a6666d8ea68791a, type: 2}
+  levelGroup: {fileID: 0}
 --- !u!1 &382488761
 GameObject:
   m_ObjectHideFlags: 0

@@ -69,20 +69,20 @@ public class ColorTweaker : MonoBehaviour
 
     public void UpdateRed(string r255Value)
     {
-        if (r255Value == "" || byte.Parse(r255Value) > 255 || byte.Parse(r255Value) < 0) return;
+        if (r255Value == "" || int.Parse(r255Value) > 255 || int.Parse(r255Value) < 0) return;
         color.r = byte.Parse(r255Value);
         UpdateDisplayColor();
     }
 
     public void UpdateGreen(string g255Value)
     {
-        if (g255Value.Length == 0 || byte.Parse(g255Value) > 255 || byte.Parse(g255Value) < 0) return;
+        if (g255Value == "" || int.Parse(g255Value) > 255 || int.Parse(g255Value) < 0) return;
         color.g = byte.Parse(g255Value);
         UpdateDisplayColor();
     }
     public void UpdateBlue(string b255Value)
     {
-        if (b255Value == "" || byte.Parse(b255Value) > 255 || byte.Parse(b255Value) < 0) return;
+        if (b255Value == "" || int.Parse(b255Value) > 255 || int.Parse(b255Value) < 0) return;
         color.b = byte.Parse(b255Value);
         UpdateDisplayColor();
     }

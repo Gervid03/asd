@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0bc62049791374a948d01a400e89bf, type: 3}
   m_Name: LevelGroup
   m_EditorClassIdentifier: 
+  x: 2
+  y: 0
   levels:
   - x: 0
     y: 0
-    levelName: '!01lever'
+    levelName: '!A01lever'
     missingUp: 
     missingDown: 
     missingRight: 0a000000090000000800000007000000
@@ -23,17 +25,33 @@ MonoBehaviour:
     isSpecial: 0
   - x: 1
     y: 0
-    levelName: '!02doublegate'
+    levelName: '!A02doublegate'
     missingUp: 
     missingDown: 
-    missingRight: 
+    missingRight: 0a000000090000000800000007000000
     missingLeft: 0a000000090000000800000007000000
     isSpecial: 0
   - x: 2
     y: 0
-    levelName: '!03twicelever'
+    levelName: '!A03twicelever'
+    missingUp: 
+    missingDown: 
+    missingRight: 08000000090000000a0000000b0000000c0000000d0000000e000000
+    missingLeft: 0a000000090000000800000007000000
+    isSpecial: 0
+  - x: 3
+    y: 0
+    levelName: '!A04twoways'
+    missingUp: 
+    missingDown: 
+    missingRight: 010000000200000003000000000000000e0000000f0000000d000000
+    missingLeft: 08000000090000000a0000000b0000000c0000000d0000000e000000
+    isSpecial: 0
+  - x: 4
+    y: 0
+    levelName: '!A05twowayssecond'
     missingUp: 
     missingDown: 
     missingRight: 
-    missingLeft: 
+    missingLeft: 000000000100000002000000030000000d0000000e0000000f000000
     isSpecial: 0
