@@ -15,8 +15,25 @@ MonoBehaviour:
   levels:
   - x: 0
     y: 0
-    levelName: 
+    levelName: '!01lever'
+    missingUp: 
+    missingDown: 
+    missingRight: 0a000000090000000800000007000000
+    missingLeft: 
+    isSpecial: 0
+  - x: 1
+    y: 0
+    levelName: '!02doublegate'
+    missingUp: 
+    missingDown: 
+    missingRight: 
+    missingLeft: 0a000000090000000800000007000000
+    isSpecial: 0
+  - x: 2
+    y: 0
+    levelName: '!03twicelever'
     missingUp: 
     missingDown: 
     missingRight: 
     missingLeft: 
+    isSpecial: 0
