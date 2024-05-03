@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
   m_Name: FirstGroup0
   m_EditorClassIdentifier: 
-  mapName: 
-  x: 0
-  y: 0
-  nameOfNPC: 
-  text: []
+  mapName: '!01lever'
+  x: 5
+  y: 7
+  nameOfNPC: Pacman
+  text:
+  - NOM NOM NOM
+  - YUMMY!
   sprite: {fileID: 445122812, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   color:
     serializedVersion: 2

@@ -210,14 +210,8 @@ MonoBehaviour:
   downY: -1
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
   wall: {fileID: 11400000, guid: 8292fcf3eabd1bd47aee888ec5542a13, type: 2}
-  levels:
-  - x: 0
-    y: 0
-    levelName: 10000
-    missingUp: 
-    missingDown: 
-    missingRight: 
-    missingLeft: 
+  levels: []
+  levelGroup: {fileID: 11400000, guid: 811b3468c83e98b46a6666d8ea68791a, type: 2}
 --- !u!1 &382488761
 GameObject:
   m_ObjectHideFlags: 0
@@ -10226,7 +10220,7 @@ MonoBehaviour:
     prefab: {fileID: 4884681658505285785, guid: dbb9b4e5641eb684f93b2b3a1d9fb8f0, type: 3}
   prefabOfNPC: {fileID: 6685188989121520819, guid: b54bc16602cf3aa48835e87ced942438, type: 3}
   datas:
-  - {fileID: 11400000, guid: b8c154aec6f1f7944afa1417d2f664f4, type: 2}
+  - {fileID: 11400000, guid: 3b8bf0928365a4244a01aefb4c19cc61, type: 2}
 --- !u!1 &1319816383
 GameObject:
   m_ObjectHideFlags: 0
