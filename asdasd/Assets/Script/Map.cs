@@ -178,7 +178,7 @@ public class Map : MonoBehaviour
         colorPalette.KillAllTheChildren();
         for (i = 0; i < data.colors.Length; i++)
         {
-            if (data.colors[i].r == 1 && data.colors[i].g == 1 && data.colors[i].b == 1) continue; //feheret nem bantjuk!
+            if (data.colors[i].r == 255 && data.colors[i].g == 255 && data.colors[i].b == 255) continue; //feheret nem bantjuk!
             colorPalette.CreateColor(data.colors[i].c(), data.colors[i].index);
         }
         
