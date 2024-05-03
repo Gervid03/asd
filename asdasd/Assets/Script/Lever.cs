@@ -16,6 +16,7 @@ public class Lever : MonoBehaviour
     public Light2D displayInteractiveColor;
     public Collider2D leverCollider;
     public Collider2D leverTriggerCollider;
+    public bool interactable;
 
     void Awake()
     {
@@ -38,7 +39,7 @@ public class Lever : MonoBehaviour
         //becomes active and visible
         displayColor.gameObject.SetActive(true);
         displayInteractiveColor.gameObject.SetActive(true);
-        leverCollider.enabled = true;
+        //leverCollider.enabled = true;
         leverTriggerCollider.enabled = true;
     }
 
@@ -48,8 +49,16 @@ public class Lever : MonoBehaviour
         //becomes invisible
         displayColor.gameObject.SetActive(false);
         displayInteractiveColor.gameObject.SetActive(false);
-        leverCollider.enabled = false;
+        //leverCollider.enabled = false;
         leverTriggerCollider.enabled = false;
+    }
+
+    private void Update()
+    {
+        if(interactable && Input.GetAxisRaw("Interact") == 1)
+        {
+            Use();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -57,7 +66,16 @@ public class Lever : MonoBehaviour
         //if it's the player it gets activated
         if (collision.gameObject.GetComponent<movement>() != null)
         {
-            Use();
+            interactable = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //if it's the player it gets activated
+        if (collision.gameObject.GetComponent<movement>() != null)
+        {
+            interactable = false;
         }
     }
 
