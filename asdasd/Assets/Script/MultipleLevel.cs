@@ -169,7 +169,12 @@ public class MultipleLevel : MonoBehaviour
 
     private void Awake()
     {
-        if (levelGroup != null) levels = levelGroup.levels;
+        if (levelGroup != null)
+        {
+            levels = levelGroup.levels;
+            currentX = levelGroup.x;
+            currentY = levelGroup.y;
+        }
         /*
         Level l = new Level();
         l.Set(currentX, currentY, "10000");
@@ -192,7 +197,10 @@ public class MultipleLevel : MonoBehaviour
 
     private void Start()
     {
-        if (levels.Count == 0) return;
+        if (levelGroup == null) return;
+        levels = levelGroup.levels;
+        currentX = levelGroup.x;
+        currentY = levelGroup.y;
         FindFirstObjectByType<Map>().index = CurrentLevel().levelName;
         FindFirstObjectByType<Map>().LoadMap();
         CurrentLevel().Loaded();
