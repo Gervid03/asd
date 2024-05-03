@@ -7020,6 +7020,11 @@ MonoBehaviour:
   endy: 0
   dropdown: {fileID: 0}
   saveName: {fileID: 207979532}
+  decoTilemap: {fileID: 0}
+  decoBase: {fileID: 0}
+  decos: []
+  prefabOfNPC: {fileID: 0}
+  datas: []
 --- !u!114 &1210156909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7336,6 +7341,7 @@ MonoBehaviour:
   colorPaletteParent: {fileID: 2042529732}
   defaultStateTogglePrefab: {fileID: 1247772706889729420, guid: 7a1f994f72265614b91d6836bc48b719, type: 3}
   defaultStateToggleParent: {fileID: 1466060713}
+  colorExistsWarning: {fileID: 0}
 --- !u!114 &1271317029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9785,14 +9791,15 @@ MonoBehaviour:
   r255: {fileID: 1316101632}
   g255: {fileID: 1565627787}
   b255: {fileID: 203077334}
-  r1: {fileID: 1779216237}
-  g1: {fileID: 851625668}
-  b1: {fileID: 975741453}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color:
+    serializedVersion: 2
+    rgba: 0
   IndexOfcolor: 0
   colorDisplayImage: {fileID: 1369477170}
   colorDisplaySprite: {fileID: 1479138009}
   inputMethodTexts: {fileID: 1739275656}
+  brightnessWarning: {fileID: 0}
+  notBrightEnough: 0
 --- !u!1 &1671314261
 GameObject:
   m_ObjectHideFlags: 0
@@ -12799,6 +12806,8 @@ MonoBehaviour:
   endPosition: {x: 0, y: 0}
   dropdown: {fileID: 0}
   leftButtons: {fileID: 581006415}
+  pressedCarouselCycle: 0
+  pressedMenu: 0
 --- !u!114 &2115509125
 MonoBehaviour:
   m_ObjectHideFlags: 0

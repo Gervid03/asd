@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
-  m_Name: Test
+  m_Name: FirstGroup2
   m_EditorClassIdentifier: 
-  mapName: 10000
-  x: 4
-  y: 13
+  mapName: 
+  x: 0
+  y: 0
   nameOfNPC: 
-  text:
-  - Szoveg a falon
-  sprite: {fileID: 445122812, guid: e535469be65e865498739ed90c1b21a1, type: 3}
+  text: []
+  sprite: {fileID: -1358414570, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   color:
     serializedVersion: 2
     rgba: 4294967295
+  prefab: {fileID: 6685188989121520819, guid: 33625eab13dbff74ca830cac6b9a90fb, type: 3}

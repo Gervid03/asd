@@ -11,13 +11,16 @@ public class NPC_data : ScriptableObject
     public List<string> text;
     public Sprite sprite;
     public Color32 color;
+    public GameObject prefab;
 
     public void Summon()
     {
         if (FindFirstObjectByType<Map>() != null)
         {
             Map m = FindFirstObjectByType<Map>();
-            GameObject newNPC = Instantiate(m.prefabOfNPC);
+            GameObject newNPC;
+            if (prefab == null) newNPC = Instantiate(m.prefabOfNPC);
+            else newNPC = Instantiate(prefab);
             newNPC.transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
             newNPC.GetComponent<SpriteRenderer>().sprite = sprite;
             newNPC.GetComponent<SpriteRenderer>().color = color;

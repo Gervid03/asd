@@ -210,7 +210,14 @@ MonoBehaviour:
   downY: -1
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
   wall: {fileID: 11400000, guid: 8292fcf3eabd1bd47aee888ec5542a13, type: 2}
-  levels: []
+  levels:
+  - x: 0
+    y: 0
+    levelName: 10000
+    missingUp: 
+    missingDown: 
+    missingRight: 
+    missingLeft: 
 --- !u!1 &382488761
 GameObject:
   m_ObjectHideFlags: 0
