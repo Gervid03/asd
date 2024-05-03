@@ -17,6 +17,7 @@ public class Lever : MonoBehaviour
     public Collider2D leverCollider;
     public Collider2D leverTriggerCollider;
     public bool interactable;
+    public bool canInteract;
 
     void Awake()
     {
@@ -55,10 +56,12 @@ public class Lever : MonoBehaviour
 
     private void Update()
     {
-        if(interactable && Input.GetAxisRaw("Interact") == 1)
+        if (interactable && Input.GetAxisRaw("Interact") == 1 && canInteract)
         {
+            canInteract = false;
             Use();
         }
+        else if (Input.GetAxisRaw("Interact") == 0) canInteract = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
