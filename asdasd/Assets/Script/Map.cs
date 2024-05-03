@@ -58,6 +58,7 @@ public class Map : MonoBehaviour
     public bool[][] hasWhiteWall;
     public GameObject prefabOfNPC;
     public List<NPCList> datas;
+    public Tile clear;
 
     [System.Serializable]
     public struct Deco
@@ -323,13 +324,28 @@ public class Map : MonoBehaviour
             return;
         }
 
+        Tilemap white = null;
+        Tilemap[] tm = FindObjectsOfType<Tilemap>();
+        for(int i = 0; i < tm.Length; i++)
+        {
+            if (SameColor(tm[i].color, new Color32(255, 255, 255, 255)) || SameColor(tm[i].color, new Color32(255, 255, 255, 0))) white = tm[i];
+        }
+
+        WallManager wm = FindFirstObjectByType<WallManager>();
+        for (int j = 0; j < data.row; j++)
+        {
+            for (int k = 0; k < data.column; k++)
+            {
+                white.SetTile(new Vector3Int(k, j, 0), clear);
+            }
+        }
+
         FindFirstObjectByType<WallManager>().ResetThings();
         KillAllTheChildren(thingParent);
         KillAllTheChildren(FindFirstObjectByType<WallManager>().decoParent);
         KillAllTheChildren(tilemapParent);
         //!!!!!
 
-        WallManager wm = FindFirstObjectByType<WallManager>();
 
         hasTile = new bool[data.column][];
         hasWhiteWall = new bool[data.column][];

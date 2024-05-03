@@ -218,6 +218,8 @@ MonoBehaviour:
     missingDown: 
     missingRight: 
     missingLeft: 
+    isSpecial: 0
+  levelGroup: {fileID: 0}
 --- !u!1 &382488761
 GameObject:
   m_ObjectHideFlags: 0
@@ -10227,6 +10229,7 @@ MonoBehaviour:
   prefabOfNPC: {fileID: 6685188989121520819, guid: b54bc16602cf3aa48835e87ced942438, type: 3}
   datas:
   - {fileID: 11400000, guid: b8c154aec6f1f7944afa1417d2f664f4, type: 2}
+  clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
 --- !u!1 &1319816383
 GameObject:
   m_ObjectHideFlags: 0
