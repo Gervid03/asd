@@ -169,12 +169,6 @@ public class MultipleLevel : MonoBehaviour
 
     private void Awake()
     {
-        if (levelGroup != null)
-        {
-            levels = levelGroup.levels;
-            currentX = levelGroup.x;
-            currentY = levelGroup.y;
-        }
         /*
         Level l = new Level();
         l.Set(currentX, currentY, "10000");
