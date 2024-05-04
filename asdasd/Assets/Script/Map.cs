@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.IO;
 using UnityEngine.Rendering;
 using JetBrains.Annotations;
+using System;
 
 public class Map : MonoBehaviour
 {
@@ -59,6 +60,7 @@ public class Map : MonoBehaviour
     public GameObject prefabOfNPC;
     public List<NPCList> datas;
     public Tile clear;
+    public static event Action<int, int> deactivateDecos;
 
     [System.Serializable]
     public struct Deco
@@ -71,6 +73,8 @@ public class Map : MonoBehaviour
             GameObject g = Instantiate(prefab, FindFirstObjectByType<WallManager>().decoParent);
             Map m = FindFirstObjectByType<Map>();
             g.GetComponent<Transform>().position = new Vector3(m.tileX + x, m.tileY + y, 0);
+            Decos d = g.AddComponent<Decos>();
+            d.x = x; d.y = y;
         }
     };
 
@@ -479,7 +483,7 @@ public class Map : MonoBehaviour
             ButtonsForCube bb = b.GetComponent<ButtonsForCube>();
             bb.CreateNew(c(data, data.buttonForCubes[i].color), c(data, data.buttonForCubes[i].interactiveColor), data.buttonForCubes[i].x, data.buttonForCubes[i].y);
 
-            if (c(data, data.buttonForCubes[i].color) == whiteIndex) hasTile[data.buttonForCubes[i].x][data.buttonForCubes[i].y] = true;
+            /*if (c(data, data.buttonForCubes[i].color) == whiteIndex) */ hasTile[data.buttonForCubes[i].x][data.buttonForCubes[i].y] = true;
         }
         for (int i = 0; i < data.portals.Length; i++)
         {
@@ -487,7 +491,7 @@ public class Map : MonoBehaviour
             Portal bb = b.GetComponent<Portal>();
             bb.CreateNew(c(data, data.portals[i].color), data.portals[i].interactiveColor, data.portals[i].x, data.portals[i].y);
 
-            if (c(data, data.portals[i].color) == whiteIndex) hasTile[data.portals[i].x][data.portals[i].y] = true;
+            /*if (c(data, data.portals[i].color) == whiteIndex) */ hasTile[data.portals[i].x][data.portals[i].y] = true;
         }
         for (int i = 0; i < data.lever.Length; i++)
         {
@@ -495,7 +499,7 @@ public class Map : MonoBehaviour
             Lever bb = b.GetComponent<Lever>();
             bb.CreateNew(c(data, data.lever[i].color), c(data, data.lever[i].interactiveColor), data.lever[i].x, data.lever[i].y);
 
-            if (c(data, data.lever[i].color) == whiteIndex) hasTile[data.lever[i].x][data.lever[i].y] = true;
+            /*if (c(data, data.lever[i].color) == whiteIndex) */ hasTile[data.lever[i].x][data.lever[i].y] = true;
         }
         for (int i = 0; i < data.buttons.Length; i++)
         {
@@ -503,7 +507,7 @@ public class Map : MonoBehaviour
             Buttons bb = b.GetComponent<Buttons>();
             bb.CreateNew(c(data, data.buttons[i].color), c(data, data.buttons[i].interactiveColor), data.buttons[i].x, data.buttons[i].y, data.buttons[i].activateAtBeingActive);
 
-            if (c(data, data.buttons[i].color) == whiteIndex) hasTile[data.buttons[i].x][data.buttons[i].y] = true;
+            /*if (c(data, data.buttons[i].color) == whiteIndex) */ hasTile[data.buttons[i].x][data.buttons[i].y] = true;
         }
         for (int i = 0; i < data.buttonTimerCubes.Length; i++)
         {
@@ -511,7 +515,7 @@ public class Map : MonoBehaviour
             ButtonTimerCube bb = b.GetComponent<ButtonTimerCube>();
             bb.CreateNew(c(data, data.buttonTimerCubes[i].color), c(data, data.buttonTimerCubes[i].interactiveColor), data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].timer);
 
-            if (c(data, data.buttonTimerCubes[i].color) == whiteIndex) hasTile[data.buttonTimerCubes[i].x][data.buttonTimerCubes[i].y] = true;
+            /*if (c(data, data.buttonTimerCubes[i].color) == whiteIndex)*/ hasTile[data.buttonTimerCubes[i].x][data.buttonTimerCubes[i].y] = true;
         }
 
         for (int i = 0; i < data.inversePairs.Length; i++)
@@ -589,6 +593,7 @@ public class Map : MonoBehaviour
             {
                 if (datas[i].data[j].mapName == mapName)
                 {
+                    deactivateDecos?.Invoke(datas[i].data[j].x, datas[i].data[j].y);
                     datas[i].data[j].Summon();
                 }
             }

@@ -22,7 +22,7 @@ public class NPC_data : ScriptableObject
             if (prefab == null) newNPC = Instantiate(m.prefabOfNPC);
             else newNPC = Instantiate(prefab);
             newNPC.transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
-            newNPC.GetComponent<SpriteRenderer>().sprite = sprite;
+            if(sprite != null) newNPC.GetComponent<SpriteRenderer>().sprite = sprite;
             newNPC.GetComponent<SpriteRenderer>().color = color;
             newNPC.GetComponent<NPC>().data = this;
         }

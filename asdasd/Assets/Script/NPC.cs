@@ -11,6 +11,7 @@ public class NPC : MonoBehaviour
     public bool isCommunicating;
     public int currentText;
     public bool canSkip;
+    public bool wasCommunication;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -22,14 +23,15 @@ public class NPC : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<Player>() == null) return;
-        showInteract.SetActive(false);
-        EndCommunicating();
+        if (wasCommunication) showInteract.SetActive(false);
+        if (isCommunicating) EndCommunicating();
         isInteractable = false;
     }
 
     public void StartCommunicating()
     {
         isCommunicating = true;
+        wasCommunication = true;
         Communication c = FindFirstObjectByType<Communication>();
         if (c != null)
         {
