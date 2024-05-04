@@ -63,6 +63,7 @@ public class Map : MonoBehaviour
     public Tile clear;
     public static event Action<int, int> deactivateDecos;
     public bool loadFromProgress;
+    public GameObject cubePrefab;
 
     [System.Serializable]
     public struct Deco
@@ -83,8 +84,7 @@ public class Map : MonoBehaviour
     private void Start()
     {
         Vault vault = FindFirstObjectByType<Vault>();
-        if (vault == null) return;
-        if (vault.intent == Vault.Intent.loadMapToLoad)
+        if (vault != null && vault.intent == Vault.Intent.loadMapToLoad)
         {
             Debug.Log("Loading in: " + vault.mapToLoad);
             index = vault.mapToLoad;
@@ -95,10 +95,61 @@ public class Map : MonoBehaviour
         if (loadFromProgress)
         {
             Progress progress = SaveLoadMaps.LoadProgress();
-            if (progress.x < 0 || progress.y < 0)
+            Debug.Log(progress.roomX + " " + progress.roomY);
+            if (progress.x < -20 || progress.y < -20)
             {
                 FindFirstObjectByType<MultipleLevel>().currentX = progress.roomX;
                 FindFirstObjectByType<MultipleLevel>().currentY = progress.roomY;
+
+                foreach (Progress.C c in progress.colors)
+                {
+                    WallObjects[] wo = FindObjectsOfType<WallObjects>(includeInactive: true);
+                    Tilemap t = null;
+                    for (int j = 0; j < wo.Length; j++)
+                    {
+                        if (wo[j].colorIndex == c.index)
+                        {
+                            t = wo[j].gameObject.GetComponent<Tilemap>();
+                        }
+                    }
+
+                    if (t == null)
+                    {
+                        FindFirstObjectByType<WallManager>().colors.add(c.c(), c.index, c.visible);
+                        FindFirstObjectByType<WallManager>().activeAtStart.add(c.index, c.defaultState);
+                        GameObject a = Instantiate(tilemapPrefab, tilemapParent);
+                        a.GetComponent<WallObjects>().Create(c.index);
+                    }
+                }
+
+                FindFirstObjectByType<MultipleLevel>().LoadAMap();
+                FindFirstObjectByType<Player>().gameObject.transform.position = new Vector2(progress.x, progress.y);
+                
+                CubePlacer cubePlacer = FindFirstObjectByType<CubePlacer>();
+                foreach (Progress.TimerCubeStruct tc in progress.timerCubes)
+                {
+                    if (tc.placed)
+                    {
+                        GameObject newTimerCube = Instantiate(cubePlacer.timerCubePrefab);
+                        newTimerCube.transform.position = new Vector2(tc.x, tc.y);
+                        newTimerCube.GetComponent<TimerCube>().colorIndex = tc.index;
+                        newTimerCube.GetComponent<TimerCube>().lifeTime = tc.timeLimit;
+                        newTimerCube.GetComponent<TimerCube>().birthTime = Time.time - tc.time;
+                        newTimerCube.GetComponent<TimerCube>().Set();
+                    }
+                    else
+                    {
+                        CubePlacer.TimerCubeData temp;
+                        temp.colorIndex = tc.index;
+                        temp.timer = tc.timeLimit;
+                        cubePlacer.timerCubes.Add(temp);
+                    }
+                }
+
+                GameObject cube = Instantiate(cubePrefab);
+                cube.GetComponent<Cube>().colorIndex = progress.cube.index;
+                cube.transform.position = new Vector2(progress.cube.x, progress.cube.y);
+                cube.GetComponent<Cube>().Set();
             }
             else LoadMap(false);
         }
