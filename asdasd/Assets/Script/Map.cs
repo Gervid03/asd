@@ -13,7 +13,11 @@ using System.ComponentModel;
 using System.IO;
 using UnityEngine.Rendering;
 using JetBrains.Annotations;
+<<<<<<< Updated upstream
 using System;
+=======
+using System.Runtime.Serialization.Formatters.Binary;
+>>>>>>> Stashed changes
 
 public class Map : MonoBehaviour
 {
@@ -60,7 +64,11 @@ public class Map : MonoBehaviour
     public GameObject prefabOfNPC;
     public List<NPCList> datas;
     public Tile clear;
+<<<<<<< Updated upstream
     public static event Action<int, int> deactivateDecos;
+=======
+    public bool loadFromProgress;
+>>>>>>> Stashed changes
 
     [System.Serializable]
     public struct Deco
@@ -87,6 +95,18 @@ public class Map : MonoBehaviour
             Debug.Log("Loading in: " + vault.mapToLoad);
             index = vault.mapToLoad;
             LoadIntoEditor();
+            return;
+        }
+
+        if (loadFromProgress)
+        {
+            Progress progress = SaveLoadMaps.LoadProgress();
+            if (progress.x < 0 || progress.y < 0)
+            {
+                FindFirstObjectByType<MultipleLevel>().currentX = progress.roomX;
+                FindFirstObjectByType<MultipleLevel>().currentY = progress.roomY;
+            }
+            else LoadMap(false);
         }
     }
 

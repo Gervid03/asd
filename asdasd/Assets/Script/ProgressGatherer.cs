@@ -77,4 +77,13 @@ public class ProgressGatherer : MonoBehaviour
             timerCubes[i] = lstTimerCubes[i];
         }
     }
+
+    public ProgressGatherer()
+    {
+        x = -100; y = -100;
+        roomX = 0; roomY = 0;
+        cube = new Progress.CubeStruct();
+        timerCubes = new Progress.TimerCubeStruct[0];
+        colors = new Progress.C[0];
+    }
 }
