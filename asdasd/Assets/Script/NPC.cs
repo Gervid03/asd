@@ -27,15 +27,6 @@ public class NPC : MonoBehaviour
         isInteractable = false;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.GetComponent<Player>() == null) return;
-        if (Input.GetAxisRaw("Interact") == 1 && !isCommunicating)
-        {
-            StartCommunicating();
-        }
-    }
-
     public void StartCommunicating()
     {
         isCommunicating = true;

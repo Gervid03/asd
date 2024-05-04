@@ -267,6 +267,12 @@ public class WallManager : MonoBehaviour
         {
             DestroyTimerCube(colors.getIndexes()[i]);
         }
+
+        NPC[] t = FindObjectsByType<NPC>(default);
+        foreach (NPC k in t)
+        {
+            Destroy(k.gameObject);
+        }
     }
 
     public void SetDecoDemons()

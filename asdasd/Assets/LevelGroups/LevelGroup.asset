@@ -23,6 +23,7 @@ MonoBehaviour:
     missingRight: 0a000000090000000800000007000000
     missingLeft: 
     isSpecial: 0
+    comeFrom: 0
   - x: 1
     y: 0
     levelName: '!A02doublegate'
@@ -30,7 +31,8 @@ MonoBehaviour:
     missingDown: 
     missingRight: 0a000000090000000800000007000000
     missingLeft: 0a000000090000000800000007000000
-    isSpecial: 0
+    isSpecial: 1
+    comeFrom: 1
   - x: 2
     y: 0
     levelName: '!A03twicelever'
@@ -39,6 +41,7 @@ MonoBehaviour:
     missingRight: 08000000090000000a0000000b0000000c0000000d0000000e000000
     missingLeft: 0a000000090000000800000007000000
     isSpecial: 0
+    comeFrom: 0
   - x: 3
     y: 0
     levelName: '!A04twoways'
@@ -47,6 +50,7 @@ MonoBehaviour:
     missingRight: 010000000200000003000000000000000e0000000f0000000d000000
     missingLeft: 08000000090000000a0000000b0000000c0000000d0000000e000000
     isSpecial: 0
+    comeFrom: 0
   - x: 4
     y: 0
     levelName: '!A05twowayssecond'
@@ -55,3 +59,4 @@ MonoBehaviour:
     missingRight: 06000000070000000800000009000000
     missingLeft: 000000000100000002000000030000000d0000000e0000000f000000
     isSpecial: 0
+    comeFrom: 0

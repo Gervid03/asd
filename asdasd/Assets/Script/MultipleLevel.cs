@@ -28,6 +28,16 @@ public class MultipleLevel : MonoBehaviour
         public List<int> missingLeft;
         MultipleLevel ml;
         public bool isSpecial; //later for the special/story maps
+        public ComeFrom comeFrom;
+
+        public enum ComeFrom
+        {
+            none = 0,
+            left = 1,
+            right = 2,
+            up = 3,
+            down = 4
+        }
 
         public void Set(int x1, int y1, string name = "")
         {
@@ -132,7 +142,7 @@ public class MultipleLevel : MonoBehaviour
             }
         }
 
-        public void Loaded()
+        public void Loaded(ComeFrom cf)
         {
             WallManager wm = FindFirstObjectByType<WallManager>();
             ml = FindFirstObjectByType<MultipleLevel>();
@@ -164,29 +174,51 @@ public class MultipleLevel : MonoBehaviour
                     wm.outsideWallTilemap.SetTile(new Vector3Int(ml.rightX, missingRight[i], 0), ml.clear);
                 }
             }
+
+            //if it's special, multiple things have to be reset
+            if (isSpecial)
+            {
+                if(comeFrom == ComeFrom.left)
+                {
+                    if(cf == ComeFrom.left) FindFirstObjectByType<Player>().gameObject.transform.position = new Vector3(FindFirstObjectByType<Player>().gameObject.transform.position.x - 1, FindFirstObjectByType<Player>().gameObject.transform.position.y, 0);
+                    for (int i = 0; i < missingLeft.Count; i++)
+                    {
+                        wm.outsideWallTilemap.SetTile(new Vector3Int(ml.leftX, missingLeft[i], 0), ml.wall);
+                    }
+                }
+                else if (comeFrom == ComeFrom.right)
+                {
+                    if (cf == ComeFrom.right) FindFirstObjectByType<Player>().gameObject.transform.position = new Vector3(FindFirstObjectByType<Player>().gameObject.transform.position.x + 1, FindFirstObjectByType<Player>().gameObject.transform.position.y, 0);
+                    for (int i = 0; i < missingRight.Count; i++)
+                    {
+                        wm.outsideWallTilemap.SetTile(new Vector3Int(ml.rightX, missingRight[i], 0), ml.wall);
+                    }
+                }
+                else if (comeFrom == ComeFrom.up)
+                {
+                    if (cf == ComeFrom.up) FindFirstObjectByType<Player>().gameObject.transform.position = new Vector3(FindFirstObjectByType<Player>().gameObject.transform.position.x, FindFirstObjectByType<Player>().gameObject.transform.position.y + 1, 0);
+                    for (int i = 0; i < missingUp.Count; i++)
+                    {
+                        wm.outsideWallTilemap.SetTile(new Vector3Int(missingUp[i], ml.upY, 0), ml.wall);
+                    }
+                }
+                else if (comeFrom == ComeFrom.down)
+                {
+                    if (cf == ComeFrom.down) FindFirstObjectByType<Player>().gameObject.transform.position = new Vector3(FindFirstObjectByType<Player>().gameObject.transform.position.x, FindFirstObjectByType<Player>().gameObject.transform.position.y - 1, 0);
+                    for (int i = 0; i < missingDown.Count; i++)
+                    {
+                        wm.outsideWallTilemap.SetTile(new Vector3Int(missingDown[i], ml.downY, 0), ml.wall);
+                    }
+                }
+                    
+                //reset
+            }
         }
     }
 
     private void Awake()
     {
-        /*
-        Level l = new Level();
-        l.Set(currentX, currentY, "10000");
-        levels.Add(l);
-        l = new Level();
-        l.Set(currentX + 1, currentY, "10001");
-        levels.Add(l);
 
-        levels[0].AddMissingRight(1);
-        levels[0].AddMissingRight(2);
-        levels[0].AddMissingRight(3);
-        levels[0].AddMissingRight(4);
-        levels[0].AddMissingRight(5);
-        levels[0].AddMissingRight(6); 
-        levels[0].AddMissingRight(12);
-        levels[0].AddMissingRight(13);
-        levels[0].AddMissingRight(14);
-        levels[0].AddMissingRight(15);*/
     }
 
     private void Start()
@@ -197,7 +229,7 @@ public class MultipleLevel : MonoBehaviour
         currentY = levelGroup.y;
         FindFirstObjectByType<Map>().index = CurrentLevel().levelName;
         FindFirstObjectByType<Map>().LoadMap();
-        CurrentLevel().Loaded();
+        CurrentLevel().Loaded(Level.ComeFrom.none);
     }
 
     public void SwitchUp()
@@ -208,7 +240,7 @@ public class MultipleLevel : MonoBehaviour
         FindFirstObjectByType<Map>().index = FindLevel(currentX, currentY + 1).levelName;
         currentY++;
         FindFirstObjectByType<Map>().LoadMap(false);
-        FindLevel(currentX, currentY).Loaded();
+        FindLevel(currentX, currentY).Loaded(Level.ComeFrom.down);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
         tr.position = new Vector3(tr.position.x, -tr.position.y + 0.5f, tr.position.z);
     }
@@ -220,7 +252,7 @@ public class MultipleLevel : MonoBehaviour
         FindFirstObjectByType<Map>().index = FindLevel(currentX, currentY - 1).levelName;
         currentY--;
         FindFirstObjectByType<Map>().LoadMap(false);
-        FindLevel(currentX, currentY).Loaded();
+        FindLevel(currentX, currentY).Loaded(Level.ComeFrom.up);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
         tr.position = new Vector3(tr.position.x, -tr.position.y - 0.5f, tr.position.z);
     }
@@ -232,7 +264,7 @@ public class MultipleLevel : MonoBehaviour
         FindFirstObjectByType<Map>().index = FindLevel(currentX - 1, currentY).levelName;
         currentX--;
         FindFirstObjectByType<Map>().LoadMap(false);
-        FindLevel(currentX, currentY).Loaded();
+        FindLevel(currentX, currentY).Loaded(Level.ComeFrom.right);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
         tr.position = new Vector3(-tr.position.x - 0.5f, tr.position.y, tr.position.z);
     }
@@ -244,7 +276,7 @@ public class MultipleLevel : MonoBehaviour
         FindFirstObjectByType<Map>().index = FindLevel(currentX + 1, currentY).levelName;
         currentX++;
         FindFirstObjectByType<Map>().LoadMap(false);
-        FindLevel(currentX, currentY).Loaded();
+        FindLevel(currentX, currentY).Loaded(Level.ComeFrom.left);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
         tr.position = new Vector3(-tr.position.x + 0.5f, tr.position.y, tr.position.z);
 

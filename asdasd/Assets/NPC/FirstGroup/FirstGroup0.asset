@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
   m_Name: FirstGroup0
   m_EditorClassIdentifier: 
-  mapName: '!01lever'
+  mapName: '!A01lever'
   x: 5
   y: 7
   nameOfNPC: Pacman
