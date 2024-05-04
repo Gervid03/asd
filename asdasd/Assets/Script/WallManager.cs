@@ -251,6 +251,11 @@ public class WallManager : MonoBehaviour
         SetDecoDemons();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown("p")) SaveCurrentProgress();
+    }
+
     public void ResetThings()
     {
         wallObjects.Clear();
@@ -555,10 +560,5 @@ public class WallManager : MonoBehaviour
     {
         FindFirstObjectByType<ProgressGatherer>().GetInfos();
         SaveLoadMaps.SaveProgress(FindFirstObjectByType<ProgressGatherer>());
-    }
-
-    private void OnApplicationPause()
-    {
-        SaveCurrentProgress();
     }
 }

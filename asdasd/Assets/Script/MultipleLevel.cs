@@ -16,7 +16,6 @@ public class MultipleLevel : MonoBehaviour
     public TileBase wall;
     public List<Level> levels;
     public LevelGroup levelGroup;
-    public bool hasLoaded;
 
     [System.Serializable]
     public struct Level
@@ -225,7 +224,7 @@ public class MultipleLevel : MonoBehaviour
     private void Start()
     {
         if (levelGroup != null) levels = levelGroup.levels;
-        if (levelGroup == null || hasLoaded) return;
+        if (levelGroup == null || FindFirstObjectByType<Map>().loadFromProgress) return;
         currentX = levelGroup.x;
         currentY = levelGroup.y;
         FindFirstObjectByType<Map>().index = CurrentLevel().levelName;
@@ -236,7 +235,6 @@ public class MultipleLevel : MonoBehaviour
     public void LoadAMap()
     {
         if (levelGroup != null) levels = levelGroup.levels;
-        hasLoaded = true;
         FindFirstObjectByType<Map>().index = FindLevel(currentX, currentY).levelName;
         FindFirstObjectByType<Map>().LoadMap(false);
         FindLevel(currentX, currentY).Loaded(Level.ComeFrom.none);

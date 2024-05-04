@@ -31,8 +31,8 @@ MonoBehaviour:
     missingDown: 
     missingRight: 0a000000090000000800000007000000
     missingLeft: 0a000000090000000800000007000000
-    isSpecial: 0
-    comeFrom: 0
+    isSpecial: 1
+    comeFrom: 1
   - x: 2
     y: 0
     levelName: '!A03twicelever'

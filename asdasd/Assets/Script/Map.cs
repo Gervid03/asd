@@ -95,8 +95,8 @@ public class Map : MonoBehaviour
         if (loadFromProgress)
         {
             Progress progress = SaveLoadMaps.LoadProgress();
-            Debug.Log(progress.roomX + " " + progress.roomY);
-            if (progress.x < -20 || progress.y < -20)
+            Debug.Log(progress.x + " " + progress.y);
+            if (!(progress.x < -20 && progress.y < -20))
             {
                 FindFirstObjectByType<MultipleLevel>().currentX = progress.roomX;
                 FindFirstObjectByType<MultipleLevel>().currentY = progress.roomY;
@@ -110,11 +110,13 @@ public class Map : MonoBehaviour
                         if (wo[j].colorIndex == c.index)
                         {
                             t = wo[j].gameObject.GetComponent<Tilemap>();
+                            Debug.Log(c.index + " " + wo[j].name);
                         }
                     }
 
                     if (t == null)
                     {
+                        Debug.Log(c.c() + " " + c.index + " " + c.visible + " " + c.defaultState);
                         FindFirstObjectByType<WallManager>().colors.add(c.c(), c.index, c.visible);
                         FindFirstObjectByType<WallManager>().activeAtStart.add(c.index, c.defaultState);
                         GameObject a = Instantiate(tilemapPrefab, tilemapParent);
@@ -122,9 +124,10 @@ public class Map : MonoBehaviour
                     }
                 }
 
+
                 FindFirstObjectByType<MultipleLevel>().LoadAMap();
                 FindFirstObjectByType<Player>().gameObject.transform.position = new Vector2(progress.x, progress.y);
-                
+
                 CubePlacer cubePlacer = FindFirstObjectByType<CubePlacer>();
                 foreach (Progress.TimerCubeStruct tc in progress.timerCubes)
                 {
@@ -145,13 +148,15 @@ public class Map : MonoBehaviour
                         cubePlacer.timerCubes.Add(temp);
                     }
                 }
-
-                GameObject cube = Instantiate(cubePrefab);
-                cube.GetComponent<Cube>().colorIndex = progress.cube.index;
-                cube.transform.position = new Vector2(progress.cube.x, progress.cube.y);
-                cube.GetComponent<Cube>().Set();
+                if (progress.cube.index != -1)
+                {
+                    GameObject cube = Instantiate(cubePrefab);
+                    cube.GetComponent<Cube>().colorIndex = progress.cube.index;
+                    cube.transform.position = new Vector2(progress.cube.x, progress.cube.y);
+                    cube.GetComponent<Cube>().Set();
+                }
             }
-            else LoadMap(false);
+            else Debug.Log("nem akar lefutni");
         }
     }
 
