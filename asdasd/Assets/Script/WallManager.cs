@@ -182,6 +182,20 @@ public class WallManager : MonoBehaviour
             }
             return false;
         }
+
+        public void remove(int ind)
+        {
+            if (index == null) return;
+            for(int i = 0; i < index.Count; i++)
+            {
+                if (index[i] == ind)
+                {
+                    index.RemoveAt(i);
+                    active.RemoveAt(i);
+                }
+            }
+
+        }
     }
 
     [System.Serializable]
@@ -253,7 +267,11 @@ public class WallManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown("p")) SaveCurrentProgress();
+        if (Input.GetKeyDown("p"))
+        {
+            SaveCurrentProgress();
+            Debug.Log("saved");
+        }
     }
 
     public void ResetThings()
