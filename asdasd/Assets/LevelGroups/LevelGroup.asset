@@ -31,8 +31,8 @@ MonoBehaviour:
     missingDown: 
     missingRight: 0a000000090000000800000007000000
     missingLeft: 0a000000090000000800000007000000
-    isSpecial: 1
-    comeFrom: 1
+    isSpecial: 0
+    comeFrom: 0
   - x: 2
     y: 0
     levelName: '!A03twicelever'
@@ -55,8 +55,17 @@ MonoBehaviour:
     y: 0
     levelName: '!A05twowayssecond'
     missingUp: 
-    missingDown: 
-    missingRight: 06000000070000000800000009000000
+    missingDown: 16000000170000001800000019000000
+    missingRight: 
     missingLeft: 000000000100000002000000030000000d0000000e0000000f000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 4
+    y: -1
+    levelName: '!A06challenge'
+    missingUp: 16000000170000001800000019000000
+    missingDown: 000000000100000002000000
+    missingRight: 
+    missingLeft: 
     isSpecial: 0
     comeFrom: 0

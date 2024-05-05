@@ -10223,7 +10223,7 @@ MonoBehaviour:
   datas:
   - {fileID: 11400000, guid: 3b8bf0928365a4244a01aefb4c19cc61, type: 2}
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
-  loadFromProgress: 1
+  loadFromProgress: 0
   cubePrefab: {fileID: 1937908844362188903, guid: e4fc0cb5f7c1fcb48be854db2eccd37d, type: 3}
 --- !u!114 &1256772262
 MonoBehaviour:

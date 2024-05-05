@@ -17,10 +17,19 @@ MonoBehaviour:
   y: 7
   nameOfNPC: Pacman
   text:
-  - NOM NOM NOM
-  - YUMMY!
+  - Welcome to your new home!
+  - Whether you like it or not, this "place" will be your home until it becames your
+    grave!
+  - Don't worry tho, it's not that bad down here
+  - There are a few survivors, like me who are leaving notes on the walls serving
+    as some help to navigate in the dungeon
+  - Here for example, you can flick the levers to shift particular types of mana
+    in objects
+  - You can differentiate manas by their color
+  - Hopefully you will be able to join us soon
   sprite: {fileID: 445122812, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   color:
     serializedVersion: 2
     rgba: 4294967295
   prefab: {fileID: 6685188989121520819, guid: 5fbe1d80fd9b93c4eb4276699f1924f3, type: 3}
+  justDecoration: 0

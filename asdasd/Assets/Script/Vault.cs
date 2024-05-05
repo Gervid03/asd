@@ -31,6 +31,11 @@ public class Vault : MonoBehaviour
         SceneManager.sceneLoaded += OnLoad;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown("r") && (FindFirstObjectByType<MapEditor>() == null || !FindFirstObjectByType<MapEditor>().menu.activeSelf)) Load();
+    }
+
     public void Load()
     {
         if (SceneManager.GetActiveScene().name == playScene)

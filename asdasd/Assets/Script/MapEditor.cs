@@ -195,16 +195,19 @@ public class MapEditor : MonoBehaviour
 
     public void ShortCuts()
     {
-        if(Input.GetAxisRaw("Remove") == 1) currentTool = 0;
-        if(Input.GetAxisRaw("AddBasic") == 1) currentTool = 1;
-        if(Input.GetAxisRaw("AddButton") == 1) currentTool = 2;
-        if(Input.GetAxisRaw("AddButtonForCube") == 1) currentTool = 3;
-        if(Input.GetAxisRaw("AddLever") == 1) currentTool = 4;
-        if(Input.GetAxisRaw("AddPortal") == 1) currentTool = 5;
-        if(Input.GetAxisRaw("AddGate") == 1) currentTool = 6;
-        if(Input.GetAxisRaw("AddTimerCube") == 1) currentTool = 7;
-        if(Input.GetAxisRaw("AddStart") == 1) currentTool = 8;
-        if(Input.GetAxisRaw("AddFinish") == 1) currentTool = 9;
+        if (!menu.activeSelf)
+        {
+            if (Input.GetAxisRaw("Remove") == 1) currentTool = 0;
+            if (Input.GetAxisRaw("AddBasic") == 1) currentTool = 1;
+            if (Input.GetAxisRaw("AddButton") == 1) currentTool = 2;
+            if (Input.GetAxisRaw("AddButtonForCube") == 1) currentTool = 3;
+            if (Input.GetAxisRaw("AddLever") == 1) currentTool = 4;
+            if (Input.GetAxisRaw("AddPortal") == 1) currentTool = 5;
+            if (Input.GetAxisRaw("AddGate") == 1) currentTool = 6;
+            if (Input.GetAxisRaw("AddTimerCube") == 1) currentTool = 7;
+            if (Input.GetAxisRaw("AddStart") == 1) currentTool = 8;
+            if (Input.GetAxisRaw("AddFinish") == 1) currentTool = 9;
+        }
 
         if (Input.GetAxisRaw("Menu") == 1)
         {
