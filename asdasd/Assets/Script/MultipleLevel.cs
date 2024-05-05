@@ -210,8 +210,23 @@ public class MultipleLevel : MonoBehaviour
                         wm.outsideWallTilemap.SetTile(new Vector3Int(missingDown[i], ml.downY, 0), ml.wall);
                     }
                 }
-                    
-                //reset
+
+                foreach(int i in FindFirstObjectByType<WallManager>().colors.getIndexes())
+                {
+                    if(i != 0)
+                    {
+                        FindFirstObjectByType<WallManager>().colors.remove(i);
+                        FindFirstObjectByType<WallManager>().activeAtStart.remove(i);
+                    }
+                }
+
+                foreach (UnityEngine.Transform child in FindFirstObjectByType<Map>().tilemapParent)
+                {
+                    if (child.gameObject.GetComponent<DontDestroyThisObject>() != null) continue;
+                    GameObject.Destroy(child.gameObject);
+                }
+
+                if (FindFirstObjectByType<Cube>() != null) Destroy(FindFirstObjectByType<Cube>().gameObject);
             }
         }
     }
