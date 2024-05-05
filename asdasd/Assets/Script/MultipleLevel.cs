@@ -209,24 +209,33 @@ public class MultipleLevel : MonoBehaviour
                     {
                         wm.outsideWallTilemap.SetTile(new Vector3Int(missingDown[i], ml.downY, 0), ml.wall);
                     }
-                }
+                }               
+            }
+        }
 
-                foreach(int i in FindFirstObjectByType<WallManager>().colors.getIndexes())
+        public void ResetColors() {
+            List<int> t = FindFirstObjectByType<WallManager>().colors.getIndexes();
+            for (int j = 0; j < t.Count; j++)
+            {
+                Debug.Log(t[j]);
+                if (t[j] != 0)
                 {
-                    if(i != 0)
-                    {
-                        FindFirstObjectByType<WallManager>().colors.remove(i);
-                        FindFirstObjectByType<WallManager>().activeAtStart.remove(i);
-                    }
+                    FindFirstObjectByType<WallManager>().activeAtStart.remove(t[j]);
+                    FindFirstObjectByType<WallManager>().colors.remove(t[j]);
                 }
+            }
 
-                foreach (UnityEngine.Transform child in FindFirstObjectByType<Map>().tilemapParent)
-                {
-                    if (child.gameObject.GetComponent<DontDestroyThisObject>() != null) continue;
-                    GameObject.Destroy(child.gameObject);
-                }
+            foreach (UnityEngine.Transform child in FindFirstObjectByType<Map>().tilemapParent)
+            {
+                if (child.gameObject.GetComponent<DontDestroyThisObject>() != null) continue;
+                GameObject.Destroy(child.gameObject);
+            }
 
-                if (FindFirstObjectByType<Cube>() != null) Destroy(FindFirstObjectByType<Cube>().gameObject);
+            if (FindFirstObjectByType<Cube>() != null) Destroy(FindFirstObjectByType<Cube>().gameObject);
+
+            for (int i = 0; i < FindFirstObjectByType<WallManager>().colors.getIndexes().Count; i++)
+            {
+                FindFirstObjectByType<WallManager>().DestroyTimerCube(FindFirstObjectByType<WallManager>().colors.getIndexes()[i]);
             }
         }
     }
@@ -262,6 +271,7 @@ public class MultipleLevel : MonoBehaviour
         CurrentLevel().Unloaded();
         FindFirstObjectByType<Map>().index = FindLevel(currentX, currentY + 1).levelName;
         currentY++;
+        if(CurrentLevel().isSpecial) CurrentLevel().ResetColors();
         FindFirstObjectByType<Map>().LoadMap(false);
         FindLevel(currentX, currentY).Loaded(Level.ComeFrom.down);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
@@ -274,6 +284,7 @@ public class MultipleLevel : MonoBehaviour
         CurrentLevel().Unloaded();
         FindFirstObjectByType<Map>().index = FindLevel(currentX, currentY - 1).levelName;
         currentY--;
+        if (CurrentLevel().isSpecial) CurrentLevel().ResetColors();
         FindFirstObjectByType<Map>().LoadMap(false);
         FindLevel(currentX, currentY).Loaded(Level.ComeFrom.up);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
@@ -286,6 +297,7 @@ public class MultipleLevel : MonoBehaviour
         CurrentLevel().Unloaded();
         FindFirstObjectByType<Map>().index = FindLevel(currentX - 1, currentY).levelName;
         currentX--;
+        if(CurrentLevel().isSpecial) CurrentLevel().ResetColors();
         FindFirstObjectByType<Map>().LoadMap(false);
         FindLevel(currentX, currentY).Loaded(Level.ComeFrom.right);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
@@ -298,6 +310,7 @@ public class MultipleLevel : MonoBehaviour
         CurrentLevel().Unloaded();
         FindFirstObjectByType<Map>().index = FindLevel(currentX + 1, currentY).levelName;
         currentX++;
+        if(CurrentLevel().isSpecial) CurrentLevel().ResetColors();
         FindFirstObjectByType<Map>().LoadMap(false);
         FindLevel(currentX, currentY).Loaded(Level.ComeFrom.left);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
