@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc9931fb3429a04fba298b61d337140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentX: 0
+  currentX: 4
   currentY: 0
   leftX: -1
   rightX: 30
