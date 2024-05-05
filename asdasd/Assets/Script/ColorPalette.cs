@@ -57,7 +57,7 @@ public class ColorPalette : MonoBehaviour
     public void AdjustHeight()
     {
         colorPaletteParent.sizeDelta = new Vector2(700, (Mathf.CeilToInt(colors.Count / 7f)) * 100);
-        FindAnyObjectByType<DefaultStateHeight>().AdjustHeight((Mathf.CeilToInt(colors.Count / 7f)) * 100);
+        FindAnyObjectByType<DefaultStateHeight>(FindObjectsInactive.Include).AdjustHeight((Mathf.CeilToInt(colors.Count / 7f)) * 100);
     }
 
     public bool ColorExists(Color32 c)

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0bc62049791374a948d01a400e89bf, type: 3}
   m_Name: LevelGroup
   m_EditorClassIdentifier: 
-  x: 0
-  y: 0
+  x: 5
+  y: -2
   levels:
   - x: 0
     y: 0
@@ -74,7 +74,34 @@ MonoBehaviour:
     levelName: '!B00'
     missingUp: 000000000100000002000000
     missingDown: 
-    missingRight: 
+    missingRight: 000000000100000002000000
     missingLeft: 
     isSpecial: 1
     comeFrom: 3
+  - x: 5
+    y: -2
+    levelName: '!B01'
+    missingUp: 
+    missingDown: 1f0000001e0000001d0000001c0000001b0000001a0000001900000018000000170000001600000015000000
+    missingRight: 0a0000000b0000000c000000090000000800000007000000050000000400000003000000020000000100000000000000
+    missingLeft: 000000000100000002000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 6
+    y: -2
+    levelName: '!B02'
+    missingUp: 1700000018000000190000001a000000
+    missingDown: ffffffff000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d000000
+    missingRight: 
+    missingLeft: 0a0000000b0000000c000000090000000800000007000000050000000400000003000000020000000100000000000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 6
+    y: -1
+    levelName: '!B03'
+    missingUp: 
+    missingDown: 18000000190000001a000000
+    missingRight: 0b0000000c0000000d0000000e0000000f000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
