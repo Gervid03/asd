@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
+  justDecoration: 0
   isInteractable: 0
   showInteract: {fileID: 7734886171410734052}
   isCommunicating: 0

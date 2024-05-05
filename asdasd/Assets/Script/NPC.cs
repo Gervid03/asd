@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NPC : MonoBehaviour
 {
     public NPC_data data;
+    public bool justDecoration;
     public bool isInteractable;
     public GameObject showInteract;
     public bool isCommunicating;
@@ -13,8 +14,14 @@ public class NPC : MonoBehaviour
     public bool canSkip;
     public bool wasCommunication;
 
+    private void Awake()
+    {
+        if(justDecoration) showInteract.SetActive(false);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (justDecoration) return;
         if (collision.gameObject.GetComponent<Player>() == null) return;
         showInteract.SetActive(true);
         isInteractable = true;
@@ -22,6 +29,7 @@ public class NPC : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (justDecoration) return;
         if (collision.gameObject.GetComponent<Player>() == null) return;
         if (wasCommunication) showInteract.SetActive(false);
         if (isCommunicating) EndCommunicating();
@@ -30,6 +38,7 @@ public class NPC : MonoBehaviour
 
     public void StartCommunicating()
     {
+        if (justDecoration) return;
         isCommunicating = true;
         wasCommunication = true;
         Communication c = FindFirstObjectByType<Communication>();
@@ -45,7 +54,8 @@ public class NPC : MonoBehaviour
 
     private void Update()
     {
-        if(isCommunicating && Input.GetAxisRaw("Interact") == 1 && canSkip)
+        if (justDecoration) return;
+        if (isCommunicating && Input.GetAxisRaw("Interact") == 1 && canSkip)
         {
             canSkip = false;
             currentText++;
@@ -62,7 +72,8 @@ public class NPC : MonoBehaviour
 
     public void SelectText()
     {
-        if(currentText >= data.text.Count)
+        if (justDecoration) return;
+        if (currentText >= data.text.Count)
         {
             EndCommunicating();
             return;
@@ -78,6 +89,7 @@ public class NPC : MonoBehaviour
 
     public void EndCommunicating()
     {
+        if (justDecoration) return;
         Communication c = FindFirstObjectByType<Communication>();
         if (c != null)
         {

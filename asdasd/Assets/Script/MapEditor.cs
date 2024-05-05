@@ -452,6 +452,11 @@ public class MapEditor : MonoBehaviour
     
     public void GetInfos(Map map)
     {
+
+        map.endx = endPosition.x;
+        map.endy = endPosition.y;
+        map.startx = startPosition.x;
+        map.starty = startPosition.y;
         map.row = rows;
         map.column = columns;
         map.colorIndex = new int[columns][];
@@ -597,10 +602,5 @@ public class MapEditor : MonoBehaviour
                 map.inversePairs[v++] = j;
             }
         }
-
-        map.endx = endPosition.x;
-        map.endy = endPosition.y;
-        map.startx = startPosition.x;
-        map.starty = startPosition.y;
     }
 }

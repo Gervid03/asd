@@ -12,6 +12,7 @@ public class NPC_data : ScriptableObject
     public Sprite sprite;
     public Color32 color;
     public GameObject prefab;
+    public bool justDecoration;
 
     public void Summon()
     {
@@ -25,6 +26,7 @@ public class NPC_data : ScriptableObject
             if(sprite != null) newNPC.GetComponent<SpriteRenderer>().sprite = sprite;
             newNPC.GetComponent<SpriteRenderer>().color = color;
             newNPC.GetComponent<NPC>().data = this;
+            newNPC.GetComponent<NPC>().justDecoration = justDecoration;
         }
         else Debug.LogError("Map doesnt exist for summoning an NPC, fix it :)");
     }

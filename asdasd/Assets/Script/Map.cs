@@ -260,6 +260,12 @@ public class Map : MonoBehaviour
         mapEditor.columns = data.column;
         mapEditor.rows = data.row;
 
+        mapEditor.currentTool = 8;
+        mapEditor.AddTile(data.startx, data.starty);
+
+        mapEditor.currentTool = 9;
+        mapEditor.AddTile(data.endx, data.endy);
+
         mapEditor.currentTool = 1;
 
         for (i = 0; i < data.colorIndex.Length; i++)
@@ -350,19 +356,13 @@ public class Map : MonoBehaviour
             mapEditor.tilemaps.changeVisibleAtBeginning(data.activeAtStart[i].index, data.activeAtStart[i].isActive);
         }
 
-        mapEditor.currentTool = 8;
-        mapEditor.AddTile(data.startx, data.starty);
-
-        mapEditor.currentTool = 9;
-        mapEditor.AddTile(data.endx, data.endy);
-
         for (i = 0; i < data.activeAtStart.Length; i++)
         {
             for (j = 0; j < colorPalette.colors.Count; j++)
             {
                 if (colorPalette.colors[j].index == data.activeAtStart[i].index)
                 {
-                    if (colorPalette.colors[j].toggle.GetComponentInChildren<Toggle>() == null) Debug.Log(i + " " + j);
+                    if (colorPalette.colors[j].toggle.GetComponentInChildren<Toggle>() == null) Debug.Log("From Map a problem " + i + " " + j);
                     colorPalette.colors[j].toggle.GetComponentInChildren<Toggle>().isOn = data.activeAtStart[i].isActive;
                     break;
                 }
