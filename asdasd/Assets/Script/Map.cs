@@ -236,7 +236,7 @@ public class Map : MonoBehaviour
                 if (dropdown.options[i].text == index)
                 {
                     dropdown.value = i;
-                    saveName.text = vault.mapToLoad;
+                    saveName.text = index;
                     break;
                 }
             }

@@ -11,7 +11,7 @@ public class Buttons : MonoBehaviour
     public Sprite stateActivated;
     public Sprite stateDeactivated;
     public int interactWithColor; //which color is activated or deactivated by this button
-    public bool activateTheColor; //if false then deactivates that color, else activates that color
+    //public bool activateTheColor; //if false then deactivates that color, else activates that color
     public SpriteRenderer spriteRenderer; 
     public SpriteRenderer indicator;
     public Light2D displayColor;
@@ -25,11 +25,11 @@ public class Buttons : MonoBehaviour
         WallManager.activateColor += BeActive;
     }
 
-    public void CreateNew(int color, int interactColor, float x, float y, bool activate)
+    public void CreateNew(int color, int interactColor, float x, float y, bool activate = false)
     {
         colorIndex = color;
         interactWithColor = interactColor;
-        activateTheColor = activate;
+        //activateTheColor = activate;
         SetPosition(x, y);
         SetColor();
     }
@@ -91,13 +91,13 @@ public class Buttons : MonoBehaviour
         if(state == 1)
         {
             spriteRenderer.sprite = stateActivated;
-            if (activateTheColor)
+            if (FindFirstObjectByType<WallManager>().colors.atVisible(interactWithColor))
             {
-                FindFirstObjectByType<WallManager>().SetColorActive(interactWithColor);
+                FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
             }
             else
             {
-                FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
+                FindFirstObjectByType<WallManager>().SetColorActive(interactWithColor);
             }
         }
     }
@@ -108,13 +108,13 @@ public class Buttons : MonoBehaviour
         if(state == 0)
         {
             spriteRenderer.sprite = stateDeactivated;
-            if (!activateTheColor)
+            if (FindFirstObjectByType<WallManager>().colors.atVisible(interactWithColor))
             {
-                FindFirstObjectByType<WallManager>().SetColorActive(interactWithColor);
+                FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
             }
             else
             {
-                FindFirstObjectByType<WallManager>().SetColorDeactive(interactWithColor);
+                FindFirstObjectByType<WallManager>().SetColorActive(interactWithColor);
             }
         }
     }
