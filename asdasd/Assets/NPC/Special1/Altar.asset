@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
   m_Name: Altar
   m_EditorClassIdentifier: 
-  mapName: '!A01lever'
+  mapName: '!B00'
   x: 15
-  y: 7
+  y: 5
   nameOfNPC: 
   text: []
   sprite: {fileID: 0}
