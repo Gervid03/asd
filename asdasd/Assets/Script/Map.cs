@@ -343,11 +343,11 @@ public class Map : MonoBehaviour
             InverseButton[] buttons = mapEditor.inversePairs[mapEditor.inversePairs.Count - 1].GetComponentsInChildren<InverseButton>();
 
             buttons[0].index = data.inversePairs[i].index1;
-            buttons[0].GetComponent<Image>().sprite = buttons[0].GetComponent<InverseButton>().wall;
+            buttons[0].GetComponent<Image>().sprite = buttons[0].wall;
             buttons[0].GetComponent<Image>().color = mapEditor.tilemaps.at(data.inversePairs[i].index1).color;
 
             buttons[1].index = data.inversePairs[i].index2;
-            buttons[1].GetComponent<Image>().sprite = buttons[1].GetComponent<InverseButton>().wall;
+            buttons[1].GetComponent<Image>().sprite = buttons[1].wall;
             buttons[1].GetComponent<Image>().color = mapEditor.tilemaps.at(data.inversePairs[i].index2).color;
         }
 

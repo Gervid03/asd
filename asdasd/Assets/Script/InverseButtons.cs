@@ -16,8 +16,6 @@ public class InverseButton : MonoBehaviour
     {
         mapEditor = FindAnyObjectByType<MapEditor>();
         colorPalette = FindAnyObjectByType<ColorPalette>();
-        index = -1;
-        this.gameObject.GetComponent<Image>().sprite = warning;
         ColorPalette.modifyColor += Modify;
         ColorPalette.deleteColor += Suicide;
     }
