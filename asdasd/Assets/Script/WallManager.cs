@@ -107,6 +107,7 @@ public class WallManager : MonoBehaviour
             indexes.Clear();
             colors.Clear();
             visible.Clear();
+            makeItNotNull(new List<int>(), new List<Color32>());
         }
 
         public void add(Color32 t, int index, bool vis = true)
@@ -194,7 +195,12 @@ public class WallManager : MonoBehaviour
                     active.RemoveAt(i);
                 }
             }
+        }
 
+        public void clear()
+        {
+            index.Clear();
+            active.Clear();
         }
     }
 

@@ -214,16 +214,15 @@ public class MultipleLevel : MonoBehaviour
         }
 
         public void ResetColors() {
-            List<int> t = FindFirstObjectByType<WallManager>().colors.getIndexes();
-            for (int j = 0; j < t.Count; j++)
+            for (int i = 0; i < FindFirstObjectByType<WallManager>().colors.getIndexes().Count; i++)
             {
-                Debug.Log(t[j]);
-                if (t[j] != 0)
-                {
-                    FindFirstObjectByType<WallManager>().activeAtStart.remove(t[j]);
-                    FindFirstObjectByType<WallManager>().colors.remove(t[j]);
-                }
+                FindFirstObjectByType<WallManager>().DestroyTimerCube(FindFirstObjectByType<WallManager>().colors.getIndexes()[i]);
             }
+            
+            FindFirstObjectByType<WallManager>().colors.clear();
+            FindFirstObjectByType<WallManager>().colors.add(new Color32(255, 255, 255, 255), 0, true);
+            FindFirstObjectByType<WallManager>().activeAtStart.clear();
+            FindFirstObjectByType<WallManager>().activeAtStart.add(0, true);
 
             foreach (UnityEngine.Transform child in FindFirstObjectByType<Map>().tilemapParent)
             {
@@ -232,11 +231,6 @@ public class MultipleLevel : MonoBehaviour
             }
 
             if (FindFirstObjectByType<Cube>() != null) Destroy(FindFirstObjectByType<Cube>().gameObject);
-
-            for (int i = 0; i < FindFirstObjectByType<WallManager>().colors.getIndexes().Count; i++)
-            {
-                FindFirstObjectByType<WallManager>().DestroyTimerCube(FindFirstObjectByType<WallManager>().colors.getIndexes()[i]);
-            }
         }
     }
 
