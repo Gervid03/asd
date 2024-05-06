@@ -40,7 +40,6 @@ public class ButtonsForCube : MonoBehaviour
         //becomes active and visible
         displayColor.gameObject.SetActive(true);
         displayInteractiveColor.gameObject.SetActive(true);
-        buttonCollider.enabled = true;
         buttonTriggerCollider.enabled = true;
     }
 
@@ -50,7 +49,6 @@ public class ButtonsForCube : MonoBehaviour
         //becomes invisible
         displayColor.gameObject.SetActive(false);
         displayInteractiveColor.gameObject.SetActive(false);
-        buttonCollider.enabled = false;
         buttonTriggerCollider.enabled = false;
     }
 

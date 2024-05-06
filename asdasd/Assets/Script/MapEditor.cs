@@ -207,6 +207,17 @@ public class MapEditor : MonoBehaviour
             if (Input.GetAxisRaw("AddTimerCube") == 1) currentTool = 7;
             if (Input.GetAxisRaw("AddStart") == 1) currentTool = 8;
             if (Input.GetAxisRaw("AddFinish") == 1) currentTool = 9;
+        
+            if (Input.GetAxisRaw("CarouselCycle") != 0)
+            {
+                if (!pressedCarouselCycle)
+                {
+                    pressedCarouselCycle = true;
+                    if (Input.GetAxisRaw("CarouselCycle") > 0) FindFirstObjectByType<ColorPalette>().SelectedColorIncrement();
+                    else FindFirstObjectByType<ColorPalette>().SelectedColorDecrement();
+                }
+            }
+            else pressedCarouselCycle = false;
         }
 
         if (Input.GetAxisRaw("Menu") == 1)
@@ -220,16 +231,6 @@ public class MapEditor : MonoBehaviour
         }
         else pressedMenu = false;
 
-        if (Input.GetAxisRaw("CarouselCycle") != 0)
-        {
-            if (!pressedCarouselCycle)
-            {
-                pressedCarouselCycle = true;
-                if (Input.GetAxisRaw("CarouselCycle") > 0) FindFirstObjectByType<ColorPalette>().SelectedColorIncrement();
-                else FindFirstObjectByType<ColorPalette>().SelectedColorDecrement();
-            }
-        }
-        else pressedCarouselCycle = false;
     }
 
     public void SetTool(int index)
