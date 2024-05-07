@@ -44,6 +44,13 @@ public class Cube : MonoBehaviour
 
     public void DontBeActive(int c)
     {
+        if (c != colorIndex || !FindFirstObjectByType<WallManager>().colors.atVisible(c)) return;
+        FindFirstObjectByType<WallManager>().cubes.Remove(this);
+        Destroy(this.gameObject);
+    }
+
+    public void ForceDestroy(int c)
+    {
         if (c != colorIndex) return;
         FindFirstObjectByType<WallManager>().cubes.Remove(this);
         Destroy(this.gameObject);
@@ -60,7 +67,7 @@ public class Cube : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(FindObjectsByType<Cube>(default).Length <= 1) FindFirstObjectByType<movement>().NoMoreCubes();
+        if(FindObjectsByType<Cube>(default).Length <= 1 && FindFirstObjectByType<movement>() != null) FindFirstObjectByType<movement>().NoMoreCubes();
         WallManager.disableColor -= DontBeActive;
     }
 }

@@ -405,8 +405,8 @@ public class Map : MonoBehaviour
 
     public void ClearMap()
     {
-        File.Delete(Application.persistentDataPath + "/!tempmap.map");
-        File.Copy(Application.persistentDataPath + "/!clearmap.map", Application.persistentDataPath + "/!tempmap.map");
+        File.Delete(Application.dataPath + "/maps/!tempmap.map");
+        File.Copy(Application.dataPath + "/maps/!clearmap.map", Application.dataPath + "/maps/!tempmap.map");
 
         FindFirstObjectByType<Vault>().intent = Vault.Intent.loadTempIntoEditor;
         SceneManager.LoadScene("MapEditor");

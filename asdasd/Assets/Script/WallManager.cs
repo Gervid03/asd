@@ -538,7 +538,7 @@ public class WallManager : MonoBehaviour
         Cube[] c = FindObjectsByType<Cube>(default);
         for(int i = 0; i < c.Length; i++)
         {
-            c[i].DontBeActive(c[i].colorIndex);
+            c[i].ForceDestroy(c[i].colorIndex);
         }
         cubes.Clear();
     }

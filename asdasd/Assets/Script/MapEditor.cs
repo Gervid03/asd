@@ -146,7 +146,7 @@ public class MapEditor : MonoBehaviour
     
     public FileInfo[] GetMapList()
     {
-        string path = Application.persistentDataPath;
+        string path = Application.dataPath + "/maps"; //Application.persitentDataPath
         DirectoryInfo dir = new DirectoryInfo(path);
         return dir.GetFiles("*.map");
     }

@@ -159,3 +159,12 @@ MonoBehaviour:
     missingLeft: 060000000500000004000000
     isSpecial: 0
     comeFrom: 0
+  - x: 11
+    y: -1
+    levelName: '!B10'
+    missingUp: 
+    missingDown: 
+    missingRight: 0f0000000e0000000d0000000c0000000b000000
+    missingLeft: 0a000000090000000800000007000000
+    isSpecial: 0
+    comeFrom: 0
