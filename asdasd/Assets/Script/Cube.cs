@@ -60,7 +60,7 @@ public class Cube : MonoBehaviour
 
     private void OnDestroy()
     {
-        FindFirstObjectByType<movement>().NoMoreCubes();
+        if(FindObjectsByType<Cube>(default).Length <= 1) FindFirstObjectByType<movement>().NoMoreCubes();
         WallManager.disableColor -= DontBeActive;
     }
 }

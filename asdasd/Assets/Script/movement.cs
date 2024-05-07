@@ -102,6 +102,6 @@ public class movement : MonoBehaviour
 
     public void NoMoreCubes()
     {
-        basicCubeSpriteRenderer.gameObject.SetActive(false);
+        if(FindObjectsByType<Cube>(default).Length == 0) basicCubeSpriteRenderer.gameObject.SetActive(false);
     }
 }
