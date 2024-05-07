@@ -279,7 +279,7 @@ public class MapEditor : MonoBehaviour
 
     public void AddStartPosition(int x, int y)
     {
-        if(x != startPosition.x || y != startPosition.y) RemoveAllTileAtThisPositon(startPosition.x, startPosition.y);
+        if(x != startPosition.x || y != startPosition.y) if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[8].tile) RemoveAllTileAtThisPositon(startPosition.x, startPosition.y);
         startPosition.x = x; 
         startPosition.y = y;
         if (startPosition == endPosition) endPosition = new Vector2Int(-10, -10);
@@ -382,7 +382,8 @@ public class MapEditor : MonoBehaviour
         }
         if (startPosition.x == x && startPosition.y == y)
         {
-            startPosition = new Vector2Int(0, 0);
+            startPosition = new Vector2Int(-1, -1);
+            //tilemaps.at(0).SetTile(new Vector3Int(0, 0, 0), tools[8].tile);
         }
     }
 
