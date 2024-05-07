@@ -9669,11 +9669,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4861876915081757114, guid: 505d1a1f93ee7b34ab71e059e4338a31, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4861876915081757114, guid: 505d1a1f93ee7b34ab71e059e4338a31, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.31
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4861876915081757114, guid: 505d1a1f93ee7b34ab71e059e4338a31, type: 3}
       propertyPath: m_LocalPosition.z
