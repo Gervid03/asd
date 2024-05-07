@@ -99,4 +99,9 @@ public class movement : MonoBehaviour
     {
         timerCubeSpriteRenderer.gameObject.SetActive(false);
     }
+
+    public void NoMoreCubes()
+    {
+        basicCubeSpriteRenderer.gameObject.SetActive(false);
+    }
 }
