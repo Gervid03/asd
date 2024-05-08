@@ -18,7 +18,7 @@ public class Gate : MonoBehaviour
     {
         WallManager.disableColor += DontBeActive;
         WallManager.activateColor += BeActive;
-        character = FindAnyObjectByType<Player>().gameObject;
+        character = FindFirstObjectByType<Player>().gameObject;
         //Physics2D.IgnoreCollision(character.GetComponent<BoxCollider2D>(), gameObject.GetComponent<Collider2D>(), true);
     }
 

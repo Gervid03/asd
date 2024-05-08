@@ -162,7 +162,7 @@ public class Map : MonoBehaviour
 
     public void SaveMap()
     {
-        mapEditor = FindAnyObjectByType<MapEditor>();
+        mapEditor = FindFirstObjectByType<MapEditor>();
         FindFirstObjectByType<MapEditor>().GetInfos(this);
         SaveLoadMaps.SaveMap(this);
         mapEditor.MapDropdownUpdate(index);
@@ -175,18 +175,18 @@ public class Map : MonoBehaviour
 
     public void IndexUpdateSelectedToLoad(int index2)
     {
-        dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+        dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         SetIndex(dropdown.options[index2].text);
     }
 
     public void UpdateSelectedDropdownOption(string name)
     {
-        dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+        dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         for(int i = 0; i < dropdown.options.Count; i++)
         {
             if (dropdown.options[i].text == name)
             {
-                dropdown.value = i;
+                dropdown.SetValueWithoutNotify(i);
             }
         }
     }
@@ -210,10 +210,10 @@ public class Map : MonoBehaviour
     public void LoadIntoEditor()
     {
         int i, j;
-        mapEditor = FindAnyObjectByType<MapEditor>();
-        colorPalette = FindAnyObjectByType<ColorPalette>();
-        dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
-        Vault vault = FindAnyObjectByType<Vault>();
+        mapEditor = FindFirstObjectByType<MapEditor>();
+        colorPalette = FindFirstObjectByType<ColorPalette>();
+        dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+        Vault vault = FindFirstObjectByType<Vault>();
 
         if (index == "")
         {
@@ -226,8 +226,8 @@ public class Map : MonoBehaviour
             {
                 if (dropdown.options[i].text == vault.mapUnderConstruction)
                 {
-                    dropdown.value = i;
-                    saveName.text = vault.mapUnderConstruction;
+                    dropdown.SetValueWithoutNotify(i);
+                    saveName.SetTextWithoutNotify(vault.mapUnderConstruction);
                     break;
                 }
             }
@@ -235,8 +235,8 @@ public class Map : MonoBehaviour
             {
                 if (dropdown.options[i].text == index)
                 {
-                    dropdown.value = i;
-                    saveName.text = index;
+                    dropdown.SetValueWithoutNotify(i);
+                    saveName.SetTextWithoutNotify(index);
                     break;
                 }
             }

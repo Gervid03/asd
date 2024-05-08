@@ -14,8 +14,8 @@ public class InverseButton : MonoBehaviour
 
     private void Awake()
     {
-        mapEditor = FindAnyObjectByType<MapEditor>();
-        colorPalette = FindAnyObjectByType<ColorPalette>();
+        mapEditor = FindFirstObjectByType<MapEditor>();
+        colorPalette = FindFirstObjectByType<ColorPalette>();
         ColorPalette.modifyColor += Modify;
         ColorPalette.deleteColor += Suicide;
     }

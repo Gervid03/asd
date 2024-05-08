@@ -174,7 +174,7 @@ public class MapEditor : MonoBehaviour
                 break;
             }
         }
-        dropdown.value = dropdownIndex;
+        dropdown.SetValueWithoutNotify(dropdownIndex);
     }
 
     private void Awake()
@@ -183,7 +183,7 @@ public class MapEditor : MonoBehaviour
         countInversePair = 0;
         calculatedCellWith = (xTopRight - xBottomLeft) / columns;
         calculatedCellHeight = (yTopRight - xBottomLeft) / rows;
-        dropdown = FindAnyObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+        dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         MapDropdownUpdate();
     }
 

@@ -46,11 +46,11 @@ public class Vault : MonoBehaviour
             return;
         }
         intent = Intent.playWithTemp;
-        Map map = FindAnyObjectByType<Map>();
+        Map map = FindFirstObjectByType<Map>();
 
         mapUnderConstruction = map.index; //store map name to restore selected dropdown option
 
-        FindAnyObjectByType<MapEditor>().GetInfos(map);
+        FindFirstObjectByType<MapEditor>().GetInfos(map);
         map.index = "!temp";
 
         SaveLoadMaps.SaveMap(map);
@@ -62,14 +62,14 @@ public class Vault : MonoBehaviour
     {
         if (name.name == playScene && intent == Intent.playWithTemp)
         {
-            Map map = FindAnyObjectByType<Map>();
+            Map map = FindFirstObjectByType<Map>();
             map.index = "!temp";
             map.LoadMap();
             return;
         }
         else if (name.name == "MapEditor" && intent == Intent.loadTempIntoEditor)
         {
-            Map map = FindAnyObjectByType<Map>();
+            Map map = FindFirstObjectByType<Map>();
             map.index = "!temp";
             map.LoadIntoEditor();
             return;

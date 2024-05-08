@@ -32,10 +32,10 @@ public class ColorPalette : MonoBehaviour
 
     void Awake()
     {
-        mapEditor = FindAnyObjectByType<MapEditor>();
+        mapEditor = FindFirstObjectByType<MapEditor>();
         mapEditor.tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
         colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
-        colorTweaker = FindAnyObjectByType<ColorTweaker>(FindObjectsInactive.Include);
+        colorTweaker = FindFirstObjectByType<ColorTweaker>(FindObjectsInactive.Include);
         CreateColor(new Color32(255, 255, 255, 255));
         ReadInColors();
     }
@@ -57,7 +57,7 @@ public class ColorPalette : MonoBehaviour
     public void AdjustHeight()
     {
         colorPaletteParent.sizeDelta = new Vector2(700, (Mathf.CeilToInt(colors.Count / 7f)) * 100);
-        FindAnyObjectByType<DefaultStateHeight>(FindObjectsInactive.Include).AdjustHeight((Mathf.CeilToInt(colors.Count / 7f)) * 100);
+        FindFirstObjectByType<DefaultStateHeight>(FindObjectsInactive.Include).AdjustHeight((Mathf.CeilToInt(colors.Count / 7f)) * 100);
     }
 
     public bool ColorExists(Color32 c)
@@ -80,7 +80,7 @@ public class ColorPalette : MonoBehaviour
 
         if (mapEditor == null)
         {
-            mapEditor = FindAnyObjectByType<MapEditor>();
+            mapEditor = FindFirstObjectByType<MapEditor>();
             Debug.Log(FindObjectsByType<MapEditor>(default).Length);
         }
         int a = mapEditor.AddColor(szin, index);

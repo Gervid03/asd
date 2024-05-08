@@ -9,7 +9,7 @@ public class Suicide : MonoBehaviour
 
     private void Start()
     {
-        mapEditor = FindAnyObjectByType<MapEditor>();
+        mapEditor = FindFirstObjectByType<MapEditor>();
     }
 
     public void CommitSucide()

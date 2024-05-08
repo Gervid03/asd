@@ -46,12 +46,12 @@ public class movement : MonoBehaviour
     {
         if (needUpdate == 1)
         {
-            FindAnyObjectByType<WallManager>().SetCurrentState();
+            FindFirstObjectByType<WallManager>().SetCurrentState();
             needUpdate = 0;
         }
         else if (needUpdate == 2)
         {
-            FindAnyObjectByType<WallManager>().SetDefaultState();
+            FindFirstObjectByType<WallManager>().SetDefaultState();
             needUpdate = 0;
         }
     }

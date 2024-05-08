@@ -27,7 +27,7 @@ public class ColorTweaker : MonoBehaviour
 
     public void CheckBrightness()
     {
-        FindAnyObjectByType<ColorPalette>().colorExistsWarning.SetActive(false);
+        FindFirstObjectByType<ColorPalette>().colorExistsWarning.SetActive(false);
         if (Mathf.Max(color.r, color.g, color.b) < 255)
         {
             brightnessWarning.SetActive(true);
