@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
-  m_Name: 01lever
+  m_Name: SecondGroup4
   m_EditorClassIdentifier: 
-  mapName: '!01lever'
-  x: 5
-  y: 7
+  mapName: 
+  x: 0
+  y: 0
   nameOfNPC: 
-  text:
-  - asd
-  sprite: {fileID: 21300000, guid: c0ddf268360aa7147987ce9b0163bd3d, type: 3}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  text: []
+  sprite: {fileID: 0}
+  color:
+    serializedVersion: 2
+    rgba: 4294967295
+  prefab: {fileID: 6685188989121520819, guid: ac8c1e6bf0950f64885ee06dd1a7841a, type: 3}
+  justDecoration: 0
