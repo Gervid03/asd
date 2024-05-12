@@ -22,3 +22,4 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   prefab: {fileID: 6685188989121520819, guid: cdf4d0534955c8c418aad263c021a49d, type: 3}
+  justDecoration: 0
