@@ -25,7 +25,7 @@ public class CubePlacer : MonoBehaviour
     {
         for(int i = 0; i < timerCubes.Count; i++)
         {
-            if (timerCubes[i].colorIndex == colorIndex)
+            if (timerCubes[i].colorIndex == colorIndex && FindFirstObjectByType<WallManager>().colors.atVisible(colorIndex))
             {
                 timerCubes.RemoveAt(i);
                 break;

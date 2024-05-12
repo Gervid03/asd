@@ -42,6 +42,13 @@ public class TimerCube : MonoBehaviour
 
     public void DontBeActive(int c)
     {
+        if (c != colorIndex || !FindFirstObjectByType<WallManager>().colors.atVisible(c)) return;
+        FindFirstObjectByType<WallManager>().timerCubes.Remove(this);
+        Destroy(this.gameObject);
+    }
+
+    public void ForceDestroy(int c)
+    {
         if (c != colorIndex) return;
         FindFirstObjectByType<WallManager>().timerCubes.Remove(this);
         Destroy(this.gameObject);

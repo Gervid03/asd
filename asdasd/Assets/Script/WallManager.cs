@@ -550,7 +550,7 @@ public class WallManager : MonoBehaviour
         {
             if (tc[i].colorIndex == color)
             {
-                tc[i].DontBeActive(tc[i].colorIndex);
+                tc[i].ForceDestroy(tc[i].colorIndex);
             }
         }
     }
