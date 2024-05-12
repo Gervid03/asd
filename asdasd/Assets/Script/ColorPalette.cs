@@ -205,6 +205,7 @@ public class ColorPalette : MonoBehaviour
 
         overwriteColorButton.SetActive(false);
         selectedButton = colors[0];
+        UpdateColorCarousel();
         AdjustHeight();
     }
 

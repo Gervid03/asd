@@ -103,7 +103,7 @@ public class Buttons : MonoBehaviour
     public void EndOfUse()
     {
         state--;
-        if(state == 0)
+        if(state == 0 && FindFirstObjectByType<WallManager>() != null)
         {
             spriteRenderer.sprite = stateDeactivated;
             if (FindFirstObjectByType<WallManager>().colors.atVisible(interactWithColor))
