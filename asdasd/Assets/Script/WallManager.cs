@@ -32,6 +32,7 @@ public class WallManager : MonoBehaviour
     public Tilemap outsideWallTilemap;
     public static event Action<int> disableColor;
     public static event Action<int> activateColor;
+    public NPC_data.Language language;
 
     [System.Serializable]
     public struct ColorList

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New NPC", menuName = "NPC")]
@@ -8,11 +10,34 @@ public class NPC_data : ScriptableObject
     public string mapName;
     public int x, y;
     public string nameOfNPC;
-    public List<string> text;
+    public List<MultiLanguage> text;
     public Sprite sprite;
     public Color32 color;
     public GameObject prefab;
     public bool justDecoration;
+
+    public enum Language
+    {
+        EN = 0,
+        HU = 1
+    }
+
+    [System.Serializable]
+    public struct MultiLanguage
+    {
+        public string en;
+        public string hu; 
+
+        public string at(int ind)
+        {
+            switch (ind)
+            {
+                case 0: return en;
+                case 1: return hu;
+            }
+            return "";
+        }
+    };
 
     public void Summon()
     {

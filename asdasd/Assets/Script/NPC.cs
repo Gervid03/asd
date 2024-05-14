@@ -13,10 +13,12 @@ public class NPC : MonoBehaviour
     public int currentText;
     public bool canSkip;
     public bool wasCommunication;
+    public NPC_data.Language language;
 
     private void Awake()
     {
         if(justDecoration) showInteract.SetActive(false);
+        language = FindFirstObjectByType<WallManager>().language;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -81,7 +83,7 @@ public class NPC : MonoBehaviour
         Communication c = FindFirstObjectByType<Communication>();
         if (c != null)
         {
-            c.text.text = data.text[currentText];
+            c.text.text = data.text[currentText].at(((int)language));
         }
         else Debug.LogError("Communication is not your thing, but I need it, so find it");
 
