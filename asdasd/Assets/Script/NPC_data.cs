@@ -49,7 +49,7 @@ public class NPC_data : ScriptableObject
             else newNPC = Instantiate(prefab);
             newNPC.transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
             if(sprite != null) newNPC.GetComponent<SpriteRenderer>().sprite = sprite;
-            newNPC.GetComponent<SpriteRenderer>().color = color;
+            if(newNPC.GetComponent<SpriteRenderer>() != null) newNPC.GetComponent<SpriteRenderer>().color = color;
             newNPC.GetComponent<NPC>().data = this;
             newNPC.GetComponent<NPC>().justDecoration = justDecoration;
         }

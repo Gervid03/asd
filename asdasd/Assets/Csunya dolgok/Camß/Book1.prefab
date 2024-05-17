@@ -261,6 +261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6893346678560361141}
+  - component: {fileID: 336069711307983655}
   m_Layer: 0
   m_Name: Book1
   m_TagString: Untagged
@@ -287,6 +288,27 @@ Transform:
   - {fileID: 6440834909829476838}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &336069711307983655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4522352802268407507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29437bc0ce452ba46970b289fe130cd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  justDecoration: 0
+  isInteractable: 0
+  showInteract: {fileID: 0}
+  isCommunicating: 0
+  currentText: 0
+  canSkip: 0
+  wasCommunication: 0
+  language: 0
 --- !u!1 &5736426102123903282
 GameObject:
   m_ObjectHideFlags: 0
