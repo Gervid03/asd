@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
+  m_Name: a 6
+  m_EditorClassIdentifier: 
+  mapName: '!C04'
+  x: 27
+  y: 1
+  nameOfNPC: 
+  text:
+  - en: " I tried to explain to him what I found. I\u2019ve learned from the books
+      how we could grow food with these seeds. Tomorrow I will definitely plant them.
+      About a week later these plants will be ready to harvest."
+    hu: 
+  - en: 'In the overworld this could help society so much! Planting without water.
+      It is going to change the world. '
+    hu: 
+  sprite: {fileID: 0}
+  color:
+    serializedVersion: 2
+    rgba: 4294967295
+  prefab: {fileID: 6685188989121520819, guid: 51a62f76d0a2f234b9319f8a0a706db4, type: 3}
+  justDecoration: 0

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
+  m_Name: a 20
+  m_EditorClassIdentifier: 
+  mapName: '!C04'
+  x: 29
+  y: 2
+  nameOfNPC: 
+  text:
+  - en: While I was at the barrier, he destroyed my plants.
+    hu: 
+  - en: ' All of it. And the seeds too. We will starve to death because of him.'
+    hu: 
+  - en: "We would\u2019ve already escaped, if he had helped me. But even now, that
+      we have just a couple of days left, he won't let me see the barrier."
+    hu: 
+  - en: He is crazy. I have to do something about him.
+    hu: 
+  sprite: {fileID: 0}
+  color:
+    serializedVersion: 2
+    rgba: 4294967295
+  prefab: {fileID: 6685188989121520819, guid: 8e15ae5549dcf244cb58722831708f32, type: 3}
+  justDecoration: 0

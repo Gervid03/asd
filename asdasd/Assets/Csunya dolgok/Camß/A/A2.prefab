@@ -66,8 +66,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.011849999, y: -0.19395, z: 0}
-    m_Extent: {x: 0.81965, y: 0.78495, z: 0}
+    m_Center: {x: 0.0449, y: -0.028450012, z: 0}
+    m_Extent: {x: 0.8952, y: 0.73025, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -78,11 +78,11 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 0.5
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -0.014547486, y: -0.4779495, z: 0}
-  - {x: 0.30840364, y: -0.2356456, z: 0}
-  - {x: 0.21139286, y: -0.04326053, z: 0}
-  - {x: -0.17302357, y: 0.09144519, z: 0}
-  - {x: -0.3326562, y: -0.34641933, z: 0}
+  - {x: 0.08462998, y: -0.25782418, z: 0}
+  - {x: 0.38339153, y: -0.10260278, z: 0}
+  - {x: 0.44119382, y: 0.20105444, z: 0}
+  - {x: -0.34960777, y: 0.19787948, z: 0}
+  - {x: -0.15607232, y: -0.01018402, z: 0}
 --- !u!1 &4540832737886810960
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5685917928198689513}
   - component: {fileID: 3094016885389459633}
   m_Layer: 0
-  m_Name: NPCPrefabW1
+  m_Name: A2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +241,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 445122812, guid: e535469be65e865498739ed90c1b21a1, type: 3}
+  m_Sprite: {fileID: -1429205331, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -265,14 +265,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
-  justDecoration: 0
   isInteractable: 0
   showInteract: {fileID: 7734886171410734052}
   isCommunicating: 0
   currentText: 0
   canSkip: 0
   wasCommunication: 0
-  language: 0
 --- !u!61 &3094016885389459633
 BoxCollider2D:
   m_ObjectHideFlags: 0

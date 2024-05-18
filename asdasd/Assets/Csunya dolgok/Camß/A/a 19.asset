@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
+  m_Name: a 19
+  m_EditorClassIdentifier: 
+  mapName: '!C04'
+  x: 4
+  y: 3
+  nameOfNPC: 
+  text:
+  - en: "When he falls asleep I\u2019m going to check what\u2019s going on with that
+      magic wall."
+    hu: 
+  sprite: {fileID: 0}
+  color:
+    serializedVersion: 2
+    rgba: 4294967295
+  prefab: {fileID: 6685188989121520819, guid: 17812e8345ff2da4db5a0226bfd06776, type: 3}
+  justDecoration: 0

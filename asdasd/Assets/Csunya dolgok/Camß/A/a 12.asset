@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
+  m_Name: a 12
+  m_EditorClassIdentifier: 
+  mapName: '!C03'
+  x: 13
+  y: 6
+  nameOfNPC: 
+  text:
+  - en: " He destroyed almost all my plants. How could he!? They are vital to our
+      survival. He can\u2019t even reason properly. He surely went crazy."
+    hu: 
+  sprite: {fileID: 0}
+  color:
+    serializedVersion: 2
+    rgba: 4294967295
+  prefab: {fileID: 6685188989121520819, guid: cb9c33cc777be754daf3f69912862526, type: 3}
+  justDecoration: 0
