@@ -283,4 +283,4 @@ MonoBehaviour:
   character: {fileID: 0}
   wallManager: {fileID: 0}
   image: {fileID: 3488055773678401846}
-  active: 0
+  active: 1

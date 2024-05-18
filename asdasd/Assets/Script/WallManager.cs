@@ -562,6 +562,20 @@ public class WallManager : MonoBehaviour
         {
             if (activeAtStart.at(activeAtStart.getIndexes()[i])) SetColorActive(activeAtStart.getIndexes()[i]);
             else SetColorDeactive(activeAtStart.getIndexes()[i]);
+
+            if (!activeAtStart.at(activeAtStart.getIndexes()[i]))
+            {
+                Cube[] c = FindObjectsByType<Cube>(default);
+                for (int j = 0; j < c.Length; j++)
+                {
+                    if (c[j].colorIndex == activeAtStart.getIndexes()[i])
+                    {
+                        c[j].ForceDestroy(c[j].colorIndex);
+                    }
+                }
+                DestroyTimerCube(activeAtStart.getIndexes()[i]);
+                FindFirstObjectByType<CubePlacer>().RemoveTimerCube(activeAtStart.getIndexes()[i]);
+            }
             colors.setVisible(activeAtStart.getIndexes()[i], activeAtStart.at(activeAtStart.getIndexes()[i]));
         }
     }
