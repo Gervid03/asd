@@ -591,7 +591,7 @@ public class Map : MonoBehaviour
         for (int i = 0; i < data.inversePairs.Length; i++)
         {
             FindFirstObjectByType<WallManager>().inversColor.add(c(data, data.inversePairs[i].index1), c(data, data.inversePairs[i].index2));
-            //Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
+            Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
         }
 
         //if (isStart) { 

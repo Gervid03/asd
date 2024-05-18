@@ -140,13 +140,17 @@ public class MultipleLevel : MonoBehaviour
             {
                 wm.outsideWallTilemap.SetTile(new Vector3Int(ml.rightX, missingRight[i], 0), ml.wall);
             }
+
+            wm.inversColor.clear();
         }
 
         public void Loaded(ComeFrom cf)
         {
             WallManager wm = FindFirstObjectByType<WallManager>();
             ml = FindFirstObjectByType<MultipleLevel>();
+
             if (wm == null || ml == null) return;
+
             if (missingUp != null)
             {
                 for(int i = 0; i < missingUp.Count; i++) {

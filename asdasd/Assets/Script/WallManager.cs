@@ -208,7 +208,12 @@ public class WallManager : MonoBehaviour
     [System.Serializable]
     public struct InversePair
     {
-        List<pair> pairs;
+        public List<pair> pairs;
+
+        public void clear()
+        {
+            pairs = new List<pair>();
+        }
 
         public int at(int index)
         {
@@ -245,6 +250,7 @@ public class WallManager : MonoBehaviour
         }
     }
 
+    [System.Serializable]
     public struct pair
     {
         public int a, b;

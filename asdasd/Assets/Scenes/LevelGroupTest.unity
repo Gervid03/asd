@@ -9471,6 +9471,8 @@ MonoBehaviour:
     - serializedVersion: 2
       rgba: 4294967295
     visible: 01
+  inversColor:
+    pairs: []
   wallObjects: []
   buttons: []
   buttonForCubes: []

@@ -35,7 +35,7 @@ public class TimerCube : MonoBehaviour
     {
         if (Time.time - birthTime > lifeTime)
         {
-            DontBeActive(colorIndex);
+            ForceDestroy(colorIndex);
         }
         this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, Mathf.Max(-fallSpeedLimit, this.GetComponent<Rigidbody2D>().velocity.y));
     }
@@ -56,6 +56,7 @@ public class TimerCube : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log(name + " " + (Time.time - birthTime));
         WallManager.disableColor -= DontBeActive;
     }
 }
