@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
   m_Name: a 15
   m_EditorClassIdentifier: 
-  mapName: 
+  mapName: '!C05'
   x: 0
-  y: 0
-  nameOfNPC: 
+  y: 4
+  nameOfNPC: Note 15
   text:
   - en: DO NOT ENTER!
     hu: 

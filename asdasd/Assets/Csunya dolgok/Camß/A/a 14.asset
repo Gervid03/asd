@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: a 14
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 13
-  y: 2
-  nameOfNPC: 
+  x: 18
+  y: 10
+  nameOfNPC: Note 14
   text:
-  - en: " I put a sign on the entrance and I will make sure he understands it. I
-      won\u2019t let him touch my precious crops. I will defend them at all costs.
-      Without them we could only survive for a couple of days. "
+  - en: "I put a sign on the entrance and I will make sure he understands it. I won\u2019t
+      let him touch my precious crops. I will defend them at all costs. Without them
+      we could only survive for a couple of days. "
     hu: 
   sprite: {fileID: 0}
   color:

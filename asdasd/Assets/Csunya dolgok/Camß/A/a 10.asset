@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: a 10
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 5
-  y: 4
-  nameOfNPC: 
+  x: 6
+  y: 8
+  nameOfNPC: Note 10
   text:
   - en: "I thought after a few days the barrier would vanish like the way back disappeared.
       But it doesn\u2019t seem to. We\u2019ll find a solution soon. "

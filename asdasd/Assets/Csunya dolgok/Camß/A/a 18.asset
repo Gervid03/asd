@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: a 18
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 18
-  y: 0
-  nameOfNPC: 
+  x: 22
+  y: 1
+  nameOfNPC: Note 18
   text:
   - en: "He doesn\u2019t let me go near the barrier! What!? Like I wasn\u2019t the
       one who got here first. He came later. And went crazy. No way that I\u2019m

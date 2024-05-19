@@ -15,7 +15,7 @@ MonoBehaviour:
   mapName: '!C03'
   x: 0
   y: 10
-  nameOfNPC: 
+  nameOfNPC: Note 1
   text:
   - en: " I think I found an amazing place. It\u2019s very spacious, while I\u2019ve
       been exploring it, I even discovered a little library."

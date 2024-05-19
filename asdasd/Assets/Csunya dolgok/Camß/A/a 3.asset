@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: a 3
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 10
-  y: 3
-  nameOfNPC: 
+  x: 3
+  y: 4
+  nameOfNPC: Note 3
   text:
   - en: These notes serve as my diary, I note everything I see and experience, so
       later I can read them again when I come back. It proves that I was here before

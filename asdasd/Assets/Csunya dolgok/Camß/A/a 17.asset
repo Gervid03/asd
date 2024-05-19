@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: a 17
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 23
-  y: 1
-  nameOfNPC: 
+  x: 29
+  y: 9
+  nameOfNPC: Note 17
   text:
   - en: Can you believe it!?
     hu: 
-  - en: ' While I was sleeping he tried to enter the library. But fortunately I still
+  - en: While I was sleeping he tried to enter the library. But fortunately I still
       noticed, and could stop him. He seemed like he wanted to check something. In
-      my books?'
+      my books?
     hu: 
   - en: "No way, he can\u2019t even interpret them. I\u2019m still too caught up
       in my plants and the library."

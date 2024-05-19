@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: a 19
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 4
-  y: 3
-  nameOfNPC: 
+  x: 24
+  y: 2
+  nameOfNPC: Note 19
   text:
   - en: "When he falls asleep I\u2019m going to check what\u2019s going on with that
       magic wall."

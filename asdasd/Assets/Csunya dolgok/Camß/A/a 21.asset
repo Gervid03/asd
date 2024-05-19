@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: a 21
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 26
-  y: 2
-  nameOfNPC: 
+  x: 28
+  y: 3
+  nameOfNPC: Note 21
   text:
   - en: " I\u2019ve been thinking since last night. It would be so much easier if
       he wasn\u2019t here. Why did I let him live here?"

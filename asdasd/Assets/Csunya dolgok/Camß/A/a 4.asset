@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: a 4
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 15
-  y: 1
-  nameOfNPC: 
+  x: 5
+  y: 3
+  nameOfNPC: Note 4
   text:
   - en: " I can\u2019t believe it! Somebody just arrived. When I tried to talk to
       him, he didn\u2019t understand me. But we could pantomime the most essential

@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
 
     private void Awake()
     {
-        if(justDecoration) showInteract.SetActive(false);
+        if(justDecoration && showInteract != null) showInteract.SetActive(false);
         language = FindFirstObjectByType<WallManager>().language;
     }
 
@@ -25,7 +25,7 @@ public class NPC : MonoBehaviour
     {
         if (justDecoration) return;
         if (collision.gameObject.GetComponent<Player>() == null) return;
-        showInteract.SetActive(true);
+        if (showInteract != null) showInteract.SetActive(true);
         isInteractable = true;
     }
 
@@ -33,7 +33,7 @@ public class NPC : MonoBehaviour
     {
         if (justDecoration) return;
         if (collision.gameObject.GetComponent<Player>() == null) return;
-        if (wasCommunication) showInteract.SetActive(false);
+        if (wasCommunication && showInteract != null) showInteract.SetActive(false);
         if (isCommunicating) EndCommunicating();
         isInteractable = false;
     }

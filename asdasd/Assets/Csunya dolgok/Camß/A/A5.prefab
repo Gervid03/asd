@@ -265,12 +265,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
+  justDecoration: 0
   isInteractable: 0
   showInteract: {fileID: 7734886171410734052}
   isCommunicating: 0
   currentText: 0
   canSkip: 0
   wasCommunication: 0
+  language: 0
 --- !u!61 &3094016885389459633
 BoxCollider2D:
   m_ObjectHideFlags: 0

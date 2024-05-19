@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
   m_Name: a 2
   m_EditorClassIdentifier: 
-  mapName: 
-  x: 0
-  y: 0
-  nameOfNPC: 
+  mapName: '!C05'
+  x: 15
+  y: 12
+  nameOfNPC: Note 2
   text:
   - en: There are so many books here, I want to read them all.
     hu: 
-  - en: " No, I have a better idea. When I find my way out, I will come back here
+  - en: "No, I have a better idea. When I find my way out, I will come back here
       to take some with me. I\u2019m pretty sure, there\u2019s a lot of hidden knowledge
       about this dungeon, and about the writers of the books."
     hu: 

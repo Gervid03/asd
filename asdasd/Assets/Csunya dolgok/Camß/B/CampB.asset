@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08fcf6be9a5156c439d8a6f10c6fbd5f, type: 3}
+  m_Name: CampB
+  m_EditorClassIdentifier: 
+  data:
+  - {fileID: 11400000, guid: b4e597e8d0cb29740be69a54e171bd5b, type: 2}
+  - {fileID: 11400000, guid: 1f6c1530452869b4c97275add0e6af65, type: 2}
+  - {fileID: 11400000, guid: 2969fcd3fcdbbac4cb7b22b1daa62320, type: 2}
+  - {fileID: 11400000, guid: cb34d5d476dd78c4fb6c52cc28ea6f1f, type: 2}
+  - {fileID: 11400000, guid: b65f07811d38fff41b636f634bab9c49, type: 2}
+  - {fileID: 11400000, guid: acade34461ed1a84c9a7166d1fb31813, type: 2}
+  - {fileID: 11400000, guid: f2308f23899b621448457ea53db2d3c2, type: 2}
+  - {fileID: 11400000, guid: 49ca6c1a71756984d8987edd725aedc8, type: 2}
+  - {fileID: 11400000, guid: 4fd1a082a2636bb4d86499f0f94bf863, type: 2}
+  - {fileID: 11400000, guid: 00032f03312ba374985483e3c6bc47ab, type: 2}
+  - {fileID: 11400000, guid: 846d4c8afca645a44acd9ba41eebb20b, type: 2}
+  - {fileID: 11400000, guid: af0b55725af71554c850a047f1e7f2e3, type: 2}
+  - {fileID: 11400000, guid: 4d74a49359eeaf241bcf5cc6864f66a8, type: 2}
+  - {fileID: 11400000, guid: fd7ff9ac62da2e9459cbfb143d0b40c9, type: 2}
+  - {fileID: 11400000, guid: 5afa0c109e7b9d34ea717b49527a4608, type: 2}
+  - {fileID: 11400000, guid: 54af14ae104f7e3438f3d792806c90c9, type: 2}
+  - {fileID: 11400000, guid: 602ae45061c300a42a8df2c49940a266, type: 2}
+  - {fileID: 11400000, guid: 0490be099d28c6f419b990e5361daeac, type: 2}
+  - {fileID: 11400000, guid: 9696dfdd8994d5e4b840d00a1e5294f0, type: 2}
+  - {fileID: 11400000, guid: 09d58f191d697654a9f39ea1364e952d, type: 2}
+  - {fileID: 11400000, guid: d5afc71422d3fc641b55a02778df2a28, type: 2}
+  - {fileID: 11400000, guid: dfc8bac6b20c8cd479e43fb4ce1be4fa, type: 2}
+  - {fileID: 11400000, guid: 5e275966c5a2065488d948fad6daa2fb, type: 2}

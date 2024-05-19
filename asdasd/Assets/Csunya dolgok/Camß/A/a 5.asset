@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: a 5
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 24
+  x: 8
   y: 2
-  nameOfNPC: 
+  nameOfNPC: Note 5
   text:
   - en: "I found strange seeds in one of the boxes. I\u2019ve read, they don\u2019t
       require any water at all."

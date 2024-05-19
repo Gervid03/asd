@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: a 20
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 29
-  y: 2
-  nameOfNPC: 
+  x: 26
+  y: 1
+  nameOfNPC: Note 20
   text:
   - en: While I was at the barrier, he destroyed my plants.
     hu: 
-  - en: ' All of it. And the seeds too. We will starve to death because of him.'
+  - en: All of it. And the seeds too. We will starve to death because of him.
     hu: 
   - en: "We would\u2019ve already escaped, if he had helped me. But even now, that
       we have just a couple of days left, he won't let me see the barrier."

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: a 11
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 8
-  y: 2
-  nameOfNPC: 
+  x: 2
+  y: 10
+  nameOfNPC: Note 11
   text:
   - en: "There must be a solution. It looks like he totally gave up. I think he lost
       hope. Maybe he\u2019s gone crazy. "

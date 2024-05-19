@@ -15,9 +15,9 @@ MonoBehaviour:
   mapName: '!C03'
   x: 13
   y: 6
-  nameOfNPC: 
+  nameOfNPC: Note 12
   text:
-  - en: " He destroyed almost all my plants. How could he!? They are vital to our
+  - en: "He destroyed almost all my plants. How could he!? They are vital to our
       survival. He can\u2019t even reason properly. He surely went crazy."
     hu: 
   sprite: {fileID: 0}

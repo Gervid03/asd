@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: a 16
   m_EditorClassIdentifier: 
   mapName: '!C04'
-  x: 17
-  y: 2
-  nameOfNPC: 
+  x: 22
+  y: 9
+  nameOfNPC: Note 16
   text:
-  - en: " I need to make sure he doesn\u2019t get in here. What if he destroys these
+  - en: "I need to make sure he doesn\u2019t get in here. What if he destroys these
       invaluable books too?"
     hu: 
   - en: "No, that can\u2019t happen. Plus I\u2019m sure, he can\u2019t understand
