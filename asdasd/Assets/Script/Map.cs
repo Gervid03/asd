@@ -509,7 +509,7 @@ public class Map : MonoBehaviour
                         if (SameColor(FindFirstObjectByType<WallManager>().colors.at(ind), new Color32(255, 255, 255, 255))) t.SetTile(new Vector3Int(k, j, 0), tileBase);
                         else t.SetTile(new Vector3Int(k, j, 0), tileColorBase);
 
-                        if (ind == whiteIndex) hasTile[k][j] = true;
+                        hasTile[k][j] = true;
                         if (ind == whiteIndex) hasWhiteWall[k][j] = true;
                     }
                 }
@@ -522,7 +522,7 @@ public class Map : MonoBehaviour
             {
                 if (gates[j].colorIndex == ind)
                 {
-                    gateTilemap = wo[j].gameObject.GetComponent<Tilemap>();
+                    gateTilemap = gates[j].gameObject.GetComponent<Tilemap>();
                 }
             }
             if (gateTilemap == null)
