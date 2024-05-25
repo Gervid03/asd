@@ -18,19 +18,17 @@ public class Portal : MonoBehaviour
     public void BeActive(int c)
     {
         if (c != colorIndex) return;
+        portalIndexDisplay.gameObject.SetActive(true);
+        colorLight.gameObject.SetActive(true);
         this.GetComponent<Collider2D>().enabled = true;
-        UnityEngine.Color color = this.GetComponent<SpriteRenderer>().color;
-        color.a = 1;
-        this.GetComponent<SpriteRenderer>().color = color;
     }
 
     public void DontBeActive(int c)
     {
         if (c != colorIndex) return;
+        portalIndexDisplay.gameObject.SetActive(false);
+        colorLight.gameObject.SetActive(false);
         this.GetComponent<Collider2D>().enabled = false;
-        UnityEngine.Color color = this.GetComponent<SpriteRenderer>().color;
-        color.a = 0;
-        this.GetComponent<SpriteRenderer>().color = color;
     }
 
     private void Awake()
