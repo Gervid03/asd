@@ -10,16 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
-  m_Name: SecondGroup3
+  m_Name: A05
   m_EditorClassIdentifier: 
-  mapName: 
-  x: 0
-  y: 0
+  mapName: '!A05twowayssecond'
+  x: 16
+  y: 2
   nameOfNPC: 
-  text: []
-  sprite: {fileID: 0}
+  text:
+  - en: "It\u2019s been days, and I have no clue how deep these corridors go. Though
+      I\u2019m quite sure that soon I will be able to find the exit."
+    hu: 
+  sprite: {fileID: 1864807, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   color:
     serializedVersion: 2
     rgba: 4294967295
-  prefab: {fileID: 6685188989121520819, guid: 098385071ede59f4a84277884b3f32d3, type: 3}
+  prefab: {fileID: 6685188989121520819, guid: 6ca1748c3c5094341bf71806ac6c7c5b, type: 3}
   justDecoration: 0

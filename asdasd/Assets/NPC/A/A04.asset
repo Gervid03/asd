@@ -10,23 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
-  m_Name: FirstGroup0
+  m_Name: A04
   m_EditorClassIdentifier: 
-  mapName: '!A01lever'
-  x: 5
-  y: 7
-  nameOfNPC: Pacman
+  mapName: '!A04twoways'
+  x: 3
+  y: 8
+  nameOfNPC: 
   text:
-  - Welcome to your new home!
-  - Whether you like it or not, this "place" will be your home until it becames your
-    grave!
-  - Don't worry tho, it's not that bad down here
-  - There are a few survivors, like me who are leaving notes on the walls serving
-    as some help to navigate in the dungeon
-  - Here for example, you can flick the levers to shift particular types of mana
-    in objects
-  - You can differentiate manas by their color
-  - Hopefully you will be able to join us soon
+  - en: "Oh, I get it! Not only barriers can be filled with mana, but also the levers.
+      I had a hard time figuring that out, but now you don\u2019t have to do the
+      same."
+    hu: 
   sprite: {fileID: 445122812, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   color:
     serializedVersion: 2

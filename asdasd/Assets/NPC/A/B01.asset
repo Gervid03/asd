@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
+  m_Name: B01
+  m_EditorClassIdentifier: 
+  mapName: '!B01'
+  x: 11
+  y: 5
+  nameOfNPC: 
+  text:
+  - en: "Oh, this cube is really cute. And I think it comes after me, when I activate
+      my mana (\u201Cleft click\u201D). Although my mana is weaker than ever, almost
+      completely gone, it can sense my power and teleport to me. "
+    hu: 
+  - en: "I hope they don\u2019t eat my mana or something like that! "
+    hu: 
+  - en: "It's a really fantastic companion, without it I wouldn\u2019t be able to
+      hold down buttons. The button is really similar to a lever, it activates or
+      deactivates different kinds of manas.  "
+    hu: 
+  - en: Without a cube I am not sure how I would get through these two walls.
+    hu: 
+  sprite: {fileID: -1358414570, guid: e535469be65e865498739ed90c1b21a1, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 4294967295
+  prefab: {fileID: 6685188989121520819, guid: 33625eab13dbff74ca830cac6b9a90fb, type: 3}
+  justDecoration: 0

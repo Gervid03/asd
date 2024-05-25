@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
+  m_Name: B00
+  m_EditorClassIdentifier: 
+  mapName: '!B00'
+  x: 2
+  y: 0
+  nameOfNPC: 
+  text:
+  - en: "It wasn\u2019t that bad, but I\u2019m definitely not getting back up."
+    hu: 
+  - en: "These things are amazing. I have studied many runes and languages, but I
+      can\u2019t figure out what these mean. Maybe they aren\u2019t even letters\u2026 "
+    hu: 
+  - en: 'When I get out, I need to look up their meanings. '
+    hu: 
+  - en: "Or even better, maybe I\u2019m the first who ran into these symbols! Maybe
+      these are runes from an older civilization!"
+    hu: 
+  sprite: {fileID: 576214885, guid: e535469be65e865498739ed90c1b21a1, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 4294967295
+  prefab: {fileID: 6685188989121520819, guid: 4869dd3396752a14184e3e7873ac22ba, type: 3}
+  justDecoration: 0

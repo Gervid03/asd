@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
-  m_Name: BrokenDevice
+  m_Name: B04
   m_EditorClassIdentifier: 
-  mapName: 
-  x: 20
-  y: 2
-  nameOfNPC: 
-  text: []
-  sprite: {fileID: 21300000, guid: 16cc9bc5c95054446ad67ad790024194, type: 3}
+  mapName: '!B04'
+  x: 9
+  y: 11
+  nameOfNPC: R. 37.
+  text:
+  - en: 'New information: buttons change their behavior according to whether the
+      lever is turned on or off. Invert the state of the mana they interact with.
+      How can I make use of this? '
+    hu: 
+  sprite: {fileID: 0}
   color:
     serializedVersion: 2
     rgba: 4294967295
-  prefab: {fileID: 6685188989121520819, guid: f5abccc3b91fd864e80019a28c6fb7f6, type: 3}
-  justDecoration: 1
+  prefab: {fileID: 6685188989121520819, guid: 95154cead7b27cb40930f08701299efc, type: 3}
+  justDecoration: 0

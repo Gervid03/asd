@@ -10,15 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
-  m_Name: FirstGroup2
+  m_Name: A03
   m_EditorClassIdentifier: 
-  mapName: 
-  x: 0
-  y: 0
+  mapName: '!A03twicelever'
+  x: 11
+  y: 8
   nameOfNPC: 
-  text: []
+  text:
+  - en: "The demons in the wall are scary, but I\u2019m relieved that they haven't
+      done anything yet. Hopefully this won\u2019t change in the future. It seems
+      that I don\u2019t have any mana - like I used to - so I couldn\u2019t protect
+      myself."
+    hu: 
   sprite: {fileID: -1358414570, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   color:
     serializedVersion: 2
     rgba: 4294967295
   prefab: {fileID: 6685188989121520819, guid: 33625eab13dbff74ca830cac6b9a90fb, type: 3}
+  justDecoration: 0

@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
-  m_Name: FirstGroup1
+  m_Name: A02
   m_EditorClassIdentifier: 
-  mapName: 
-  x: 0
-  y: 0
+  mapName: '!A02doublegate'
+  x: 14
+  y: 11
   nameOfNPC: 
-  text: []
+  text:
+  - en: "If you haven\u2019t noticed yet, different levers interact with different
+      colors. Fortunately, mana types can be differentiated by their color, and the
+      levers themselves show what mana they activate or deactivate."
+    hu: 
   sprite: {fileID: -1429205331, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   color:
     serializedVersion: 2
