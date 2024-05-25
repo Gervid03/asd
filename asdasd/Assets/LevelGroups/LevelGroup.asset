@@ -438,3 +438,21 @@ MonoBehaviour:
     missingLeft: 0100000002000000030000000700000008000000090000000a000000
     isSpecial: 0
     comeFrom: 0
+  - x: 20
+    y: -9
+    levelName: '!D12'
+    missingUp: 010000000200000003000000040000000b0000000c0000000d000000
+    missingDown: 
+    missingRight: 0100000002000000030000000500000006000000070000000800000009000000
+    missingLeft: 00000000010000000200000003000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 19
+    y: -9
+    levelName: '!D11'
+    missingUp: 04000000050000000600000007000000
+    missingDown: 
+    missingRight: 01000000020000000300000000000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
