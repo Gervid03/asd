@@ -287,6 +287,7 @@ public class MultipleLevel : MonoBehaviour
         FindLevel(currentX, currentY).Loaded(Level.ComeFrom.up);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
         tr.position = new Vector3(tr.position.x, -tr.position.y - 0.5f, tr.position.z);
+        FindFirstObjectByType<movement>().NoJumpAfterGoingDown();
     }
     public void SwitchLeft()
     {
