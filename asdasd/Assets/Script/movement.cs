@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class movement : MonoBehaviour
 {
+    public Vector2Int pos;
     public Collider2D characterC;
     public Rigidbody2D characterRB;
     public float movementSpeed;
@@ -40,6 +41,7 @@ public class movement : MonoBehaviour
         HorizontalMovement();
         Jump();
         characterRB.velocity = new Vector2(characterRB.velocity.x, Mathf.Max(-fallSpeedLimit, characterRB.velocity.y));
+        GetPosition();
     }
 
     private void LateUpdate() //ha ehhez hozzányúlsz, mind meghalunk!!!
@@ -60,6 +62,14 @@ public class movement : MonoBehaviour
     {
         Map m = FindFirstObjectByType<Map>();
         transform.position = new Vector3(m.tileX + x, m.tileY + y, 0);
+    }
+
+    public void GetPosition()
+    {
+        Map m = FindFirstObjectByType<Map>();
+        pos.x = Mathf.RoundToInt(transform.position.x - m.tileX);
+        pos.y = Mathf.RoundToInt(transform.position.y - m.tileY);
+        FindFirstObjectByType<WallManager>().CheckIfThePositionIsInTheWall(pos.x, pos.y);
     }
 
     public void Jump()

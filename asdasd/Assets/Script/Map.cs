@@ -94,70 +94,79 @@ public class Map : MonoBehaviour
 
         if (loadFromProgress)
         {
-            Progress progress = SaveLoadMaps.LoadProgress();
-            Debug.Log(progress.x + " " + progress.y);
-            if (!(progress.x < -20 && progress.y < -20))
+            LoadFromProgress();
+        }
+    }
+
+    public void LoadFromProgress()
+    {
+        FindFirstObjectByType<WallManager>().ResetThings();
+        if (FindFirstObjectByType<Cube>() != null) FindFirstObjectByType<Cube>().ForceDestroy(FindFirstObjectByType<Cube>().colorIndex);
+        KillAllTheChildren(thingParent);
+        KillAllTheChildren(FindFirstObjectByType<WallManager>().decoParent);
+        Progress progress = SaveLoadMaps.LoadProgress();
+        Debug.Log(progress.x + " " + progress.y);
+        if (!(progress.x < -20 && progress.y < -20))
+        {
+            FindFirstObjectByType<MultipleLevel>().currentX = progress.roomX;
+            FindFirstObjectByType<MultipleLevel>().currentY = progress.roomY;
+
+            foreach (Progress.C c in progress.colors)
             {
-                FindFirstObjectByType<MultipleLevel>().currentX = progress.roomX;
-                FindFirstObjectByType<MultipleLevel>().currentY = progress.roomY;
-
-                foreach (Progress.C c in progress.colors)
+                WallObjects[] wo = FindObjectsOfType<WallObjects>(includeInactive: true);
+                Tilemap t = null;
+                for (int j = 0; j < wo.Length; j++)
                 {
-                    WallObjects[] wo = FindObjectsOfType<WallObjects>(includeInactive: true);
-                    Tilemap t = null;
-                    for (int j = 0; j < wo.Length; j++)
+                    if (wo[j].colorIndex == c.index)
                     {
-                        if (wo[j].colorIndex == c.index)
-                        {
-                            t = wo[j].gameObject.GetComponent<Tilemap>();
-                            Debug.Log(c.index + " " + wo[j].name);
-                        }
-                    }
-
-                    if (t == null)
-                    {
-                        Debug.Log(c.c() + " " + c.index + " " + c.visible + " " + c.defaultState);
-                        FindFirstObjectByType<WallManager>().colors.add(c.c(), c.index, c.visible);
-                        FindFirstObjectByType<WallManager>().activeAtStart.add(c.index, c.defaultState);
-                        GameObject a = Instantiate(tilemapPrefab, tilemapParent);
-                        a.GetComponent<WallObjects>().Create(c.index);
+                        t = wo[j].gameObject.GetComponent<Tilemap>();
+                        Debug.Log(c.index + " " + wo[j].name);
                     }
                 }
 
-
-                FindFirstObjectByType<MultipleLevel>().LoadAMap();
-                FindFirstObjectByType<Player>().gameObject.transform.position = new Vector2(progress.x, progress.y);
-
-                CubePlacer cubePlacer = FindFirstObjectByType<CubePlacer>();
-                foreach (Progress.TimerCubeStruct tc in progress.timerCubes)
+                if (t == null)
                 {
-                    if (tc.placed)
-                    {
-                        GameObject newTimerCube = Instantiate(cubePlacer.timerCubePrefab);
-                        newTimerCube.transform.position = new Vector2(tc.x, tc.y);
-                        newTimerCube.GetComponent<TimerCube>().colorIndex = tc.index;
-                        newTimerCube.GetComponent<TimerCube>().lifeTime = tc.timeLimit;
-                        newTimerCube.GetComponent<TimerCube>().birthTime = Time.time - tc.time;
-                        newTimerCube.GetComponent<TimerCube>().Set();
-                    }
-                    else
-                    {
-                        CubePlacer.TimerCubeData temp;
-                        temp.colorIndex = tc.index;
-                        temp.timer = tc.timeLimit;
-                        cubePlacer.timerCubes.Add(temp);
-                    }
-                }
-                if (progress.cube.index != -1)
-                {
-                    GameObject cube = Instantiate(cubePrefab);
-                    cube.GetComponent<Cube>().colorIndex = progress.cube.index;
-                    cube.transform.position = new Vector2(progress.cube.x, progress.cube.y);
-                    cube.GetComponent<Cube>().Set();
+                    Debug.Log(c.c() + " " + c.index + " " + c.visible + " " + c.defaultState);
+                    FindFirstObjectByType<WallManager>().colors.add(c.c(), c.index, c.visible);
+                    FindFirstObjectByType<WallManager>().activeAtStart.add(c.index, c.defaultState);
+                    GameObject a = Instantiate(tilemapPrefab, tilemapParent);
+                    a.GetComponent<WallObjects>().Create(c.index);
                 }
             }
-            else Debug.Log("nem akar lefutni");
+
+
+            FindFirstObjectByType<MultipleLevel>().LoadAMap();
+            FindFirstObjectByType<Player>().gameObject.transform.position = new Vector2(progress.x, progress.y);
+
+            CubePlacer cubePlacer = FindFirstObjectByType<CubePlacer>();
+            foreach (Progress.TimerCubeStruct tc in progress.timerCubes)
+            {
+                if (tc.placed)
+                {
+                    GameObject newTimerCube = Instantiate(cubePlacer.timerCubePrefab);
+                    newTimerCube.transform.position = new Vector2(tc.x, tc.y);
+                    newTimerCube.GetComponent<TimerCube>().colorIndex = tc.index;
+                    newTimerCube.GetComponent<TimerCube>().lifeTime = tc.timeLimit;
+                    newTimerCube.GetComponent<TimerCube>().birthTime = Time.time - tc.time;
+                    newTimerCube.GetComponent<TimerCube>().Set();
+                }
+                else
+                {
+                    CubePlacer.TimerCubeData temp;
+                    temp.colorIndex = tc.index;
+                    temp.timer = tc.timeLimit;
+                    cubePlacer.timerCubes.Add(temp);
+                }
+            }
+            if (progress.cube.index != -1)
+            {
+                GameObject cube = Instantiate(cubePrefab);
+                cube.GetComponent<Cube>().colorIndex = progress.cube.index;
+                cube.transform.position = new Vector2(progress.cube.x, progress.cube.y);
+                cube.GetComponent<Cube>().Set();
+            }
         }
+        else Debug.Log("nem akar lefutni");
     }
 
     public void SaveMap()
@@ -442,27 +451,23 @@ public class Map : MonoBehaviour
         KillAllTheChildren(thingParent);
         KillAllTheChildren(FindFirstObjectByType<WallManager>().decoParent);
         KillAllTheTilemapChildren(tilemapParent, data);
-        //!!!!!
+            
 
-
+        wm.wallPositions = new int[data.column][];
         hasTile = new bool[data.column][];
         hasWhiteWall = new bool[data.column][];
         for (int i = 0; i < data.column; i++)
         {
             hasTile[i] = new bool[data.row];
             hasWhiteWall[i] = new bool[data.row];
+            wm.wallPositions[i] = new int[data.row];
         }
 
         int whiteIndex = 0;
 
-        //FindFirstObjectByType<WallManager>().colors.clear();
+        //add the colors, if needed change the index
         for (int i = 0; i < data.colors.Length; i++)
         {
-            /*bool vis = true;
-            for(int j = 0; j < data.activeAtStart.Length; j++)
-            {
-                if (data.activeAtStart[j].index == data.colors[i].index) vis = data.activeAtStart[j].isActive;
-            }*/
             if (c(data, data.colors[i].index) == -1)
             {
                 if(!wm.colors.exist(data.colors[i].index)) wm.colors.add(data.colors[i].c(), data.colors[i].index);
@@ -511,6 +516,7 @@ public class Map : MonoBehaviour
 
                         hasTile[k][j] = true;
                         if (ind == whiteIndex) hasWhiteWall[k][j] = true;
+                        wm.wallPositions[k][j] = ind;
                     }
                 }
             }
@@ -591,7 +597,6 @@ public class Map : MonoBehaviour
         for (int i = 0; i < data.inversePairs.Length; i++)
         {
             FindFirstObjectByType<WallManager>().inversColor.add(c(data, data.inversePairs[i].index1), c(data, data.inversePairs[i].index2));
-            Debug.Log(data.inversePairs[i].index1 + " " + data.inversePairs[i].index2);
         }
 
         //if (isStart) { 

@@ -30,6 +30,7 @@ public class WallManager : MonoBehaviour
     public RuleTile decoDemonBase;
     public int column, row;
     public Tilemap outsideWallTilemap;
+    public int[][] wallPositions;
     public static event Action<int> disableColor;
     public static event Action<int> activateColor;
     public NPC_data.Language language;
@@ -280,11 +281,7 @@ public class WallManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("p"))
-        {
-            SaveCurrentProgress();
-            Debug.Log("saved");
-        }
+
     }
 
     public void ResetThings()
@@ -605,5 +602,16 @@ public class WallManager : MonoBehaviour
     {
         FindFirstObjectByType<ProgressGatherer>().GetInfos();
         SaveLoadMaps.SaveProgress(FindFirstObjectByType<ProgressGatherer>());
+        Debug.Log("saved");
+    }
+
+    public void CheckIfThePositionIsInTheWall(int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= wallPositions.Length || y >= wallPositions[x].Length) return;
+        if (colors.atVisible(wallPositions[x][y]) && wallPositions[x][y] != 0)
+        {
+            FindFirstObjectByType<Map>().LoadFromProgress();
+            Debug.Log("Stuck in the wall");
+        }
     }
 }

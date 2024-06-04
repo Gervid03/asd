@@ -274,6 +274,8 @@ public class MultipleLevel : MonoBehaviour
         FindLevel(currentX, currentY).Loaded(Level.ComeFrom.down);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
         tr.position = new Vector3(tr.position.x, -tr.position.y + 0.5f, tr.position.z);
+        
+        FindFirstObjectByType<WallManager>().SaveCurrentProgress();
     }
     public void SwitchDown()
     {
@@ -288,6 +290,8 @@ public class MultipleLevel : MonoBehaviour
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
         tr.position = new Vector3(tr.position.x, -tr.position.y - 0.5f, tr.position.z);
         FindFirstObjectByType<movement>().NoJumpAfterGoingDown();
+        
+        FindFirstObjectByType<WallManager>().SaveCurrentProgress();
     }
     public void SwitchLeft()
     {
@@ -301,6 +305,8 @@ public class MultipleLevel : MonoBehaviour
         FindLevel(currentX, currentY).Loaded(Level.ComeFrom.right);
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
         tr.position = new Vector3(-tr.position.x - 0.5f, tr.position.y, tr.position.z);
+        
+        FindFirstObjectByType<WallManager>().SaveCurrentProgress();
     }
     public void SwitchRight()
     {
@@ -315,6 +321,7 @@ public class MultipleLevel : MonoBehaviour
         UnityEngine.Transform tr = FindFirstObjectByType<movement>().transform;
         tr.position = new Vector3(-tr.position.x + 0.5f, tr.position.y, tr.position.z);
 
+        FindFirstObjectByType<WallManager>().SaveCurrentProgress();
     }
 
     public Level FindLevel(int x, int y)
