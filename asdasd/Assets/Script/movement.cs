@@ -104,4 +104,9 @@ public class movement : MonoBehaviour
     {
         if(FindObjectsByType<Cube>(default).Length == 0) basicCubeSpriteRenderer.gameObject.SetActive(false);
     }
+
+    public void NoJumpAfterGoingDown()
+    {
+        jumpCooldown = Time.time;
+    }
 }
