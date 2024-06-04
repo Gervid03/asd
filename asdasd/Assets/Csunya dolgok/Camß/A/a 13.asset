@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be66e4f3b449944986f387dd948ce12, type: 3}
   m_Name: a 13
   m_EditorClassIdentifier: 
-  mapName: '!C03'
-  x: 10
-  y: 0
+  mapName: '!C06'
+  x: 13
+  y: 14
   nameOfNPC: Note 13
   text:
   - en: DO NOT ENTER!

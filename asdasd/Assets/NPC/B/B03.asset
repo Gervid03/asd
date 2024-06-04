@@ -17,7 +17,7 @@ MonoBehaviour:
   y: 2
   nameOfNPC: R. 36.
   text:
-  - en: ' This is a whole new part of the dungeon. Reason: strange device? '
+  - en: 'This is a whole new part of the dungeon. Reason: strange device? '
     hu: 
   - en: 'New information: blue-red mana entanglement, exactly one of them is present
       at the same time. Reason?'

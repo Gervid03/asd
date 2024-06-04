@@ -17,10 +17,10 @@ MonoBehaviour:
   y: 3
   nameOfNPC: Note 21
   text:
-  - en: " I\u2019ve been thinking since last night. It would be so much easier if
+  - en: "I\u2019ve been thinking since last night. It would be so much easier if
       he wasn\u2019t here. Why did I let him live here?"
     hu: 
-  - en: " I don\u2019t think I would be able to disarm or capture him."
+  - en: "I don\u2019t think I would be able to disarm or capture him."
     hu: 
   - en: I have to kill him.
     hu: 

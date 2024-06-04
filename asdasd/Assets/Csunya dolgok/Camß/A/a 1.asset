@@ -17,7 +17,7 @@ MonoBehaviour:
   y: 10
   nameOfNPC: Note 1
   text:
-  - en: " I think I found an amazing place. It\u2019s very spacious, while I\u2019ve
+  - en: "I think I found an amazing place. It\u2019s very spacious, while I\u2019ve
       been exploring it, I even discovered a little library."
     hu: 
   - en: "The only thing is, I think the dungeon doesn\u2019t want me to go back.

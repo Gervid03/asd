@@ -17,7 +17,7 @@ MonoBehaviour:
   y: 13
   nameOfNPC: Note 7
   text:
-  - en: " I have properly planted them. I\u2019m sure it will work."
+  - en: "I have properly planted them. I\u2019m sure it will work."
     hu: 
   sprite: {fileID: 0}
   color:

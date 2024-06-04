@@ -17,9 +17,9 @@ MonoBehaviour:
   y: 7
   nameOfNPC: 12 - Camp
   text:
-  - en: ' Check 7, barrier: got weaker.'
+  - en: 'Check 7, barrier: got weaker.'
     hu: 
-  - en: ' Connection between plants and the barrier confirmed. '
+  - en: 'Connection between plants and the barrier confirmed. '
     hu: 
   sprite: {fileID: 0}
   color:

@@ -21,7 +21,7 @@ MonoBehaviour:
       see the bottom of it. I went back searching for alternative paths, but it\u2019s
       starting to feel like this is the only way that remains."
     hu: 
-  - en: ' I have no other choice than going down, even if it seems dangerous.'
+  - en: I have no other choice than going down, even if it seems dangerous.
     hu: 
   sprite: {fileID: 1864807, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   color:

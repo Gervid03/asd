@@ -19,7 +19,7 @@ MonoBehaviour:
   text:
   - en: 'Check 8, barrier: got stronger again.'
     hu: 
-  - en: ' I have to stop him from planting more. '
+  - en: 'I have to stop him from planting more. '
     hu: 
   sprite: {fileID: 0}
   color:

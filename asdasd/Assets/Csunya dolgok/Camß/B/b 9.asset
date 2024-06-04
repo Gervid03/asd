@@ -17,7 +17,7 @@ MonoBehaviour:
   y: 5
   nameOfNPC: 9 - Camp
   text:
-  - en: ' Check 5, barrier: got stronger again.'
+  - en: 'Check 5, barrier: got stronger again.'
     hu: 
   - en: 'How could I prevent it from getting stronger? How can I weaken it? '
     hu: 
