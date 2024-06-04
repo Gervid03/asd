@@ -610,7 +610,8 @@ public class WallManager : MonoBehaviour
         if (x < 0 || y < 0 || x >= wallPositions.Length || y >= wallPositions[x].Length) return;
         if (colors.atVisible(wallPositions[x][y]) && wallPositions[x][y] != 0)
         {
-            FindFirstObjectByType<Map>().LoadFromProgress();
+            //later make it not a comment
+            //FindFirstObjectByType<Map>().LoadFromProgress();
             Debug.Log("Stuck in the wall");
         }
     }
