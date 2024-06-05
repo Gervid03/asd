@@ -155,10 +155,12 @@ public class WallManager : MonoBehaviour
         }
     }
 
+    
+    [System.Serializable]
     public struct ActiveAtBeginning
     {
-        List<int> index;
-        List<bool> active;
+        public List<int> index;
+        public List<bool> active;
 
         public void add(int ind, bool act)
         {
