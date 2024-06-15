@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: 3-R 1
   m_EditorClassIdentifier: 
   mapName: '!D03'
-  x: 0
-  y: 0
+  x: 29
+  y: 6
   nameOfNPC: 
   text: []
   sprite: {fileID: 0}
   color:
     serializedVersion: 2
     rgba: 4294967295
-  prefab: {fileID: 6685188989121520819, guid: e5a31e8fede3b6d42b4fcd360f7cd93b, type: 3}
+  prefab: {fileID: 6685188989121520819, guid: 12144ad115909ca42b0a3665bce7fe6a, type: 3}
   justDecoration: 1
