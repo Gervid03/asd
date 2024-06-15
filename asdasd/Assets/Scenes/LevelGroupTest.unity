@@ -9482,6 +9482,9 @@ MonoBehaviour:
   portals: []
   gates: []
   gateLights: []
+  activeAtStart:
+    index: 
+    active: 
   endThing: {fileID: 1706507627}
   portalColors:
     serializedVersion: 2
