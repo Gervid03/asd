@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08fcf6be9a5156c439d8a6f10c6fbd5f, type: 3}
+  m_Name: Labirinth letters
+  m_EditorClassIdentifier: 
+  data:
+  - {fileID: 11400000, guid: 9cd2296d5d56e59469877d5407d92dfb, type: 2}
+  - {fileID: 11400000, guid: 5cd21a9be91965c43a898c5b57f89f6d, type: 2}
+  - {fileID: 11400000, guid: 06250c5344bf20045a6671f0d7a3c6a2, type: 2}
+  - {fileID: 11400000, guid: 316f493b6a01a9c4b8a727305c4304d6, type: 2}
+  - {fileID: 11400000, guid: 2b3636d203120b84e998d6566005cd78, type: 2}
+  - {fileID: 11400000, guid: 7e4cbf6556d1dd0449c769a624ade1d6, type: 2}
+  - {fileID: 11400000, guid: 0a9d957e275fca440bb7291bbdc433e1, type: 2}
+  - {fileID: 11400000, guid: cd2a52dc6d2561547a51d7b78cfa4fbd, type: 2}
+  - {fileID: 11400000, guid: 3838d9e8d1e51894da0ea7afe04d5317, type: 2}
+  - {fileID: 11400000, guid: c724cfbe0afdded46b2d1654edb9248e, type: 2}
+  - {fileID: 11400000, guid: a82dd2d4f428dd44b9644dea47ee6c9f, type: 2}
+  - {fileID: 11400000, guid: 04768a6509a8ed84fb2fd202ea6fa2a2, type: 2}
+  - {fileID: 11400000, guid: fa6f0b69f57113c4c891b6dd240aa478, type: 2}
+  - {fileID: 11400000, guid: 84f0a2ea67e7c364880cea2726c5e6b3, type: 2}
+  - {fileID: 11400000, guid: 4372cdae8c048d84e8706ba5101d030a, type: 2}
+  - {fileID: 11400000, guid: bf1f811c35570d8439f4dcc82d642362, type: 2}
