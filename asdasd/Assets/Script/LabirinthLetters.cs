@@ -28,12 +28,12 @@ public class LabirinthLetters : MonoBehaviour
         if (number == 0) sR.sprite = sprites0[Random.Range(0, sprites0.Count)];
         else sR.sprite = sprites1[Random.Range(0, sprites1.Count)];
 
-        if (c == C.Blue) sR.color = Color.blue;
+        if (c == C.Blue) sR.color = Color.cyan;
         else if (c == C.Red) sR.color = Color.red;
         else if (c == C.Green) sR.color = Color.green;
         else if (c == C.Yellow) sR.color = Color.yellow;
 
-        if (c == C.Blue) l.color = Color.blue;
+        if (c == C.Blue) l.color = Color.cyan;
         else if (c == C.Red) l.color = Color.red;
         else if (c == C.Green) l.color = Color.green;
         else if (c == C.Yellow) l.color = Color.yellow;
