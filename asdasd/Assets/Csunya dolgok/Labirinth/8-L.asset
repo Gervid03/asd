@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapName: '!D08'
   x: 0
-  y: 0
+  y: 13
   nameOfNPC: 
   text: []
   sprite: {fileID: 0}
