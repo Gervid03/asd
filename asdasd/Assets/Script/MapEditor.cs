@@ -45,6 +45,7 @@ public class MapEditor : MonoBehaviour
     public GameObject leftButtons;
     public bool pressedCarouselCycle;
     public bool pressedMenu;
+    private Drag floater;
 
     [System.Serializable]
     public struct tool
@@ -185,6 +186,7 @@ public class MapEditor : MonoBehaviour
         calculatedCellHeight = (yTopRight - xBottomLeft) / rows;
         dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         MapDropdownUpdate();
+        floater = FindFirstObjectByType<Drag>();
     }
 
     private void Update()
@@ -240,7 +242,7 @@ public class MapEditor : MonoBehaviour
 
     public void HandleClick()
     {//     If clicked inside the editor board
-        if (!menu.activeSelf && Input.GetMouseButton(0) && Input.mousePosition.x > xBottomLeft && Input.mousePosition.x < xTopRight && Input.mousePosition.y > yBottomLeft && Input.mousePosition.y < yTopRight)
+        if (!menu.activeSelf && Input.GetMouseButton(0) && !floater.getIsMouseDown() && Input.mousePosition.x > xBottomLeft && Input.mousePosition.x < xTopRight && Input.mousePosition.y > yBottomLeft && Input.mousePosition.y < yTopRight)
         {
             Use(Mathf.FloorToInt((Input.mousePosition.x - xBottomLeft) / calculatedCellWith),
                 Mathf.FloorToInt((Input.mousePosition.y - yBottomLeft) / calculatedCellHeight));
