@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelGroup
   m_EditorClassIdentifier: 
   x: 21
-  y: -7
+  y: -5
   levels:
   - x: 0
     y: 0
