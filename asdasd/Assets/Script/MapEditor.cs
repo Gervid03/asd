@@ -27,7 +27,6 @@ public class MapEditor : MonoBehaviour
     public int currentTool; //0 - remove, 1 - add basic tile, 2 - add button, 3 - add buttonforcube, 4 - add lever, 5 - add portal, 6 - add gate, 7 - add buttontimercube, 8 - startposition, 9 - endposition
     public List<tool> tools;
     public GameObject menu;
-    public GameObject showMenuButton;
     public List<SettingForInteract> infos;
     public GameObject buttonSettingsPrefab;
     public GameObject buttonForCubeSettingsPrefab;
@@ -42,10 +41,10 @@ public class MapEditor : MonoBehaviour
     public Vector2Int startPosition;
     public Vector2Int endPosition;
     public TMP_Dropdown dropdown;
-    public GameObject leftButtons;
     public bool pressedCarouselCycle;
     public bool pressedMenu;
     private Drag floater;
+    public bool buttonpress;
 
     [System.Serializable]
     public struct tool
@@ -242,8 +241,9 @@ public class MapEditor : MonoBehaviour
 
     public void HandleClick()
     {//     If clicked inside the editor board
-        if (!menu.activeSelf && Input.GetMouseButton(0) && !floater.getIsMouseDown() && Input.mousePosition.x > xBottomLeft && Input.mousePosition.x < xTopRight && Input.mousePosition.y > yBottomLeft && Input.mousePosition.y < yTopRight)
+        if (!((floater.target.position.x < Input.mousePosition.x && Input.mousePosition.x < floater.target.position.x + 500) && (floater.target.position.y < Input.mousePosition.y && Input.mousePosition.y < floater.target.position.y + 130)) && !menu.activeSelf && Input.GetMouseButton(0) && Input.mousePosition.x > xBottomLeft && Input.mousePosition.x < xTopRight && Input.mousePosition.y > yBottomLeft && Input.mousePosition.y < yTopRight)
         {
+            //Debug.Log(Mathf.FloorToInt((Input.mousePosition.x - xBottomLeft) / calculatedCellWith) + " " + Mathf.FloorToInt((Input.mousePosition.y - yBottomLeft) / calculatedCellHeight));
             Use(Mathf.FloorToInt((Input.mousePosition.x - xBottomLeft) / calculatedCellWith),
                 Mathf.FloorToInt((Input.mousePosition.y - yBottomLeft) / calculatedCellHeight));
         }
@@ -253,7 +253,12 @@ public class MapEditor : MonoBehaviour
     {
         if(currentTool > tools.Count) currentTool = 1;
         RemoveAllTileAtThisPositon(x, y);
-        if(tilemaps.at(currentTilemap) != null) tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[currentTool].tile);
+        if (tilemaps.at(currentTilemap) != null)
+        {
+            if (currentTool == 1 && currentTilemap == 0) tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[0].tile);
+            else tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[currentTool].tile); 
+        }
+
         else Debug.Log(currentTilemap + " doesnt exist");
         if(currentTool != 0 && currentTool != 1 && currentTool != 6 && currentTool != 8 && currentTool != 9)
         {
@@ -298,15 +303,13 @@ public class MapEditor : MonoBehaviour
     public void OpenMenu()
     {
         menu.SetActive(true);
-        showMenuButton.SetActive(false);
-        leftButtons.SetActive(false);
+        floater.gameObject.SetActive(false);
     }
 
     public void CloseMenu()
     {
         menu.SetActive(false);
-        showMenuButton.SetActive(true);
-        leftButtons.SetActive(true);
+        floater.gameObject.SetActive(true);
     }
 
     public void AddButton(int x, int y)
@@ -479,7 +482,7 @@ public class MapEditor : MonoBehaviour
                 List<int> indices = tilemaps.getIndexes();
                 for (int k = 0; k < indices.Count; k++)
                 {
-                    if (tilemaps.at(indices[k]).GetTile(new Vector3Int(i, j, 0)) == tools[1].tile)
+                    if (tilemaps.at(indices[k]).GetTile(new Vector3Int(i, j, 0)) == tools[1].tile || tilemaps.at(indices[k]).GetTile(new Vector3Int(i, j, 0)) == tools[0].tile)//for white
                     {
                         map.colorIndex[i][j] = indices[k];
                     }
