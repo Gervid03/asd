@@ -44,6 +44,7 @@ public class InverseButton : MonoBehaviour
 
     public void Clicked()
     {
+        if (colorPalette.selectedButton.index == 0) return;
         if (mapEditor.inverseColor[colorPalette.selectedButton.index] != -1 || other.index == colorPalette.selectedButton.index)
         {
             ColorAlreadyHasAnInverse();

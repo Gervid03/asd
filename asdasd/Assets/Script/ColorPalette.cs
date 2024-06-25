@@ -29,6 +29,8 @@ public class ColorPalette : MonoBehaviour
     public GameObject colorExistsWarning;
     public static event Action<int, Color32> modifyColor;
     public static event Action<int> deleteColor;
+    public Sprite wall;
+    public Sprite glowWall;
 
     void Awake()
     {
@@ -70,13 +72,9 @@ public class ColorPalette : MonoBehaviour
     public void CreateColor(Color32 szin, int index = -1)
     {
         GameObject c = Instantiate(colorDisplay, colorPaletteParent, false);
-        GameObject defaultStateToggle = Instantiate(defaultStateTogglePrefab, defaultStateToggleParent, false);
 
         c.GetComponent<Image>().color = szin;
         c.GetComponent<ColorDisplayButton>().color = szin;
-        c.GetComponent<ColorDisplayButton>().toggle = defaultStateToggle;
-
-        defaultStateToggle.GetComponent<SetDefaultState>().colorDisplay.color = szin;
 
         if (mapEditor == null)
         {
@@ -87,7 +85,18 @@ public class ColorPalette : MonoBehaviour
         c.GetComponent<ColorDisplayButton>().index = a;
         colors.Add(c.GetComponent<ColorDisplayButton>());
 
-        defaultStateToggle.GetComponent<SetDefaultState>().colorIndex = a;
+        if (szin == Color.white)
+        {
+            c.GetComponent<Image>().sprite = wall;
+            c.GetComponent<ColorDisplayButton>().toggle = null;
+        }
+        else
+        {
+            GameObject defaultStateToggle = Instantiate(defaultStateTogglePrefab, defaultStateToggleParent, false);
+            c.GetComponent<ColorDisplayButton>().toggle = defaultStateToggle;
+            defaultStateToggle.GetComponent<SetDefaultState>().colorDisplay.color = szin;
+            defaultStateToggle.GetComponent<SetDefaultState>().colorIndex = a;
+        }
 
         AdjustHeight();
     }
@@ -268,7 +277,16 @@ public class ColorPalette : MonoBehaviour
 
     public void UpdateColorCarousel()
     {
-        colorCarouselImage.color = selectedButton.color;
+        if (selectedButton.color != Color.white)
+        {
+            colorCarouselImage.sprite = glowWall;
+            colorCarouselImage.color = selectedButton.color; 
+        }
+        else
+        {
+            colorCarouselImage.sprite = wall;
+            colorCarouselImage.color = Color.white; 
+        }
         selectSMHWarning.gameObject.SetActive(false); //just here to abuse the frequent updates (:
         colorExistsWarning.SetActive(false);
     }

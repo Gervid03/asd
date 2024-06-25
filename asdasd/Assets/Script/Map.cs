@@ -367,7 +367,7 @@ public class Map : MonoBehaviour
 
         for (i = 0; i < data.activeAtStart.Length; i++)
         {
-            for (j = 0; j < colorPalette.colors.Count; j++)
+            for (j = 1; j < colorPalette.colors.Count; j++)//starts from 1!
             {
                 if (colorPalette.colors[j].index == data.activeAtStart[i].index)
                 {
