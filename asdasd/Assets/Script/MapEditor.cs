@@ -182,29 +182,31 @@ public class MapEditor : MonoBehaviour
         {
             missing[side].Remove(idx);
         }
+
+        public void MissingFromTool(Side side, int idx, int tool) { MissingFromTool(((int)side), idx, tool); }
+        public void MissingFromTool(int side, int idx, int tool)
+        {
+            if (tool == 1) RestoreMissing(side, idx);
+            else NewMissing(side, idx);
+        }
     }
 
     public class Mappack
     {
-        private Dictionary<(int, int), string> coordToName; //get name by coordinates
+        public string ID; //mappack's name
+        public Dictionary<(int, int), string> coordToName; //get name by coordinates
         public Dictionary<string, Level> levelInfo; //by name
 
-        public Mappack(Level[] levels)
+        public Mappack(string id, Level[] levels, bool uniformMissings = false)
         {
+            ID = id;
             coordToName = new Dictionary<(int, int), string>();
             levelInfo = new Dictionary<string, Level>();
 
-            for (int i = 0; i < levels.Length; i++) NewMap(levels[i]);
+            for (int i = 0; i < levels.Length; i++) NewMap(levels[i], uniformMissings ? true : null);
         }
 
-        public string GetName(int x, int y)
-        {
-            string value;
-            coordToName.TryGetValue((x, y), out value);
-            return value;
-        }
-
-        public void NewMap(Level level, bool getMissingFromNeighbours = true)
+        public void NewMap(Level level, bool? getMissingFromNeighbours = true)
         {
             if (coordToName.ContainsKey((level.x, level.y)) || levelInfo.ContainsKey(level.name))
             {
@@ -215,7 +217,7 @@ public class MapEditor : MonoBehaviour
             coordToName.Add((level.x, level.y), level.name);
             levelInfo.Add(level.name, level);
 
-            if (getMissingFromNeighbours)
+            if (getMissingFromNeighbours == true)
             {//Get missing values from (potential) neighbours
                 string neighbour;
                 if (coordToName.TryGetValue((level.x, level.y - 1), out neighbour))
@@ -227,7 +229,7 @@ public class MapEditor : MonoBehaviour
                 if (coordToName.TryGetValue((level.x + 1, level.y), out neighbour))
                     levelInfo[level.name].missing[((int)Level.Side.right)] = levelInfo[neighbour].missing[((int)Level.Side.left)];
             }
-            else
+            else if (getMissingFromNeighbours == false)
             {//Give missing values to (potential) neighbours
                 string neighbour;
                 if (coordToName.TryGetValue((level.x, level.y - 1), out neighbour))
@@ -245,6 +247,24 @@ public class MapEditor : MonoBehaviour
         {
             coordToName.Remove((levelInfo[name].x, levelInfo[name].y));
             levelInfo.Remove(name);
+        }
+
+        [System.Serializable]
+        public class MappackData
+        {
+            public string ID;
+            public Level[] levels;
+            public MappackData(Mappack mappack)
+            {
+                this.ID = mappack.ID;
+
+                levels = new Level[mappack.levelInfo.Count];
+                int i = 0;
+                foreach (Level level in mappack.levelInfo.Values)
+                {
+                    levels[i] = level;
+                }
+            }
         }
     }
     
@@ -343,13 +363,9 @@ public class MapEditor : MonoBehaviour
         currentTool = index; 
     }
 
-    public bool MouseOnFloater()
-    {
-        return (floater.target.position.x < Input.mousePosition.x && Input.mousePosition.x < floater.target.position.x + 500) && (floater.target.position.y < Input.mousePosition.y && Input.mousePosition.y < floater.target.position.y + 130);
-    }
-
-    public int MouseXonGrid() { return Mathf.FloorToInt((Input.mousePosition.x - xBottomLeft) / calculatedCellWith); }
-    public int MouseYonGrid() { return Mathf.FloorToInt((Input.mousePosition.y - yBottomLeft) / calculatedCellHeight); }
+    public bool MouseOnFloater() => (floater.target.position.x < Input.mousePosition.x && Input.mousePosition.x < floater.target.position.x + 500) && (floater.target.position.y < Input.mousePosition.y && Input.mousePosition.y < floater.target.position.y + 130);
+    public int MouseXonGrid() => Mathf.FloorToInt((Input.mousePosition.x - xBottomLeft) / calculatedCellWith);
+    public int MouseYonGrid() => Mathf.FloorToInt((Input.mousePosition.y - yBottomLeft) / calculatedCellHeight);
 
     public void HandleClick()
     {
@@ -360,32 +376,37 @@ public class MapEditor : MonoBehaviour
             Use(MouseXonGrid(), MouseYonGrid());
         }
         else
-        {
+        {//clicked on the border
             if (currentTool != 0 && currentTool != 1)
             {
                 Debug.Log("No interactives on the border!");//TODO popup? sound? highlighting?
             }
 
+            string neighbour; //handle the neighbours with shared borders
             //check if borders are clicked:
             if (Input.mousePosition.x < xBottomLeft) //down
             {
-                if (currentTool == 0) mappack.levelInfo[mapName].NewMissing(Level.Side.down, MouseYonGrid());
-                else mappack.levelInfo[mapName].RestoreMissing(Level.Side.down, MouseYonGrid()+1);
+                mappack.levelInfo[mapName].MissingFromTool(Level.Side.down, MouseYonGrid()+1, currentTool);
+                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x, mappack.levelInfo[mapName].y - 1), out neighbour))
+                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.up, MouseYonGrid()+1, currentTool);
             }
             if (Input.mousePosition.x > xTopRight) //up
             {
-                if (currentTool == 0) mappack.levelInfo[mapName].NewMissing(Level.Side.up, MouseYonGrid());
-                else mappack.levelInfo[mapName].RestoreMissing(Level.Side.up, MouseYonGrid()+1);
+                mappack.levelInfo[mapName].MissingFromTool(Level.Side.up, MouseYonGrid()+1, currentTool);
+                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x, mappack.levelInfo[mapName].y + 1), out neighbour))
+                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.down, MouseYonGrid()+1, currentTool);
             }
             if (Input.mousePosition.y < yBottomLeft) //left
             {
-                if (currentTool == 0) mappack.levelInfo[mapName].NewMissing(Level.Side.left, MouseXonGrid()+1);
-                else mappack.levelInfo[mapName].RestoreMissing(Level.Side.left, MouseXonGrid()+1);
+                mappack.levelInfo[mapName].MissingFromTool(Level.Side.left, MouseXonGrid()+1, currentTool);
+                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x - 1, mappack.levelInfo[mapName].y), out neighbour))
+                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.right, MouseYonGrid()+1, currentTool);
             }
-            if (Input.mousePosition.x < xBottomLeft) //right
+            if (Input.mousePosition.y > yTopRight) //right
             {
-                if (currentTool == 0) mappack.levelInfo[mapName].NewMissing(Level.Side.right, MouseXonGrid()+1);
-                else mappack.levelInfo[mapName].RestoreMissing(Level.Side.right, MouseXonGrid()+1);
+                mappack.levelInfo[mapName].MissingFromTool(Level.Side.right, MouseXonGrid()+1, currentTool);
+                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x + 1, mappack.levelInfo[mapName].y), out neighbour))
+                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.left, MouseYonGrid()+1, currentTool);
             }
         }
     }

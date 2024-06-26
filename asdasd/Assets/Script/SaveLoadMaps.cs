@@ -64,4 +64,33 @@ public static class SaveLoadMaps
             return null;
         }
     }
+
+    public static void SaveMappack(MapEditor.Mappack mappack)
+    {
+        Debug.Log(Application.persistentDataPath);
+        BinaryFormatter bf = new BinaryFormatter();
+        string path = Application.dataPath + "/mappacks/" + mappack.ID + ".mappack";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        MapEditor.Mappack.MappackData data = new MapEditor.Mappack.MappackData(mappack);
+        bf.Serialize(stream, data);
+        stream.Close();
+    }
+    public static MapEditor.Mappack.MappackData LoadMappack(string name)
+    {
+        string path = Application.dataPath + "/mappacks/" + name + "mappack"; //Application.persistentDataPath + " / " + index + "map.map";
+        if (File.Exists(path))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+            MapEditor.Mappack.MappackData data = bf.Deserialize(stream) as MapEditor.Mappack.MappackData;
+            stream.Close();
+
+            return data;
+        }
+        else
+        {
+            Debug.LogError("Save file not found in " + path);
+            return null;
+        }
+    }
 }
