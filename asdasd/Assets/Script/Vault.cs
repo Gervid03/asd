@@ -9,6 +9,8 @@ public class Vault : MonoBehaviour
     public Intent intent;
     public string mapToLoad;
     public string mapUnderConstruction;
+    public MapEditor.Mappack mappack;
+    public string mapName;
 
     public enum Intent
     {
@@ -28,6 +30,7 @@ public class Vault : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         mapToLoad = "";
         intent = Intent.none;
+        mappack = new MapEditor.Mappack("N/A", new MapEditor.Level[] { });
         SceneManager.sceneLoaded += OnLoad;
     }
 
@@ -45,6 +48,9 @@ public class Vault : MonoBehaviour
 
             return;
         }
+
+        mappack = FindFirstObjectByType<MapEditor>().mappack;
+
         intent = Intent.playWithTemp;
         Map map = FindFirstObjectByType<Map>();
 
@@ -73,6 +79,11 @@ public class Vault : MonoBehaviour
             map.index = "!temp";
             map.LoadIntoEditor();
             return;
+        }
+        else if (name.name == "MapEditor" && intent == Intent.loadMapToLoad)
+        {
+            FindFirstObjectByType<MapEditor>().mappack = mappack;
+            FindFirstObjectByType<MapEditor>().mapName = mapName;
         }
     }
 }

@@ -77,7 +77,7 @@ public static class SaveLoadMaps
     }
     public static MapEditor.Mappack.MappackData LoadMappack(string name)
     {
-        string path = Application.dataPath + "/mappacks/" + name + "mappack"; //Application.persistentDataPath + " / " + index + "map.map";
+        string path = Application.dataPath + "/mappacks/" + name + ".mappack"; //Application.persistentDataPath + " / " + index + "map.map";
         if (File.Exists(path))
         {
             BinaryFormatter bf = new BinaryFormatter();

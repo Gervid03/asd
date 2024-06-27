@@ -46,7 +46,15 @@ public class MapEditor : MonoBehaviour
     private Drag floater;
     public int mapX, mapY; //current map's coordinates
     public string mapName; //map's name
-    Mappack mappack;
+    public Mappack mappack;
+    public int? typedX, typedY; //from the input fields
+    public GameObject GoButton, CreateButton, CreateInputField;
+    public string typedName;
+    public string mappackSaveName;
+    public TMP_Dropdown mappackDropdown;
+    public string mappackToLoad;
+    public TMP_Text currentMapInfo;
+    public Tilemap outsideWallTilemap;
 
     [System.Serializable]
     public struct tool
@@ -146,6 +154,7 @@ public class MapEditor : MonoBehaviour
         }
     }
 
+    [System.Serializable]
     public class Level
     {
         public int x, y;
@@ -191,12 +200,21 @@ public class MapEditor : MonoBehaviour
         }
     }
 
+    [System.Serializable]
     public class Mappack
     {
         public string ID; //mappack's name
         public Dictionary<(int, int), string> coordToName; //get name by coordinates
         public Dictionary<string, Level> levelInfo; //by name
 
+        public Mappack(MappackData data)
+        {
+            ID = data.ID;
+            coordToName = new Dictionary<(int, int), string>();
+            levelInfo = new Dictionary<string, Level>();
+
+            for (int i = 0; i < data.levels.Length; i++) NewMap(data.levels[i]);
+        }
         public Mappack(string id, Level[] levels, bool uniformMissings = false)
         {
             ID = id;
@@ -267,7 +285,174 @@ public class MapEditor : MonoBehaviour
             }
         }
     }
-    
+
+    public void SaveMappackByButton()
+    {
+        if (mappackSaveName == null || mappackSaveName == "")
+        {
+            Debug.Log("saveName is null");
+            return;
+        }
+        mappack.ID = mappackSaveName;
+        SaveLoadMaps.SaveMappack(mappack);
+        MappackDropdownUpdate(mappackSaveName);
+    }
+
+    public void LoadMappackByButton()
+    {
+        if (mappackToLoad == null || mappackToLoad == "")
+        {
+            Debug.Log("mappack to load is null");
+            return;
+        }
+        mappack = new Mappack(SaveLoadMaps.LoadMappack(mappackToLoad));
+        MappackDropdownUpdate(mappackToLoad);
+        checkIfTypedExists();
+
+        string temp1 = "";
+        foreach (string temp2 in mappack.coordToName.Values)
+        {
+            temp1 = temp2;
+            break;
+        }
+        if (temp1 != "") GoToMap(mappack.levelInfo[temp1].x, mappack.levelInfo[temp1].y); //load a map
+        UpdateCurrentMapInfo();
+    }
+
+    public void SetMappackSaveName(string text)
+    {
+        if (text.Length > 0) mappackSaveName = text;
+        else mappackSaveName = null;
+    }
+
+    public void GoToMapByButton()
+    {
+        mapX = typedX.Value;
+        mapY = typedY.Value;
+        mapName = mappack.coordToName[(mapX, mapY)];
+        Debug.Log(mapName);
+
+        FindFirstObjectByType<Map>().index = mapName;
+        FindFirstObjectByType<Map>().LoadIntoEditorInit();
+        UpdateCurrentMapInfo();
+    }
+
+    public void GoToMap(int x, int y)
+    {
+        mapX = x;
+        mapY = y;
+        mapName = mappack.coordToName[(mapX, mapY)];
+        Debug.Log(mapName);
+
+        FindFirstObjectByType<Map>().index = mapName;
+        FindFirstObjectByType<Map>().LoadIntoEditorInit();
+        UpdateCurrentMapInfo();
+    }
+
+    public void CreateMapByButton()
+    {
+        if (typedName != null && typedX != null && typedY != null)
+        {
+            Debug.Log("created: " + typedName);
+            mappack.NewMap(new Level(typedName, typedX.Value, typedY.Value));
+            checkIfTypedExists(); //spoiler alert: it does exists (:
+        }
+        else Debug.Log("smh is null");
+    }
+
+    public void SetTypedNameByInputField(string text)
+    {
+        if (text.Length > 0) typedName = text.Trim();
+        else typedName = null;
+    }
+
+    public void SetXByInputField(string text)
+    {
+        if (!(text.Length > 0)) typedX = null;
+        else
+        {
+            typedX = int.Parse(text);
+            checkIfTypedExists();
+        }
+    }
+    public void SetYByInputField(string text)
+    {
+        if (!(text.Length > 0)) typedY = null;
+        else
+        {
+            typedY = int.Parse(text);
+            checkIfTypedExists();
+        }
+    }
+    public void checkIfTypedExists()
+    {
+        if (typedX == null || typedY == null)
+        {
+            GoButton.GetComponent<Button>().interactable = false;
+            CreateButton.GetComponent<Button>().interactable = false;
+            CreateInputField.GetComponent<TMP_InputField>().interactable = false;
+        }
+        else if (mappack.coordToName.ContainsKey((typedX.Value, typedY.Value)))
+        {
+            GoButton.GetComponent<Button>().interactable = true;
+            CreateButton.GetComponent<Button>().interactable = false;
+            CreateInputField.GetComponent<TMP_InputField>().interactable = false;
+        }
+        else
+        {
+            GoButton.GetComponent<Button>().interactable = false;
+            CreateButton.GetComponent<Button>().interactable = true;
+            CreateInputField.GetComponent<TMP_InputField>().interactable = true;
+        }
+    }
+
+    public FileInfo[] GetMappackList()
+    {
+        string path = Application.dataPath + "/mappacks";
+        DirectoryInfo dir = new DirectoryInfo(path);
+        return dir.GetFiles("*.mappack");
+    }
+
+    public void MappackDropdownUpdate(string currentOption = "")
+    {
+        mappackDropdown.ClearOptions();
+
+        FileInfo[] mappacks = GetMappackList();
+
+        List<string> options = new List<string>();
+        foreach (FileInfo mappack in mappacks)
+        {
+            //if (mappack.Name[0] == '!') continue; //TODO uncomment
+            options.Add(mappack.Name.Substring(0, mappack.Name.Length - 8));
+        }
+        mappackDropdown.AddOptions(options);
+
+        mappackToLoad = null;
+        int dropdownIndex = 0;
+        for (int i = 0; i < mappackDropdown.options.Count; i++)
+        {
+            if (mappackDropdown.options[i].text == currentOption)
+            {
+                mappackToLoad = currentOption;
+                dropdownIndex = i;
+                break;
+            }
+        }
+        if (mappackToLoad == null) mappackToLoad = mappackDropdown.options[0].text;
+        mappackDropdown.SetValueWithoutNotify(dropdownIndex);
+    }
+
+    public void SetSelectedMappackToLoad(int nameIndex)
+    {
+        mappackToLoad = mappackDropdown.options[nameIndex].text;
+    }
+
+    public void UpdateCurrentMapInfo()
+    {
+        if (mapName != null) currentMapInfo.text = "Currently editing: " + mapName + " on (" + mapX + "; " + mapY + ")";
+        else currentMapInfo.text = "Currently editing: -";
+    }
+
     public FileInfo[] GetMapList()
     {
         string path = Application.dataPath + "/maps"; //Application.persitentDataPath
@@ -309,7 +494,19 @@ public class MapEditor : MonoBehaviour
         calculatedCellHeight = (yTopRight - xBottomLeft) / rows;
         dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         MapDropdownUpdate();
+        MappackDropdownUpdate();
         floater = FindFirstObjectByType<Drag>();
+        typedX = null;
+        typedY = null;
+        mappackSaveName = null;
+
+        if (mappack.levelInfo == null) mappack = new Mappack("N/A", new Level[] { });
+        if (mapName != null && mapName != "")
+        {
+            mapX = mappack.levelInfo[mapName].x;
+            mapY = mappack.levelInfo[mapName].y;
+            UpdateCurrentMapInfo();
+        }
     }
 
     private void Update()
@@ -386,27 +583,31 @@ public class MapEditor : MonoBehaviour
             //check if borders are clicked:
             if (Input.mousePosition.x < xBottomLeft) //down
             {
-                mappack.levelInfo[mapName].MissingFromTool(Level.Side.down, MouseYonGrid()+1, currentTool);
+                mappack.levelInfo[mapName].MissingFromTool(Level.Side.down, MouseYonGrid() + 1, currentTool);
+                outsideWallTilemap.SetTile(new Vector3Int(-1, MouseYonGrid(), 0), currentTool == 1 ? basicTile : clear);
                 if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x, mappack.levelInfo[mapName].y - 1), out neighbour))
-                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.up, MouseYonGrid()+1, currentTool);
+                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.up, MouseYonGrid() + 1, currentTool);
             }
             if (Input.mousePosition.x > xTopRight) //up
             {
-                mappack.levelInfo[mapName].MissingFromTool(Level.Side.up, MouseYonGrid()+1, currentTool);
+                mappack.levelInfo[mapName].MissingFromTool(Level.Side.up, MouseYonGrid() + 1, currentTool);
+                outsideWallTilemap.SetTile(new Vector3Int(30, MouseYonGrid(), 0), currentTool == 1 ? basicTile : clear);
                 if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x, mappack.levelInfo[mapName].y + 1), out neighbour))
-                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.down, MouseYonGrid()+1, currentTool);
+                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.down, MouseYonGrid() + 1, currentTool);
             }
             if (Input.mousePosition.y < yBottomLeft) //left
             {
-                mappack.levelInfo[mapName].MissingFromTool(Level.Side.left, MouseXonGrid()+1, currentTool);
+                mappack.levelInfo[mapName].MissingFromTool(Level.Side.left, MouseXonGrid() + 1, currentTool);
+                outsideWallTilemap.SetTile(new Vector3Int(MouseXonGrid(), -1, 0), currentTool == 1 ? basicTile : clear);
                 if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x - 1, mappack.levelInfo[mapName].y), out neighbour))
-                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.right, MouseYonGrid()+1, currentTool);
+                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.right, MouseYonGrid() + 1, currentTool);
             }
             if (Input.mousePosition.y > yTopRight) //right
             {
-                mappack.levelInfo[mapName].MissingFromTool(Level.Side.right, MouseXonGrid()+1, currentTool);
+                mappack.levelInfo[mapName].MissingFromTool(Level.Side.right, MouseXonGrid() + 1, currentTool);
+                outsideWallTilemap.SetTile(new Vector3Int(MouseXonGrid(), 16, 0), currentTool == 1 ? basicTile : clear);
                 if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x + 1, mappack.levelInfo[mapName].y), out neighbour))
-                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.left, MouseYonGrid()+1, currentTool);
+                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.left, MouseYonGrid() + 1, currentTool);
             }
         }
     }

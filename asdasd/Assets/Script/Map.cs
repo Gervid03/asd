@@ -184,18 +184,16 @@ public class Map : MonoBehaviour
 
     public void IndexUpdateSelectedToLoad(int index2)
     {
-        dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
-        SetIndex(dropdown.options[index2].text);
+        SetIndex(mapEditor.dropdown.options[index2].text);
     }
 
     public void UpdateSelectedDropdownOption(string name)
     {
-        dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
-        for(int i = 0; i < dropdown.options.Count; i++)
+        for(int i = 0; i < mapEditor.dropdown.options.Count; i++)
         {
-            if (dropdown.options[i].text == name)
+            if (mapEditor.dropdown.options[i].text == name)
             {
-                dropdown.SetValueWithoutNotify(i);
+                mapEditor.dropdown.SetValueWithoutNotify(i);
             }
         }
     }
@@ -212,6 +210,8 @@ public class Map : MonoBehaviour
         vault.mapToLoad = index;
         vault.intent = Vault.Intent.loadMapToLoad;
         Debug.Log("Vaulting: " + vault.mapToLoad + ", " + vault.intent.ToString());
+        vault.mappack = FindFirstObjectByType<MapEditor>().mappack;
+        vault.mapName = FindFirstObjectByType<MapEditor>().mapName;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); //reload the scene
     }
@@ -223,7 +223,7 @@ public class Map : MonoBehaviour
         colorPalette = FindFirstObjectByType<ColorPalette>();
         dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         Vault vault = FindFirstObjectByType<Vault>();
-
+        
         if (index == "")
         {
             index = dropdown.options[0].text;
@@ -376,6 +376,25 @@ public class Map : MonoBehaviour
                     break;
                 }
             }
+        }
+
+        List<int>[] missing = mapEditor.mappack.levelInfo[index].missing;
+
+        for (i = 0; i < missing[2].Count; i++) //up
+        {
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(missing[2][i], 16, 0), clear);
+        }
+        for (i = 0; i < missing[3].Count; i++) //down
+        {
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(missing[3][i], -1, 0), clear);
+        }
+        for (i = 0; i < missing[0].Count; i++) //left
+        {
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(-1, missing[0][i], 0), clear);
+        }
+        for (i = 0; i < missing[1].Count; i++) //right
+        {
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(30, missing[1][i], 0), clear);
         }
     }
 
