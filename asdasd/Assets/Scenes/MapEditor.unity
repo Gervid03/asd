@@ -3904,6 +3904,10 @@ MonoBehaviour:
   yBottomLeft2: -9
   xTopRight2: 3
   yTopRight2: -5
+  xBottomLeft3: -1
+  yBottomLeft3: -8
+  xTopRight3: 1
+  yTopRight3: -6
   normalSprite: {fileID: 21300000, guid: e9886afff6fb98b449ae3ece7f3ce4b0, type: 3}
   indicateNewSprite: {fileID: 21300000, guid: d3e076174ff7efa4fa996e18ed6a2e2d, type: 3}
   arrow: {fileID: 2129624948}
@@ -3927,6 +3931,10 @@ MonoBehaviour:
   yBottomLeft2: 5
   xTopRight2: 3
   yTopRight2: 9
+  xBottomLeft3: -1
+  yBottomLeft3: 6
+  xTopRight3: 1
+  yTopRight3: 8
   normalSprite: {fileID: 21300000, guid: f24bcbae55d85d843a7bfcd02401ac6d, type: 3}
   indicateNewSprite: {fileID: 21300000, guid: 11c0c7637ee001249a252dd06a192a3d, type: 3}
   arrow: {fileID: 1460880636}
@@ -3950,6 +3958,10 @@ MonoBehaviour:
   yBottomLeft2: -3
   xTopRight2: 16
   yTopRight2: 3
+  xBottomLeft3: 15
+  yBottomLeft3: -1
+  xTopRight3: 13
+  yTopRight3: 1
   normalSprite: {fileID: 21300000, guid: b91152450d992544ba87b2db2cf9af8f, type: 3}
   indicateNewSprite: {fileID: 21300000, guid: e8ac03c29a56ff340aa411c7375994ea, type: 3}
   arrow: {fileID: 2146857914}
@@ -3973,6 +3985,10 @@ MonoBehaviour:
   yBottomLeft2: -3
   xTopRight2: -11
   yTopRight2: 3
+  xBottomLeft3: -15
+  yBottomLeft3: -1
+  xTopRight3: -13
+  yTopRight3: 1
   normalSprite: {fileID: 21300000, guid: 5e22f8021aa75d14383eb7227ed28e67, type: 3}
   indicateNewSprite: {fileID: 21300000, guid: 698f5648425f13e419b77eb40a4f7d9e, type: 3}
   arrow: {fileID: 1276904685}
@@ -10073,7 +10089,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1276904690}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2115509123}
+        m_TargetAssemblyTypeName: MapEditor, Assembly-CSharp
+        m_MethodName: GoToLeftMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1276904690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11716,7 +11744,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1460880638}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2115509123}
+        m_TargetAssemblyTypeName: MapEditor, Assembly-CSharp
+        m_MethodName: GoToUpMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1466060712
 GameObject:
   m_ObjectHideFlags: 0
@@ -24178,6 +24218,7 @@ MonoBehaviour:
   mappackToLoad: 
   currentMapInfo: {fileID: 543414824}
   outsideWallTilemap: {fileID: 1930041297}
+  mouseOnArrow: 0
 --- !u!114 &2115509125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24342,7 +24383,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2129624951}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2115509123}
+        m_TargetAssemblyTypeName: MapEditor, Assembly-CSharp
+        m_MethodName: GoToDownMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2129624951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24595,7 +24648,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2146857917}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2115509123}
+        m_TargetAssemblyTypeName: MapEditor, Assembly-CSharp
+        m_MethodName: GoToRightMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2146857917
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -55,6 +55,7 @@ public class MapEditor : MonoBehaviour
     public string mappackToLoad;
     public TMP_Text currentMapInfo;
     public Tilemap outsideWallTilemap;
+    public bool mouseOnArrow; //stop handleclick()
 
     [System.Serializable]
     public struct tool
@@ -171,28 +172,30 @@ public class MapEditor : MonoBehaviour
                 missing[side] = new List<int>();
         }
 
-        public enum Side
-        {
-            left = 0,
-            right = 1,
-            up = 2,
-            down = 3
-        }
+        //public enum Side
+        //{
+        //    left = 0,
+        //    right = 1,
+        //    up = 2,
+        //    down = 3
+        //}
 
-        public void NewMissing(Side side, int idx) { NewMissing(((int)side), idx); }
+        //public void NewMissing(Side side, int idx) { NewMissing(((int)side), idx); }
         public void NewMissing(int side, int idx)
         {
             for (int i = 0; i < missing[side].Count; i++) if (missing[side][i] == idx) return; //check if it exists already
             missing[side].Add(idx);
+            //Debug.Log("new missing on side " + side + ": " + idx);
         }
 
-        public void RestoreMissing(Side side, int idx) { RestoreMissing(((int)side), idx); }
+        //public void RestoreMissing(Side side, int idx) { RestoreMissing(((int)side), idx); }
         public void RestoreMissing(int side, int idx)
         {
             missing[side].Remove(idx);
+            //Debug.Log("restored missing on side " + side + ": " + idx);
         }
 
-        public void MissingFromTool(Side side, int idx, int tool) { MissingFromTool(((int)side), idx, tool); }
+        //public void MissingFromTool(Side side, int idx, int tool) { MissingFromTool(((int)side), idx, tool); }
         public void MissingFromTool(int side, int idx, int tool)
         {
             if (tool == 1) RestoreMissing(side, idx);
@@ -239,25 +242,25 @@ public class MapEditor : MonoBehaviour
             {//Get missing values from (potential) neighbours
                 string neighbour;
                 if (coordToName.TryGetValue((level.x, level.y - 1), out neighbour))
-                    levelInfo[level.name].missing[((int)Level.Side.down)] = levelInfo[neighbour].missing[((int)Level.Side.up)];
+                    levelInfo[level.name].missing[3] = levelInfo[neighbour].missing[2];
                 if (coordToName.TryGetValue((level.x, level.y + 1), out neighbour))
-                    levelInfo[level.name].missing[((int)Level.Side.up)] = levelInfo[neighbour].missing[((int)Level.Side.down)];
+                    levelInfo[level.name].missing[2] = levelInfo[neighbour].missing[3];
                 if (coordToName.TryGetValue((level.x - 1, level.y), out neighbour))
-                    levelInfo[level.name].missing[((int)Level.Side.left)] = levelInfo[neighbour].missing[((int)Level.Side.right)];
+                    levelInfo[level.name].missing[0] = levelInfo[neighbour].missing[1];
                 if (coordToName.TryGetValue((level.x + 1, level.y), out neighbour))
-                    levelInfo[level.name].missing[((int)Level.Side.right)] = levelInfo[neighbour].missing[((int)Level.Side.left)];
+                    levelInfo[level.name].missing[1] = levelInfo[neighbour].missing[0];
             }
             else if (getMissingFromNeighbours == false)
             {//Give missing values to (potential) neighbours
                 string neighbour;
                 if (coordToName.TryGetValue((level.x, level.y - 1), out neighbour))
-                    levelInfo[neighbour].missing[((int)Level.Side.up)] = levelInfo[level.name].missing[((int)Level.Side.down)];
+                    levelInfo[neighbour].missing[2] = levelInfo[level.name].missing[3];
                 if (coordToName.TryGetValue((level.x, level.y + 1), out neighbour))
-                    levelInfo[neighbour].missing[((int)Level.Side.down)] = levelInfo[level.name].missing[((int)Level.Side.up)];
+                    levelInfo[neighbour].missing[3] = levelInfo[level.name].missing[2];
                 if (coordToName.TryGetValue((level.x - 1, level.y), out neighbour))
-                    levelInfo[neighbour].missing[((int)Level.Side.right)] = levelInfo[level.name].missing[((int)Level.Side.left)];
+                    levelInfo[neighbour].missing[1] = levelInfo[level.name].missing[0];
                 if (coordToName.TryGetValue((level.x + 1, level.y), out neighbour))
-                    levelInfo[neighbour].missing[((int)Level.Side.left)] = levelInfo[level.name].missing[((int)Level.Side.right)];
+                    levelInfo[neighbour].missing[0] = levelInfo[level.name].missing[1];
             }
 
         }
@@ -325,27 +328,16 @@ public class MapEditor : MonoBehaviour
         else mappackSaveName = null;
     }
 
-    public void GoToLeftMap() => GoToMap(mapX, mapY - 1);
-    public void GoToRightMap() => GoToMap(mapX, mapY + 1);
-    public void GoToDownMap() => GoToMap(mapX - 1, mapY);
-    public void GoToUpMap() => GoToMap(mapX + 1, mapY);
-
-    public void GoToMapByButton()
-    {
-        mapX = typedX.Value;
-        mapY = typedY.Value;
-        mapName = mappack.coordToName[(mapX, mapY)];
-        Debug.Log(mapName);
-
-        FindFirstObjectByType<Map>().LoadIntoEditor(mapName);
-        UpdateCurrentMapInfo();
-    }
-
+    public void GoToLeftMap() => GoToMap(mapX - 1, mapY);
+    public void GoToRightMap() => GoToMap(mapX + 1, mapY);
+    public void GoToDownMap() => GoToMap(mapX, mapY - 1);
+    public void GoToUpMap() => GoToMap(mapX, mapY + 1);
+    public void GoToMapByButton() => GoToMap(mapX, mapY);
     public void GoToMap(int x, int y)
     {
+        mapName = mappack.coordToName[(x, y)];
         mapX = x;
         mapY = y;
-        mapName = mappack.coordToName[(mapX, mapY)];
         Debug.Log(mapName);
 
         FindFirstObjectByType<Map>().LoadIntoEditor(mapName);
@@ -582,7 +574,7 @@ public class MapEditor : MonoBehaviour
 
     public void HandleClick()
     {
-        if (!Input.GetMouseButton(0) || MouseOnFloater() || menu.activeSelf) return; //haven't clicked or click is not for editing
+        if (!Input.GetMouseButton(0) || MouseOnFloater() || menu.activeSelf || mouseOnArrow) return; //haven't clicked or click is not for editing
 
         if (Input.mousePosition.x > xBottomLeft && Input.mousePosition.x < xTopRight && Input.mousePosition.y > yBottomLeft && Input.mousePosition.y < yTopRight)
         {//clicked inside editor
@@ -597,33 +589,33 @@ public class MapEditor : MonoBehaviour
 
             string neighbour; //handle the neighbours with shared borders
             //check if borders are clicked:
-            if (Input.mousePosition.x < xBottomLeft) //down
+            if (Input.mousePosition.y < yBottomLeft) //down
             {
-                mappack.levelInfo[mapName].MissingFromTool(Level.Side.down, MouseYonGrid() + 1, currentTool);
-                outsideWallTilemap.SetTile(new Vector3Int(-1, MouseYonGrid(), 0), currentTool == 1 ? basicTile : clear);
-                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x, mappack.levelInfo[mapName].y - 1), out neighbour))
-                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.up, MouseYonGrid() + 1, currentTool);
-            }
-            if (Input.mousePosition.x > xTopRight) //up
-            {
-                mappack.levelInfo[mapName].MissingFromTool(Level.Side.up, MouseYonGrid() + 1, currentTool);
-                outsideWallTilemap.SetTile(new Vector3Int(30, MouseYonGrid(), 0), currentTool == 1 ? basicTile : clear);
-                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x, mappack.levelInfo[mapName].y + 1), out neighbour))
-                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.down, MouseYonGrid() + 1, currentTool);
-            }
-            if (Input.mousePosition.y < yBottomLeft) //left
-            {
-                mappack.levelInfo[mapName].MissingFromTool(Level.Side.left, MouseXonGrid() + 1, currentTool);
+                mappack.levelInfo[mapName].MissingFromTool(3, MouseXonGrid(), currentTool);
                 outsideWallTilemap.SetTile(new Vector3Int(MouseXonGrid(), -1, 0), currentTool == 1 ? basicTile : clear);
-                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x - 1, mappack.levelInfo[mapName].y), out neighbour))
-                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.right, MouseYonGrid() + 1, currentTool);
+                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x, mappack.levelInfo[mapName].y - 1), out neighbour))
+                    mappack.levelInfo[neighbour].MissingFromTool(2, MouseXonGrid(), currentTool);
             }
-            if (Input.mousePosition.y > yTopRight) //right
+            if (Input.mousePosition.y > yTopRight) //up
             {
-                mappack.levelInfo[mapName].MissingFromTool(Level.Side.right, MouseXonGrid() + 1, currentTool);
+                mappack.levelInfo[mapName].MissingFromTool(2, MouseXonGrid(), currentTool);
                 outsideWallTilemap.SetTile(new Vector3Int(MouseXonGrid(), 16, 0), currentTool == 1 ? basicTile : clear);
+                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x, mappack.levelInfo[mapName].y + 1), out neighbour))
+                    mappack.levelInfo[neighbour].MissingFromTool(3, MouseXonGrid(), currentTool);
+            }
+            if (Input.mousePosition.x < xBottomLeft) //left
+            {
+                mappack.levelInfo[mapName].MissingFromTool(0, MouseYonGrid(), currentTool);
+                outsideWallTilemap.SetTile(new Vector3Int(-1, MouseYonGrid(), 0), currentTool == 1 ? basicTile : clear);
+                if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x - 1, mappack.levelInfo[mapName].y), out neighbour))
+                    mappack.levelInfo[neighbour].MissingFromTool(1, MouseYonGrid(), currentTool);
+            }
+            if (Input.mousePosition.x > xTopRight) //right
+            {
+                mappack.levelInfo[mapName].MissingFromTool(1, MouseYonGrid(), currentTool);
+                outsideWallTilemap.SetTile(new Vector3Int(30, MouseYonGrid(), 0), currentTool == 1 ? basicTile : clear);
                 if (mappack.coordToName.TryGetValue((mappack.levelInfo[mapName].x + 1, mappack.levelInfo[mapName].y), out neighbour))
-                    mappack.levelInfo[neighbour].MissingFromTool(Level.Side.left, MouseYonGrid() + 1, currentTool);
+                    mappack.levelInfo[neighbour].MissingFromTool(0, MouseYonGrid(), currentTool);
             }
         }
     }

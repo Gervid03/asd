@@ -197,6 +197,8 @@ public class Map : MonoBehaviour
 
     public void LoadIntoEditor(string mapToLoad)
     {
+        int holdtool = mapEditor.currentTool;
+
         ResetEditor();
         int i, j;
         mapEditor = FindFirstObjectByType<MapEditor>();
@@ -335,7 +337,7 @@ public class Map : MonoBehaviour
             }
         }
 
-        List<int>[] missing = mapEditor.mappack.levelInfo[index].missing; //TODO not everymap is in a mappack
+        List<int>[] missing = mapEditor.mappack.levelInfo[mapEditor.mapName].missing; //TODO not everymap is in a mappack
 
         for (i = 0; i < missing[2].Count; i++) //up
         {
@@ -353,10 +355,13 @@ public class Map : MonoBehaviour
         {
             mapEditor.outsideWallTilemap.SetTile(new Vector3Int(30, missing[1][i], 0), clear);
         }
+
+        mapEditor.currentTool = holdtool;
     }
 
     public void ResetEditor()
     {
+        int holdtool = mapEditor.currentTool;
         int i;
         mapEditor = FindFirstObjectByType<MapEditor>();
         colorPalette = FindFirstObjectByType<ColorPalette>();
@@ -370,28 +375,35 @@ public class Map : MonoBehaviour
 
         mapEditor.currentTool = 1;
 
+        foreach (int t in mapEditor.tilemaps.getIndexes()) //reset every tilemap
+            for (i = 0; i < 32; i++)
+                for (int j = 0; j < 16; j++)
+                    mapEditor.tilemaps.at(t).SetTile(new Vector3Int(i, j, 0), clear);
+
         for (i = 0; i < mapEditor.inversePairs.Count; i++)
         {
             Destroy(mapEditor.inversePairs[i]); //reset inversePairs
         }
 
         //restore outside wall
-        for (i = 0; i < 32; i++) //up
+        for (i = 0; i < 31; i++) //up
         {
             mapEditor.outsideWallTilemap.SetTile(new Vector3Int(i, 16, 0), mapEditor.basicTile);
         }
-        for (i = 0; i < 32; i++) //down
+        for (i = 0; i < 31; i++) //down
         {
             mapEditor.outsideWallTilemap.SetTile(new Vector3Int(i, -1, 0), mapEditor.basicTile);
         }
-        for (i = 0; i < 18; i++) //left
+        for (i = -1; i < 17; i++) //left
         {
-            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(i, 0), mapEditor.basicTile);
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(-1, i), mapEditor.basicTile);
         }
-        for (i = 0; i < 18; i++) //right
+        for (i = -1; i < 17; i++) //right
         {
-            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(i, 0), mapEditor.basicTile);
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(30, i), mapEditor.basicTile);
         }
+
+        mapEditor.currentTool = holdtool;
     }
 
     public void KillAllTheChildren(Transform p)
