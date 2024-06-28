@@ -213,7 +213,7 @@ public class MapEditor : MonoBehaviour
             coordToName = new Dictionary<(int, int), string>();
             levelInfo = new Dictionary<string, Level>();
 
-            for (int i = 0; i < data.levels.Length; i++) NewMap(data.levels[i]);
+            for (int i = 0; i < data.levels.Length; i++) NewMap(data.levels[i], null);
         }
         public Mappack(string id, Level[] levels, bool uniformMissings = false)
         {
@@ -280,7 +280,7 @@ public class MapEditor : MonoBehaviour
                 int i = 0;
                 foreach (Level level in mappack.levelInfo.Values)
                 {
-                    levels[i] = level;
+                    levels[i++] = level;
                 }
             }
         }
@@ -324,6 +324,11 @@ public class MapEditor : MonoBehaviour
         if (text.Length > 0) mappackSaveName = text;
         else mappackSaveName = null;
     }
+
+    public void GoToLeftMap() => GoToMap(mapX, mapY - 1);
+    public void GoToRightMap() => GoToMap(mapX, mapY + 1);
+    public void GoToDownMap() => GoToMap(mapX - 1, mapY);
+    public void GoToUpMap() => GoToMap(mapX + 1, mapY);
 
     public void GoToMapByButton()
     {
