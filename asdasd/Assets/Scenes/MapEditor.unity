@@ -8293,7 +8293,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1210156908}
         m_TargetAssemblyTypeName: Map, Assembly-CSharp
-        m_MethodName: ClearMap
+        m_MethodName: ResetEditor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13244,70 +13244,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671314261}
   m_CullTransparentMesh: 1
---- !u!1 &1682635539
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1682635541}
-  - component: {fileID: 1682635542}
-  - component: {fileID: 1682635543}
-  m_Layer: 0
-  m_Name: InvincibleThingy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1682635541
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682635539}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7349527, y: -0.7969687, z: -9.964785}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1682635542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682635539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52e56ccc6ab339d41a8133f712851dd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1682635543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682635539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d941b50ef23ee348944cb5ab7e3b34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playScene: TestTempMap
-  intent: 0
-  mapToLoad: 
-  mapUnderConstruction: 
-  mappack:
-    ID: 
-  mapName: 
 --- !u!1 &1698588728
 GameObject:
   m_ObjectHideFlags: 0
@@ -22921,7 +22857,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1210156908}
         m_TargetAssemblyTypeName: Map, Assembly-CSharp
-        m_MethodName: LoadIntoEditorInit
+        m_MethodName: ByButtonLoadIntoEditor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30720,7 +30656,6 @@ SceneRoots:
   - {fileID: 1745463726}
   - {fileID: 565916785}
   - {fileID: 1210156912}
-  - {fileID: 1682635541}
   - {fileID: 1114556390}
   - {fileID: 390468167}
   - {fileID: 362021701}

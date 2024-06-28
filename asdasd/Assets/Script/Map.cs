@@ -83,15 +83,7 @@ public class Map : MonoBehaviour
 
     private void Start()
     {
-        Vault vault = FindFirstObjectByType<Vault>();
-        if (vault != null && vault.intent == Vault.Intent.loadMapToLoad)
-        {
-            Debug.Log("Loading in: " + vault.mapToLoad);
-            index = vault.mapToLoad;
-            LoadIntoEditor();
-            return;
-        }
-
+        mapEditor = FindFirstObjectByType<MapEditor>();
         if (loadFromProgress)
         {
             LoadFromProgress();
@@ -198,60 +190,25 @@ public class Map : MonoBehaviour
         }
     }
 
-    public void VaultAndLoad()
+    public void ByButtonLoadIntoEditor()
     {
-        FindFirstObjectByType<Vault>().Load();
-        
+        LoadIntoEditor(index);
     }
 
-    public void LoadIntoEditorInit()
+    public void LoadIntoEditor(string mapToLoad)
     {
-        Vault vault = FindFirstObjectByType<Vault>();
-        vault.mapToLoad = index;
-        vault.intent = Vault.Intent.loadMapToLoad;
-        Debug.Log("Vaulting: " + vault.mapToLoad + ", " + vault.intent.ToString());
-        vault.mappack = FindFirstObjectByType<MapEditor>().mappack;
-        vault.mapName = FindFirstObjectByType<MapEditor>().mapName;
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //reload the scene
-    }
-
-    public void LoadIntoEditor()
-    {
+        ResetEditor();
         int i, j;
         mapEditor = FindFirstObjectByType<MapEditor>();
         colorPalette = FindFirstObjectByType<ColorPalette>();
         dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
-        Vault vault = FindFirstObjectByType<Vault>();
-        
-        if (index == "")
+
+        if (mapToLoad == "")
         {
-            index = dropdown.options[0].text;
+            mapToLoad = dropdown.options[0].text;
         }
 
-        for (i = 0; i < dropdown.options.Count; i++)
-        {
-            if (index == "!temp")
-            {
-                if (dropdown.options[i].text == vault.mapUnderConstruction)
-                {
-                    dropdown.SetValueWithoutNotify(i);
-                    saveName.SetTextWithoutNotify(vault.mapUnderConstruction);
-                    break;
-                }
-            }
-            else
-            {
-                if (dropdown.options[i].text == index)
-                {
-                    dropdown.SetValueWithoutNotify(i);
-                    saveName.SetTextWithoutNotify(index);
-                    break;
-                }
-            }
-        }
-
-        MapData data = SaveLoadMaps.LoadMap(index);
+        MapData data = SaveLoadMaps.LoadMap(mapToLoad);
 
         if (data == null)
         {
@@ -265,7 +222,7 @@ public class Map : MonoBehaviour
             if (data.colors[i].r == 255 && data.colors[i].g == 255 && data.colors[i].b == 255) continue; //feheret nem bantjuk!
             colorPalette.CreateColor(data.colors[i].c(), data.colors[i].index);
         }
-        
+
         mapEditor.columns = data.column;
         mapEditor.rows = data.row;
 
@@ -378,7 +335,7 @@ public class Map : MonoBehaviour
             }
         }
 
-        List<int>[] missing = mapEditor.mappack.levelInfo[index].missing;
+        List<int>[] missing = mapEditor.mappack.levelInfo[index].missing; //TODO not everymap is in a mappack
 
         for (i = 0; i < missing[2].Count; i++) //up
         {
@@ -395,6 +352,45 @@ public class Map : MonoBehaviour
         for (i = 0; i < missing[1].Count; i++) //right
         {
             mapEditor.outsideWallTilemap.SetTile(new Vector3Int(30, missing[1][i], 0), clear);
+        }
+    }
+
+    public void ResetEditor()
+    {
+        int i;
+        mapEditor = FindFirstObjectByType<MapEditor>();
+        colorPalette = FindFirstObjectByType<ColorPalette>();
+        dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+
+        mapEditor.currentTool = 8; //set start and end outside of the map
+        mapEditor.AddTile(-10, -10);
+
+        mapEditor.currentTool = 9;
+        mapEditor.AddTile(-10, -10);
+
+        mapEditor.currentTool = 1;
+
+        for (i = 0; i < mapEditor.inversePairs.Count; i++)
+        {
+            Destroy(mapEditor.inversePairs[i]); //reset inversePairs
+        }
+
+        //restore outside wall
+        for (i = 0; i < 32; i++) //up
+        {
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(i, 16, 0), mapEditor.basicTile);
+        }
+        for (i = 0; i < 32; i++) //down
+        {
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(i, -1, 0), mapEditor.basicTile);
+        }
+        for (i = 0; i < 18; i++) //left
+        {
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(i, 0), mapEditor.basicTile);
+        }
+        for (i = 0; i < 18; i++) //right
+        {
+            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(i, 0), mapEditor.basicTile);
         }
     }
 
@@ -431,18 +427,11 @@ public class Map : MonoBehaviour
         }
     }
 
-    public void ClearMap()
+    public void LoadMap(bool isStart) => LoadMap(null, isStart); //this overload still loads "index"
+    public void LoadMap(string mapToLoad = null, bool isStart = true)
     {
-        File.Delete(Application.dataPath + "/maps/!tempmap.map");
-        File.Copy(Application.dataPath + "/maps/!clearmap.map", Application.dataPath + "/maps/!tempmap.map");
-
-        FindFirstObjectByType<Vault>().intent = Vault.Intent.loadTempIntoEditor;
-        SceneManager.LoadScene("MapEditor");
-    }
-
-    public void LoadMap(bool isStart = true)
-    {
-        MapData data = SaveLoadMaps.LoadMap(index);
+        if (mapToLoad == null) mapToLoad = index;
+        MapData data = SaveLoadMaps.LoadMap(mapToLoad);
 
         if (data == null)
         {
@@ -631,7 +620,7 @@ public class Map : MonoBehaviour
         if(data.endx >= 0 && data.endy >= 0) hasTile[data.endx][data.endy] = true;
         FindFirstObjectByType<WallManager>().SetDecoDemons();
         SetDeco();
-        SearchForNPCs(index);
+        SearchForNPCs(mapToLoad);
     }
 
     public int c(MapData data, int colorIndex)

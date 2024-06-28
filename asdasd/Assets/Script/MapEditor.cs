@@ -337,8 +337,7 @@ public class MapEditor : MonoBehaviour
         mapName = mappack.coordToName[(mapX, mapY)];
         Debug.Log(mapName);
 
-        FindFirstObjectByType<Map>().index = mapName;
-        FindFirstObjectByType<Map>().LoadIntoEditorInit();
+        FindFirstObjectByType<Map>().LoadIntoEditor(mapName);
         UpdateCurrentMapInfo();
     }
 
@@ -349,8 +348,7 @@ public class MapEditor : MonoBehaviour
         mapName = mappack.coordToName[(mapX, mapY)];
         Debug.Log(mapName);
 
-        FindFirstObjectByType<Map>().index = mapName;
-        FindFirstObjectByType<Map>().LoadIntoEditorInit();
+        FindFirstObjectByType<Map>().LoadIntoEditor(mapName);
         UpdateCurrentMapInfo();
     }
 
@@ -545,6 +543,19 @@ public class MapEditor : MonoBehaviour
                 }
             }
             else pressedCarouselCycle = false;
+
+            if (Input.GetKeyDown("r"))
+            {
+                Map map = FindFirstObjectByType<Map>();
+                GetInfos(map);
+
+                string holder = map.index;
+                map.index = "!temp";
+                SaveLoadMaps.SaveMap(map);
+                map.index = holder;
+
+                SceneLoader.LoadTestScene();
+            }
         }
 
         if (Input.GetAxisRaw("Menu") == 1)

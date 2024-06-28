@@ -3,22 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+public static class SceneLoader
 {
-    // Start is called before the first frame update
-    void Start()
+    public static void LoadTestScene() //map testing "r"
     {
-        
+        Scene mapEditorScene = SceneManager.GetSceneByName("MapEditor");
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("TestTempMap", LoadSceneMode.Additive);
+
+        // Use the completed callback to set the active scene once loading is complete
+        asyncLoad.completed += (AsyncOperation op) =>
+        {
+            Scene testMapScene = SceneManager.GetSceneByName("TestTempMap");
+            
+            SetSceneActive(mapEditorScene, false); // Deactivate the mapeditor
+
+            SetSceneActive(testMapScene, true); // Activate the testing scene
+        };
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void LoadMapEditor()
     {
-        
+        Scene mapEditorScene = SceneManager.GetSceneByName("MapEditor");
+        Scene testMapScene = SceneManager.GetSceneByName("TestTempMap");
+
+        SetSceneActive(mapEditorScene, true);
+
+        SetSceneActive(testMapScene, false);
+
+        SceneManager.UnloadSceneAsync(testMapScene);// Unload the testing scene
     }
 
-    public void LoadScene(string sceneToLoad)
+    private static void SetSceneActive(Scene scene, bool isActive)
     {
-        SceneManager.LoadScene(sceneToLoad);
+        if (isActive)
+        {
+            SceneManager.SetActiveScene(scene);
+            foreach (GameObject gobject in scene.GetRootGameObjects())
+            {
+                gobject.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (GameObject gobject in scene.GetRootGameObjects())
+            {
+                if (gobject.name == "global" || gobject.name == "EventSystem") continue;
+                gobject.SetActive(false);
+            }
+        }
     }
 }
