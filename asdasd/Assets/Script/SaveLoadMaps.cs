@@ -93,4 +93,14 @@ public static class SaveLoadMaps
             return null;
         }
     }
+
+    public static void SaveLevelGroup(LevelGroupData levelGroupData)
+    {
+        Debug.Log(Application.persistentDataPath);
+        BinaryFormatter bf = new BinaryFormatter();
+        string path = Application.dataPath + "/levelgroups/levelgroupdata/" + levelGroupData.ID + ".lg";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        bf.Serialize(stream, levelGroupData);
+        stream.Close();
+    }
 }

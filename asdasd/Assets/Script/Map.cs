@@ -357,6 +357,7 @@ public class Map : MonoBehaviour
         }
 
         mapEditor.currentTool = holdtool;
+        mapEditor.currentTilemap = 0;
     }
 
     public void ResetEditor()

@@ -335,13 +335,16 @@ public class MapEditor : MonoBehaviour
     public void GoToMapByButton() => GoToMap(mapX, mapY);
     public void GoToMap(int x, int y)
     {
-        mapName = mappack.coordToName[(x, y)];
-        mapX = x;
-        mapY = y;
-        Debug.Log(mapName);
+        if (mappack.coordToName.ContainsKey((x, y))) //map exists
+        {
+            mapName = mappack.coordToName[(x, y)];
+            mapX = x;
+            mapY = y;
+            Debug.Log(mapName);
 
-        FindFirstObjectByType<Map>().LoadIntoEditor(mapName);
-        UpdateCurrentMapInfo();
+            FindFirstObjectByType<Map>().LoadIntoEditor(mapName);
+            UpdateCurrentMapInfo();
+        }
     }
 
     public void CreateMapByButton()
@@ -446,6 +449,22 @@ public class MapEditor : MonoBehaviour
     {
         if (mapName != null) currentMapInfo.text = "Currently editing: " + mapName + " on (" + mapX + "; " + mapY + ")";
         else currentMapInfo.text = "Currently editing: -";
+
+        Arrow[] arrows = FindObjectsByType<Arrow>(FindObjectsSortMode.None);
+        for (int i = 0; i < 4; i++)
+        {
+            bool mapExists = false;
+            if (arrows[i].arrow.name == "LeftArrow")
+                mapExists = mappack.coordToName.ContainsKey((mapX - 1, mapY));
+            else if (arrows[i].arrow.name == "RightArrow")
+                mapExists = mappack.coordToName.ContainsKey((mapX + 1, mapY));
+            else if (arrows[i].arrow.name == "UpArrow")
+                mapExists = mappack.coordToName.ContainsKey((mapX, mapY + 1));
+            else if (arrows[i].arrow.name == "DownArrow")
+                mapExists = mappack.coordToName.ContainsKey((mapX, mapY - 1));
+
+            arrows[i].SetIndication(!mapExists);
+        }
     }
 
     public FileInfo[] GetMapList()

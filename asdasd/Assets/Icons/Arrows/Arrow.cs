@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Arrow : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class Arrow : MonoBehaviour
     {
         float x = (Input.mousePosition.x - (1920 / 2)) / (1920 / 32), y = (Input.mousePosition.y - (1080 / 2)) / (1080 / 18);
 
-        if (xBottomLeft2 < x && x < xTopRight2 && yBottomLeft2 < y && y < yTopRight2)
+        if (arrow.activeSelf && xBottomLeft2 < x && x < xTopRight2 && yBottomLeft2 < y && y < yTopRight2)
         {
             mapEditor.mouseOnArrow = true;
             IveSetMouseOnArrow = true;
@@ -69,6 +70,6 @@ public class Arrow : MonoBehaviour
 
     public void SetIndication(bool indicateNew)
     {
-        arrow.GetComponent<SpriteRenderer>().sprite = indicateNew ? indicateNewSprite : normalSprite;
+        arrow.GetComponent<Image>().sprite = indicateNew ? indicateNewSprite : normalSprite;
     }
 }
