@@ -9,7 +9,6 @@ using UnityEngine.UI;
 using System.IO;
 using TMPro;
 
-
 public class MapEditor : MonoBehaviour
 {
     public TileBase basicTile;
@@ -56,6 +55,7 @@ public class MapEditor : MonoBehaviour
     public TMP_Text currentMapInfo;
     public Tilemap outsideWallTilemap;
     public bool mouseOnArrow; //stop handleclick()
+    public PopUpHandler popUpHandler;
 
     [System.Serializable]
     public struct tool
@@ -328,6 +328,11 @@ public class MapEditor : MonoBehaviour
         else mappackSaveName = null;
     }
 
+    public void CreateLeftMap() => FindFirstObjectByType<PopUpHandler>().NewMapByArrowUp(mapX - 1, mapY);
+    public void CreateRightMap() => FindFirstObjectByType<PopUpHandler>().NewMapByArrowUp(mapX + 1, mapY);
+    public void CreateUpMap() => FindFirstObjectByType<PopUpHandler>().NewMapByArrowUp(mapX, mapY + 1);
+    public void CreateDownMap() => FindFirstObjectByType<PopUpHandler>().NewMapByArrowUp(mapX, mapY - 1);
+
     public void GoToLeftMap() => GoToMap(mapX - 1, mapY);
     public void GoToRightMap() => GoToMap(mapX + 1, mapY);
     public void GoToDownMap() => GoToMap(mapX, mapY - 1);
@@ -454,31 +459,24 @@ public class MapEditor : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             bool mapExists = false;
-            if (arrows[i].arrow.name == "LeftArrow")
+            if (arrows[i].normalArrow.name == "LeftArrow")
                 mapExists = mappack.coordToName.ContainsKey((mapX - 1, mapY));
-            else if (arrows[i].arrow.name == "RightArrow")
+            else if (arrows[i].normalArrow.name == "RightArrow")
                 mapExists = mappack.coordToName.ContainsKey((mapX + 1, mapY));
-            else if (arrows[i].arrow.name == "UpArrow")
+            else if (arrows[i].normalArrow.name == "UpArrow")
                 mapExists = mappack.coordToName.ContainsKey((mapX, mapY + 1));
-            else if (arrows[i].arrow.name == "DownArrow")
+            else if (arrows[i].normalArrow.name == "DownArrow")
                 mapExists = mappack.coordToName.ContainsKey((mapX, mapY - 1));
 
             arrows[i].SetIndication(!mapExists);
         }
     }
 
-    public FileInfo[] GetMapList()
-    {
-        string path = Application.dataPath + "/maps"; //Application.persitentDataPath
-        DirectoryInfo dir = new DirectoryInfo(path);
-        return dir.GetFiles("*.map");
-    }
-
     public void MapDropdownUpdate(string currentOption = "")
     {
         dropdown.ClearOptions();
 
-        FileInfo[] maps = GetMapList();
+        FileInfo[] maps = SaveLoadMaps.GetMapList();
         
         List<string> options = new List<string>();
         foreach (FileInfo map in maps)
@@ -513,14 +511,13 @@ public class MapEditor : MonoBehaviour
         typedX = null;
         typedY = null;
         mappackSaveName = null;
+        popUpHandler = FindFirstObjectByType<PopUpHandler>();
 
-        if (mappack.levelInfo == null) mappack = new Mappack("N/A", new Level[] { });
-        if (mapName != null && mapName != "")
-        {
-            mapX = mappack.levelInfo[mapName].x;
-            mapY = mappack.levelInfo[mapName].y;
-            UpdateCurrentMapInfo();
-        }
+        if (mappack.levelInfo == null) mappack = new Mappack("default", new Level[] {new Level("!clear", 0, 0)});
+        mapName = "!clear";
+        mapX = 0;
+        mapY = 0;
+        UpdateCurrentMapInfo();
     }
 
     private void Update()
@@ -593,7 +590,7 @@ public class MapEditor : MonoBehaviour
 
     public void HandleClick()
     {
-        if (!Input.GetMouseButton(0) || MouseOnFloater() || menu.activeSelf || mouseOnArrow) return; //haven't clicked or click is not for editing
+        if (!Input.GetMouseButton(0) || MouseOnFloater() || menu.activeSelf || mouseOnArrow || popUpHandler.popUpActive) return; //haven't clicked or click is not for editing
 
         if (Input.mousePosition.x > xBottomLeft && Input.mousePosition.x < xTopRight && Input.mousePosition.y > yBottomLeft && Input.mousePosition.y < yTopRight)
         {//clicked inside editor

@@ -8,11 +8,11 @@ public class Arrow : MonoBehaviour
     public float xBottomLeft, yBottomLeft, xTopRight, yTopRight; //trigger zone
     public float xBottomLeft2, yBottomLeft2, xTopRight2, yTopRight2; //not un-trigger zone
     public float xBottomLeft3, yBottomLeft3, xTopRight3, yTopRight3; //ignore mouse clicks to editor
-    public Sprite normalSprite, indicateNewSprite;
-    public GameObject arrow;
+    public GameObject normalArrow, creatingArrow;
     private float lastInArea = -1;
     private MapEditor mapEditor;
-    private bool IveSetMouseOnArrow = false;
+    private bool iveSetMouseOnArrow = false;
+    private bool arrowType = true;
 
     private bool mouseTrigger()
     {
@@ -32,15 +32,15 @@ public class Arrow : MonoBehaviour
     {
         float x = (Input.mousePosition.x - (1920 / 2)) / (1920 / 32), y = (Input.mousePosition.y - (1080 / 2)) / (1080 / 18);
 
-        if (arrow.activeSelf && xBottomLeft2 < x && x < xTopRight2 && yBottomLeft2 < y && y < yTopRight2)
+        if ((normalArrow.activeSelf || creatingArrow.activeSelf) && xBottomLeft2 < x && x < xTopRight2 && yBottomLeft2 < y && y < yTopRight2)
         {
             mapEditor.mouseOnArrow = true;
-            IveSetMouseOnArrow = true;
+            iveSetMouseOnArrow = true;
         }
-        else if (IveSetMouseOnArrow)
+        else if (iveSetMouseOnArrow)
         {
             mapEditor.mouseOnArrow = false;
-            IveSetMouseOnArrow = false;
+            iveSetMouseOnArrow = false;
         }
     }
 
@@ -55,7 +55,9 @@ public class Arrow : MonoBehaviour
 
         if (!mapEditor.menu.activeSelf && mouseTrigger())
         {
-            arrow.SetActive(true);
+            if (arrowType) creatingArrow.SetActive(true);
+            else normalArrow.SetActive(true);
+
             lastInArea = Time.time;
         }
         else if (!mapEditor.menu.activeSelf && mouseInArea())
@@ -64,12 +66,13 @@ public class Arrow : MonoBehaviour
         }
         else if (mapEditor.menu.activeSelf || Time.time - lastInArea > 0.2)
         {
-            arrow.SetActive(false);
+            normalArrow.SetActive(false);
+            creatingArrow.SetActive(false);
         }
     }
 
     public void SetIndication(bool indicateNew)
     {
-        arrow.GetComponent<Image>().sprite = indicateNew ? indicateNewSprite : normalSprite;
+        arrowType = indicateNew;
     }
 }

@@ -35,6 +35,13 @@ public static class SaveLoadMaps
         return progress;
     }
 
+    public static FileInfo[] GetMapList()
+    {
+        string path = Application.dataPath + "/maps"; //Application.persitentDataPath
+        DirectoryInfo dir = new DirectoryInfo(path);
+        return dir.GetFiles("*.map");
+    }
+
     public static void SaveMap(Map map)
     {
         Debug.Log(Application.persistentDataPath);
@@ -63,6 +70,19 @@ public static class SaveLoadMaps
             Debug.LogError("Save file not found in " + path);
             return null;
         }
+    }
+
+    public static void CreateEmptyMap(string name, bool overwrite = false)
+    {
+        string clearPath = Application.dataPath + "/maps/" + "clear" + "map.map";
+        string newPath = Application.dataPath + "/maps/" + name + "map.map";
+        
+        if (File.Exists(newPath) && !overwrite)
+        {
+            Debug.Log("There is already a map with this name, not allowed to overwrite!");
+        }
+
+        File.Copy(clearPath, newPath);
     }
 
     public static void SaveMappack(MapEditor.Mappack mappack)
