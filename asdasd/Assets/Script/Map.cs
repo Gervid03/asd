@@ -81,6 +81,8 @@ public class Map : MonoBehaviour
         }
     };
 
+    
+
     private void Start()
     {
         mapEditor = FindFirstObjectByType<MapEditor>();
@@ -197,8 +199,6 @@ public class Map : MonoBehaviour
 
     public void LoadIntoEditor(string mapToLoad)
     {
-        int holdtool = mapEditor.currentTool;
-
         ResetEditor();
         int i, j;
         mapEditor = FindFirstObjectByType<MapEditor>();
@@ -228,13 +228,9 @@ public class Map : MonoBehaviour
         mapEditor.columns = data.column;
         mapEditor.rows = data.row;
 
-        mapEditor.currentTool = 8;
-        mapEditor.AddTile(data.startx, data.starty);
+        mapEditor.AddTile(data.startx, data.starty, 8);
 
-        mapEditor.currentTool = 9;
-        mapEditor.AddTile(data.endx, data.endy);
-
-        mapEditor.currentTool = 1;
+        mapEditor.AddTile(data.endx, data.endy, 9);
 
         for (i = 0; i < data.colorIndex.Length; i++)
         {
@@ -247,42 +243,37 @@ public class Map : MonoBehaviour
 
                 mapEditor.currentTilemap = data.colorIndex[i][j];
 
-                mapEditor.AddTile(i, j);
+                mapEditor.AddTile(i, j, 1);
             }
         }
 
-        mapEditor.currentTool = 2; //button
-        for (i = 0; i < data.buttons.Length; i++)
+        for (i = 0; i < data.buttons.Length; i++) //button
         {
             mapEditor.currentTilemap = data.buttons[i].color;
-            mapEditor.AddTile(data.buttons[i].x, data.buttons[i].y);
+            mapEditor.AddTile(data.buttons[i].x, data.buttons[i].y, 2);
             mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttons[i].x, data.buttons[i].y, data.buttons[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttons[i].color).color, data.buttons[i].interactiveColor, data.buttons[i].activateAtBeingActive);
         }
-        mapEditor.currentTool = 3; //buttonForCube
-        for (i = 0; i < data.buttonForCubes.Length; i++)
+        for (i = 0; i < data.buttonForCubes.Length; i++) //buttonForCube
         {
             mapEditor.currentTilemap = data.buttonForCubes[i].color;
-            mapEditor.AddTile(data.buttonForCubes[i].x, data.buttonForCubes[i].y);
+            mapEditor.AddTile(data.buttonForCubes[i].x, data.buttonForCubes[i].y, 3);
             mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttonForCubes[i].x, data.buttonForCubes[i].y, data.buttonForCubes[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttonForCubes[i].color).color, data.buttonForCubes[i].interactiveColor);
         }
-        mapEditor.currentTool = 4; //lever
-        for (i = 0; i < data.lever.Length; i++)
+        for (i = 0; i < data.lever.Length; i++) //lever
         {
             mapEditor.currentTilemap = data.lever[i].color;
-            mapEditor.AddTile(data.lever[i].x, data.lever[i].y);
+            mapEditor.AddTile(data.lever[i].x, data.lever[i].y, 4);
             mapEditor.infos[mapEditor.infos.Count - 1].Set(data.lever[i].x, data.lever[i].y, data.lever[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.lever[i].color).color, data.lever[i].interactiveColor);
         }
-        mapEditor.currentTool = 5; //portal
-        for (i = 0; i < data.portals.Length; i++)
+        for (i = 0; i < data.portals.Length; i++) //portal
         {
             //Debug.Log(data.portals[i].x + " asd " + data.portals[i].y + " asd " + data.portals[i].color + ' ' + data.portals[i].interactiveColor);
             mapEditor.currentTilemap = data.portals[i].color;
-            mapEditor.AddTile(data.portals[i].x, data.portals[i].y);
+            mapEditor.AddTile(data.portals[i].x, data.portals[i].y, 5);
             mapEditor.infos[mapEditor.infos.Count - 1].Set(data.portals[i].x, data.portals[i].y, data.portals[i].color, mapEditor.tilemaps.at(data.portals[i].color).color, data.portals[i].interactiveColor);
             mapEditor.infos[mapEditor.infos.Count - 1].SetPortalAtLoading(data.portals[i].interactiveColor);
         }
-        mapEditor.currentTool = 6; //gate
-        for (i = 0; i < data.gate.Length; i++)
+        for (i = 0; i < data.gate.Length; i++) //gate
         {
             for (j = 0; j < data.gate[i].Length; j++)
             {
@@ -293,14 +284,13 @@ public class Map : MonoBehaviour
 
                 mapEditor.currentTilemap = data.gate[i][j];
 
-                mapEditor.AddTile(i, j);
+                mapEditor.AddTile(i, j, 6);
             }
         }
-        mapEditor.currentTool = 7; //buttonForTimerCube
-        for (i = 0; i < data.buttonTimerCubes.Length; i++)
+        for (i = 0; i < data.buttonTimerCubes.Length; i++) //buttonForTimerCube
         {
             mapEditor.currentTilemap = data.buttonTimerCubes[i].color;
-            mapEditor.AddTile(data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y);
+            mapEditor.AddTile(data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, 7);
             mapEditor.infos[mapEditor.infos.Count - 1].Set(data.buttonTimerCubes[i].x, data.buttonTimerCubes[i].y, data.buttonTimerCubes[i].color, FindFirstObjectByType<MapEditor>().tilemaps.at(data.buttonTimerCubes[i].color).color, data.buttonTimerCubes[i].interactiveColor);
             mapEditor.infos[mapEditor.infos.Count - 1].SetTimerAtLoading(data.buttonTimerCubes[i].timer);
         }
@@ -356,25 +346,19 @@ public class Map : MonoBehaviour
             mapEditor.outsideWallTilemap.SetTile(new Vector3Int(30, missing[1][i], 0), clear);
         }
 
-        mapEditor.currentTool = holdtool;
         mapEditor.currentTilemap = 0;
     }
 
     public void ResetEditor()
     {
-        int holdtool = mapEditor.currentTool;
         int i;
         mapEditor = FindFirstObjectByType<MapEditor>();
         colorPalette = FindFirstObjectByType<ColorPalette>();
         dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
 
-        mapEditor.currentTool = 8; //set start and end outside of the map
-        mapEditor.AddTile(-10, -10);
-
-        mapEditor.currentTool = 9;
-        mapEditor.AddTile(-10, -10);
-
-        mapEditor.currentTool = 1;
+        //set start and end outside of the map
+        mapEditor.AddTile(-10, -10, 8);
+        mapEditor.AddTile(-10, -10, 9);
 
         foreach (int t in mapEditor.tilemaps.getIndexes()) //reset every tilemap
             for (i = 0; i < 32; i++)
@@ -386,7 +370,7 @@ public class Map : MonoBehaviour
             Destroy(mapEditor.inversePairs[i]); //reset inversePairs
         }
 
-        //restore outside wall
+        //restore entire outside wall
         for (i = 0; i < 31; i++) //up
         {
             mapEditor.outsideWallTilemap.SetTile(new Vector3Int(i, 16, 0), mapEditor.basicTile);
@@ -403,8 +387,6 @@ public class Map : MonoBehaviour
         {
             mapEditor.outsideWallTilemap.SetTile(new Vector3Int(30, i), mapEditor.basicTile);
         }
-
-        mapEditor.currentTool = holdtool;
     }
 
     public void KillAllTheChildren(Transform p)

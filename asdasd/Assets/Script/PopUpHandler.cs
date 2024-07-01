@@ -7,83 +7,46 @@ using System.IO;
 
 public class PopUpHandler : MonoBehaviour
 {
-    public GameObject darkOverlay;
-    public bool popUpActive;
-
-    #region NewMapByArrow
-    public GameObject newMapByArrow;
-    private string newMapName;
-    private int newMapX, newMapY;
-
-    public void NewMapByArrowUp(int x, int y)
+    public bool popupActive;
+    private GameObject darkOverlay;
+    private PopUp[] popUps;
+    private int _activePopUps;
+    public int activePopUps
     {
-        newMapX = x;
-        newMapY = y;
-
-        newMapByArrow.SetActive(true);
-        DarkenUp();
-        
-        TMP_Text text = newMapByArrow.GetComponentInChildren<TMP_Text>();
-
-        text.text = "Add map on (" + x + "; " + y + ")";
-    }
-
-    public void SetNewMapName(string text)
-    {
-        newMapName = text;
-        SetButtonActive(text);
-    }
-
-    private void SetButtonActive(string mapName)
-    {
-        Button button = newMapByArrow.GetComponentInChildren<Button>();
- 
-        if (mapName == null || mapName == "")
+        get
         {
-            button.interactable = false;
+            return _activePopUps;
         }
-        else
+        set
         {
-            button.interactable = true;
-            
-            button.GetComponentInChildren<TMP_Text>().text = "Create";
-            foreach (FileInfo f in SaveLoadMaps.GetMapList())
-            {
-                if (f.Name.Substring(0, f.Name.Length - 7) == mapName)
-                {
-                    button.GetComponentInChildren<TMP_Text>().text = "Add";
-                    break;
-                }
-            }
+            if (value < 0) return;
+            popupActive = value != 0; //store wheter atleast a single popup is active or not
+            _activePopUps = value;
         }
     }
 
-    public void ButtonPress()
+    void Start()
     {
-        MapEditor me = FindFirstObjectByType<MapEditor>();
-        if (me == null)
+        darkOverlay = transform.Find("DarkLayer").gameObject; //find returns the this.transform's child's transform with a specific name
+        popUps = new PopUp[]
         {
-            Debug.Log("MapEditor is null");
-            return;
-        }
-        SaveLoadMaps.CreateEmptyMap(newMapName);
-        me.mappack.NewMap(new MapEditor.Level(newMapName, newMapX, newMapY), true);
-        me.GoToMap(newMapX, newMapY);
-
-        EveryDown();
+            new PopUp.AddNewMap()
+        };
     }
-    #endregion
 
     public void DarkenUp()
     {
-        popUpActive = true;
+        popupActive = true;
         darkOverlay.SetActive(true);
     }
 
-    public void EveryDown()
+    public void Down() //Disables all popups
     {
-        popUpActive = false;
         darkOverlay.SetActive(false);
-        newMapByArrow.SetActive(false);
+
+        for (int i = 0; i < popUps.Length; i++)
+        {
+            popUps[i].Down();
+        }
     }
 }

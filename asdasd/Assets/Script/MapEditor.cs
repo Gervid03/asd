@@ -328,15 +328,18 @@ public class MapEditor : MonoBehaviour
         else mappackSaveName = null;
     }
 
-    public void CreateLeftMap() => FindFirstObjectByType<PopUpHandler>().NewMapByArrowUp(mapX - 1, mapY);
-    public void CreateRightMap() => FindFirstObjectByType<PopUpHandler>().NewMapByArrowUp(mapX + 1, mapY);
-    public void CreateUpMap() => FindFirstObjectByType<PopUpHandler>().NewMapByArrowUp(mapX, mapY + 1);
-    public void CreateDownMap() => FindFirstObjectByType<PopUpHandler>().NewMapByArrowUp(mapX, mapY - 1);
+    //called by creating arrows
+    public void CreateLeftMap() => FindFirstObjectByType<PopUp.AddNewMap>().Set(mapX - 1, mapY, true);
+    public void CreateRightMap() => FindFirstObjectByType<PopUp.AddNewMap>().Set(mapX + 1, mapY, true);
+    public void CreateUpMap() => FindFirstObjectByType<PopUp.AddNewMap>().Set(mapX, mapY + 1, true);
+    public void CreateDownMap() => FindFirstObjectByType<PopUp.AddNewMap>().Set(mapX, mapY - 1, true);
 
+    //called by normal arrows
     public void GoToLeftMap() => GoToMap(mapX - 1, mapY);
     public void GoToRightMap() => GoToMap(mapX + 1, mapY);
     public void GoToDownMap() => GoToMap(mapX, mapY - 1);
     public void GoToUpMap() => GoToMap(mapX, mapY + 1);
+
     public void GoToMapByButton() => GoToMap(mapX, mapY);
     public void GoToMap(int x, int y)
     {
@@ -590,7 +593,7 @@ public class MapEditor : MonoBehaviour
 
     public void HandleClick()
     {
-        if (!Input.GetMouseButton(0) || MouseOnFloater() || menu.activeSelf || mouseOnArrow || popUpHandler.popUpActive) return; //haven't clicked or click is not for editing
+        if (!Input.GetMouseButton(0) || MouseOnFloater() || menu.activeSelf || mouseOnArrow || popUpHandler.popupActive) return; //haven't clicked or click is not for editing
 
         if (Input.mousePosition.x > xBottomLeft && Input.mousePosition.x < xTopRight && Input.mousePosition.y > yBottomLeft && Input.mousePosition.y < yTopRight)
         {//clicked inside editor
@@ -636,18 +639,20 @@ public class MapEditor : MonoBehaviour
         }
     }
 
-    public void AddTile(int x, int y)
+    public void AddTile(int x, int y, int tool = -1)
     {
-        if(currentTool > tools.Count) currentTool = 1;
+        if(currentTool > tools.Count) currentTool = 1; //if selected tool is invalid set it to 1
+        if (tool == -1) tool = currentTool; //if no tool specified, use the selected one
+
         RemoveAllTileAtThisPositon(x, y);
         if (tilemaps.at(currentTilemap) != null)
         {
-            if (currentTool == 1 && currentTilemap == 0) tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[0].tile);
-            else tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[currentTool].tile); 
+            if (tool == 1 && currentTilemap == 0) tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[0].tile);
+            else tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[tool].tile); 
         }
 
         else Debug.Log(currentTilemap + " doesnt exist");
-        if(currentTool != 0 && currentTool != 1 && currentTool != 6 && currentTool != 8 && currentTool != 9)
+        if(tool != 0 && tool != 1 && tool != 6 && tool != 8 && tool != 9)
         {
             InteractiveAdded(x, y);
         }
@@ -663,7 +668,7 @@ public class MapEditor : MonoBehaviour
     public void InteractiveAdded(int x, int y)
     {
         //open menu, add settings
-        OpenMenu();
+        //OpenMenu(); //TODO smaller popups? Handle that this is called by loadintoeditor and that shouldnt open the menu
         if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[2].tile) AddButton(x, y);
         else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[3].tile) AddButtonForCube(x, y);
         else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[4].tile) AddLever(x, y);
