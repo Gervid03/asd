@@ -295,4 +295,16 @@ public class ColorPalette : MonoBehaviour
     {
         return (a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a);
     }
+
+    public ColorDisplayButton FindButton(Color32 color)
+    {
+        foreach (Transform child in colorPaletteParent)
+        {
+            if (SameColor(child.GetComponent<ColorDisplayButton>().color, color))
+            {
+                return child.GetComponent<ColorDisplayButton>();
+            }
+        }
+        return null;
+    }
 }

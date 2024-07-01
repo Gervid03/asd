@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HistoryManager : MonoBehaviour
 {
@@ -9,6 +10,18 @@ public class HistoryManager : MonoBehaviour
     void Start()
     {
         stacks = new Stacks();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown("z") && Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            stacks.PopUndo();
+        }
+        if (Input.GetKeyDown("y") && Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            stacks.PopRedo();
+        }
     }
 
     public class Stacks
@@ -130,14 +143,7 @@ public class HistoryManager : MonoBehaviour
 
         public override void Undo()
         {
-            foreach (Transform child in colorPalette.colorPaletteParent)
-            {
-                if (colorPalette.SameColor(child.GetComponent<ColorDisplayButton>().color, color))
-                {
-                    colorPalette.selectedButton = child.GetComponent<ColorDisplayButton>();
-                    break;
-                }
-            }
+            colorPalette.FindButton(color);
             colorPalette.DeleteSelectedColor(); //null and 0 are handled in there
         }
     }
@@ -159,14 +165,7 @@ public class HistoryManager : MonoBehaviour
 
         public override void Redo()
         {
-            foreach (Transform child in colorPalette.colorPaletteParent)
-            {
-                if (colorPalette.SameColor(child.GetComponent<ColorDisplayButton>().color, color))
-                {
-                    colorPalette.selectedButton = child.GetComponent<ColorDisplayButton>();
-                    break;
-                }
-            }
+            colorPalette.FindButton(color);
             colorPalette.DeleteSelectedColor(); //null and 0 are handled in there
         }
 
@@ -197,14 +196,7 @@ public class HistoryManager : MonoBehaviour
 
         public override void Redo()
         {
-            foreach (Transform child in colorPalette.colorPaletteParent)
-            {
-                if (colorPalette.SameColor(child.GetComponent<ColorDisplayButton>().color, before))
-                {
-                    colorPalette.selectedButton = child.GetComponent<ColorDisplayButton>();
-                    break;
-                }
-            }
+            colorPalette.selectedButton = colorPalette.FindButton(before);
             colorPalette.ModifySelectedColor();
             colorTweaker.color = after; //TODO tidy these up
             colorPalette.OverwriteSelectedColor();
@@ -212,14 +204,7 @@ public class HistoryManager : MonoBehaviour
 
         public override void Undo()
         {
-            foreach (Transform child in colorPalette.colorPaletteParent)
-            {
-                if (colorPalette.SameColor(child.GetComponent<ColorDisplayButton>().color, after))
-                {
-                    colorPalette.selectedButton = child.GetComponent<ColorDisplayButton>();
-                    break;
-                }
-            }
+            colorPalette.selectedButton = colorPalette.FindButton(after);
             colorPalette.ModifySelectedColor();
             colorTweaker.color = before;
             colorPalette.OverwriteSelectedColor();
@@ -228,9 +213,31 @@ public class HistoryManager : MonoBehaviour
 
     public class AddInversePair : Change
     {
-        Color32 left;
-        Color32 right;
-        public AddInversePair(byte rleft, byte gleft, byte bleft, byte rright, byte gright, byte bright)
+        GameObject inversePair;
+
+        public AddInversePair(GameObject IP)
+        {
+            inversePair = IP;
+        }
+
+        public override void Redo()
+        {
+            mapEditor.CreateInversePair();
+            inversePair = mapEditor.inversePairs[^1]; //TODO nem vagyok ebben biztos
+        }
+
+        public override void Undo()
+        {
+            inversePair.GetComponent<Suicide>().CommitSucide();
+        }
+    }
+
+    public class RemoveInversePair : Change
+    {
+        GameObject inversePair;
+        Color32 left, right;
+
+        public RemoveInversePair(byte rleft, byte gleft, byte bleft, byte rright, byte gright, byte bright)
         {
             left.r = rleft;
             left.g = gleft;
@@ -239,7 +246,7 @@ public class HistoryManager : MonoBehaviour
             right.g = gright;
             right.b = bright;
         }
-        public AddInversePair(Color32 left, Color32 right)
+        public RemoveInversePair(Color32 left, Color32 right)
         {
             this.left = left;
             this.right = right;
@@ -247,44 +254,117 @@ public class HistoryManager : MonoBehaviour
 
         public override void Redo()
         {
-            
+            inversePair.GetComponent<Suicide>().CommitSucide();
         }
 
         public override void Undo()
         {
-            
+            mapEditor.CreateInversePair();
+            inversePair = mapEditor.inversePairs[^1]; //nem vagyok ebben biztos
+
+            colorPalette.selectedButton = colorPalette.FindButton(left);
+            inversePair.GetComponent<Suicide>().b1.Clicked();
+            colorPalette.selectedButton = colorPalette.FindButton(right);
+            inversePair.GetComponent<Suicide>().b2.Clicked();
+
+            colorPalette.selectedButton = colorPalette.colors[0];
         }
     }
 
-    public class IPRemove(int r, int g, int b, int r2, int g2, int b2)
+    public class IPMod : Change
     {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-        this.r2 = r2;
-        this.g2 = g2;
-        this.b2 = b2;
-        type = 8;
+        Color32 leftBefore, rightBefore;
+        Color32 leftAfter, rightAfter;
+        public IPMod(byte rleftbefore, byte gleftbefore, byte bleftbefore, byte rrightbefore, byte grightbefore, byte brightbefore,
+                     byte rleftafter, byte gleftafter, byte bleftafter, byte rrightafter, byte grightafter, byte brightafter)
+        {
+            leftBefore.r = rleftbefore;
+            leftBefore.g = gleftbefore;
+            leftBefore.b = bleftbefore;
+            rightBefore.r = rrightbefore;
+            rightBefore.g = grightbefore;
+            rightBefore.b = brightbefore;
+            leftAfter.r = rleftafter;
+            leftAfter.g = gleftafter;
+            leftAfter.b = bleftafter;
+            rightAfter.r = rrightafter;
+            rightAfter.g = grightafter;
+            rightAfter.b = brightafter;
+        }
+        public IPMod(Color32 leftbefore, Color32 rightbefore, Color32 leftafter, Color32 rightafter)
+        {
+            this.leftBefore = leftbefore;
+            this.rightBefore = rightbefore;
+            this.leftAfter = leftafter;
+            this.rightAfter = rightafter;
+        }
+
+        public override void Redo()
+        {
+            foreach (GameObject IP in mapEditor.inversePairs)
+            {
+                if (IP.GetComponent<Suicide>().b1.GetComponent<Image>().color == leftBefore)
+                {
+                    colorPalette.selectedButton = colorPalette.FindButton(leftAfter);
+                    IP.GetComponent<Suicide>().b1.Clicked();
+                    colorPalette.selectedButton = colorPalette.FindButton(rightAfter);
+                    IP.GetComponent<Suicide>().b2.Clicked();
+
+                    colorPalette.selectedButton = colorPalette.colors[0]; //reset to white
+                    return;
+                }
+            }
+
+            Debug.Log("Couldn't find the inversePair");
+        }
+
+        public override void Undo()
+        {
+            foreach (GameObject IP in mapEditor.inversePairs)
+            {
+                if (IP.GetComponent<Suicide>().b1.GetComponent<Image>().color == leftAfter)
+                {
+                    colorPalette.selectedButton = colorPalette.FindButton(leftBefore);
+                    IP.GetComponent<Suicide>().b1.Clicked();
+                    colorPalette.selectedButton = colorPalette.FindButton(rightBefore);
+                    IP.GetComponent<Suicide>().b2.Clicked();
+
+                    colorPalette.selectedButton = colorPalette.colors[0]; //reset to white
+                    return;
+                }
+            }
+
+            Debug.Log("Couldn't find the inversePair");
+        }
+
     }
 
-    public class IPMod(int r, int g, int b, int r2, int g2, int b2, int index)
+    public class DefaultStateMod : Change
     {
-        this.r = r; //from color
-        this.g = g;
-        this.b = b;
-        this.r2 = r2; //to color
-        this.g2 = g2;
-        this.b2 = b2;
-        this.index = index; //first or second in the pair
-        type = 9;
-    }
+        Color32 color;
+        bool turnedOn;
 
-    public class DefaultStateMod(int r, int g, int b, bool on)
-    {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-        this.on = on;
-        type = 10;
+        public DefaultStateMod(byte r, byte g, byte b, bool turnedOn)
+        {
+            color.r = r;
+            color.g = g;
+            color.b = b;
+            this.turnedOn = turnedOn;
+        }
+        public DefaultStateMod(Color32 color, bool turnedOn)
+        {
+            this.color = color;
+            this.turnedOn = turnedOn;
+        }
+
+        public override void Redo()
+        {
+            colorPalette.FindButton(color).toggle.GetComponent<Toggle>().isOn = turnedOn;
+        }
+
+        public override void Undo()
+        {
+            colorPalette.FindButton(color).toggle.GetComponent<Toggle>().isOn = !turnedOn;
+        }
     }
 }

@@ -5,14 +5,14 @@ using TMPro;
 using UnityEngine.UI;
 using System.IO;
 
-public class PopUp : MonoBehaviour
+public class PopUp
 {
-    protected readonly PopUpHandler handler;
-    protected readonly GameObject window;
+    protected PopUpHandler handler;
+    protected GameObject window;
 
     public PopUp()
     {
-        handler = FindFirstObjectByType<PopUpHandler>();
+        handler = MonoBehaviour.FindFirstObjectByType<PopUpHandler>();
         if (handler == null)
         {
             Debug.Log("handler is null");
@@ -45,12 +45,13 @@ public class PopUp : MonoBehaviour
 
         public AddNewMap() //automatically calls base constructor before runs (since it's parameterless)
         {
-            mapEditor = FindFirstObjectByType<MapEditor>();
+            mapEditor = MonoBehaviour.FindFirstObjectByType<MapEditor>();
             if (mapEditor == null)
             {
                 Debug.Log("MapEditor is null");
                 return;
             }
+            mapEditor.newMapPopUp = this; //let mapEditor know, since this isn't MonoBehaviour
         }
 
         public void Set(int x, int y, bool up)

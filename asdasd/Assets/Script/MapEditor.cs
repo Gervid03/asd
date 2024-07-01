@@ -56,6 +56,7 @@ public class MapEditor : MonoBehaviour
     public Tilemap outsideWallTilemap;
     public bool mouseOnArrow; //stop handleclick()
     public PopUpHandler popUpHandler;
+    public PopUp.AddNewMap newMapPopUp;
 
     [System.Serializable]
     public struct tool
@@ -329,10 +330,10 @@ public class MapEditor : MonoBehaviour
     }
 
     //called by creating arrows
-    public void CreateLeftMap() => FindFirstObjectByType<PopUp.AddNewMap>().Set(mapX - 1, mapY, true);
-    public void CreateRightMap() => FindFirstObjectByType<PopUp.AddNewMap>().Set(mapX + 1, mapY, true);
-    public void CreateUpMap() => FindFirstObjectByType<PopUp.AddNewMap>().Set(mapX, mapY + 1, true);
-    public void CreateDownMap() => FindFirstObjectByType<PopUp.AddNewMap>().Set(mapX, mapY - 1, true);
+    public void CreateLeftMap() => newMapPopUp.Set(mapX - 1, mapY, true);
+    public void CreateRightMap() => newMapPopUp.Set(mapX + 1, mapY, true);
+    public void CreateUpMap() => newMapPopUp.Set(mapX, mapY + 1, true);
+    public void CreateDownMap() => newMapPopUp.Set(mapX, mapY - 1, true);
 
     //called by normal arrows
     public void GoToLeftMap() => GoToMap(mapX - 1, mapY);
