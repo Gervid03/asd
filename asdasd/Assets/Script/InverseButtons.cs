@@ -30,6 +30,17 @@ public class InverseButton : MonoBehaviour
     {
         if (recipient == index) //if the message is for me
         {
+            //register Inverse Pair modification
+            if (GetComponent<InversePair>().b1.index == index) //check which side is which
+            {
+                FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModInversePair(
+                    GetComponent<Image>().color, FindFirstObjectByType<ColorTweaker>().color, other.GetComponent<Image>().color, other.GetComponent<Image>().color));
+            }
+            else
+            {
+                FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModInversePair(
+                    other.GetComponent<Image>().color, other.GetComponent<Image>().color, GetComponent<Image>().color, FindFirstObjectByType<ColorTweaker>().color));
+            }
             this.GetComponent<Image>().color = FindFirstObjectByType<ColorTweaker>().color;
         }
     }
@@ -38,7 +49,7 @@ public class InverseButton : MonoBehaviour
     {
         if (recipient == index) //if the message is for me
         {
-            GetComponentInParent<Suicide>().CommitSucide();
+            GetComponentInParent<InversePair>().CommitSucide();
         }
     }
 

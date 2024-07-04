@@ -2,25 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 public class HistoryManager : MonoBehaviour
 {
     public Stacks stacks;
+    private bool heldDown;
 
-    void Start()
+    void Awake()
     {
         stacks = new Stacks();
     }
 
-    private void Update()
+    void Update()
     {
-        if (Input.GetKeyDown("z") && Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown("y") && !heldDown) //switched z and y!
         {
+            heldDown = true;
             stacks.PopUndo();
         }
-        if (Input.GetKeyDown("y") && Input.GetKeyDown(KeyCode.LeftControl))
+        else if (Input.GetKeyDown("z") && !heldDown)
         {
+            heldDown = true;
             stacks.PopRedo();
+        }
+        else
+        {
+            heldDown = false;
         }
     }
 
@@ -41,7 +49,7 @@ public class HistoryManager : MonoBehaviour
             s = s.GetRange(s.Count / 2, s.Count - (s.Count / 2));
         }
 
-        public void PushUndo(Change change, bool keepRedo = false)
+        public void Push(Change change, bool keepRedo = false)
         {
             if (undo.Count - 2 >= maxSize) //-2 for safety (:
             {
@@ -50,7 +58,7 @@ public class HistoryManager : MonoBehaviour
 
             if (!keepRedo)
             {
-                redo.Clear(); 
+                redo.Clear();
             }
 
             undo.Add(change);
@@ -78,7 +86,7 @@ public class HistoryManager : MonoBehaviour
             }
 
             redo[^1].Redo();
-            PushUndo(redo[^1], true);
+            Push(redo[^1], true);
             redo.RemoveAt(redo.Count - 1);
         }
 
@@ -92,73 +100,217 @@ public class HistoryManager : MonoBehaviour
             redo.Add(change);
         }
     }
+}
 
-    public abstract class Change
+public class BlockData
+{
+    public int x, y;
+    public int colorIndex, interactColorIndex;
+    public int type;
+    public bool activate;
+    public int timer, portalIndex;
+    public TileBase tile;
+    ColorPalette colorPalette;
+
+    public BlockData(SettingForInteract setting)
     {
-        protected MapEditor mapEditor;
-        protected ColorPalette colorPalette;
-        protected Map map;
-        protected Stacks stacks;
-        protected ColorTweaker colorTweaker;
+        colorPalette = MonoBehaviour.FindFirstObjectByType<ColorPalette>();
 
-        protected Change()
+        x = setting.x;
+        y = setting.y;
+        colorIndex = setting.index;
+        interactColorIndex = setting.indexColorInteract;
+        timer = setting.timer;
+        portalIndex = setting.portalIndex;
+        tile = null;
+
+        if (setting.isButton) type = 2;
+        else if (setting.isButtonsForCube) type = 3;
+        else if (setting.isLever) type = 4;
+        else if (setting.isPortal) type = 5;
+        else if (setting.isButtonTimerCube) type = 7;
+    }
+    public BlockData(int x, int y, int colorIndex, TileBase tile)
+    {
+        this.x = x;
+        this.y = y;
+        this.colorIndex = colorIndex;
+        this.tile = tile;
+
+        MapEditor me = MonoBehaviour.FindFirstObjectByType<MapEditor>();
+        if (tile == me.clear)
         {
-            mapEditor = FindFirstObjectByType<MapEditor>();
-            colorPalette = FindFirstObjectByType<ColorPalette>();
-            map = FindFirstObjectByType<Map>();
-            stacks = FindFirstObjectByType<HistoryManager>().stacks;
-            colorTweaker = FindFirstObjectByType<ColorTweaker>();
+            type = -1;
+        }
+        else if (tile == me.tools[0].tile || tile == me.tools[1].tile)
+        {
+            type = 1;
+        }
+        else if (tile == me.tools[6].tile)
+        {//gate
+            type = 6;
+        }
+        else if (tile == me.tools[8].tile)
+        {
+            type = 8;
+        }
+        else if (tile == me.tools[9].tile)
+        {
+            type = 9;
+        }
+        else Debug.Log("Tile problems");
+    }
 
-            if (mapEditor == null || colorPalette == null || map == null || stacks == null || colorTweaker == null)
+    public SettingForInteract ToSetting()
+    {
+        SettingForInteract setting = new SettingForInteract();
+        setting.activate = activate;
+        setting.index = colorIndex;
+        setting.indexColorInteract = interactColorIndex;
+        setting.color.color = colorPalette.colors[colorIndex].color;
+        setting.colorInteract.color = colorPalette.colors[interactColorIndex].color;
+        setting.isButton = type == 2;
+        setting.isButtonsForCube = type == 3;
+        setting.isLever = type == 4;
+        setting.isPortal = type == 5;
+        setting.isButtonTimerCube = type == 7;
+        setting.timer = timer;
+        setting.portalIndex = portalIndex;
+        setting.x = x;
+        setting.y = y;
+        setting.coordinates.text = "(" + x + ", " + y + ")";
+        setting.Set(x, y, colorIndex, colorPalette.colors[colorIndex].color, interactColorIndex, activate);
+        //maybe there's no need for all this, but safety first!
+        
+        return setting;
+    }
+}
+
+
+public abstract class Change
+{
+    protected MapEditor mapEditor;
+    protected ColorPalette colorPalette;
+    protected Map map;
+    protected ColorTweaker colorTweaker;
+
+    protected Change()
+    {
+        mapEditor = MonoBehaviour.FindFirstObjectByType<MapEditor>();
+        colorPalette = MonoBehaviour.FindFirstObjectByType<ColorPalette>();
+        map = MonoBehaviour.FindFirstObjectByType<Map>();
+        colorTweaker = MonoBehaviour.FindFirstObjectByType<ColorTweaker>(FindObjectsInactive.Include);
+
+        if (mapEditor == null || colorPalette == null || map == null || colorTweaker == null)
+        {
+            Debug.Log("smh is null!");
+        }
+    }
+
+    public abstract void Undo();
+
+    public abstract void Redo();
+    
+
+
+    public class AddTile : Change
+    {
+        BlockData before, after;
+
+        public AddTile(BlockData before, BlockData after)
+        {
+            this.before = before;
+            this.after = after;
+        }
+
+        public override void Redo()
+        {
+            mapEditor.Use(after.x, after.y, after.type);
+            if (after.type == 2 || after.type == 3 || after.type == 4 || after.type == 5 || after.type == 7) //interactive
             {
-                Debug.Log("smh is null!");
+                mapEditor.infos[^1] = after.ToSetting();
             }
         }
 
-        public abstract void Undo();
+        public override void Undo()
+        {
+            if (before.type == -1)
+            {
+                mapEditor.RemoveAllTileAtThisPositon(before.x, before.y);
+                return;
+            }
 
-        public abstract void Redo();
+            mapEditor.Use(before.x, before.y, before.type);
+            if (before.type == 2 || before.type == 3 || before.type == 4 || before.type == 5 || before.type == 7) //interactive
+            {
+                mapEditor.infos[^1] = before.ToSetting();
+            }
+        }
     }
 
+    public class RemoveTile : Change
+    {
+        BlockData block;
 
-    public class ColorAdd : Change
+        public RemoveTile(BlockData block)
+        {
+            this.block = block;
+        }
+
+        public override void Redo()
+        {
+            mapEditor.RemoveAllTileAtThisPositon(block.x, block.y);
+        }
+
+        public override void Undo()
+        {
+            mapEditor.Use(block.x, block.y, block.type);
+            if (block.type == 2 || block.type == 3 || block.type == 4 || block.type == 5 || block.type == 7) //interactive
+            {
+                mapEditor.infos[^1] = block.ToSetting();
+            }
+        }
+    }
+
+    public class AddColor : Change
     {
         private Color32 color;
 
-        public ColorAdd(byte r, byte g, byte b)
+        public AddColor(byte r, byte g, byte b)
         {
             color.r = r;
             color.g = g;
             color.b = b;
         }
-        public ColorAdd(Color32 color)
+        public AddColor(Color32 color)
         {
             this.color = color;
         }
 
         public override void Redo()
         {
-            colorPalette.CreateColor(color);
+            colorPalette.CreateColor(color, -1, true);
         }
 
         public override void Undo()
         {
-            colorPalette.FindButton(color);
+            colorPalette.selectedButton = colorPalette.FindButton(color);
             colorPalette.DeleteSelectedColor(); //null and 0 are handled in there
         }
     }
+
     //TODO removing a color removes the tilemap too!
-    public class ColorRemove : Change
+    public class RemoveColor : Change
     {
         private Color32 color;
 
-        public ColorRemove(byte r, byte g, byte b)
+        public RemoveColor(byte r, byte g, byte b)
         {
             color.r = r;
             color.g = g;
             color.b = b;
         }
-        public ColorRemove(Color32 color)
+        public RemoveColor(Color32 color)
         {
             this.color = color;
         }
@@ -171,15 +323,15 @@ public class HistoryManager : MonoBehaviour
 
         public override void Undo()
         {
-            colorPalette.CreateColor(color);
+            colorPalette.CreateColor(color, -1, true);
         }
     }
 
-    public class ColorMod : Change
+    public class ModColor : Change
     {
         Color32 before;
         Color32 after;
-        public ColorMod(byte rbefore, byte gbefore, byte bbefore, byte rafter, byte gafter, byte bafter)
+        public ModColor(byte rbefore, byte gbefore, byte bbefore, byte rafter, byte gafter, byte bafter)
         {   
             before.r = rbefore;
             before.g = gbefore;
@@ -188,7 +340,7 @@ public class HistoryManager : MonoBehaviour
             after.g = gafter;
             after.b = bafter;
         }
-        public ColorMod(Color32 before, Color32 after)
+        public ModColor(Color32 before, Color32 after)
         {
             this.before = before;
             this.after = after;
@@ -228,7 +380,7 @@ public class HistoryManager : MonoBehaviour
 
         public override void Undo()
         {
-            inversePair.GetComponent<Suicide>().CommitSucide();
+            inversePair.GetComponent<InversePair>().CommitSucide();
         }
     }
 
@@ -254,7 +406,7 @@ public class HistoryManager : MonoBehaviour
 
         public override void Redo()
         {
-            inversePair.GetComponent<Suicide>().CommitSucide();
+            inversePair.GetComponent<InversePair>().CommitSucide();
         }
 
         public override void Undo()
@@ -263,19 +415,26 @@ public class HistoryManager : MonoBehaviour
             inversePair = mapEditor.inversePairs[^1]; //nem vagyok ebben biztos
 
             colorPalette.selectedButton = colorPalette.FindButton(left);
-            inversePair.GetComponent<Suicide>().b1.Clicked();
+            inversePair.GetComponent<InversePair>().b1.Clicked();
             colorPalette.selectedButton = colorPalette.FindButton(right);
-            inversePair.GetComponent<Suicide>().b2.Clicked();
+            inversePair.GetComponent<InversePair>().b2.Clicked();
 
             colorPalette.selectedButton = colorPalette.colors[0];
         }
     }
 
-    public class IPMod : Change
+    public class ModInversePair : Change
     {
         Color32 leftBefore, rightBefore;
         Color32 leftAfter, rightAfter;
-        public IPMod(byte rleftbefore, byte gleftbefore, byte bleftbefore, byte rrightbefore, byte grightbefore, byte brightbefore,
+        public ModInversePair(Color32 leftbefore, Color32 rightbefore, Color32 leftafter, Color32 rightafter)
+        {
+            this.leftBefore = leftbefore;
+            this.rightBefore = rightbefore;
+            this.leftAfter = leftafter;
+            this.rightAfter = rightafter;
+        }
+        public ModInversePair(byte rleftbefore, byte gleftbefore, byte bleftbefore, byte rrightbefore, byte grightbefore, byte brightbefore,
                      byte rleftafter, byte gleftafter, byte bleftafter, byte rrightafter, byte grightafter, byte brightafter)
         {
             leftBefore.r = rleftbefore;
@@ -291,24 +450,17 @@ public class HistoryManager : MonoBehaviour
             rightAfter.g = grightafter;
             rightAfter.b = brightafter;
         }
-        public IPMod(Color32 leftbefore, Color32 rightbefore, Color32 leftafter, Color32 rightafter)
-        {
-            this.leftBefore = leftbefore;
-            this.rightBefore = rightbefore;
-            this.leftAfter = leftafter;
-            this.rightAfter = rightafter;
-        }
 
         public override void Redo()
         {
             foreach (GameObject IP in mapEditor.inversePairs)
             {
-                if (IP.GetComponent<Suicide>().b1.GetComponent<Image>().color == leftBefore)
+                if (IP.GetComponent<InversePair>().b1.GetComponent<Image>().color == leftBefore)
                 {
                     colorPalette.selectedButton = colorPalette.FindButton(leftAfter);
-                    IP.GetComponent<Suicide>().b1.Clicked();
+                    IP.GetComponent<InversePair>().b1.Clicked();
                     colorPalette.selectedButton = colorPalette.FindButton(rightAfter);
-                    IP.GetComponent<Suicide>().b2.Clicked();
+                    IP.GetComponent<InversePair>().b2.Clicked();
 
                     colorPalette.selectedButton = colorPalette.colors[0]; //reset to white
                     return;
@@ -322,12 +474,12 @@ public class HistoryManager : MonoBehaviour
         {
             foreach (GameObject IP in mapEditor.inversePairs)
             {
-                if (IP.GetComponent<Suicide>().b1.GetComponent<Image>().color == leftAfter)
+                if (IP.GetComponent<InversePair>().b1.GetComponent<Image>().color == leftAfter)
                 {
                     colorPalette.selectedButton = colorPalette.FindButton(leftBefore);
-                    IP.GetComponent<Suicide>().b1.Clicked();
+                    IP.GetComponent<InversePair>().b1.Clicked();
                     colorPalette.selectedButton = colorPalette.FindButton(rightBefore);
-                    IP.GetComponent<Suicide>().b2.Clicked();
+                    IP.GetComponent<InversePair>().b2.Clicked();
 
                     colorPalette.selectedButton = colorPalette.colors[0]; //reset to white
                     return;

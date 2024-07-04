@@ -31,6 +31,7 @@ public class ColorPalette : MonoBehaviour
     public static event Action<int> deleteColor;
     public Sprite wall;
     public Sprite glowWall;
+    HistoryManager history;
 
     void Awake()
     {
@@ -38,7 +39,8 @@ public class ColorPalette : MonoBehaviour
         mapEditor.tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
         colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
         colorTweaker = FindFirstObjectByType<ColorTweaker>(FindObjectsInactive.Include);
-        CreateColor(new Color32(255, 255, 255, 255));
+        history = FindFirstObjectByType<HistoryManager>();
+        CreateColor(new Color32(255, 255, 255, 255), -1, true);
         ReadInColors();
     }
 
@@ -69,7 +71,7 @@ public class ColorPalette : MonoBehaviour
         return i != colors.Count;
     }
 
-    public void CreateColor(Color32 szin, int index = -1)
+    public void CreateColor(Color32 szin, int index = -1, bool noHistory = false)
     {
         GameObject c = Instantiate(colorDisplay, colorPaletteParent, false);
 
@@ -84,6 +86,8 @@ public class ColorPalette : MonoBehaviour
         int a = mapEditor.AddColor(szin, index);
         c.GetComponent<ColorDisplayButton>().index = a;
         colors.Add(c.GetComponent<ColorDisplayButton>());
+
+        if (!noHistory) history.stacks.Push(new Change.AddColor(szin)); //register new color
 
         if (szin == Color.white)
         {
@@ -109,7 +113,7 @@ public class ColorPalette : MonoBehaviour
         {
             string[] stringRGB = colorPaletteLines[i].Trim().Split(' ');
             if (stringRGB[0] == "255" && stringRGB[1] == "255" && stringRGB[2] == "255") continue; //fehér már van
-            CreateColor(new Color32(byte.Parse(stringRGB[0]), byte.Parse(stringRGB[1]), byte.Parse(stringRGB[2]), 255));
+            CreateColor(new Color32(byte.Parse(stringRGB[0]), byte.Parse(stringRGB[1]), byte.Parse(stringRGB[2]), 255), -1, true);
         }
     }
 
@@ -180,6 +184,8 @@ public class ColorPalette : MonoBehaviour
             return;
         }
 
+        history.stacks.Push(new Change.ModColor(selectedButton.color, colorTweaker.color)); //register color modification
+
         ColorPalette.modifyColor?.Invoke(colorUnderModification.index, colorTweaker.color);
 
         mapEditor.ModifyColor(colorUnderModification.index, colorTweaker.color);
@@ -205,6 +211,7 @@ public class ColorPalette : MonoBehaviour
         if (SelectWarning()) return;
         if (SameColor(selectedButton.color, new Color32(255, 255, 255, 255))) return; //fehéret nem bántjuk!
 
+        history.stacks.Push(new Change.RemoveColor(selectedButton.color)); //register color deletion
 
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);

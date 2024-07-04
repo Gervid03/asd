@@ -204,6 +204,8 @@ public class Map : MonoBehaviour
         mapEditor = FindFirstObjectByType<MapEditor>();
         colorPalette = FindFirstObjectByType<ColorPalette>();
         dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
+        
+        FindFirstObjectByType<HistoryManager>().stacks = new HistoryManager.Stacks(); //clear history
 
         if (mapToLoad == "")
         {
@@ -222,7 +224,7 @@ public class Map : MonoBehaviour
         for (i = 0; i < data.colors.Length; i++)
         {
             if (data.colors[i].r == 255 && data.colors[i].g == 255 && data.colors[i].b == 255) continue; //feheret nem bantjuk!
-            colorPalette.CreateColor(data.colors[i].c(), data.colors[i].index);
+            colorPalette.CreateColor(data.colors[i].c(), data.colors[i].index, true);
         }
 
         mapEditor.columns = data.column;
@@ -358,7 +360,7 @@ public class Map : MonoBehaviour
 
         //set start and end outside of the map
         mapEditor.AddTile(-10, -10, 8);
-        mapEditor.AddTile(-10, -10, 9);
+        mapEditor.AddTile(-1, -1, 9);
 
         foreach (int t in mapEditor.tilemaps.getIndexes()) //reset every tilemap
             for (i = 0; i < 32; i++)

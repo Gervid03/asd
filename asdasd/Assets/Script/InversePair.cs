@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Suicide : MonoBehaviour
+public class InversePair : MonoBehaviour
 {
     public InverseButton b1, b2;
     public MapEditor mapEditor;
@@ -24,6 +25,9 @@ public class Suicide : MonoBehaviour
             }
         }
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + mapEditor.countInversePair);
+
+        //register Inverse Pair deletion
+        FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.RemoveInversePair(b1.GetComponent<Image>().color, b2.GetComponent<Image>().color));
 
         if (b1.index != -1)
         {

@@ -57,6 +57,8 @@ public class MapEditor : MonoBehaviour
     public bool mouseOnArrow; //stop handleclick()
     public PopUpHandler popUpHandler;
     public PopUp.AddNewMap newMapPopUp;
+    HistoryManager history;
+    ColorPalette colorPalette;
 
     [System.Serializable]
     public struct tool
@@ -516,6 +518,10 @@ public class MapEditor : MonoBehaviour
         typedY = null;
         mappackSaveName = null;
         popUpHandler = FindFirstObjectByType<PopUpHandler>();
+        colorPalette = FindFirstObjectByType<ColorPalette>();
+        history = FindFirstObjectByType<HistoryManager>();
+
+        if (popUpHandler == null || colorPalette == null || history == null) Debug.Log("smh is null");
 
         if (mappack.levelInfo == null) mappack = new Mappack("default", new Level[] {new Level("!clear", 0, 0)});
         mapName = "!clear";
@@ -640,23 +646,60 @@ public class MapEditor : MonoBehaviour
         }
     }
 
+    public BlockData GetTileAt(int x, int y)
+    {
+        for (int i = 0; i < infos.Count; i++) //check interactives
+        {
+            if (infos[i].x == x && infos[i].y == y)
+            {
+                return new BlockData(infos[i]);
+            }
+        }
+
+        List<int> indices = tilemaps.getIndexes();
+        for (int i = 0; i < indices.Count; i++) //check blocks
+        {
+            if (!(tilemaps.at(indices[i]).GetTile(new Vector3Int(x, y, 0)) == null || clear == tilemaps.at(indices[i]).GetTile(new Vector3Int(x, y, 0))))
+            {
+                return new BlockData(x, y, colorPalette.FindButton(tilemaps.at(indices[i]).color).index,
+                                           tilemaps.at(indices[i]).GetTile(new Vector3Int(x, y, 0)));
+            }
+        }
+
+        return new BlockData(x, y, -1, clear); //clear (-1 bc it doesn't have a color)
+    }
+
     public void AddTile(int x, int y, int tool = -1)
     {
         if(currentTool > tools.Count) currentTool = 1; //if selected tool is invalid set it to 1
         if (tool == -1) tool = currentTool; //if no tool specified, use the selected one
 
+        BlockData before = GetTileAt(x, y);
+        BlockData after = null;
+
         RemoveAllTileAtThisPositon(x, y);
         if (tilemaps.at(currentTilemap) != null)
         {
-            if (tool == 1 && currentTilemap == 0) tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[0].tile);
+            if (tool == 1 && currentTilemap == 0)
+            {
+                tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[0].tile);
+
+            }
             else tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[tool].tile); 
+
+            after = GetTileAt(x, y);
+            if (before.type != after.type) history.stacks.Push(new Change.AddTile(before, after));
         }
 
         else Debug.Log(currentTilemap + " doesnt exist");
         if(tool != 0 && tool != 1 && tool != 6 && tool != 8 && tool != 9)
         {
             InteractiveAdded(x, y);
+            after = new BlockData(infos[^1]); //if interactive, after is overwritten
         }
+
+        if (after.type != before.type || before.colorIndex != after.colorIndex) history.stacks.Push(new Change.AddTile(before, after)); //register new block
+
         if (tilemaps.at(currentTilemap) == null)
         {
             Debug.Log("gonosz, katasztrófális szánalmas függvény!");
@@ -785,9 +828,14 @@ public class MapEditor : MonoBehaviour
         }
     }
 
-    public void Use(int x, int y)
+    public void Use(int x, int y, int tool = -1)
     {
-        if (currentTool == 0) RemoveAllTileAtThisPositon(x, y);
+        if (tool == -1) tool = currentTool;
+        if (tool == 0)
+        {
+            history.stacks.Push(new Change.RemoveTile(GetTileAt(x, y))); //register deletion
+            RemoveAllTileAtThisPositon(x, y);
+        }
         else AddTile(x, y);
     }
 
@@ -818,6 +866,7 @@ public class MapEditor : MonoBehaviour
     public void RemoveColor(int index) {
         int a = currentTilemap;
         currentTilemap = index;
+
         for(int i = 0; i < columns; i++)
         {
             for(int j = 0; j < rows; j++)
@@ -851,6 +900,8 @@ public class MapEditor : MonoBehaviour
         countInversePair++;
         inversePairs.Add(Instantiate(inversePair, inversePairParent.transform));
         inversePairParent.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + countInversePair * 120);
+
+        history.stacks.Push(new Change.AddInversePair(inversePairs[^1])); //register new Inverse Pair
     }
     
     public void GetInfos(Map map)
@@ -991,17 +1042,17 @@ public class MapEditor : MonoBehaviour
         int validPairs = 0;
         for(int i = 0; i < inversePairs.Count; i++)
         {
-            if (inversePairs[i].GetComponent<Suicide>().b1.GetComponent<InverseButton>().index != -1 && inversePairs[i].GetComponent<Suicide>().b2.GetComponent<InverseButton>().index != -1) validPairs++;
+            if (inversePairs[i].GetComponent<InversePair>().b1.GetComponent<InverseButton>().index != -1 && inversePairs[i].GetComponent<InversePair>().b2.GetComponent<InverseButton>().index != -1) validPairs++;
         }
         map.inversePairs = new MapData.Inverse[validPairs];
         int v = 0;
         for(int i = 0; i < inversePairs.Count; i++)
         {
-            if (inversePairs[i].GetComponent<Suicide>().b1.GetComponent<InverseButton>().index != -1 && inversePairs[i].GetComponent<Suicide>().b2.GetComponent<InverseButton>().index != -1)
+            if (inversePairs[i].GetComponent<InversePair>().b1.GetComponent<InverseButton>().index != -1 && inversePairs[i].GetComponent<InversePair>().b2.GetComponent<InverseButton>().index != -1)
             {
                 MapData.Inverse j = new MapData.Inverse();
-                j.index1 = inversePairs[i].GetComponent<Suicide>().b1.GetComponent<InverseButton>().index;
-                j.index2 = inversePairs[i].GetComponent<Suicide>().b2.GetComponent<InverseButton>().index;
+                j.index1 = inversePairs[i].GetComponent<InversePair>().b1.GetComponent<InverseButton>().index;
+                j.index2 = inversePairs[i].GetComponent<InversePair>().b2.GetComponent<InverseButton>().index;
                 map.inversePairs[v++] = j;
             }
         }
