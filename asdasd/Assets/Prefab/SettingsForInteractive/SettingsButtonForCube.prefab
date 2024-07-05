@@ -123,7 +123,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4886784740923958293}
         m_TargetAssemblyTypeName: SettingForInteract, Assembly-CSharp
         m_MethodName: SetInteractColor
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -546,3 +546,4 @@ MonoBehaviour:
   isButtonTimerCube: 0
   toggle: {fileID: 0}
   warning: {fileID: 21300000, guid: 7ea72360e9cd35a46a0f58bd8615a0e3, type: 3}
+  inputField: {fileID: 0}

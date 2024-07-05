@@ -172,7 +172,7 @@ public class ColorPalette : MonoBehaviour
         UpdateColorCarousel();
     }
 
-    public void OverwriteSelectedColor()
+    public void OverwriteSelectedColor(bool noHistory = false)
     {
         if (SameColor(selectedButton.color, new Color32(255, 255, 255, 255))) return; //fehéret nem bántjuk!
 
@@ -184,7 +184,7 @@ public class ColorPalette : MonoBehaviour
             return;
         }
 
-        history.stacks.Push(new Change.ModColor(selectedButton.color, colorTweaker.color)); //register color modification
+        if (!noHistory) history.stacks.Push(new Change.ModColor(selectedButton.color, colorTweaker.color)); //register color modification
 
         ColorPalette.modifyColor?.Invoke(colorUnderModification.index, colorTweaker.color);
 
@@ -206,12 +206,12 @@ public class ColorPalette : MonoBehaviour
         return false;
     }
 
-    public void DeleteSelectedColor()
+    public void DeleteSelectedColor(bool noHistory = false)
     {
         if (SelectWarning()) return;
         if (SameColor(selectedButton.color, new Color32(255, 255, 255, 255))) return; //fehéret nem bántjuk!
 
-        history.stacks.Push(new Change.RemoveColor(selectedButton.color)); //register color deletion
+        if (!noHistory) history.stacks.Push(new Change.RemoveColor(selectedButton.color)); //register color deletion
 
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);

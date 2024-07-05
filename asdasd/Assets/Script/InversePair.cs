@@ -13,8 +13,12 @@ public class InversePair : MonoBehaviour
         mapEditor = FindFirstObjectByType<MapEditor>();
     }
 
-    public void CommitSucide()
+    public void CommitSucide(bool noHistory = false)
     {
+        //register Inverse Pair deletion
+        if (!noHistory) FindFirstObjectByType<HistoryManager>().stacks.Push(
+            new Change.RemoveInversePair(b1.GetComponent<Image>().color, b2.GetComponent<Image>().color));
+
         mapEditor.countInversePair--;
         for(int i = 0; i < mapEditor.inversePairs.Count; i++)
         {
@@ -25,9 +29,6 @@ public class InversePair : MonoBehaviour
             }
         }
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + mapEditor.countInversePair);
-
-        //register Inverse Pair deletion
-        FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.RemoveInversePair(b1.GetComponent<Image>().color, b2.GetComponent<Image>().color));
 
         if (b1.index != -1)
         {

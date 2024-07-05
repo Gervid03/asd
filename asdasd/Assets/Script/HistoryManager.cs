@@ -61,6 +61,8 @@ public class HistoryManager : MonoBehaviour
                 redo.Clear();
             }
 
+            Debug.Log("pushed to Undo: " + change.GetType());
+
             undo.Add(change);
         }
 
@@ -92,6 +94,8 @@ public class HistoryManager : MonoBehaviour
 
         private void PushRedo(Change change)
         {
+            Debug.Log("pushed to Redo: " + change.GetType());
+
             if (redo.Count - 1 >= maxSize) //-1 for safety (:
             {
                 HalveStack(ref redo);
@@ -111,10 +115,12 @@ public class BlockData
     public int timer, portalIndex;
     public TileBase tile;
     ColorPalette colorPalette;
+    MapEditor mapEditor;
 
     public BlockData(SettingForInteract setting)
     {
         colorPalette = MonoBehaviour.FindFirstObjectByType<ColorPalette>();
+        mapEditor = MonoBehaviour.FindFirstObjectByType<MapEditor>();
 
         x = setting.x;
         y = setting.y;
@@ -132,57 +138,65 @@ public class BlockData
     }
     public BlockData(int x, int y, int colorIndex, TileBase tile)
     {
+        colorPalette = MonoBehaviour.FindFirstObjectByType<ColorPalette>();
+        mapEditor = MonoBehaviour.FindFirstObjectByType<MapEditor>();
+
         this.x = x;
         this.y = y;
         this.colorIndex = colorIndex;
         this.tile = tile;
 
-        MapEditor me = MonoBehaviour.FindFirstObjectByType<MapEditor>();
-        if (tile == me.clear)
+        if (tile == mapEditor.clear)
         {
             type = -1;
         }
-        else if (tile == me.tools[0].tile || tile == me.tools[1].tile)
+        else if (tile == mapEditor.tools[0].tile || tile == mapEditor.tools[1].tile)
         {
             type = 1;
         }
-        else if (tile == me.tools[6].tile)
+        else if (tile == mapEditor.tools[6].tile)
         {//gate
             type = 6;
         }
-        else if (tile == me.tools[8].tile)
+        else if (tile == mapEditor.tools[8].tile)
         {
             type = 8;
         }
-        else if (tile == me.tools[9].tile)
+        else if (tile == mapEditor.tools[9].tile)
         {
             type = 9;
         }
         else Debug.Log("Tile problems");
     }
 
-    public SettingForInteract ToSetting()
+    public void ToSetting(SettingForInteract settingToUpdate)
     {
-        SettingForInteract setting = new SettingForInteract();
-        setting.activate = activate;
-        setting.index = colorIndex;
-        setting.indexColorInteract = interactColorIndex;
-        setting.color.color = colorPalette.colors[colorIndex].color;
-        setting.colorInteract.color = colorPalette.colors[interactColorIndex].color;
-        setting.isButton = type == 2;
-        setting.isButtonsForCube = type == 3;
-        setting.isLever = type == 4;
-        setting.isPortal = type == 5;
-        setting.isButtonTimerCube = type == 7;
-        setting.timer = timer;
-        setting.portalIndex = portalIndex;
-        setting.x = x;
-        setting.y = y;
-        setting.coordinates.text = "(" + x + ", " + y + ")";
-        setting.Set(x, y, colorIndex, colorPalette.colors[colorIndex].color, interactColorIndex, activate);
+        settingToUpdate.activate = activate;
+        settingToUpdate.index = colorIndex;
+        settingToUpdate.indexColorInteract = interactColorIndex;
+        settingToUpdate.isButton = type == 2;
+        settingToUpdate.isButtonsForCube = type == 3;
+        settingToUpdate.isLever = type == 4;
+        settingToUpdate.isPortal = type == 5;
+        settingToUpdate.isButtonTimerCube = type == 7;
+        settingToUpdate.timer = timer;
+        settingToUpdate.portalIndex = portalIndex;
+        settingToUpdate.x = x;
+        settingToUpdate.y = y;
+        settingToUpdate.coordinates.text = "(" + x + ", " + y + ")";
+
+        List<int> indices = mapEditor.tilemaps.getIndexes();
+        for (int i = 0; i < indices.Count; i++)
+        {
+            if (colorIndex == indices[i])
+            {
+                settingToUpdate.color.color = colorPalette.colors[i].color;
+                if (settingToUpdate.colorInteract != null) settingToUpdate.colorInteract.color = colorPalette.colors[i].color;
+                settingToUpdate.Set(x, y, colorIndex, colorPalette.colors[colorIndex].color, interactColorIndex, activate);
+                break;
+            }
+        }
         //maybe there's no need for all this, but safety first!
-        
-        return setting;
     }
 }
 
@@ -225,10 +239,10 @@ public abstract class Change
 
         public override void Redo()
         {
-            mapEditor.Use(after.x, after.y, after.type);
+            mapEditor.Use(after.x, after.y, after.type, after.colorIndex, true);
             if (after.type == 2 || after.type == 3 || after.type == 4 || after.type == 5 || after.type == 7) //interactive
             {
-                mapEditor.infos[^1] = after.ToSetting();
+                after.ToSetting(mapEditor.infos[^1]);
             }
         }
 
@@ -240,10 +254,10 @@ public abstract class Change
                 return;
             }
 
-            mapEditor.Use(before.x, before.y, before.type);
+            mapEditor.Use(before.x, before.y, before.type, before.colorIndex, true);
             if (before.type == 2 || before.type == 3 || before.type == 4 || before.type == 5 || before.type == 7) //interactive
             {
-                mapEditor.infos[^1] = before.ToSetting();
+                before.ToSetting(mapEditor.infos[^1]);
             }
         }
     }
@@ -264,10 +278,10 @@ public abstract class Change
 
         public override void Undo()
         {
-            mapEditor.Use(block.x, block.y, block.type);
+            mapEditor.Use(block.x, block.y, block.type, block.colorIndex, true);
             if (block.type == 2 || block.type == 3 || block.type == 4 || block.type == 5 || block.type == 7) //interactive
             {
-                mapEditor.infos[^1] = block.ToSetting();
+                block.ToSetting(mapEditor.infos[^1]);
             }
         }
     }
@@ -295,7 +309,7 @@ public abstract class Change
         public override void Undo()
         {
             colorPalette.selectedButton = colorPalette.FindButton(color);
-            colorPalette.DeleteSelectedColor(); //null and 0 are handled in there
+            colorPalette.DeleteSelectedColor(true); //null and 0 are handled in there
         }
     }
 
@@ -318,7 +332,7 @@ public abstract class Change
         public override void Redo()
         {
             colorPalette.FindButton(color);
-            colorPalette.DeleteSelectedColor(); //null and 0 are handled in there
+            colorPalette.DeleteSelectedColor(true); //null and 0 are handled in there
         }
 
         public override void Undo()
@@ -351,7 +365,7 @@ public abstract class Change
             colorPalette.selectedButton = colorPalette.FindButton(before);
             colorPalette.ModifySelectedColor();
             colorTweaker.color = after; //TODO tidy these up
-            colorPalette.OverwriteSelectedColor();
+            colorPalette.OverwriteSelectedColor(true);
         }
 
         public override void Undo()
@@ -359,7 +373,7 @@ public abstract class Change
             colorPalette.selectedButton = colorPalette.FindButton(after);
             colorPalette.ModifySelectedColor();
             colorTweaker.color = before;
-            colorPalette.OverwriteSelectedColor();
+            colorPalette.OverwriteSelectedColor(true);
         }
     }
 
@@ -374,7 +388,7 @@ public abstract class Change
 
         public override void Redo()
         {
-            mapEditor.CreateInversePair();
+            mapEditor.CreateInversePair(true);
             inversePair = mapEditor.inversePairs[^1]; //TODO nem vagyok ebben biztos
         }
 
@@ -406,12 +420,12 @@ public abstract class Change
 
         public override void Redo()
         {
-            inversePair.GetComponent<InversePair>().CommitSucide();
+            inversePair.GetComponent<InversePair>().CommitSucide(true);
         }
 
         public override void Undo()
         {
-            mapEditor.CreateInversePair();
+            mapEditor.CreateInversePair(true);
             inversePair = mapEditor.inversePairs[^1]; //nem vagyok ebben biztos
 
             colorPalette.selectedButton = colorPalette.FindButton(left);
@@ -491,19 +505,19 @@ public abstract class Change
 
     }
 
-    public class DefaultStateMod : Change
+    public class ModDefaultState : Change
     {
         Color32 color;
         bool turnedOn;
 
-        public DefaultStateMod(byte r, byte g, byte b, bool turnedOn)
+        public ModDefaultState(byte r, byte g, byte b, bool turnedOn)
         {
             color.r = r;
             color.g = g;
             color.b = b;
             this.turnedOn = turnedOn;
         }
-        public DefaultStateMod(Color32 color, bool turnedOn)
+        public ModDefaultState(Color32 color, bool turnedOn)
         {
             this.color = color;
             this.turnedOn = turnedOn;
@@ -511,12 +525,39 @@ public abstract class Change
 
         public override void Redo()
         {
-            colorPalette.FindButton(color).toggle.GetComponent<Toggle>().isOn = turnedOn;
+            colorPalette.FindButton(color).toggle.GetComponent<Toggle>().SetIsOnWithoutNotify(turnedOn);
         }
 
         public override void Undo()
         {
-            colorPalette.FindButton(color).toggle.GetComponent<Toggle>().isOn = !turnedOn;
+            colorPalette.FindButton(color).toggle.GetComponent<Toggle>().SetIsOnWithoutNotify(!turnedOn);
+        }
+    }
+
+    public class ModSetting : Change
+    {
+        SettingForInteract setting;
+        BlockData before, after;
+
+        public ModSetting(SettingForInteract setting, BlockData before, BlockData after)
+        {
+            this.setting = setting;
+            this.before = before;
+            this.after = after;
+        }
+
+        public override void Redo()
+        {
+            after.ToSetting(setting);
+            if (setting.isButtonTimerCube) setting.inputField.SetTextWithoutNotify(setting.timer.ToString());
+            if (setting.isPortal) setting.inputField.SetTextWithoutNotify(setting.portalIndex.ToString());
+        }
+
+        public override void Undo()
+        {
+            before.ToSetting(setting);
+            if (setting.isButtonTimerCube) setting.inputField.SetTextWithoutNotify(setting.timer.ToString());
+            if (setting.isPortal) setting.inputField.SetTextWithoutNotify(setting.portalIndex.ToString());
         }
     }
 }

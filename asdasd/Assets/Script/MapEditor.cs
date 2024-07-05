@@ -146,12 +146,15 @@ public class MapEditor : MonoBehaviour
             visibleAtBeginning = c;
         }
 
-        public void changeVisibleAtBeginning(int index, bool to)
+        public void changeVisibleAtBeginning(int index, bool to, bool noHistory = false)
         {
             for (int i = 0; i < indexes.Count; i++)
             {
                 if (index == indexes[i])
                 {
+                    //register Default State modification
+                    if (!noHistory) FindFirstObjectByType<HistoryManager>().stacks.Push(
+                        new Change.ModDefaultState(FindFirstObjectByType<ColorPalette>().colors[i].color, to));
                     visibleAtBeginning[i] = to;
                 }
             }
@@ -666,47 +669,51 @@ public class MapEditor : MonoBehaviour
             }
         }
 
-        return new BlockData(x, y, -1, clear); //clear (-1 bc it doesn't have a color)
+        return new BlockData(x, y, -1, clear); //clear (-1 bc it doesn't have a color (it shouldn't be tested by this value!))
     }
 
-    public void AddTile(int x, int y, int tool = -1)
+    public void AddTile(int x, int y, int tool = -1, int tilemapIndex = -2, bool noHistory = false)
     {
         if(currentTool > tools.Count) currentTool = 1; //if selected tool is invalid set it to 1
         if (tool == -1) tool = currentTool; //if no tool specified, use the selected one
+        if (tilemapIndex == -2) tilemapIndex = currentTilemap;
 
         BlockData before = GetTileAt(x, y);
         BlockData after = null;
 
         RemoveAllTileAtThisPositon(x, y);
-        if (tilemaps.at(currentTilemap) != null)
+        if (tilemaps.at(tilemapIndex) != null)
         {
-            if (tool == 1 && currentTilemap == 0)
+            if (tool == 1 && tilemapIndex == 0)
             {
-                tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[0].tile);
+                tilemaps.at(tilemapIndex).SetTile(new Vector3Int(x, y, 0), tools[0].tile);
 
             }
-            else tilemaps.at(currentTilemap).SetTile(new Vector3Int(x, y, 0), tools[tool].tile); 
+            else tilemaps.at(tilemapIndex).SetTile(new Vector3Int(x, y, 0), tools[tool].tile); 
 
-            after = GetTileAt(x, y);
-            if (before.type != after.type) history.stacks.Push(new Change.AddTile(before, after));
         }
 
-        else Debug.Log(currentTilemap + " doesnt exist");
+        else Debug.Log(tilemapIndex + " doesnt exist");
         if(tool != 0 && tool != 1 && tool != 6 && tool != 8 && tool != 9)
         {
             InteractiveAdded(x, y);
-            after = new BlockData(infos[^1]); //if interactive, after is overwritten
+            after = new BlockData(infos[^1]); //if interactive
+        }
+        else
+        {
+            after = GetTileAt(x, y); //if non-interactive
         }
 
-        if (after.type != before.type || before.colorIndex != after.colorIndex) history.stacks.Push(new Change.AddTile(before, after)); //register new block
+        if (!noHistory && (after.type != before.type || before.colorIndex != after.colorIndex))
+            history.stacks.Push(new Change.AddTile(before, after)); //register new block
 
-        if (tilemaps.at(currentTilemap) == null)
+        if (tilemaps.at(tilemapIndex) == null)
         {
             Debug.Log("gonosz, katasztrófális szánalmas függvény!");
             return;
         }
-        if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[8].tile) AddStartPosition(x, y);
-        if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[9].tile) AddEndPosition(x, y);
+        if(tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[8].tile) AddStartPosition(x, y);
+        if(tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[9].tile) AddEndPosition(x, y);
     }
 
     public void InteractiveAdded(int x, int y)
@@ -828,15 +835,17 @@ public class MapEditor : MonoBehaviour
         }
     }
 
-    public void Use(int x, int y, int tool = -1)
+    public void Use(int x, int y, int tool = -1, int tilemapIndex = -2, bool noHistory = false)
     {
+        if (tilemapIndex == -2) tilemapIndex = currentTilemap;
         if (tool == -1) tool = currentTool;
         if (tool == 0)
         {
-            history.stacks.Push(new Change.RemoveTile(GetTileAt(x, y))); //register deletion
+            BlockData before = GetTileAt(x, y);
+            if (!noHistory && before.type != -1) history.stacks.Push(new Change.RemoveTile(before)); //register deletion
             RemoveAllTileAtThisPositon(x, y);
         }
-        else AddTile(x, y);
+        else AddTile(x, y, tool, tilemapIndex, noHistory);
     }
 
     public void ChangeColor(int index)
@@ -884,6 +893,11 @@ public class MapEditor : MonoBehaviour
 
         foreach (GameObject pair in inversePairs)
         {
+            if (pair == null)
+            {
+                Debug.Log("pair is null"); //probably bc they get destroyed somewhere, but stay in the list
+                continue;
+            }
             Component[] buttons = pair.GetComponentsInChildren<InverseButton>();
             foreach (InverseButton b in buttons)
             {
@@ -895,13 +909,13 @@ public class MapEditor : MonoBehaviour
         }
     }
 
-    public void CreateInversePair()
+    public void CreateInversePair(bool noHistory = false)
     {
         countInversePair++;
         inversePairs.Add(Instantiate(inversePair, inversePairParent.transform));
         inversePairParent.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + countInversePair * 120);
 
-        history.stacks.Push(new Change.AddInversePair(inversePairs[^1])); //register new Inverse Pair
+        if (!noHistory) history.stacks.Push(new Change.AddInversePair(inversePairs[^1])); //register new Inverse Pair
     }
     
     public void GetInfos(Map map)
