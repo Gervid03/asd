@@ -74,7 +74,7 @@ public static class SaveLoadMaps
 
     public static void CreateEmptyMap(string name, bool overwrite = false)
     {
-        string clearPath = Application.dataPath + "/maps/" + "clear" + "map.map";
+        string clearPath = Application.dataPath + "/maps/" + "!clear" + "map.map";
         string newPath = Application.dataPath + "/maps/" + name + "map.map";
         
         if (File.Exists(newPath) && !overwrite)

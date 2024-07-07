@@ -19,7 +19,12 @@ public class PopUpHandler : MonoBehaviour
         }
         set
         {
-            if (value < 0) return;
+            if (value < 0)
+            {
+                _activePopUps = 0;
+                popupActive = false;
+                return;
+            }
             popupActive = value != 0; //store wheter atleast a single popup is active or not
             _activePopUps = value;
         }
@@ -40,13 +45,22 @@ public class PopUpHandler : MonoBehaviour
         darkOverlay.SetActive(true);
     }
 
-    public void Down() //Disables all popups
+    public void DarkenDown()
     {
         darkOverlay.SetActive(false);
+    }
+
+    public void Down() //Disables all popups
+    {
+        DarkenDown();
 
         for (int i = 0; i < popUps.Length; i++)
         {
             popUps[i].Down();
         }
     }
+
+
+    public void SetNewMapNameByInputField(string text) => popUps[0].addNewMap.SetNewMapName(text);
+    public void NewMapButtonPress() => popUps[0].addNewMap.ButtonPress();
 }

@@ -211,7 +211,17 @@ public class ColorPalette : MonoBehaviour
         if (SelectWarning()) return;
         if (SameColor(selectedButton.color, new Color32(255, 255, 255, 255))) return; //fehéret nem bántjuk!
 
-        if (!noHistory) history.stacks.Push(new Change.RemoveColor(selectedButton.color)); //register color deletion
+        if (!noHistory)
+        {
+            List<int> indices = mapEditor.tilemaps.getIndexes();
+            for (int i = 0; i < indices.Count; i++)
+            {
+                if (indices[i] == selectedButton.index)
+                {//TODO deep copy tilemap and interactives of the color's
+                    history.stacks.Push(new Change.RemoveColor(selectedButton.color, mapEditor.tilemaps.at(i))); //register color deletion
+                }
+            }
+        }
 
         mapEditor.RemoveColor(selectedButton.index);
         colors.Remove(selectedButton);

@@ -206,10 +206,20 @@ public class Map : MonoBehaviour
         dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         
         FindFirstObjectByType<HistoryManager>().stacks = new HistoryManager.Stacks(); //clear history
+        if (FindFirstObjectByType<HistoryManager>().stacks == null) Debug.Log("???");
 
         if (mapToLoad == "")
         {
             mapToLoad = dropdown.options[0].text;
+        }
+
+        bool overWritten = false;
+        if (mapEditor.mapName != mapToLoad) //mappack needs to be overwritten at current coords
+        {
+            mapEditor.mappack.OverwriteMap(mapEditor.mapX, mapEditor.mapY, mapToLoad);
+            mapEditor.mapName = mapToLoad;
+            mapEditor.UpdateCurrentMapInfo();
+            overWritten = true;
         }
 
         MapData data = SaveLoadMaps.LoadMap(mapToLoad);
@@ -330,23 +340,26 @@ public class Map : MonoBehaviour
             }
         }
 
-        List<int>[] missing = mapEditor.mappack.levelInfo[mapEditor.mapName].missing; //TODO not everymap is in a mappack
+        if (!overWritten)
+        {
+            List<int>[] missing = mapEditor.mappack.levelInfo[mapEditor.mapName].missing; //TODO not everymap is in a mappack //now kinda is (not necessarily good)
 
-        for (i = 0; i < missing[2].Count; i++) //up
-        {
-            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(missing[2][i], 16, 0), clear);
-        }
-        for (i = 0; i < missing[3].Count; i++) //down
-        {
-            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(missing[3][i], -1, 0), clear);
-        }
-        for (i = 0; i < missing[0].Count; i++) //left
-        {
-            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(-1, missing[0][i], 0), clear);
-        }
-        for (i = 0; i < missing[1].Count; i++) //right
-        {
-            mapEditor.outsideWallTilemap.SetTile(new Vector3Int(30, missing[1][i], 0), clear);
+            for (i = 0; i < missing[2].Count; i++) //up
+            {
+                mapEditor.outsideWallTilemap.SetTile(new Vector3Int(missing[2][i], 16, 0), clear);
+            }
+            for (i = 0; i < missing[3].Count; i++) //down
+            {
+                mapEditor.outsideWallTilemap.SetTile(new Vector3Int(missing[3][i], -1, 0), clear);
+            }
+            for (i = 0; i < missing[0].Count; i++) //left
+            {
+                mapEditor.outsideWallTilemap.SetTile(new Vector3Int(-1, missing[0][i], 0), clear);
+            }
+            for (i = 0; i < missing[1].Count; i++) //right
+            {
+                mapEditor.outsideWallTilemap.SetTile(new Vector3Int(30, missing[1][i], 0), clear);
+            }
         }
 
         mapEditor.currentTilemap = 0;

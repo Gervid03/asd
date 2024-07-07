@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-//LevelGroups as classes don't exist, they are ScriptableObjects in the Assets folder, accessible by every script
-//To make the campaign, mappacks aren't enough as they can't reset colors and set hard CPs and also currently they aren't supported in the play scene
+//LevelGroups are ScriptableObjects in the Assets folder, accessible by every script
+//To make the campaign, mappacks aren't enough as they can't reset colors and set hard CPs and currently they aren't even supported in the play scene
 //The idea is to have a pack of Mappacks and convert them to a LevelGroup
-//There will be always only one (possibly another for test scene) LevelGroup
+//There will be always only one (possibly another for test scene) LevelGroup always overwritten
 //LevelGroup(Data)s are stored similarly to maps and mappacks and can be converted into real LevelGroups
 
 [System.Serializable]
@@ -16,9 +16,9 @@ public class LevelGroupData: MonoBehaviour
     public int x, y;
     public List<MultipleLevel.Level> levels;
 
-    public LevelGroupData(string ID, MapEditor.Mappack.MappackData[] mappacks, (int, int)[] endRooms, (int, int)[] startRooms = null)
+    public LevelGroupData(string ID, MapEditor.Mappack.MappackData[] mappacks, (int, int)[] afterEndRooms, (int, int)[] startRooms = null) //!afterEndRooms mustn't exist as maps, just coords to place next pack's start!
     {
-        if (mappacks == null || endRooms == null || mappacks.Length != endRooms.Length)
+        if (mappacks == null || afterEndRooms == null || mappacks.Length != afterEndRooms.Length)
         {
             Debug.Log("mappacks' conversion failed");
             return;
@@ -49,17 +49,17 @@ public class LevelGroupData: MonoBehaviour
                 l.missingUp = mappacks[0].levels[i].missing[2];
                 l.missingDown = mappacks[0].levels[i].missing[3];
 
-                l.isSpecial = startRooms[i] == (mappacks[0].levels[i].x, mappacks[0].levels[i].y);
+                l.isSpecial = startRooms[i] == (mappacks[0].levels[i].x, mappacks[0].levels[i].y); //start room is special, requireing resets
                 //l.comeFrom = ??? TODO
 
                 levels[j] = l;
             }
 
-            xdiff += endRooms[j].Item1 - startRooms[j].Item1; 
-            ydiff += endRooms[j].Item2 - startRooms[j].Item2; 
+            xdiff += afterEndRooms[j].Item1 - startRooms[j].Item1; 
+            ydiff += afterEndRooms[j].Item2 - startRooms[j].Item2; 
         }
     }
-
+    //TODO call these from somewhere
     public void ConvertToLevelGroup(string Name) //this will only overwrite levelgroups that exists!
     {
         string assetPath = Application.dataPath + "/levelgroups/levelgroupdata/" + Name + ".asset";

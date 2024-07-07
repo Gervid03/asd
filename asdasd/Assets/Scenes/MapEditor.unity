@@ -1080,7 +1080,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1210156908}
         m_TargetAssemblyTypeName: Map, Assembly-CSharp
-        m_MethodName: ClearMap
+        m_MethodName: ResetEditor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1906,7 +1906,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 450708761}
         m_TargetAssemblyTypeName: PopUpHandler, Assembly-CSharp
-        m_MethodName: SetNewMapName
+        m_MethodName: SetNewMapNameByInputField
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1927,7 +1927,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 450708761}
         m_TargetAssemblyTypeName: PopUpHandler, Assembly-CSharp
-        m_MethodName: SetNewMapName
+        m_MethodName: SetNewMapNameByInputField
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1948,7 +1948,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 450708761}
         m_TargetAssemblyTypeName: PopUpHandler, Assembly-CSharp
-        m_MethodName: SetNewMapName
+        m_MethodName: SetNewMapNameByInputField
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4592,9 +4592,9 @@ MonoBehaviour:
   yBottomLeft2: -3
   xTopRight2: 16
   yTopRight2: 3
-  xBottomLeft3: 15
+  xBottomLeft3: 13
   yBottomLeft3: -1
-  xTopRight3: 13
+  xTopRight3: 15
   yTopRight3: 1
   normalArrow: {fileID: 2146857914}
   creatingArrow: {fileID: 596726476}
@@ -14920,7 +14920,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 450708761}
         m_TargetAssemblyTypeName: PopUpHandler, Assembly-CSharp
-        m_MethodName: ButtonPress
+        m_MethodName: NewMapButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25826,7 +25826,7 @@ MonoBehaviour:
   countInversePair: 0
   startPosition: {x: 0, y: 0}
   endPosition: {x: 0, y: 0}
-  dropdown: {fileID: 0}
+  dropdown: {fileID: 295648274}
   pressedCarouselCycle: 0
   pressedMenu: 0
   mapX: 0
@@ -26270,7 +26270,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 450708761}
         m_TargetAssemblyTypeName: PopUpHandler, Assembly-CSharp
-        m_MethodName: EveryDown
+        m_MethodName: Down
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

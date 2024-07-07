@@ -8,27 +8,32 @@ public class HistoryManager : MonoBehaviour
 {
     public Stacks stacks;
     private bool heldDown;
+    private PopUpHandler popUpHandler;
 
     void Awake()
     {
         stacks = new Stacks();
+        popUpHandler = FindFirstObjectByType<PopUpHandler>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown("y") && !heldDown) //switched z and y!
+        if (!popUpHandler.popupActive)
         {
-            heldDown = true;
-            stacks.PopUndo();
-        }
-        else if (Input.GetKeyDown("z") && !heldDown)
-        {
-            heldDown = true;
-            stacks.PopRedo();
-        }
-        else
-        {
-            heldDown = false;
+            if (Input.GetKeyDown("y") && !heldDown) //switched z and y!
+            {
+                heldDown = true;
+                stacks.PopUndo();
+            }
+            else if (Input.GetKeyDown("z") && !heldDown)
+            {
+                heldDown = true;
+                stacks.PopRedo();
+            }
+            else
+            {
+                heldDown = false;
+            }
         }
     }
 
@@ -201,7 +206,7 @@ public class BlockData
 }
 
 
-public abstract class Change
+public abstract class Change //TODO border changes
 {
     protected MapEditor mapEditor;
     protected ColorPalette colorPalette;
@@ -317,19 +322,22 @@ public abstract class Change
     public class RemoveColor : Change
     {
         private Color32 color;
+        private Tilemap tilemap;
 
-        public RemoveColor(byte r, byte g, byte b)
+        public RemoveColor(byte r, byte g, byte b, Tilemap tilemap)
         {
             color.r = r;
             color.g = g;
             color.b = b;
+            this.tilemap = tilemap;
         }
-        public RemoveColor(Color32 color)
+        public RemoveColor(Color32 color, Tilemap tilemap)
         {
             this.color = color;
+            this.tilemap = tilemap;
         }
 
-        public override void Redo()
+        public override void Redo()//TODO
         {
             colorPalette.FindButton(color);
             colorPalette.DeleteSelectedColor(true); //null and 0 are handled in there
@@ -394,7 +402,7 @@ public abstract class Change
 
         public override void Undo()
         {
-            inversePair.GetComponent<InversePair>().CommitSucide();
+            inversePair.GetComponent<InversePair>().CommitSucide(true);
         }
     }
 
@@ -428,29 +436,32 @@ public abstract class Change
             mapEditor.CreateInversePair(true);
             inversePair = mapEditor.inversePairs[^1]; //nem vagyok ebben biztos
 
-            colorPalette.selectedButton = colorPalette.FindButton(left);
-            inversePair.GetComponent<InversePair>().b1.Clicked();
-            colorPalette.selectedButton = colorPalette.FindButton(right);
-            inversePair.GetComponent<InversePair>().b2.Clicked();
+            inversePair.GetComponent<InversePair>().b1.ChangeColor(colorPalette.FindButton(left), true);
 
-            colorPalette.selectedButton = colorPalette.colors[0];
+            inversePair.GetComponent<InversePair>().b2.ChangeColor(colorPalette.FindButton(right), true);
         }
     }
 
     public class ModInversePair : Change
     {
+        bool leftBeforeColor, rightBeforeColor;
         Color32 leftBefore, rightBefore;
         Color32 leftAfter, rightAfter;
-        public ModInversePair(Color32 leftbefore, Color32 rightbefore, Color32 leftafter, Color32 rightafter)
+        public ModInversePair(bool leftBeforeColor, bool rightBeforeColor, Color32 leftbefore, Color32 leftafter, Color32 rightbefore, Color32 rightafter)
         {
+            this.leftBeforeColor = leftBeforeColor;
+            this.rightBeforeColor = rightBeforeColor;
             this.leftBefore = leftbefore;
             this.rightBefore = rightbefore;
             this.leftAfter = leftafter;
             this.rightAfter = rightafter;
         }
-        public ModInversePair(byte rleftbefore, byte gleftbefore, byte bleftbefore, byte rrightbefore, byte grightbefore, byte brightbefore,
-                     byte rleftafter, byte gleftafter, byte bleftafter, byte rrightafter, byte grightafter, byte brightafter)
+        public ModInversePair(bool leftBeforeColor, bool rightBeforeColor,
+            byte rleftbefore, byte gleftbefore, byte bleftbefore, byte rleftafter, byte gleftafter, byte bleftafter,
+            byte rrightbefore, byte grightbefore, byte brightbefore, byte rrightafter, byte grightafter, byte brightafter)
         {
+            this.leftBeforeColor = leftBeforeColor;
+            this.rightBeforeColor = rightBeforeColor;
             leftBefore.r = rleftbefore;
             leftBefore.g = gleftbefore;
             leftBefore.b = bleftbefore;
@@ -469,14 +480,13 @@ public abstract class Change
         {
             foreach (GameObject IP in mapEditor.inversePairs)
             {
-                if (IP.GetComponent<InversePair>().b1.GetComponent<Image>().color == leftBefore)
+                if (IP.GetComponent<InversePair>().b1.GetComponent<Image>().color == leftBefore &&
+                    IP.GetComponent<InversePair>().b2.GetComponent<Image>().color == rightBefore)
                 {
-                    colorPalette.selectedButton = colorPalette.FindButton(leftAfter);
-                    IP.GetComponent<InversePair>().b1.Clicked();
-                    colorPalette.selectedButton = colorPalette.FindButton(rightAfter);
-                    IP.GetComponent<InversePair>().b2.Clicked();
+                    IP.GetComponent<InversePair>().b1.ChangeColor(colorPalette.FindButton(leftAfter), true);
 
-                    colorPalette.selectedButton = colorPalette.colors[0]; //reset to white
+                    IP.GetComponent<InversePair>().b2.ChangeColor(colorPalette.FindButton(rightAfter), true);
+
                     return;
                 }
             }
@@ -490,12 +500,28 @@ public abstract class Change
             {
                 if (IP.GetComponent<InversePair>().b1.GetComponent<Image>().color == leftAfter)
                 {
-                    colorPalette.selectedButton = colorPalette.FindButton(leftBefore);
-                    IP.GetComponent<InversePair>().b1.Clicked();
-                    colorPalette.selectedButton = colorPalette.FindButton(rightBefore);
-                    IP.GetComponent<InversePair>().b2.Clicked();
+                    if (leftBeforeColor)
+                    {
+                        IP.GetComponent<InversePair>().b1.ChangeColor(colorPalette.FindButton(leftBefore), true);
+                    }
+                    else
+                    {
+                        InverseButton b = IP.GetComponent<InversePair>().b1;
+                        b.GetComponent<Image>().sprite = b.warning;
+                        b.GetComponent<Image>().color = Color.white;
+                    }
 
-                    colorPalette.selectedButton = colorPalette.colors[0]; //reset to white
+                    if (rightBeforeColor)
+                    {
+                        IP.GetComponent<InversePair>().b2.ChangeColor(colorPalette.FindButton(rightBefore), true);
+                    }
+                    else
+                    {
+                        InverseButton b = IP.GetComponent<InversePair>().b2;
+                        b.GetComponent<Image>().sprite = b.warning;
+                        b.GetComponent<Image>().color = Color.white;
+                    }
+
                     return;
                 }
             }
@@ -525,12 +551,12 @@ public abstract class Change
 
         public override void Redo()
         {
-            colorPalette.FindButton(color).toggle.GetComponent<Toggle>().SetIsOnWithoutNotify(turnedOn);
+            colorPalette.FindButton(color).toggle.GetComponentInChildren<Toggle>().SetIsOnWithoutNotify(turnedOn);
         }
 
         public override void Undo()
         {
-            colorPalette.FindButton(color).toggle.GetComponent<Toggle>().SetIsOnWithoutNotify(!turnedOn);
+            colorPalette.FindButton(color).toggle.GetComponentInChildren<Toggle>().SetIsOnWithoutNotify(!turnedOn);
         }
     }
 
@@ -548,6 +574,21 @@ public abstract class Change
 
         public override void Redo()
         {
+            if (setting == null) //interactive placement undone and redone
+            {
+                //search for the interactive
+                int i;
+                for (i = 0; i < mapEditor.infos.Count; i++)
+                {
+                    if (mapEditor.infos[i].x == before.x && mapEditor.infos[i].y == before.y)
+                    {
+                        setting = mapEditor.infos[i];
+                        break;
+                    }
+                }
+                if (i == mapEditor.infos.Count) Debug.Log("search failed");
+            }
+
             after.ToSetting(setting);
             if (setting.isButtonTimerCube) setting.inputField.SetTextWithoutNotify(setting.timer.ToString());
             if (setting.isPortal) setting.inputField.SetTextWithoutNotify(setting.portalIndex.ToString());
@@ -555,6 +596,21 @@ public abstract class Change
 
         public override void Undo()
         {
+            if (setting == null) //bc interactive placement undone and redone
+            {
+                //search for the interactive
+                int i;
+                for (i = 0; i < mapEditor.infos.Count; i++)
+                {
+                    if (mapEditor.infos[i].x == before.x && mapEditor.infos[i].y == before.y)
+                    {
+                        setting = mapEditor.infos[i];
+                        break;
+                    }
+                }
+                if (i == mapEditor.infos.Count) Debug.Log("search failed");
+            }
+
             before.ToSetting(setting);
             if (setting.isButtonTimerCube) setting.inputField.SetTextWithoutNotify(setting.timer.ToString());
             if (setting.isPortal) setting.inputField.SetTextWithoutNotify(setting.portalIndex.ToString());

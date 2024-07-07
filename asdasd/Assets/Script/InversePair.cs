@@ -30,7 +30,7 @@ public class InversePair : MonoBehaviour
         }
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(700, 80 + mapEditor.countInversePair);
 
-        if (b1.index != -1)
+        if (b1.index != -1) //TODO inverseColor wasn't long enough when loading a map
         {
             mapEditor.inverseColor[b1.index] = -1;
         }

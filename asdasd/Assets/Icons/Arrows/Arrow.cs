@@ -32,7 +32,7 @@ public class Arrow : MonoBehaviour
     {
         float x = (Input.mousePosition.x - (1920 / 2)) / (1920 / 32), y = (Input.mousePosition.y - (1080 / 2)) / (1080 / 18);
 
-        if ((normalArrow.activeSelf || creatingArrow.activeSelf) && xBottomLeft2 < x && x < xTopRight2 && yBottomLeft2 < y && y < yTopRight2)
+        if ((normalArrow.activeSelf || creatingArrow.activeSelf) && xBottomLeft3 < x && x < xTopRight3 && yBottomLeft3 < y && y < yTopRight3)
         {
             mapEditor.mouseOnArrow = true;
             iveSetMouseOnArrow = true;
@@ -74,5 +74,16 @@ public class Arrow : MonoBehaviour
     public void SetIndication(bool indicateNew)
     {
         arrowType = indicateNew;
+
+        if (arrowType && normalArrow.activeSelf)
+        {
+            creatingArrow.SetActive(true);
+            normalArrow.SetActive(false);
+        }
+        else if (!arrowType && creatingArrow.activeSelf)
+        {
+            normalArrow.SetActive(true);
+            creatingArrow.SetActive(false);
+        }
     }
 }

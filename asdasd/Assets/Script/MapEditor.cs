@@ -233,6 +233,18 @@ public class MapEditor : MonoBehaviour
             for (int i = 0; i < levels.Length; i++) NewMap(levels[i], uniformMissings ? true : null);
         }
 
+        public void OverwriteMap(int x, int y, string newName)
+        {
+            string oldName = coordToName[(x, y)];
+            coordToName[(x, y)] = newName;
+
+            levelInfo[newName] = levelInfo[oldName];
+
+            levelInfo.Remove(oldName);
+
+            levelInfo[newName].name = newName;
+        }
+
         public void NewMap(Level level, bool? getMissingFromNeighbours = true)
         {
             if (coordToName.ContainsKey((level.x, level.y)) || levelInfo.ContainsKey(level.name))
@@ -513,7 +525,6 @@ public class MapEditor : MonoBehaviour
         countInversePair = 0;
         calculatedCellWith = (xTopRight - xBottomLeft) / columns;
         calculatedCellHeight = (yTopRight - xBottomLeft) / rows;
-        dropdown = FindFirstObjectByType<TMP_Dropdown>(FindObjectsInactive.Include);
         MapDropdownUpdate();
         MappackDropdownUpdate();
         floater = FindFirstObjectByType<Drag>();
@@ -696,7 +707,7 @@ public class MapEditor : MonoBehaviour
         else Debug.Log(tilemapIndex + " doesnt exist");
         if(tool != 0 && tool != 1 && tool != 6 && tool != 8 && tool != 9)
         {
-            InteractiveAdded(x, y);
+            InteractiveAdded(x, y, tilemapIndex);
             after = new BlockData(infos[^1]); //if interactive
         }
         else
@@ -716,15 +727,18 @@ public class MapEditor : MonoBehaviour
         if(tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[9].tile) AddEndPosition(x, y);
     }
 
-    public void InteractiveAdded(int x, int y)
+    public void InteractiveAdded(int x, int y, int tilemapIndex = -1)
     {
+        if (tilemapIndex == -1) tilemapIndex = currentTilemap;
+
         //open menu, add settings
         //OpenMenu(); //TODO smaller popups? Handle that this is called by loadintoeditor and that shouldnt open the menu
-        if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[2].tile) AddButton(x, y);
-        else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[3].tile) AddButtonForCube(x, y);
-        else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[4].tile) AddLever(x, y);
-        else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[5].tile) AddPortal(x, y);
-        else if(tilemaps.at(currentTilemap).GetTile(new Vector3Int(x, y, 0)) == tools[7].tile) AddButtonTimerCube(x, y);
+        if (tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[2].tile) AddButton(x, y);
+        else if (tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[3].tile) AddButtonForCube(x, y);
+        else if (tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[4].tile) AddLever(x, y);
+        else if (tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[5].tile) AddPortal(x, y);
+        else if (tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[7].tile) AddButtonTimerCube(x, y);
+        else Debug.Log("not good" + GetTileAt(x, y));
     }
 
     public void AddStartPosition(int x, int y)

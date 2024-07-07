@@ -9,6 +9,7 @@ public class PopUp
 {
     protected PopUpHandler handler;
     protected GameObject window;
+    public AddNewMap addNewMap;
 
     public PopUp()
     {
@@ -26,14 +27,15 @@ public class PopUp
     {
         handler.DarkenUp();
         window.SetActive(true);
+        handler.activePopUps++;
     }
 
     public virtual void Down()
     {
         window.SetActive(false);
-        if (--handler.activePopUps == 0)
+        if (--handler.activePopUps <= 0)
         {
-            handler.Down();
+            handler.DarkenDown();
         }
     }
 
@@ -45,6 +47,8 @@ public class PopUp
 
         public AddNewMap() //automatically calls base constructor before runs (since it's parameterless)
         {
+            addNewMap = this;
+
             mapEditor = MonoBehaviour.FindFirstObjectByType<MapEditor>();
             if (mapEditor == null)
             {
@@ -96,7 +100,7 @@ public class PopUp
             }
         }
 
-        public void ButtonPress()
+        public void ButtonPress() //TODO load map's name into savename
         {
             bool exists = false;
 

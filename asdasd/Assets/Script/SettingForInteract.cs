@@ -87,56 +87,68 @@ public class SettingForInteract : MonoBehaviour
             colorInteract.color = cp.selectedButton.color;
         }
 
-        if (!noHistory) FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
+        if (!noHistory && before.interactColorIndex != this.indexColorInteract) 
+            FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
     }
 
     public void SetTimer(string t)
     {
         BlockData before = new BlockData(this);
 
+        int oldtimer = timer;
+
         if (t == null) return;
         timer = int.Parse(t);
 
-        FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
+        if (oldtimer != timer) FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
     }
 
     public void SetTimerAtLoading(int t, bool noHistory = false)
     {
         BlockData before = new BlockData(this);
 
+        int oldtimer = timer;
         timer = t;
         GetComponentInChildren<InputField>().SetTextWithoutNotify(t + "");
 
-        if (!noHistory) FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
+        if (!noHistory && oldtimer != timer)
+            FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
     }
 
     public void SetPortalAtLoading(int t, bool noHistory = false)
     {
         BlockData before = new BlockData(this);
 
+        int oldindex = portalIndex;
         portalIndex = t;
         GetComponentInChildren<InputField>().SetTextWithoutNotify(t + "");
 
-        if (!noHistory) FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
+        if (!noHistory && oldindex != portalIndex)
+            FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
     }
 
     public void SetPortalIndex(string pt)
     {
         BlockData before = new BlockData(this);
         
+        int oldindex = portalIndex;
+
         if(pt == null) return;
         portalIndex = int.Parse(pt);
 
-        FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
+        if (oldindex != portalIndex) 
+            FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
     }
 
     public void SetActivate(bool a, bool noHistory = false)
     {
         BlockData before = new BlockData(this);
 
+        bool oldactivate = activate;
         activate = a;
 
-        if (!noHistory) FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
+        if (!noHistory && oldactivate != activate)
+            FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModSetting(this, before, new BlockData(this)));
     }
 
     public void CommitSuicide()

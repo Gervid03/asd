@@ -30,18 +30,7 @@ public class InverseButton : MonoBehaviour
     {
         if (recipient == index) //if the message is for me
         {
-            //register Inverse Pair modification
-            if (GetComponent<InversePair>().b1.index == index) //check which side is which
-            {
-                FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModInversePair(
-                    GetComponent<Image>().color, FindFirstObjectByType<ColorTweaker>().color, other.GetComponent<Image>().color, other.GetComponent<Image>().color));
-            }
-            else
-            {
-                FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModInversePair(
-                    other.GetComponent<Image>().color, other.GetComponent<Image>().color, GetComponent<Image>().color, FindFirstObjectByType<ColorTweaker>().color));
-            }
-            this.GetComponent<Image>().color = FindFirstObjectByType<ColorTweaker>().color;
+            this.GetComponent<Image>().color = FindFirstObjectByType<ColorTweaker>(FindObjectsInactive.Include).color;
         }
     }
 
@@ -53,10 +42,12 @@ public class InverseButton : MonoBehaviour
         }
     }
 
-    public void Clicked()
+    public void Clicked() => ChangeColor();
+    public void ChangeColor(ColorDisplayButton selectedButtonIndex = null, bool noHistory = false)
     {
-        if (colorPalette.selectedButton.index == 0) return;
-        if (mapEditor.inverseColor[colorPalette.selectedButton.index] != -1 || other.index == colorPalette.selectedButton.index)
+        if (selectedButtonIndex == null) selectedButtonIndex = colorPalette.selectedButton;
+        if (selectedButtonIndex.index == 0) return;
+        if (mapEditor.inverseColor[selectedButtonIndex.index] != -1 || other.index == selectedButtonIndex.index)
         {
             ColorAlreadyHasAnInverse();
             return;
@@ -66,12 +57,35 @@ public class InverseButton : MonoBehaviour
             mapEditor.inverseColor[index] = -1;
         }
 
+        //register Inverse Pair modification
+        if (!noHistory)
+        {
+            InversePair inversePair = this.gameObject.transform.parent.GetComponent<InversePair>();
+            if (inversePair.b1 == this) //check which side is which
+            {
+                FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModInversePair(
+                    inversePair.b1.GetComponent<Image>().sprite == inversePair.b1.wall,
+                    inversePair.b2.GetComponent<Image>().sprite == inversePair.b2.wall,
+                    GetComponent<Image>().color, selectedButtonIndex.color,
+                    other.GetComponent<Image>().color, other.GetComponent<Image>().color));
+            }
+            else
+            {
+                FindFirstObjectByType<HistoryManager>().stacks.Push(new Change.ModInversePair(
+                    inversePair.b1.GetComponent<Image>().sprite == inversePair.b1.wall,
+                    inversePair.b2.GetComponent<Image>().sprite == inversePair.b2.wall,
+                    other.GetComponent<Image>().color, other.GetComponent<Image>().color,
+                    GetComponent<Image>().color, selectedButtonIndex.color));
+            }
+        }
+
         this.GetComponent<Image>().sprite = wall;
 
-        index = colorPalette.selectedButton.index;
-        this.GetComponent<Image>().color = colorPalette.selectedButton.color;
+        index = selectedButtonIndex.index;
+        this.GetComponent<Image>().color = selectedButtonIndex.color;
 
         mapEditor.inverseColor[index] = other.index;
+
 
         if (other.index != -1)
         {
