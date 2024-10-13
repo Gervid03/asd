@@ -10,6 +10,7 @@ public class PopUp
     protected PopUpHandler handler;
     protected GameObject window;
     public AddNewMap addNewMap;
+    public PauseScreen pauseScreen;
 
     public PopUp()
     {
@@ -19,8 +20,6 @@ public class PopUp
             Debug.Log("handler is null");
             return;
         }
-
-        window = handler.transform.Find("NewMapByArrow").gameObject;
     }
 
     public virtual void Up()
@@ -47,6 +46,7 @@ public class PopUp
 
         public AddNewMap() //automatically calls base constructor before runs (since it's parameterless)
         {
+            window = handler.transform.Find("NewMapByArrow").gameObject;
             addNewMap = this;
 
             mapEditor = MonoBehaviour.FindFirstObjectByType<MapEditor>();
@@ -118,6 +118,25 @@ public class PopUp
             mapEditor.GoToMap(newMapX, newMapY);
 
             Down();
+        }
+    }
+
+    public class PauseScreen : PopUp
+    {
+        public PauseScreen()
+        {
+            window = handler.transform.Find("PauseWindow").gameObject;
+            pauseScreen = this;
+        }
+        
+        public void BackToMainMenu()
+        {
+            SceneLoader.LoadSceneByName("Menu");
+        }
+
+        public void ResetProgress(MultipleLevel m)
+        {
+            //luxus
         }
     }
 }

@@ -283,7 +283,10 @@ public class WallManager : MonoBehaviour
 
     private void Update()
     {
-
+        if (Input.GetKeyDown("o")){
+            Debug.Log("o");
+            FindFirstObjectByType<PopUpHandler>().ResetProgress();
+        }
     }
 
     public void ResetThings()

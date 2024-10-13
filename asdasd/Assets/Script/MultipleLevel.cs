@@ -262,6 +262,7 @@ public class MultipleLevel : MonoBehaviour
         FindLevel(currentX, currentY).Loaded(Level.ComeFrom.none);
     }
 
+
     public void SwitchUp()
     {
         //

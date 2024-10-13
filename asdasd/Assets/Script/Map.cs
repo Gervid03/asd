@@ -379,7 +379,8 @@ public class Map : MonoBehaviour
         foreach (int t in mapEditor.tilemaps.getIndexes()) //reset every tilemap
             for (i = 0; i < 32; i++)
                 for (int j = 0; j < 16; j++)
-                    mapEditor.tilemaps.at(t).SetTile(new Vector3Int(i, j, 0), clear);
+                    //mapEditor.tilemaps.at(t).SetTile(new Vector3Int(i, j, 0), clear);
+                    mapEditor.RemoveAllTileAtThisPositon(i, j);
 
         for (i = 0; i < mapEditor.inversePairs.Count; i++)
         {

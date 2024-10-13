@@ -16,6 +16,12 @@ public static class SaveLoadMaps
         stream.Close();
     }
 
+    public static void DeleteProgress()
+    {
+        string path = Application.persistentDataPath + "/Progress.pgs";
+        File.Delete(path);
+    }
+
     public static Progress LoadProgress()
     {
         Progress progress = new Progress(new ProgressGatherer());

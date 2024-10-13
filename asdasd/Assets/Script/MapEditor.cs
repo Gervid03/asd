@@ -330,13 +330,20 @@ public class MapEditor : MonoBehaviour
         MappackDropdownUpdate(mappackToLoad);
         checkIfTypedExists();
 
-        string temp1 = "";
-        foreach (string temp2 in mappack.coordToName.Values)
+        string firstMapFound = "";
+        foreach (string temp2 in mappack.coordToName.Values) //get the first key from the dict
         {
-            temp1 = temp2;
+            firstMapFound = temp2;
             break;
         }
-        if (temp1 != "") GoToMap(mappack.levelInfo[temp1].x, mappack.levelInfo[temp1].y); //load a map
+
+        FindFirstObjectByType<Map>().ResetEditor();
+
+        if (firstMapFound != "") GoToMap(mappack.levelInfo[firstMapFound].x, mappack.levelInfo[firstMapFound].y); //load a map
+        else
+        {
+            Debug.Log("loaded mappack doesn't have maps!");
+        }
         UpdateCurrentMapInfo();
     }
 
@@ -358,7 +365,15 @@ public class MapEditor : MonoBehaviour
     public void GoToDownMap() => GoToMap(mapX, mapY - 1);
     public void GoToUpMap() => GoToMap(mapX, mapY + 1);
 
-    public void GoToMapByButton() => GoToMap(mapX, mapY);
+    public void GoToMapByButton()
+    {
+        if (typedX == null || typedY == null)
+        { 
+            Debug.Log("invalid coordinates");
+            return;
+        }
+        GoToMap(typedX.Value, typedY.Value);
+    }
     public void GoToMap(int x, int y)
     {
         if (mappack.coordToName.ContainsKey((x, y))) //map exists

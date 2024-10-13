@@ -35,7 +35,8 @@ public class PopUpHandler : MonoBehaviour
         darkOverlay = transform.Find("DarkLayer").gameObject; //find returns the this.transform's child's transform with a specific name
         popUps = new PopUp[]
         {
-            new PopUp.AddNewMap()
+            new PopUp.AddNewMap(),
+            new PopUp.PauseScreen()
         };
     }
 
@@ -63,4 +64,7 @@ public class PopUpHandler : MonoBehaviour
 
     public void SetNewMapNameByInputField(string text) => popUps[0].addNewMap.SetNewMapName(text);
     public void NewMapButtonPress() => popUps[0].addNewMap.ButtonPress();
+
+    public void BackToMainMenu() => popUps[1].pauseScreen.BackToMainMenu();
+    public void ResetProgress() => popUps[1].pauseScreen.ResetProgress(FindFirstObjectByType<MultipleLevel>());
 }
