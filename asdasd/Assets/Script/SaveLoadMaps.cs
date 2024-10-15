@@ -10,6 +10,8 @@ public static class SaveLoadMaps
     {
         BinaryFormatter bf = new BinaryFormatter();
         string path = Application.persistentDataPath + "/Progress.pgs";
+        Debug.Log(path);
+        Debug.Log(Application.dataPath);
         FileStream stream = new FileStream(path, FileMode.Create);
         Progress progress = new Progress(pg);
         bf.Serialize(stream, progress);
@@ -20,6 +22,7 @@ public static class SaveLoadMaps
     {
         Progress progress = new Progress(new ProgressGatherer());
         string path = Application.persistentDataPath + "/Progress.pgs";
+        if (!File.Exists(path)) path = Application.dataPath + "/StreamingAssets/BackupProgress.pgs";
         if (File.Exists(path))
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -37,7 +40,7 @@ public static class SaveLoadMaps
 
     public static FileInfo[] GetMapList()
     {
-        string path = Application.dataPath + "/maps"; //Application.persitentDataPath
+        string path = Application.dataPath + "/StreamingAssets/maps"; //Application.persitentDataPath
         DirectoryInfo dir = new DirectoryInfo(path);
         return dir.GetFiles("*.map");
     }
@@ -46,7 +49,7 @@ public static class SaveLoadMaps
     {
         Debug.Log(Application.persistentDataPath);
         BinaryFormatter bf = new BinaryFormatter();
-        string path = Application.dataPath + "/maps/" + map.index + "map.map"; //Application.persistentDataPath + " / " + map.index + "map.map";
+        string path = Application.dataPath + "/StreamingAssets/maps/" + map.index + "map.map"; //Application.persistentDataPath + " / " + map.index + "map.map";
         FileStream stream = new FileStream(path, FileMode.Create);
         MapData data = new MapData(map);
         bf.Serialize(stream, data);
@@ -55,7 +58,7 @@ public static class SaveLoadMaps
 
     public static MapData LoadMap(string index)
     {
-        string path = Application.dataPath + "/maps/" + index + "map.map"; //Application.persistentDataPath + " / " + index + "map.map";
+        string path = Application.dataPath + "/StreamingAssets/maps/" + index + "map.map"; //Application.persistentDataPath + " / " + index + "map.map";
         if (File.Exists(path))
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -114,7 +117,7 @@ public static class SaveLoadMaps
         }
     }
 
-    public static void SaveLevelGroup(LevelGroupData levelGroupData)
+    /*public static void SaveLevelGroup(LevelGroupData levelGroupData)
     {
         Debug.Log(Application.persistentDataPath);
         BinaryFormatter bf = new BinaryFormatter();
@@ -122,5 +125,5 @@ public static class SaveLoadMaps
         FileStream stream = new FileStream(path, FileMode.Create);
         bf.Serialize(stream, levelGroupData);
         stream.Close();
-    }
+    }*/
 }

@@ -283,7 +283,7 @@ public class WallManager : MonoBehaviour
 
     private void Update()
     {
-
+    
     }
 
     public void ResetThings()

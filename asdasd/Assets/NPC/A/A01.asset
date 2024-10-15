@@ -29,6 +29,8 @@ MonoBehaviour:
   - en: I think these levers can interact with different kinds of barriers filled
       with mana.
     hu: 
+  - en: I can pulls these levers easily ("F")
+    hu: 
   sprite: {fileID: 445122812, guid: e535469be65e865498739ed90c1b21a1, type: 3}
   color:
     serializedVersion: 2
