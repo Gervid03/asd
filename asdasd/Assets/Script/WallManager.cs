@@ -613,7 +613,7 @@ public class WallManager : MonoBehaviour
     public void CheckIfThePositionIsInTheWall(int x, int y)
     {
         if (x < 0 || y < 0 || x >= wallPositions.Length || y >= wallPositions[x].Length) return;
-        if (colors.atVisible(wallPositions[x][y]) && wallPositions[x][y] != 0)
+        if (colors.atVisible(wallPositions[x][y]))
         {
             //TODO later make it not a comment
             //FindFirstObjectByType<Map>().LoadFromProgress();

@@ -12,7 +12,7 @@ using UnityEditor;
 [System.Serializable]
 public class LevelGroupData: MonoBehaviour
 {
-    public string ID;
+    /*public string ID;
     public int x, y;
     public List<MultipleLevel.Level> levels;
 
@@ -84,5 +84,5 @@ public class LevelGroupData: MonoBehaviour
         {
             Debug.Log(Name + " no such levelgroups exists");
         }
-    }
+    }*/
 }

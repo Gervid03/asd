@@ -105,6 +105,7 @@ MonoBehaviour:
   colorIndex: 0
   characterRB: {fileID: 0}
   characterC: {fileID: 0}
+  cubeCollider: {fileID: 1804127671570888933}
   fallSpeedLimit: 10
   light2D: {fileID: 8149739696296821774}
   light2Dinside: {fileID: 7777122638726099855}
