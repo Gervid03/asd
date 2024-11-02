@@ -9645,7 +9645,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 64b0ababb1cdc034e988484288849d81, type: 2}
   - {fileID: 11400000, guid: 608295eefa7ca9e4dab74479676e226c, type: 2}
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
-  loadFromProgress: 1
+  loadFromProgress: 0
   cubePrefab: {fileID: 1937908844362188903, guid: e4fc0cb5f7c1fcb48be854db2eccd37d, type: 3}
 --- !u!114 &1256772262
 MonoBehaviour:

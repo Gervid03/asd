@@ -8,6 +8,7 @@ public class Cube : MonoBehaviour
     public int colorIndex;
     public Rigidbody2D characterRB;
     public Collider2D characterC;
+    public Collider2D cubeCollider;
     public float fallSpeedLimit;
     public Light2D light2D;
     public Light2D light2Dinside;
@@ -16,6 +17,11 @@ public class Cube : MonoBehaviour
     private void Awake()
     {
         WallManager.disableColor += DontBeActive;
+        MultipleLevelBarrier[] outsideWalls = FindObjectsOfType<MultipleLevelBarrier>();
+        for(int i = 0; i < outsideWalls.Length; i++)
+        {
+            Physics2D.IgnoreCollision(cubeCollider, outsideWalls[i].gameObject.GetComponent<Collider2D>());
+        }
     }
 
     public void Set()
