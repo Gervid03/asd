@@ -26,22 +26,21 @@ public static class SaveLoadMaps
 
     public static Progress LoadProgress()
     {
-        Progress progress = new Progress(new ProgressGatherer());
         string path = Application.persistentDataPath + "/Progress.pgs";
         if (!File.Exists(path)) path = Application.dataPath + "/StreamingAssets/BackupProgress.pgs";
         if (File.Exists(path))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
-            progress = bf.Deserialize(stream) as Progress;
+            Progress progress = bf.Deserialize(stream) as Progress;
             stream.Close();
+            return progress;
         }
         else
         {
-            Debug.LogError("Save file not found in " + path + "\nStarting new game...");
+            Debug.LogError("Save file not found in " + path);
         }
-
-        return progress;
+        return new Progress(new ProgressGatherer());
     }
 
     public static FileInfo[] GetMapList()

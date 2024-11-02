@@ -482,6 +482,11 @@ public class Map : MonoBehaviour
             hasTile[i] = new bool[data.row];
             hasWhiteWall[i] = new bool[data.row];
             wm.wallPositions[i] = new int[data.row];
+
+            for (int j = 0; j < data.row; j++)
+            {
+                wm.wallPositions[i][j] = -1;
+            }
         }
 
         int whiteIndex = 0;

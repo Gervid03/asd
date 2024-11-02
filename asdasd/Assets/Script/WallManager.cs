@@ -286,6 +286,16 @@ public class WallManager : MonoBehaviour
         if (Input.GetKeyDown("o")){
             Debug.Log("o");
             FindFirstObjectByType<PopUpHandler>().ResetProgress();
+            for (int i = 0; i < wallPositions.Length; i++)
+            {
+                string line = "";
+                for (int j = 0; j < wallPositions[i].Length; j++)
+                {
+                    line += (char)(wallPositions[i][j] + '0')  + " ";
+                }
+                Debug.LogWarning(line);
+            }
+            //FindFirstObjectByType<PopUpHandler>().ResetProgress();
         }
     }
 
@@ -613,10 +623,10 @@ public class WallManager : MonoBehaviour
     public void CheckIfThePositionIsInTheWall(int x, int y)
     {
         if (x < 0 || y < 0 || x >= wallPositions.Length || y >= wallPositions[x].Length) return;
-        if (colors.atVisible(wallPositions[x][y]))
+        if (colors.atVisible(wallPositions[x][y]) && wallPositions[x][y] != -1)
         {
             //TODO later make it not a comment
-            //FindFirstObjectByType<Map>().LoadFromProgress();
+            FindFirstObjectByType<Map>().LoadFromProgress();
             Debug.Log("Stuck in the wall");
         }
     }
