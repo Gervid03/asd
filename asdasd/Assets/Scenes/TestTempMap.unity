@@ -9626,7 +9626,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterWithLight
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 339756640758287366, guid: 505d1a1f93ee7b34ab71e059e4338a31, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

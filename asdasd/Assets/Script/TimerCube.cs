@@ -23,8 +23,8 @@ public class TimerCube : MonoBehaviour
     public void Set()
     {
         gameObject.GetComponent<SpriteRenderer>().color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
-        characterC = FindFirstObjectByType<Player>().gameObject.GetComponent<BoxCollider2D>();
-        characterRB = FindFirstObjectByType<Player>().gameObject.GetComponent<Rigidbody2D>();
+        characterC = FindFirstObjectByType<CubePlacer>().gameObject.GetComponent<BoxCollider2D>();
+        characterRB = FindFirstObjectByType<CubePlacer>().gameObject.GetComponent<Rigidbody2D>();
         Physics2D.IgnoreCollision(characterC, gameObject.GetComponent<BoxCollider2D>(), true);
         light2D.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         light2Dinside.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);

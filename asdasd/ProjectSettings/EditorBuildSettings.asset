@@ -5,16 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/Trash/movementTest.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: Assets/Scenes/OldMapEditor.unity
+    guid: 5c5a8ca5592d207409d9edb8c0360589
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 8a2688f0e04278a458c603b906b1298f
   - enabled: 1
     path: Assets/Scenes/LevelGroupTest.unity
     guid: c3e852036d8a2a047b7fd4bd3f7ce1f1
   - enabled: 1
-    path: Assets/Scenes/Trash/movementTest.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/MapEditor.unity
+    guid: 4374132a43a37964899782eb57eeb077
   - enabled: 1
     path: Assets/Scenes/TestTempMap.unity
     guid: e8b5700f3a7bc2e458a7e10cebb558fe
-  - enabled: 1
-    path: Assets/Scenes/OldMapEditor.unity
-    guid: 5c5a8ca5592d207409d9edb8c0360589
   m_configObjects: {}

@@ -24,7 +24,7 @@ public class NPC : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (justDecoration) return;
-        if (collision.gameObject.GetComponent<Player>() == null) return;
+        if (collision.gameObject.GetComponent<CubePlacer>() == null) return;
         if (showInteract != null) showInteract.SetActive(true);
         isInteractable = true;
     }
@@ -32,7 +32,7 @@ public class NPC : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (justDecoration) return;
-        if (collision.gameObject.GetComponent<Player>() == null) return;
+        if (collision.gameObject.GetComponent<CubePlacer>() == null) return;
         if (wasCommunication && showInteract != null) showInteract.SetActive(false);
         if (isCommunicating) EndCommunicating();
         isInteractable = false;

@@ -14,7 +14,7 @@ public class EndThing : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Player>() != null)
+        if(collision.GetComponent<CubePlacer>() != null)
         {
             Debug.LogError("Level Finished");
         }

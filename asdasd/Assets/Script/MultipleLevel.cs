@@ -184,7 +184,7 @@ public class MultipleLevel : MonoBehaviour
             {
                 if(comeFrom == ComeFrom.left)
                 {
-                    if(cf == ComeFrom.left) FindFirstObjectByType<Player>().gameObject.transform.position = new Vector3(FindFirstObjectByType<Player>().gameObject.transform.position.x - 1, FindFirstObjectByType<Player>().gameObject.transform.position.y, 0);
+                    if(cf == ComeFrom.left) FindFirstObjectByType<CubePlacer>().gameObject.transform.position = new Vector3(FindFirstObjectByType<CubePlacer>().gameObject.transform.position.x - 1, FindFirstObjectByType<CubePlacer>().gameObject.transform.position.y, 0);
                     for (int i = 0; i < missingLeft.Count; i++)
                     {
                         wm.outsideWallTilemap.SetTile(new Vector3Int(ml.leftX, missingLeft[i], 0), ml.wall);
@@ -192,7 +192,7 @@ public class MultipleLevel : MonoBehaviour
                 }
                 else if (comeFrom == ComeFrom.right)
                 {
-                    if (cf == ComeFrom.right) FindFirstObjectByType<Player>().gameObject.transform.position = new Vector3(FindFirstObjectByType<Player>().gameObject.transform.position.x + 1, FindFirstObjectByType<Player>().gameObject.transform.position.y, 0);
+                    if (cf == ComeFrom.right) FindFirstObjectByType<CubePlacer>().gameObject.transform.position = new Vector3(FindFirstObjectByType<CubePlacer>().gameObject.transform.position.x + 1, FindFirstObjectByType<CubePlacer>().gameObject.transform.position.y, 0);
                     for (int i = 0; i < missingRight.Count; i++)
                     {
                         wm.outsideWallTilemap.SetTile(new Vector3Int(ml.rightX, missingRight[i], 0), ml.wall);
@@ -200,7 +200,7 @@ public class MultipleLevel : MonoBehaviour
                 }
                 else if (comeFrom == ComeFrom.up)
                 {
-                    if (cf == ComeFrom.up) FindFirstObjectByType<Player>().gameObject.transform.position = new Vector3(FindFirstObjectByType<Player>().gameObject.transform.position.x, FindFirstObjectByType<Player>().gameObject.transform.position.y + 1, 0);
+                    if (cf == ComeFrom.up) FindFirstObjectByType<CubePlacer>().gameObject.transform.position = new Vector3(FindFirstObjectByType<CubePlacer>().gameObject.transform.position.x, FindFirstObjectByType<CubePlacer>().gameObject.transform.position.y + 1, 0);
                     for (int i = 0; i < missingUp.Count; i++)
                     {
                         wm.outsideWallTilemap.SetTile(new Vector3Int(missingUp[i], ml.upY, 0), ml.wall);
@@ -208,7 +208,7 @@ public class MultipleLevel : MonoBehaviour
                 }
                 else if (comeFrom == ComeFrom.down)
                 {
-                    if (cf == ComeFrom.down) FindFirstObjectByType<Player>().gameObject.transform.position = new Vector3(FindFirstObjectByType<Player>().gameObject.transform.position.x, FindFirstObjectByType<Player>().gameObject.transform.position.y - 1, 0);
+                    if (cf == ComeFrom.down) FindFirstObjectByType<CubePlacer>().gameObject.transform.position = new Vector3(FindFirstObjectByType<CubePlacer>().gameObject.transform.position.x, FindFirstObjectByType<CubePlacer>().gameObject.transform.position.y - 1, 0);
                     for (int i = 0; i < missingDown.Count; i++)
                     {
                         wm.outsideWallTilemap.SetTile(new Vector3Int(missingDown[i], ml.downY, 0), ml.wall);

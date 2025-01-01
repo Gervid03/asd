@@ -100,7 +100,7 @@ public class ButtonTimerCube : MonoBehaviour
         colorIndex = color;
         timer = t;
         cubeColor = cubec;
-        character = FindFirstObjectByType<Player>().gameObject;
+        character = FindFirstObjectByType<CubePlacer>().gameObject;
         SetColor();
         SetPosition(x, y);
     }

@@ -130,7 +130,7 @@ public class Map : MonoBehaviour
 
 
             FindFirstObjectByType<MultipleLevel>().LoadAMap();
-            FindFirstObjectByType<Player>().gameObject.transform.position = new Vector2(progress.x, progress.y);
+            FindFirstObjectByType<CubePlacer>().gameObject.transform.position = new Vector2(progress.x, progress.y);
 
             CubePlacer cubePlacer = FindFirstObjectByType<CubePlacer>();
             foreach (Progress.TimerCubeStruct tc in progress.timerCubes)
@@ -633,7 +633,7 @@ public class Map : MonoBehaviour
         if (isStart) FindFirstObjectByType<movement>().needUpdate = 2;
         else FindFirstObjectByType<movement>().needUpdate = 1;
 
-        if(isStart) FindFirstObjectByType<Player>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
+        if(isStart) FindFirstObjectByType<CubePlacer>().gameObject.GetComponent<movement>().SetPosition(data.startx, data.starty);
         FindFirstObjectByType<WallManager>().endThing.SetPosition(data.endx, data.endy);
         if(data.endx >= 0 && data.endy >= 0) hasTile[data.endx][data.endy] = true;
         FindFirstObjectByType<WallManager>().SetDecoDemons();

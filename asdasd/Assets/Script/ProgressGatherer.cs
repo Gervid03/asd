@@ -12,8 +12,8 @@ public class ProgressGatherer : MonoBehaviour
 
     public void GetInfos()
     {
-        x = FindFirstObjectByType<Player>().gameObject.transform.position.x;
-        y = FindFirstObjectByType<Player>().gameObject.transform.position.y;
+        x = FindFirstObjectByType<CubePlacer>().gameObject.transform.position.x;
+        y = FindFirstObjectByType<CubePlacer>().gameObject.transform.position.y;
 
         roomX = FindFirstObjectByType<MultipleLevel>().currentX;
         roomY = FindFirstObjectByType<MultipleLevel>().currentY;

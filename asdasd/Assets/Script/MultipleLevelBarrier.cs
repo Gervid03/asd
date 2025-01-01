@@ -18,7 +18,7 @@ public class MultipleLevelBarrier : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<Player>() != null)
+        if(collision.gameObject.GetComponent<CubePlacer>() != null)
         {
             MultipleLevel ml = FindFirstObjectByType<MultipleLevel>();
             if (t == type.up) ml.SwitchUp();

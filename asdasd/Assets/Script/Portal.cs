@@ -69,7 +69,7 @@ public class Portal : MonoBehaviour
         colorIndex = color;
         portalIndex = portalColor;
         SetPosition(x, y); 
-        character = FindFirstObjectByType<Player>().gameObject;
+        character = FindFirstObjectByType<CubePlacer>().gameObject;
         colorLight.color = FindFirstObjectByType<WallManager>().GetColor(colorIndex);
         portalIndexDisplay.color = FindFirstObjectByType<WallManager>().GetPortalColor((float)portalIndex);
     }
