@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Trash/movementTest.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 0
-    path: Assets/Scenes/OldMapEditor.unity
+    path: Assets/Scenes/Trash/OldMapEditor.unity
     guid: 5c5a8ca5592d207409d9edb8c0360589
   - enabled: 1
     path: Assets/Scenes/Menu.unity

@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using System.IO;
 
 public class PopUpHandler : MonoBehaviour
 {
-    public bool popupActive;
     private GameObject darkOverlay;
     private PopUp[] popUps;
+    public bool popupActive;
+
     private int _activePopUps;
-    public int activePopUps
+    public int activePopUps //Dark layer reacts to this variable
     {
         get
         {
@@ -21,11 +23,18 @@ public class PopUpHandler : MonoBehaviour
         {
             if (value < 0)
             {
-                _activePopUps = 0;
-                popupActive = false;
-                return;
+                Debug.Log("negative number of popups are on screen");
             }
-            popupActive = value != 0; //store wheter atleast a single popup is active or not
+            else if (value == 0)
+            {
+                popupActive = false;
+                DarkenDown();
+            }
+            else
+            {
+                popupActive = true;
+                DarkenUp();
+            }
             _activePopUps = value;
         }
     }
@@ -40,9 +49,17 @@ public class PopUpHandler : MonoBehaviour
         };
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (popupActive) Down(-1);
+            else if (SceneManager.GetActiveScene().name != "MapEditor") popUps[1].Up(); //raise menu
+        }
+    }
+
     public void DarkenUp()
     {
-        popupActive = true;
         darkOverlay.SetActive(true);
     }
 
@@ -51,14 +68,16 @@ public class PopUpHandler : MonoBehaviour
         darkOverlay.SetActive(false);
     }
 
-    public void Down() //Disables all popups
+    public void Down(int id = -1) //-1 Disables all popups
     {
-        DarkenDown();
-
-        for (int i = 0; i < popUps.Length; i++)
+        if (id == -1)
         {
-            popUps[i].Down();
+            for (int i = 0; i < popUps.Length; i++)
+            {
+                popUps[i].Down();
+            }
         }
+        else popUps[id].Down();
     }
 
 
@@ -66,5 +85,4 @@ public class PopUpHandler : MonoBehaviour
     public void NewMapButtonPress() => popUps[0].addNewMap.ButtonPress();
 
     public void BackToMainMenu() => popUps[1].pauseScreen.BackToMainMenu();
-    public void ResetProgress() => popUps[1].pauseScreen.ResetProgress(FindFirstObjectByType<MultipleLevel>());
 }

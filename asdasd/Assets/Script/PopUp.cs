@@ -24,17 +24,16 @@ public class PopUp
 
     public virtual void Up()
     {
-        handler.DarkenUp();
-        window.SetActive(true);
         handler.activePopUps++;
+        window.SetActive(true);
     }
 
     public virtual void Down()
     {
-        window.SetActive(false);
-        if (--handler.activePopUps <= 0)
-        {
-            handler.DarkenDown();
+        if (window.activeInHierarchy)
+        { 
+            window.SetActive(false);
+            handler.activePopUps--; //handles dark layer automatically
         }
     }
 
@@ -132,12 +131,6 @@ public class PopUp
         public void BackToMainMenu()
         {
             SceneLoader.LoadSceneByName("Menu");
-        }
-
-        public void ResetProgress(MultipleLevel m)
-        {
-            //luxus
-            //TODO
         }
     }
 }

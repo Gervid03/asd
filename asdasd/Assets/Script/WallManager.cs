@@ -283,20 +283,20 @@ public class WallManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("o")){
-            Debug.Log("o");
-            FindFirstObjectByType<PopUpHandler>().ResetProgress();
-            for (int i = 0; i < wallPositions.Length; i++)
-            {
-                string line = "";
-                for (int j = 0; j < wallPositions[i].Length; j++)
-                {
-                    line += (char)(wallPositions[i][j] + '0')  + " ";
-                }
-                Debug.LogWarning(line);
-            }
-            //FindFirstObjectByType<PopUpHandler>().ResetProgress();
-        }
+        //if (Input.GetKeyDown("o")){
+        //    Debug.Log("o");
+        //    FindFirstObjectByType<PopUpHandler>().ResetProgress();
+        //    for (int i = 0; i < wallPositions.Length; i++)
+        //    {
+        //        string line = "";
+        //        for (int j = 0; j < wallPositions[i].Length; j++)
+        //        {
+        //            line += (char)(wallPositions[i][j] + '0')  + " ";
+        //        }
+        //        Debug.LogWarning(line);
+        //    }
+        //    //FindFirstObjectByType<PopUpHandler>().ResetProgress();
+        //}
     }
 
     public void ResetThings()
