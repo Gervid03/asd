@@ -11,7 +11,7 @@ public static class SaveLoadMaps
         BinaryFormatter bf = new BinaryFormatter();
         string path = Application.persistentDataPath + "/Progress.pgs";
         Debug.Log(path);
-        Debug.Log(Application.dataPath);
+        Debug.Log(Application.persistentDataPath);
         FileStream stream = new FileStream(path, FileMode.Create);
         Progress progress = new Progress(pg);
         bf.Serialize(stream, progress);
@@ -82,8 +82,8 @@ public static class SaveLoadMaps
 
     public static void CreateEmptyMap(string name, bool overwrite = false)
     {
-        string clearPath = Application.dataPath + "/maps/" + "!clear" + "map.map";
-        string newPath = Application.dataPath + "/maps/" + name + "map.map";
+        string clearPath = Application.persistentDataPath + "/maps/" + "!clear" + "map.map";
+        string newPath = Application.persistentDataPath + "/maps/" + name + "map.map";
         
         if (File.Exists(newPath) && !overwrite)
         {
@@ -97,7 +97,7 @@ public static class SaveLoadMaps
     {
         Debug.Log(Application.persistentDataPath);
         BinaryFormatter bf = new BinaryFormatter();
-        string path = Application.dataPath + "/mappacks/" + mappack.ID + ".mappack";
+        string path = Application.persistentDataPath + "/mappacks/" + mappack.ID + ".mappack";
         FileStream stream = new FileStream(path, FileMode.Create);
         MapEditor.Mappack.MappackData data = new MapEditor.Mappack.MappackData(mappack);
         bf.Serialize(stream, data);
@@ -105,7 +105,7 @@ public static class SaveLoadMaps
     }
     public static MapEditor.Mappack.MappackData LoadMappack(string name)
     {
-        string path = Application.dataPath + "/mappacks/" + name + ".mappack"; //Application.persistentDataPath + " / " + index + "map.map";
+        string path = Application.persistentDataPath + "/mappacks/" + name + ".mappack"; //Application.persistentDataPath + " / " + index + "map.map";
         if (File.Exists(path))
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -126,7 +126,7 @@ public static class SaveLoadMaps
     {
         Debug.Log(Application.persistentDataPath);
         BinaryFormatter bf = new BinaryFormatter();
-        string path = Application.dataPath + "/levelgroups/levelgroupdata/" + levelGroupData.ID + ".lg";
+        string path = Application.persistentDataPath + "/levelgroups/levelgroupdata/" + levelGroupData.ID + ".lg";
         FileStream stream = new FileStream(path, FileMode.Create);
         bf.Serialize(stream, levelGroupData);
         stream.Close();

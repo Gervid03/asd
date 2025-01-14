@@ -20,12 +20,12 @@ public class HistoryManager : MonoBehaviour
     {
         if (!popUpHandler.popupActive)
         {
-            if (Input.GetKeyDown("y") && !heldDown) //switched z and y!
+            if (Input.GetKeyDown(KeyCode.Y) && !heldDown) //switched z and y!
             {
                 heldDown = true;
                 stacks.PopUndo();
             }
-            else if (Input.GetKeyDown("z") && !heldDown)
+            else if (Input.GetKeyDown(KeyCode.Z) && !heldDown)
             {
                 heldDown = true;
                 stacks.PopRedo();

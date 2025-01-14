@@ -35,13 +35,40 @@ public class ColorPalette : MonoBehaviour
 
     void Awake()
     {
+        CheckFilesInPersistentDataPath();
         mapEditor = FindFirstObjectByType<MapEditor>();
         mapEditor.tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
-        colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
+        colorPalettePath = Application.persistentDataPath + "/Saves/ColorPalette.txt";
         colorTweaker = FindFirstObjectByType<ColorTweaker>(FindObjectsInactive.Include);
         history = FindFirstObjectByType<HistoryManager>();
         CreateColor(new Color32(255, 255, 255, 255), -1, true);
         ReadInColors();
+    }
+
+    static void CopyFolder(string folderName)
+    {
+        string sourceDir = Path.Combine(Application.streamingAssetsPath, folderName);
+        string targetDir = Path.Combine(Application.persistentDataPath, folderName);
+
+        if (!Directory.Exists(targetDir))
+        {
+            Directory.CreateDirectory(targetDir);
+
+            foreach (string filePath in Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories))
+            {
+                string relativePath = filePath.Substring(sourceDir.Length + 1);
+                string targetFile = Path.Combine(targetDir, relativePath);
+
+                Directory.CreateDirectory(Path.GetDirectoryName(targetFile));
+                File.Copy(filePath, targetFile, true);
+            }
+        }
+    }
+
+    public void CheckFilesInPersistentDataPath()
+    {
+        CopyFolder("Saves");
+        CopyFolder("mappacks");
     }
 
     private void OnApplicationQuit()
@@ -238,12 +265,12 @@ public class ColorPalette : MonoBehaviour
 
     public void ResetPalette()
     {
-        colorPalettePath = Application.dataPath + "/Saves/DefaultColorPalette.txt";
+        colorPalettePath = Application.persistentDataPath + "/Saves/DefaultColorPalette.txt";
 
         KillAllTheChildren();
 
         ReadInColors();
-        colorPalettePath = Application.dataPath + "/Saves/ColorPalette.txt";
+        colorPalettePath = Application.persistentDataPath + "/Saves/ColorPalette.txt";
         selectedButton = null;
     }
 

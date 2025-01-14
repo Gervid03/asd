@@ -447,7 +447,7 @@ public class MapEditor : MonoBehaviour
 
     public FileInfo[] GetMappackList()
     {
-        string path = Application.dataPath + "/mappacks";
+        string path = Application.persistentDataPath + "/mappacks";
         DirectoryInfo dir = new DirectoryInfo(path);
         return dir.GetFiles("*.mappack");
     }
@@ -591,7 +591,7 @@ public class MapEditor : MonoBehaviour
             }
             else pressedCarouselCycle = false;
 
-            if (Input.GetKeyDown("r"))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 Map map = FindFirstObjectByType<Map>();
                 GetInfos(map);
