@@ -9,8 +9,10 @@ public class PopUp
 {
     protected PopUpHandler handler;
     protected GameObject window;
+    public bool active = false;
     public AddNewMap addNewMap;
     public PauseScreen pauseScreen;
+    public ManaVision manaVision;
 
     public PopUp()
     {
@@ -24,12 +26,14 @@ public class PopUp
 
     public virtual void Up()
     {
+        active = true;
         handler.activePopUps++;
         window.SetActive(true);
     }
 
     public virtual void Down()
     {
+        active = false;
         if (window.activeInHierarchy)
         { 
             window.SetActive(false);
@@ -131,6 +135,32 @@ public class PopUp
         public void BackToMainMenu()
         {
             SceneLoader.LoadSceneByName("Menu");
+        }
+    }
+
+    public class ManaVision : PopUp
+    {
+        public ManaVision()
+        {
+            window = handler.transform.Find("ManaVision").gameObject;
+            handler.manaVisionTextParent = window;
+            manaVision = this;
+        }
+
+        public override void Up()
+        {
+            base.Up();
+            handler.StartTextAnimation();
+            Time.timeScale = 0f;
+            handler.CreateManaVisionTexts();
+        }
+
+        public override void Down()
+        {
+            handler.StopTextAnimation();
+            handler.DeleteManaVisionTexts();
+            Time.timeScale = 1f;
+            base.Down();
         }
     }
 }

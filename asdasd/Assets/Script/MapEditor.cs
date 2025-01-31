@@ -461,7 +461,7 @@ public class MapEditor : MonoBehaviour
         List<string> options = new List<string>();
         foreach (FileInfo mappack in mappacks)
         {
-            //if (mappack.Name[0] == '!') continue; //TODO uncomment
+            if (mappack.Name[0] == '!') continue; //TODO uncomment this line
             options.Add(mappack.Name.Substring(0, mappack.Name.Length - 8));
         }
         mappackDropdown.AddOptions(options);
@@ -517,7 +517,7 @@ public class MapEditor : MonoBehaviour
         List<string> options = new List<string>();
         foreach (FileInfo map in maps)
         {
-            //if (map.Name[0] == '!') continue;
+            if (map.Name[0] == '!') continue;
             options.Add(map.Name.Substring(0, map.Name.Length-7));
         }
         dropdown.AddOptions(options);
@@ -747,7 +747,7 @@ public class MapEditor : MonoBehaviour
         if (tilemapIndex == -1) tilemapIndex = currentTilemap;
 
         //open menu, add settings
-        //OpenMenu(); //TODO smaller popups? Handle that this is called by loadintoeditor and that shouldnt open the menu
+        //TODO smaller popups? 
         if (tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[2].tile) AddButton(x, y);
         else if (tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[3].tile) AddButtonForCube(x, y);
         else if (tilemaps.at(tilemapIndex).GetTile(new Vector3Int(x, y, 0)) == tools[4].tile) AddLever(x, y);
