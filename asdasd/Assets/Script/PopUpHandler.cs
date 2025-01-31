@@ -52,15 +52,20 @@ public class PopUpHandler : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         darkOverlay = transform.Find("DarkLayer").gameObject; //find returns the this.transform's child's transform with a specific name
         popUps = new PopUp[]
         {
             new PopUp.AddNewMap(),
             new PopUp.PauseScreen(),
-            new PopUp.ManaVision()
+            new PopUp.ManaVision(),
+            new PopUp.MovementAndInteractionTutorial(),
+            new PopUp.ManaVisionTutorial(),
+            new PopUp.ButtonsAndCubesTutorial(),
+            new PopUp.TimercubesTutorial()
         };
+        Debug.Log("asd");
         if (!(SceneManager.GetActiveScene().name == "LevelGroupTest" || SceneManager.GetActiveScene().name == "TestTempMap") ||
             GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.name == "ManaVisionText") == null ||
             GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.name == "AnyKeyExitText") == null ||
@@ -98,6 +103,31 @@ public class PopUpHandler : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.V)) Vpressed = true;
             else if (Input.GetKeyUp(KeyCode.V)) Vpressed = false;
+        }
+
+        CheckTutorialPopUps();
+    }
+
+    private void CheckTutorialPopUps()
+    {
+        Map map = FindFirstObjectByType<Map>();
+        if (map == null || map.index == "") return;
+
+        if (map.index == "!A01lever" && PlayerPrefs.GetInt("MovementAndInteractionTutorial", 0) == 0) {
+            popUps[3].Up();
+            PlayerPrefs.SetInt("MovementAndInteractionTutorial", 1);
+        }
+        if (map.index == "!A02doublegate" && PlayerPrefs.GetInt("ManaVisionTutorial", 0) == 0) {
+            popUps[4].Up();
+            PlayerPrefs.SetInt("ManaVisionTutorial", 1);
+        }
+        if (map.index == "!B01" && PlayerPrefs.GetInt("ButtonsAndCubesTutorial", 0) == 0) {
+            popUps[5].Up();
+            PlayerPrefs.SetInt("ButtonsAndCubesTutorial", 1);
+        }
+        if (map.index == "!C08" && PlayerPrefs.GetInt("TimercubesTutorial", 0) == 0) {
+            popUps[6].Up();
+            PlayerPrefs.SetInt("TimercubesTutorial", 1);
         }
     }
 
@@ -298,5 +328,20 @@ public class PopUpHandler : MonoBehaviour
             if (child.name == "ManaVisionText" || child.name == "AnyKeyExitText") continue;
             Destroy(child.gameObject);
         }
+    }
+
+    public void ResetTutorial()
+    {
+        PlayerPrefs.SetInt("MovementAndInteractionTutorial", 0);
+        PlayerPrefs.SetInt("ManaVisionTutorial", 0);
+        PlayerPrefs.SetInt("ButtonsAndCubesTutorial", 0);
+        PlayerPrefs.SetInt("TimercubesTutorial", 0);
+    }
+    public void TurnOffTutorial()
+    {
+        PlayerPrefs.SetInt("MovementAndInteractionTutorial", 1);
+        PlayerPrefs.SetInt("ManaVisionTutorial", 1);
+        PlayerPrefs.SetInt("ButtonsAndCubesTutorial", 1);
+        PlayerPrefs.SetInt("TimercubesTutorial", 1);
     }
 }

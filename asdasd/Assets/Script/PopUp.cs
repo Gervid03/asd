@@ -13,6 +13,10 @@ public class PopUp
     public AddNewMap addNewMap;
     public PauseScreen pauseScreen;
     public ManaVision manaVision;
+    public MovementAndInteractionTutorial movementAndInteraction;
+    public ManaVisionTutorial manaVisionTutorial;
+    public ButtonsAndCubesTutorial buttonsAndCubesTutorial;
+    public TimercubesTutorial timercubesTutorial;
 
     public PopUp()
     {
@@ -161,6 +165,40 @@ public class PopUp
             handler.DeleteManaVisionTexts();
             Time.timeScale = 1f;
             base.Down();
+        }
+    }
+
+    //Tutorial popups
+    public class MovementAndInteractionTutorial : PopUp
+    {
+        public MovementAndInteractionTutorial()
+        {
+            window = handler.transform.Find("MovementAndInteractionTutorial").gameObject;
+            movementAndInteraction = this;
+        }
+    }
+    public class ManaVisionTutorial : PopUp
+    {
+        public ManaVisionTutorial()
+        {
+            window = handler.transform.Find("ManaVisionTutorial").gameObject;
+            manaVisionTutorial = this;
+        }
+    }
+    public class ButtonsAndCubesTutorial : PopUp
+    {
+        public ButtonsAndCubesTutorial()
+        {
+            window = handler.transform.Find("ButtonsAndCubesTutorial").gameObject;
+            buttonsAndCubesTutorial = this;
+        }
+    }
+    public class TimercubesTutorial : PopUp
+    {
+        public TimercubesTutorial()
+        {
+            window = handler.transform.Find("TimercubesTutorial").gameObject;
+            timercubesTutorial = this;
         }
     }
 }
