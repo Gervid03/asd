@@ -211,7 +211,7 @@ MonoBehaviour:
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
   wall: {fileID: 11400000, guid: 8292fcf3eabd1bd47aee888ec5542a13, type: 2}
   levels: []
-  levelGroup: {fileID: 11400000, guid: 811b3468c83e98b46a6666d8ea68791a, type: 2}
+  levelGroup: {fileID: 11400000, guid: 7b0346563224abd45973287607f9ab4a, type: 2}
 --- !u!1 &382488761
 GameObject:
   m_ObjectHideFlags: 0
@@ -9645,7 +9645,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 64b0ababb1cdc034e988484288849d81, type: 2}
   - {fileID: 11400000, guid: 608295eefa7ca9e4dab74479676e226c, type: 2}
   clear: {fileID: 11400000, guid: 8e841617345075b44859a88ad5e46c11, type: 2}
-  loadFromProgress: 1
+  loadFromProgress: 0
   cubePrefab: {fileID: 1937908844362188903, guid: e4fc0cb5f7c1fcb48be854db2eccd37d, type: 3}
 --- !u!114 &1256772262
 MonoBehaviour:

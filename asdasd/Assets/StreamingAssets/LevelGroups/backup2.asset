@@ -1,0 +1,476 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0bc62049791374a948d01a400e89bf, type: 3}
+  m_Name: LevelGroup
+  m_EditorClassIdentifier: 
+  x: 4
+  y: -2
+  levels:
+  - x: 0
+    y: 0
+    levelName: '!A01lever'
+    missingUp: 
+    missingDown: 
+    missingRight: 0a000000090000000800000007000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 1
+    y: 0
+    levelName: '!A02doublegate'
+    missingUp: 
+    missingDown: 
+    missingRight: 0a000000090000000800000007000000
+    missingLeft: 0a000000090000000800000007000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 2
+    y: 0
+    levelName: '!A03twicelever'
+    missingUp: 
+    missingDown: 1000000011000000120000001300000014000000
+    missingRight: 08000000090000000a0000000b0000000c0000000d0000000e000000
+    missingLeft: 0a000000090000000800000007000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 3
+    y: 0
+    levelName: '!A04twoways'
+    missingUp: 
+    missingDown: 
+    missingRight: 010000000200000003000000000000000e0000000f0000000d000000
+    missingLeft: 08000000090000000a0000000b0000000c0000000d0000000e000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 4
+    y: 0
+    levelName: '!A05twowayssecond'
+    missingUp: 
+    missingDown: 16000000170000001800000019000000
+    missingRight: 0a00000009000000080000000700000006000000
+    missingLeft: 000000000100000002000000030000000d0000000e0000000f000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 4
+    y: -1
+    levelName: '!A06challenge'
+    missingUp: 16000000170000001800000019000000
+    missingDown: 000000000100000002000000
+    missingRight: 
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 4
+    y: -2
+    levelName: '!B00'
+    missingUp: 000000000100000002000000
+    missingDown: 
+    missingRight: 000000000100000002000000
+    missingLeft: 
+    isSpecial: 1
+    comeFrom: 3
+  - x: 5
+    y: -2
+    levelName: '!B01'
+    missingUp: 
+    missingDown: 1f0000001e0000001d0000001c0000001b0000001a0000001900000018000000170000001600000015000000
+    missingRight: 0a0000000b0000000c000000090000000800000007000000050000000400000003000000020000000100000000000000
+    missingLeft: 000000000100000002000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 6
+    y: -2
+    levelName: '!B02'
+    missingUp: 1700000018000000190000001a000000
+    missingDown: ffffffff000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000001a0000001b0000001c0000001d000000
+    missingRight: 
+    missingLeft: 0a0000000b0000000c000000090000000800000007000000050000000400000003000000020000000100000000000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 6
+    y: -1
+    levelName: '!B03'
+    missingUp: 
+    missingDown: 18000000190000001a000000
+    missingRight: 0b0000000c0000000d0000000e0000000f000000000000000100000002000000030000000400000005000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 7
+    y: -1
+    levelName: '!B04'
+    missingUp: 
+    missingDown: 0e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b000000
+    missingRight: 0a0000000b0000000c0000000d000000
+    missingLeft: 000000000100000002000000030000000400000005000000060000000b0000000c0000000d0000000e0000000f000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 8
+    y: -1
+    levelName: '!B05'
+    missingUp: 02000000030000000400000001000000200000001f0000001e0000001d0000001c0000001b0000001a0000001900000018000000
+    missingDown: 
+    missingRight: 0f0000000e000000100000000d0000000c0000000b0000000a000000
+    missingLeft: 0a0000000b0000000c000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 8
+    y: 0
+    levelName: '!B06'
+    missingUp: 200000001f0000001e0000001d0000001c000000
+    missingDown: 0100000002000000030000000400000018000000190000001a0000001b0000001c0000001d000000
+    missingRight: 100000000f0000000e0000000d0000000c0000000b000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 9
+    y: 0
+    levelName: '!B07'
+    missingUp: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f00000020000000
+    missingDown: 04000000050000000600000007000000080000000e0000000f00000010000000110000001200000018000000190000001a0000001b0000001c000000
+    missingRight: 0f000000
+    missingLeft: 0b0000000c0000000d0000000e0000000f00000010000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 9
+    y: -1
+    levelName: '!B08'
+    missingUp: 04000000050000000600000007000000080000000f000000100000001100000018000000190000001a0000001b0000001c000000
+    missingDown: 
+    missingRight: 0800000007000000060000000500000004000000
+    missingLeft: 0b0000000c0000000d0000000e0000000f000000100000000a000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 10
+    y: -1
+    levelName: '!B09'
+    missingUp: 
+    missingDown: 
+    missingRight: 0a000000090000000800000007000000
+    missingLeft: 060000000500000004000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 11
+    y: -1
+    levelName: '!B10'
+    missingUp: 
+    missingDown: 
+    missingRight: 0f0000000e0000000d0000000c0000000b0000000000000001000000
+    missingLeft: 0a000000090000000800000007000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 12
+    y: -1
+    levelName: '!B11'
+    missingUp: 
+    missingDown: 1c0000001d0000001e000000
+    missingRight: 0f0000000e0000000d000000
+    missingLeft: 0f0000000e0000000d0000000c0000000b0000000000000001000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 13
+    y: -1
+    levelName: '!C00'
+    missingUp: 
+    missingDown: 
+    missingRight: 0e0000000d0000000c0000000b0000000a000000
+    missingLeft: 0f0000000e0000000d000000
+    isSpecial: 1
+    comeFrom: 1
+  - x: 14
+    y: -1
+    levelName: '!C01'
+    missingUp: 08000000090000000a0000000b0000000c0000000d000000
+    missingDown: 100000001100000012000000130000001400000015000000
+    missingRight: 0e0000000d0000000c0000000b0000000a000000
+    missingLeft: 0e0000000d0000000c0000000b0000000a000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 14
+    y: -2
+    levelName: '!C02'
+    missingUp: 150000001400000010000000110000001200000013000000
+    missingDown: 00000000
+    missingRight: 090000000a0000000b000000
+    missingLeft: ffffffff0000000001000000020000000300000004000000050000000600000007000000080000000a0000000b0000000c000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 14
+    y: -4
+    levelName: '!C08'
+    missingUp: 020000000300000004000000
+    missingDown: 
+    missingRight: 040000000500000006000000070000000800000009000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 15
+    y: -4
+    levelName: '!C09'
+    missingUp: 
+    missingDown: 
+    missingRight: 05000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000
+    missingLeft: 040000000500000006000000070000000800000009000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 16
+    y: -4
+    levelName: '!C10'
+    missingUp: 
+    missingDown: 
+    missingRight: 05000000060000000700000008000000090000000a0000000b0000000c00000004000000
+    missingLeft: 05000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 17
+    y: -4
+    levelName: '!C11'
+    missingUp: 1700000018000000190000001a0000001b0000001c000000
+    missingDown: 
+    missingRight: 
+    missingLeft: 05000000060000000700000008000000090000000a0000000b0000000c00000004000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 17
+    y: -3
+    levelName: '!C12'
+    missingUp: 
+    missingDown: 1700000018000000190000001a0000001b0000001c000000
+    missingRight: 090000000a0000000b000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 18
+    y: -3
+    levelName: '!C13'
+    missingUp: 
+    missingDown: 0f000000100000001100000012000000
+    missingRight: 0400000005000000060000000700000008000000
+    missingLeft: 090000000a0000000b000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 19
+    y: -3
+    levelName: '!C14'
+    missingUp: 
+    missingDown: 15000000160000001700000018000000
+    missingRight: 
+    missingLeft: 0400000005000000060000000700000008000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 18
+    y: -4
+    levelName: '!C15'
+    missingUp: 0f000000100000001100000012000000
+    missingDown: 
+    missingRight: 0200000003000000040000000500000006000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 19
+    y: -4
+    levelName: '!C16'
+    missingUp: 15000000160000001700000018000000
+    missingDown: 0c0000000d0000000e0000000f000000
+    missingRight: 
+    missingLeft: 0200000003000000040000000500000006000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 15
+    y: -2
+    levelName: '!C03'
+    missingUp: 
+    missingDown: 0c0000000d0000000e000000
+    missingRight: 0200000003000000040000000500000006000000
+    missingLeft: 090000000a0000000b000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 16
+    y: -2
+    levelName: '!C04'
+    missingUp: 
+    missingDown: 130000001400000015000000
+    missingRight: 
+    missingLeft: 0200000003000000040000000500000006000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 16
+    y: -3
+    levelName: '!C05'
+    missingUp: 130000001400000015000000
+    missingDown: 
+    missingRight: 
+    missingLeft: 0a000000090000000400000005000000060000000700000008000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 15
+    y: -3
+    levelName: '!C06'
+    missingUp: 0c0000000d0000000e000000
+    missingDown: 
+    missingRight: 0400000005000000060000000700000008000000090000000a000000
+    missingLeft: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 14
+    y: -3
+    levelName: '!C07'
+    missingUp: 
+    missingDown: 020000000300000004000000
+    missingRight: 0400000005000000060000000700000008000000090000000a000000010000000200000003000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 19
+    y: -5
+    levelName: '!C17'
+    missingUp: 0c0000000d0000000e0000000f000000
+    missingDown: 
+    missingRight: 0700000008000000090000000a000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 20
+    y: -5
+    levelName: '!D00'
+    missingUp: 
+    missingDown: 
+    missingRight: 05000000040000000300000002000000
+    missingLeft: 0700000008000000090000000a000000
+    isSpecial: 1
+    comeFrom: 1
+  - x: 21
+    y: -5
+    levelName: '!D01'
+    missingUp: 
+    missingDown: 1900000018000000170000001600000015000000
+    missingRight: 
+    missingLeft: 05000000040000000300000002000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 21
+    y: -6
+    levelName: '!D02'
+    missingUp: 1500000016000000170000001800000019000000
+    missingDown: 
+    missingRight: 
+    missingLeft: 0a0000000200000003000000040000000500000006000000070000000800000009000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 20
+    y: -6
+    levelName: '!D03'
+    missingUp: 
+    missingDown: 0100000002000000030000000400000005000000
+    missingRight: 02000000030000000400000005000000060000000700000008000000090000000a000000
+    missingLeft: 08000000090000000a0000000b0000000c000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 19
+    y: -6
+    levelName: '!D04'
+    missingUp: 
+    missingDown: 060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
+    missingRight: 08000000090000000a0000000b0000000c000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 19
+    y: -7
+    levelName: '!D05'
+    missingUp: 060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000150000001600000017000000
+    missingDown: 0200000003000000
+    missingRight: 00000000010000000200000003000000040000000500000006000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 20
+    y: -7
+    levelName: '!D06'
+    missingUp: 0100000002000000030000000400000005000000
+    missingDown: 0200000003000000040000000500000006000000
+    missingRight: 
+    missingLeft: 00000000010000000200000003000000040000000500000006000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 19
+    y: -8
+    levelName: '!D10'
+    missingUp: 0200000003000000
+    missingDown: 04000000050000000600000007000000
+    missingRight: 0700000008000000090000000a000000010000000200000003000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 21
+    y: -7
+    levelName: '!D07'
+    missingUp: 
+    missingDown: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000015000000160000001700000018000000190000001a000000
+    missingRight: 0e0000000f000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 21
+    y: -8
+    levelName: '!D08'
+    missingUp: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000015000000160000001700000018000000190000001a000000
+    missingDown: 
+    missingRight: 0300000004000000
+    missingLeft: 010000000200000003000000040000000b0000000c0000000d000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 20
+    y: -8
+    levelName: '!D09'
+    missingUp: 0200000003000000040000000500000006000000
+    missingDown: 0b0000000c0000000d00000001000000020000000300000004000000
+    missingRight: 010000000200000003000000040000000b0000000c0000000d000000
+    missingLeft: 0100000002000000030000000700000008000000090000000a000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 20
+    y: -9
+    levelName: '!D12'
+    missingUp: 010000000200000003000000040000000b0000000c0000000d000000
+    missingDown: 
+    missingRight: 0100000002000000030000000500000006000000070000000800000009000000
+    missingLeft: 00000000010000000200000003000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 19
+    y: -9
+    levelName: '!D11'
+    missingUp: 04000000050000000600000007000000
+    missingDown: 
+    missingRight: 01000000020000000300000000000000
+    missingLeft: 
+    isSpecial: 0
+    comeFrom: 0
+  - x: 22
+    y: -8
+    levelName: '!gonosz'
+    missingUp: 
+    missingDown: 
+    missingRight: 
+    missingLeft: 0300000004000000
+    isSpecial: 0
+    comeFrom: 0
+  - x: 23
+    y: -8
+    levelName: '!D15'
+    missingUp: 020000000300000001000000
+    missingDown: 1a0000001b000000
+    missingRight: 
+    missingLeft: 0300000004000000
+    isSpecial: 0
+    comeFrom: 0

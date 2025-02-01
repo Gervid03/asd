@@ -12,11 +12,11 @@ public class PopUp
     public bool active = false;
     public AddNewMap addNewMap;
     public PauseScreen pauseScreen;
-    public ManaVision manaVision;
-    public MovementAndInteractionTutorial movementAndInteraction;
-    public ManaVisionTutorial manaVisionTutorial;
-    public ButtonsAndCubesTutorial buttonsAndCubesTutorial;
-    public TimercubesTutorial timercubesTutorial;
+    //public ManaVision manaVision;
+    //public MovementAndInteractionTutorial movementAndInteraction;
+    //public ManaVisionTutorial manaVisionTutorial;
+    //public ButtonsAndCubesTutorial buttonsAndCubesTutorial;
+    //public TimercubesTutorial timercubesTutorial;
 
     public PopUp()
     {
@@ -148,7 +148,7 @@ public class PopUp
         {
             window = handler.transform.Find("ManaVision").gameObject;
             handler.manaVisionTextParent = window;
-            manaVision = this;
+            //manaVision = this;
         }
 
         public override void Up()
@@ -174,7 +174,7 @@ public class PopUp
         public MovementAndInteractionTutorial()
         {
             window = handler.transform.Find("MovementAndInteractionTutorial").gameObject;
-            movementAndInteraction = this;
+            //movementAndInteraction = this;
         }
     }
     public class ManaVisionTutorial : PopUp
@@ -182,7 +182,7 @@ public class PopUp
         public ManaVisionTutorial()
         {
             window = handler.transform.Find("ManaVisionTutorial").gameObject;
-            manaVisionTutorial = this;
+            //manaVisionTutorial = this;
         }
     }
     public class ButtonsAndCubesTutorial : PopUp
@@ -190,7 +190,7 @@ public class PopUp
         public ButtonsAndCubesTutorial()
         {
             window = handler.transform.Find("ButtonsAndCubesTutorial").gameObject;
-            buttonsAndCubesTutorial = this;
+            //buttonsAndCubesTutorial = this;
         }
     }
     public class TimercubesTutorial : PopUp
@@ -198,7 +198,7 @@ public class PopUp
         public TimercubesTutorial()
         {
             window = handler.transform.Find("TimercubesTutorial").gameObject;
-            timercubesTutorial = this;
+            //timercubesTutorial = this;
         }
     }
 }

@@ -517,7 +517,7 @@ public class MapEditor : MonoBehaviour
         List<string> options = new List<string>();
         foreach (FileInfo map in maps)
         {
-            if (map.Name[0] == '!') continue;
+            //if (map.Name[0] == '!') continue;
             options.Add(map.Name.Substring(0, map.Name.Length-7));
         }
         dropdown.AddOptions(options);
