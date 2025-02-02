@@ -160,6 +160,8 @@ public class ColorPalette : MonoBehaviour
         colorTweaker.BeActive();
         colorTweaker.color = new Color32(255, 255, 255, 255);
         colorTweaker.UpdateTextsFromColor();
+
+        AdjustHeight();
     }
 
     public void FinishedTweaking()
@@ -174,12 +176,16 @@ public class ColorPalette : MonoBehaviour
         CreateColor(colorTweaker.color);
         colorTweaker.BeDeactive();
         overwriteColorButton.SetActive(false);
+
+        AdjustHeight();
     }
 
     public void CancelTweaking()
     {
         colorTweaker.GetComponent<ColorTweaker>().BeDeactive();
         overwriteColorButton.SetActive(false);
+
+        AdjustHeight();
     }
 
     public void ModifySelectedColor()
@@ -195,6 +201,8 @@ public class ColorPalette : MonoBehaviour
         colorTweaker.BeActive();
         colorTweaker.color = selectedButton.GetComponent<ColorDisplayButton>().color;
         colorTweaker.UpdateTextsFromColor();
+
+        AdjustHeight();
 
         UpdateColorCarousel();
     }
@@ -219,6 +227,8 @@ public class ColorPalette : MonoBehaviour
         
         colorTweaker.BeDeactive();
         overwriteColorButton.SetActive(false);
+
+        AdjustHeight();
 
         UpdateColorCarousel();
     }

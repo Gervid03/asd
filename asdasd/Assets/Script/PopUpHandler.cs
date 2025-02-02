@@ -65,9 +65,8 @@ public class PopUpHandler : MonoBehaviour
             new PopUp.ButtonsAndCubesTutorial(),
             new PopUp.TimercubesTutorial()
         };
-        Debug.Log("asd");
-        if (!(SceneManager.GetActiveScene().name == "LevelGroupTest" || SceneManager.GetActiveScene().name == "TestTempMap") ||
-            GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.name == "ManaVisionText") == null ||
+
+        if (GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.name == "ManaVisionText") == null ||
             GetComponentsInChildren<RectTransform>(true).FirstOrDefault(t => t.name == "AnyKeyExitText") == null ||
             GetComponentsInChildren<TextMeshProUGUI>(true).FirstOrDefault(t => t.name == "ManaVisionText") == null ||
             GetComponentsInChildren<TextMeshProUGUI>(true).FirstOrDefault(t => t.name == "AnyKeyExitText") == null) Debug.Log("manavision unavailable");
@@ -91,7 +90,7 @@ public class PopUpHandler : MonoBehaviour
             else if (SceneManager.GetActiveScene().name != "MapEditor") popUps[1].Up(); //raise menu
         }
 
-        if (manavisionavailable)
+        if (manavisionavailable && (SceneManager.GetActiveScene().name == "LevelGroupTest" || SceneManager.GetActiveScene().name == "TestTempMap"))
         {
             if (!Vpressed && popUps[2].active && Input.anyKey)
             {
@@ -110,6 +109,8 @@ public class PopUpHandler : MonoBehaviour
 
     private void CheckTutorialPopUps()
     {
+        if (!(SceneManager.GetActiveScene().name == "LevelGroupTest")) return;
+
         Map map = FindFirstObjectByType<Map>();
         if (map == null || map.index == "") return;
 

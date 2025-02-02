@@ -195,6 +195,7 @@ public class Map : MonoBehaviour
     public void ByButtonLoadIntoEditor()
     {
         LoadIntoEditor(index);
+        colorPalette.AdjustHeight();
     }
 
     public void LoadIntoEditor(string mapToLoad)

@@ -15,11 +15,11 @@ public class ColorTweaker : MonoBehaviour
 
     public void AdjustBrightness()
     {
-        if ((byte) Mathf.Max(color.r, color.g, color.b) == 255) return;
-        float x = 1 / Mathf.Max(color.r, color.g, color.b);
-        color.r = (byte) Mathf.Min(255, Mathf.RoundToInt(color.r * x));
-        color.g = (byte) Mathf.Min(255, Mathf.RoundToInt(color.g * x));
-        color.b = (byte) Mathf.Min(255, Mathf.RoundToInt(color.b * x));
+        if (((int)color.r + (int)color.g + (int)color.b) >= 255) return;
+        float x = 255f / (float)((int)color.r + (int)color.g + (int)color.b);
+        color.r = (byte) Mathf.Min(255, Mathf.CeilToInt(color.r * x));
+        color.g = (byte) Mathf.Min(255, Mathf.CeilToInt(color.g * x));
+        color.b = (byte) Mathf.Min(255, Mathf.CeilToInt(color.b * x));
         
         UpdateTextsFromColor();
         UpdateDisplayColor();
@@ -28,7 +28,7 @@ public class ColorTweaker : MonoBehaviour
     public void CheckBrightness()
     {
         FindFirstObjectByType<ColorPalette>().colorExistsWarning.SetActive(false);
-        if (Mathf.Max(color.r, color.g, color.b) < 255)
+        if (((int)color.r + (int)color.g + (int)color.b) < 255)
         {
             brightnessWarning.SetActive(true);
             notBrightEnough = true;

@@ -461,7 +461,7 @@ public class MapEditor : MonoBehaviour
         List<string> options = new List<string>();
         foreach (FileInfo mappack in mappacks)
         {
-            //if (mappack.Name[0] == '!') continue; //TODO uncomment this line
+            if (mappack.Name[0] == '!') continue; //TODO uncomment this line
             options.Add(mappack.Name.Substring(0, mappack.Name.Length - 8));
         }
         mappackDropdown.AddOptions(options);
