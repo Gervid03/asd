@@ -20,10 +20,8 @@ public class PopUpHandler : MonoBehaviour
     private TextMeshProUGUI manaVisionText;
     private TextMeshProUGUI anyKeyExitText;
     private Coroutine textAnimationRoutine;
-    private bool Vpressed = false;
     private Vector2 startPos_Mana;
     private Vector2 startPos_AnyKey;
-    private bool manavisionavailable = false;
 
     private int _activePopUps;
     public int activePopUps //Dark layer reacts to this variable
@@ -78,7 +76,6 @@ public class PopUpHandler : MonoBehaviour
             anyKeyExitText = GetComponentsInChildren<TextMeshProUGUI>(true).FirstOrDefault(t => t.name == "AnyKeyExitText");
             startPos_Mana = manaVisionTextTransform.anchoredPosition;
             startPos_AnyKey = anykeyexitTextTransform.anchoredPosition;
-            manavisionavailable = true;
         }
     }
 
@@ -90,26 +87,29 @@ public class PopUpHandler : MonoBehaviour
             else if (SceneManager.GetActiveScene().name != "MapEditor") popUps[1].Up(); //raise menu
         }
 
-        if (manavisionavailable && (SceneManager.GetActiveScene().name == "LevelGroupTest" || SceneManager.GetActiveScene().name == "TestTempMap"))
+        if (SceneManager.GetActiveScene().name == "LevelGroupTest" || SceneManager.GetActiveScene().name == "TestTempMap")
         {
-            if (!Vpressed && popUps[2].active && Input.anyKey)
+            if (popUps[2].active && Input.anyKey && (!Input.GetKey(KeyCode.V) || Input.GetKeyDown(KeyCode.V) ||
+                !Mathf.Approximately(Input.GetAxisRaw("Interact"), 0f) ||
+                !Mathf.Approximately(Input.GetAxisRaw("CubeTP"), 0f) ||
+                !Mathf.Approximately(Input.GetAxisRaw("PlaceTimerCube"), 0f)))
             {
                 popUps[2].Down();
             }
-            else if (!Vpressed && Input.GetKeyDown(KeyCode.V))
+            else if (Input.GetKeyDown(KeyCode.V))
             {
                 popUps[2].Up();
             }
-            if (Input.GetKeyDown(KeyCode.V)) Vpressed = true;
-            else if (Input.GetKeyUp(KeyCode.V)) Vpressed = false;
         }
 
         CheckTutorialPopUps();
+
+        if (SceneManager.GetActiveScene().name == "MapEditor") Down(-1);
     }
 
     private void CheckTutorialPopUps()
     {
-        if (!(SceneManager.GetActiveScene().name == "LevelGroupTest")) return;
+        if (SceneManager.GetActiveScene().name != "LevelGroupTest") return;
 
         Map map = FindFirstObjectByType<Map>();
         if (map == null || map.index == "") return;
@@ -251,7 +251,7 @@ public class PopUpHandler : MonoBehaviour
         }
     }
 
-    private void PlaceTextAt(int i, int j, int colorToWrite = -1, int interactiveToWrite = -1)
+    private void PlaceTextOnGrid(int i, int j, int colorToWrite = -1, int interactiveToWrite = -1)
     {
         GameObject instance = Instantiate(manaVisionColorIndexPrefab, manaVisionTextParent.transform);
 
@@ -267,7 +267,25 @@ public class PopUpHandler : MonoBehaviour
         float x = (j + 1.5f) * cellWidth;
         float y = (i + 1) * cellHeight;
 
-        rt.anchoredPosition = new Vector2(y + 5, x);
+        rt.anchoredPosition = new Vector2(y + 3, x);
+    }
+    private void PlaceTextOnPixel(float i, float j, int colorToWrite = -1, int interactiveToWrite = -1)
+    {
+        GameObject instance = Instantiate(manaVisionColorIndexPrefab, manaVisionTextParent.transform);
+
+        var textComponent = instance.GetComponentInChildren<TextMeshProUGUI>();
+        textComponent.text =
+            (colorToWrite != -1 ? colorToWrite.ToString() : "") + "\n" +
+            (interactiveToWrite != -1 ? "->" + interactiveToWrite.ToString() : "");
+
+        RectTransform rt = instance.GetComponent<RectTransform>();
+
+        float cellWidth = Screen.width / 32f;  // Divide into 32 columns
+        float cellHeight = Screen.height / 18f; // Divide into 18 rows
+        float x = (j + 0.75f) * cellWidth;
+        float y = (i + 0.55f) * cellHeight;
+
+        rt.anchoredPosition = new Vector2(y, x);
     }
 
     public void CreateManaVisionTexts()
@@ -279,19 +297,19 @@ public class PopUpHandler : MonoBehaviour
         if (FindFirstObjectByType<Map>() == null) { Debug.Log("map is null"); return; }
         else map = FindFirstObjectByType<Map>();
 
-        for (int i = 0; i < wm.wallPositions.Length; i++)
+        for (int i = 0; i < wm.wallPositions.Length; i++) //blocks
         {
             for (int j = 0; j < wm.wallPositions[i].Length; j++)
             {
                 int val = wm.wallPositions[i][j];
                 if (val > 0 && wm.colors.atVisible(val))
                 {
-                    PlaceTextAt(i, j, val);
+                    PlaceTextOnGrid(i, j, val);
                 }
             }
         }
         GameObject InteractiveParent = GameObject.Find("ThingParent");
-        foreach (Transform interactiveObject in InteractiveParent.transform)
+        foreach (Transform interactiveObject in InteractiveParent.transform) //interactives
         {
             int colorId = -1, interactiveColor = -1;
             if (interactiveObject.GetComponent<Buttons>() != null) {
@@ -317,8 +335,18 @@ public class PopUpHandler : MonoBehaviour
             if (interactiveObject.GetComponent<GateLight>() != null) {
                 colorId = interactiveObject.GetComponent<GateLight>().colorIndex;
             }
-            PlaceTextAt(Mathf.RoundToInt(interactiveObject.transform.position.x + 14.5f), Mathf.RoundToInt(interactiveObject.position.y + 7.5f),
+            PlaceTextOnGrid(Mathf.RoundToInt(interactiveObject.transform.position.x + 14.5f), Mathf.RoundToInt(interactiveObject.position.y + 7.5f),
                 colorId, interactiveColor);
+        }
+
+        Cube c = FindFirstObjectByType<Cube>();
+        if (c != null)
+        {
+            PlaceTextOnPixel(c.transform.position.x+15, c.transform.position.y+8, c.colorIndex);
+        }
+        foreach (TimerCube tc in FindObjectsByType<TimerCube>(FindObjectsSortMode.None))
+        {
+            PlaceTextOnPixel(tc.transform.position.x+15, tc.transform.position.y+8, tc.colorIndex);
         }
     }
 

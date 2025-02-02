@@ -776,6 +776,7 @@ public class MapEditor : MonoBehaviour
     {
         menu.SetActive(true);
         floater.gameObject.SetActive(false);
+        colorPalette.AdjustHeight();
     }
 
     public void CloseMenu()

@@ -13,7 +13,7 @@ public class MenuManager : MonoBehaviour
     }
     private void UpdateResetButton()
     {
-        if (SceneManager.GetActiveScene().name == "Menu") GameObject.Find("ResetButton").GetComponent<Button>().interactable = (PlayerPrefs.GetInt("MovementAndInteractionTutorial", 0) == 1);
+        if (SceneManager.GetActiveScene().name == "Menu") GameObject.Find("StoryButton").GetComponent<Button>().interactable = (PlayerPrefs.GetInt("MovementAndInteractionTutorial", 0) == 1);
     }
     public void LoadSceneFromMenu(string name)
     {

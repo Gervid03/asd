@@ -10764,6 +10764,7 @@ MonoBehaviour:
   colorExistsWarning: {fileID: 1033644001}
   wall: {fileID: -1010294957, guid: acf4eb940152db045a98f31d9f1c6790, type: 3}
   glowWall: {fileID: 419167170, guid: b44a457940799b6408cd5e8b684c7159, type: 3}
+  layoutGroupRect: {fileID: 715735573}
 --- !u!114 &1271317029
 MonoBehaviour:
   m_ObjectHideFlags: 0

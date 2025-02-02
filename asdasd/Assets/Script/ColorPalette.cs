@@ -32,6 +32,7 @@ public class ColorPalette : MonoBehaviour
     public Sprite wall;
     public Sprite glowWall;
     HistoryManager history;
+    public RectTransform layoutGroupRect;
 
     void Awake()
     {
@@ -89,6 +90,7 @@ public class ColorPalette : MonoBehaviour
     {
         colorPaletteParent.sizeDelta = new Vector2(700, (Mathf.CeilToInt(colors.Count / 7f)) * 100);
         FindFirstObjectByType<DefaultStateHeight>(FindObjectsInactive.Include).AdjustHeight((Mathf.CeilToInt(colors.Count / 7f)) * 100);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroupRect);
     }
 
     public bool ColorExists(Color32 c)

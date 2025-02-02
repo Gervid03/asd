@@ -82,7 +82,7 @@ public class ButtonsForCube : MonoBehaviour
     public void CreateCube()
     {
         FindFirstObjectByType<WallManager>().DestroyAllCube();
-        GameObject cube = Instantiate(cubePrefab, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 0.5f, 0), default);
+        GameObject cube = Instantiate(cubePrefab, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 0.1f, 0), default);
         Cube cubeCube = cube.GetComponent<Cube>();
         cubeCube.colorIndex = cubeColor;
         cubeCube.Set();

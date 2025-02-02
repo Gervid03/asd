@@ -15,6 +15,8 @@ public class ColorTweaker : MonoBehaviour
 
     public void AdjustBrightness()
     {
+        if ((int)color.r + (int)color.g + (int)color.b == 0) { color.r = 1; color.g = 1; color.b = 1; } //no division with 0
+
         if (((int)color.r + (int)color.g + (int)color.b) >= 255) return;
         float x = 255f / (float)((int)color.r + (int)color.g + (int)color.b);
         color.r = (byte) Mathf.Min(255, Mathf.CeilToInt(color.r * x));
@@ -69,21 +71,39 @@ public class ColorTweaker : MonoBehaviour
 
     public void UpdateRed(string r255Value)
     {
-        if (r255Value == "" || int.Parse(r255Value) > 255 || int.Parse(r255Value) < 0) return;
-        color.r = byte.Parse(r255Value);
-        UpdateDisplayColor();
+        if (string.IsNullOrEmpty(r255Value) || !int.TryParse(r255Value, out int parsedValue) || parsedValue < 0 || parsedValue > 255)
+        {
+            if (!r255.GetComponent<TMP_InputField>().isFocused) UpdateTextsFromColor();
+        }
+        else
+        {
+            color.r = byte.Parse(r255Value);
+            UpdateDisplayColor();
+        }
     }
 
     public void UpdateGreen(string g255Value)
     {
-        if (g255Value == "" || int.Parse(g255Value) > 255 || int.Parse(g255Value) < 0) return;
-        color.g = byte.Parse(g255Value);
-        UpdateDisplayColor();
+        if (string.IsNullOrEmpty(g255Value) || !int.TryParse(g255Value, out int parsedValue) || parsedValue < 0 || parsedValue > 255)
+        {
+            if (!g255.GetComponent<TMP_InputField>().isFocused) UpdateTextsFromColor();
+        }
+        else
+        {
+            color.g = byte.Parse(g255Value);
+            UpdateDisplayColor();
+        }
     }
     public void UpdateBlue(string b255Value)
     {
-        if (b255Value == "" || int.Parse(b255Value) > 255 || int.Parse(b255Value) < 0) return;
-        color.b = byte.Parse(b255Value);
-        UpdateDisplayColor();
+        if (string.IsNullOrEmpty(b255Value) || !int.TryParse(b255Value, out int parsedValue) || parsedValue < 0 || parsedValue > 255)
+        {
+            if (!b255.GetComponent<TMP_InputField>().isFocused) UpdateTextsFromColor();
+        }
+        else
+        {
+            color.b = byte.Parse(b255Value);
+            UpdateDisplayColor();
+        }
     }
 }
