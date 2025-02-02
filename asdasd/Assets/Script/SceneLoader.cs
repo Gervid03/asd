@@ -48,7 +48,7 @@ public static class SceneLoader
         {
             foreach (GameObject gobject in scene.GetRootGameObjects())
             {
-                if (gobject.name == "global" || gobject.name == "EventSystem") continue;
+                if (gobject.name == "global" || gobject.name == "EventSystem" || gobject.name == "PopUpCanvas") continue;
                 gobject.SetActive(false);
             }
         }

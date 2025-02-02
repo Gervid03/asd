@@ -155,15 +155,15 @@ public class PopUp
         {
             base.Up();
             handler.StartTextAnimation();
-            Time.timeScale = 0f;
             handler.CreateManaVisionTexts();
+            Time.timeScale = 0f;
         }
 
         public override void Down()
         {
+            Time.timeScale = 1f;
             handler.StopTextAnimation();
             handler.DeleteManaVisionTexts();
-            Time.timeScale = 1f;
             base.Down();
         }
     }

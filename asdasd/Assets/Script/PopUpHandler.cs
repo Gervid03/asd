@@ -84,7 +84,7 @@ public class PopUpHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (popupActive) Down(-1);
-            else if (SceneManager.GetActiveScene().name != "MapEditor") popUps[1].Up(); //raise menu
+            else if (SceneManager.GetActiveScene().name != "MapEditor" && SceneManager.GetActiveScene().name != "TestTempMap") popUps[1].Up(); //raise menu
         }
 
         if (SceneManager.GetActiveScene().name == "LevelGroupTest" || SceneManager.GetActiveScene().name == "TestTempMap")
@@ -103,8 +103,6 @@ public class PopUpHandler : MonoBehaviour
         }
 
         CheckTutorialPopUps();
-
-        if (SceneManager.GetActiveScene().name == "MapEditor") Down(-1);
     }
 
     private void CheckTutorialPopUps()
@@ -150,6 +148,7 @@ public class PopUpHandler : MonoBehaviour
             {
                 popUps[i].Down();
             }
+            activePopUps = 0;
         }
         else popUps[id].Down();
     }
