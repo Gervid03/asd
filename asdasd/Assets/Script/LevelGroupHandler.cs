@@ -62,7 +62,7 @@ public class LevelGroupData: MonoBehaviour
     //TODO call these from somewhere
     public void ConvertToLevelGroup(string Name) //this will only overwrite levelgroups that exists!
     {
-        string assetPath = Application.persistentDataPath + "/levelgroups/levelgroupdata/" + Name + ".asset";
+        string assetPath = Application.streamingAssetsPath + "/levelgroups/levelgroupdata/" + Name + ".asset";
         LevelGroup lg = AssetDatabase.LoadAssetAtPath<LevelGroup>(assetPath);
 
         if (lg != null)

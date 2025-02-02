@@ -38,7 +38,7 @@ public class ColorPalette : MonoBehaviour
         CheckFilesInPersistentDataPath();
         mapEditor = FindFirstObjectByType<MapEditor>();
         mapEditor.tilemaps.makeItNotNull(new List<int>(), new List<Tilemap>(), new List<bool>());
-        colorPalettePath = Application.persistentDataPath + "/Saves/ColorPalette.txt";
+        colorPalettePath = Application.streamingAssetsPath + "/Saves/ColorPalette.txt";
         colorTweaker = FindFirstObjectByType<ColorTweaker>(FindObjectsInactive.Include);
         history = FindFirstObjectByType<HistoryManager>();
         CreateColor(new Color32(255, 255, 255, 255), -1, true);
@@ -48,7 +48,7 @@ public class ColorPalette : MonoBehaviour
     static void CopyFolder(string folderName)
     {
         string sourceDir = Path.Combine(Application.streamingAssetsPath, folderName);
-        string targetDir = Path.Combine(Application.persistentDataPath, folderName);
+        string targetDir = Path.Combine(Application.streamingAssetsPath, folderName);
 
         if (!Directory.Exists(targetDir))
         {
@@ -275,12 +275,12 @@ public class ColorPalette : MonoBehaviour
 
     public void ResetPalette()
     {
-        colorPalettePath = Application.persistentDataPath + "/Saves/DefaultColorPalette.txt";
+        colorPalettePath = Application.streamingAssetsPath + "/Saves/DefaultColorPalette.txt";
 
         KillAllTheChildren();
 
         ReadInColors();
-        colorPalettePath = Application.persistentDataPath + "/Saves/ColorPalette.txt";
+        colorPalettePath = Application.streamingAssetsPath + "/Saves/ColorPalette.txt";
         selectedButton = null;
     }
 

@@ -447,7 +447,7 @@ public class MapEditor : MonoBehaviour
 
     public FileInfo[] GetMappackList()
     {
-        string path = Application.persistentDataPath + "/mappacks";
+        string path = Application.streamingAssetsPath + "/mappacks";
         DirectoryInfo dir = new DirectoryInfo(path);
         return dir.GetFiles("*.mappack");
     }
@@ -517,7 +517,7 @@ public class MapEditor : MonoBehaviour
         List<string> options = new List<string>();
         foreach (FileInfo map in maps)
         {
-            //if (map.Name[0] == '!') continue;
+            if (map.Name[0] == '!') continue;
             options.Add(map.Name.Substring(0, map.Name.Length-7));
         }
         dropdown.AddOptions(options);
@@ -552,8 +552,8 @@ public class MapEditor : MonoBehaviour
 
         if (popUpHandler == null || colorPalette == null || history == null) Debug.Log("smh is null");
 
-        if (mappack.levelInfo == null) mappack = new Mappack("default", new Level[] {new Level("!clear", 0, 0)});
-        mapName = "!clear";
+        if (mappack.levelInfo == null) mappack = new Mappack("default", new Level[] {new Level("-", 0, 0)});
+        mapName = "-";
         mapX = 0;
         mapY = 0;
         UpdateCurrentMapInfo();

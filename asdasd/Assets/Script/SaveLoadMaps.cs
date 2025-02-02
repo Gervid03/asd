@@ -9,9 +9,9 @@ public static class SaveLoadMaps
     public static void SaveProgress(ProgressGatherer pg)
     {
         BinaryFormatter bf = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/Progress.pgs";
+        string path = Application.streamingAssetsPath + "/Progress.pgs";
         Debug.Log(path);
-        Debug.Log(Application.persistentDataPath);
+        Debug.Log(Application.streamingAssetsPath);
         FileStream stream = new FileStream(path, FileMode.Create);
         Progress progress = new Progress(pg);
         bf.Serialize(stream, progress);
@@ -20,13 +20,13 @@ public static class SaveLoadMaps
 
     public static void DeleteProgress()
     {
-        string path = Application.persistentDataPath + "/Progress.pgs";
+        string path = Application.streamingAssetsPath + "/Progress.pgs";
         File.Delete(path);
     }
 
     public static Progress LoadProgress()
     {
-        string path = Application.persistentDataPath + "/Progress.pgs";
+        string path = Application.streamingAssetsPath + "/Progress.pgs";
         if (!File.Exists(path)) path = Application.streamingAssetsPath + "/BackupProgress.pgs";
         if (File.Exists(path))
         {
@@ -52,7 +52,7 @@ public static class SaveLoadMaps
 
     public static void SaveMap(Map map)
     {
-        Debug.Log(Application.persistentDataPath);
+        Debug.Log(Application.streamingAssetsPath);
         BinaryFormatter bf = new BinaryFormatter();
         string path = Application.streamingAssetsPath + "/maps/" + map.index + "map.map"; //Application.persistentDataPath + " / " + map.index + "map.map";
         FileStream stream = new FileStream(path, FileMode.Create);
@@ -82,8 +82,8 @@ public static class SaveLoadMaps
 
     public static void CreateEmptyMap(string name, bool overwrite = false)
     {
-        string clearPath = Application.persistentDataPath + "/maps/" + "!clear" + "map.map";
-        string newPath = Application.persistentDataPath + "/maps/" + name + "map.map";
+        string clearPath = Application.streamingAssetsPath + "/maps/" + "-" + "map.map";
+        string newPath = Application.streamingAssetsPath + "/maps/" + name + "map.map";
         
         if (File.Exists(newPath) && !overwrite)
         {
@@ -95,9 +95,9 @@ public static class SaveLoadMaps
 
     public static void SaveMappack(MapEditor.Mappack mappack)
     {
-        Debug.Log(Application.persistentDataPath);
+        Debug.Log(Application.streamingAssetsPath);
         BinaryFormatter bf = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/mappacks/" + mappack.ID + ".mappack";
+        string path = Application.streamingAssetsPath + "/mappacks/" + mappack.ID + ".mappack";
         FileStream stream = new FileStream(path, FileMode.Create);
         MapEditor.Mappack.MappackData data = new MapEditor.Mappack.MappackData(mappack);
         bf.Serialize(stream, data);
@@ -105,7 +105,7 @@ public static class SaveLoadMaps
     }
     public static MapEditor.Mappack.MappackData LoadMappack(string name)
     {
-        string path = Application.persistentDataPath + "/mappacks/" + name + ".mappack"; //Application.persistentDataPath + " / " + index + "map.map";
+        string path = Application.streamingAssetsPath + "/mappacks/" + name + ".mappack"; //Application.persistentDataPath + " / " + index + "map.map";
         if (File.Exists(path))
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -124,9 +124,9 @@ public static class SaveLoadMaps
 
     /*public static void SaveLevelGroup(LevelGroupData levelGroupData)
     {
-        Debug.Log(Application.persistentDataPath);
+        Debug.Log(Application.streamingAssetsPath);
         BinaryFormatter bf = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/levelgroups/levelgroupdata/" + levelGroupData.ID + ".lg";
+        string path = Application.streamingAssetsPath + "/levelgroups/levelgroupdata/" + levelGroupData.ID + ".lg";
         FileStream stream = new FileStream(path, FileMode.Create);
         bf.Serialize(stream, levelGroupData);
         stream.Close();
