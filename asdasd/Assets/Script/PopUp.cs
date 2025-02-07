@@ -53,7 +53,7 @@ public class PopUp
 
         public AddNewMap() //automatically calls base constructor before runs (since it's parameterless)
         {
-            window = handler.transform.Find("NewMapByArrow").gameObject;
+            window = handler.transform.Find("PopUpCanvas").transform.Find("NewMapByArrow").gameObject;
             addNewMap = this;
 
             mapEditor = MonoBehaviour.FindFirstObjectByType<MapEditor>();
@@ -132,7 +132,7 @@ public class PopUp
     {
         public PauseScreen()
         {
-            window = handler.transform.Find("PauseWindow").gameObject;
+            window = handler.transform.Find("PopUpCanvas").transform.Find("PauseWindow").gameObject;
             pauseScreen = this;
         }
         
@@ -173,7 +173,7 @@ public class PopUp
     {
         public MovementAndInteractionTutorial()
         {
-            window = handler.transform.Find("MovementAndInteractionTutorial").gameObject;
+            window = handler.transform.Find("PopUpCanvas").transform.Find("MovementAndInteractionTutorial").gameObject;
             //movementAndInteraction = this;
         }
     }
@@ -181,7 +181,7 @@ public class PopUp
     {
         public ManaVisionTutorial()
         {
-            window = handler.transform.Find("ManaVisionTutorial").gameObject;
+            window = handler.transform.Find("PopUpCanvas").transform.Find("ManaVisionTutorial").gameObject;
             //manaVisionTutorial = this;
         }
     }
@@ -189,7 +189,7 @@ public class PopUp
     {
         public ButtonsAndCubesTutorial()
         {
-            window = handler.transform.Find("ButtonsAndCubesTutorial").gameObject;
+            window = handler.transform.Find("PopUpCanvas").transform.Find("ButtonsAndCubesTutorial").gameObject;
             //buttonsAndCubesTutorial = this;
         }
     }
@@ -197,7 +197,7 @@ public class PopUp
     {
         public TimercubesTutorial()
         {
-            window = handler.transform.Find("TimercubesTutorial").gameObject;
+            window = handler.transform.Find("PopUpCanvas").transform.Find("TimercubesTutorial").gameObject;
             //timercubesTutorial = this;
         }
     }

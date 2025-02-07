@@ -52,7 +52,7 @@ public class PopUpHandler : MonoBehaviour
 
     void Awake()
     {
-        darkOverlay = transform.Find("DarkLayer").gameObject; //find returns the this.transform's child's transform with a specific name
+        darkOverlay = transform.Find("DLParent").transform.Find("DarkLayer").gameObject; //find returns the this.transform's child's transform with a specific name
         popUps = new PopUp[]
         {
             new PopUp.AddNewMap(),
@@ -190,7 +190,7 @@ public class PopUpHandler : MonoBehaviour
         float elapsed = 0f;
 
         // How far (and in what direction) you want them to slide by the end
-        Vector2 offset = new Vector2(130f, 0f); // slides 150px to the right, for example
+        Vector2 offset = new Vector2(3f, 0f); // slides 150px to the right, for example
 
         manaVisionTextTransform.anchoredPosition = startPos_Mana;
         anykeyexitTextTransform.anchoredPosition = startPos_AnyKey;
@@ -266,7 +266,8 @@ public class PopUpHandler : MonoBehaviour
         float x = (j + 1.5f) * cellWidth;
         float y = (i + 1) * cellHeight;
 
-        rt.anchoredPosition = new Vector2(y + 3, x);
+        Map m = FindFirstObjectByType<Map>();
+        rt.anchoredPosition = new Vector3(m.tileX + i, m.tileY + j, 0);
     }
     private void PlaceTextOnPixel(float i, float j, int colorToWrite = -1, int interactiveToWrite = -1)
     {
@@ -353,7 +354,7 @@ public class PopUpHandler : MonoBehaviour
     {
         foreach (Transform child in manaVisionTextParent.transform)
         {
-            if (child.name == "ManaVisionText" || child.name == "AnyKeyExitText") continue;
+            if (child.name == "ManaVisionText" || child.name == "AnyKeyExitText" || child.name == "DarkLayer") continue;
             Destroy(child.gameObject);
         }
     }
