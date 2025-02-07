@@ -10557,30 +10557,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3756105564709303598, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.2000122
-      objectReference: {fileID: 0}
-    - target: {fileID: 4310906743328132533, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4715356016536730336, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4715356016536730336, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4715356016536730336, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5210696878310296956, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5278309454032820538, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
       propertyPath: m_Name
       value: PopUpCanvas
@@ -10664,26 +10640,6 @@ PrefabInstance:
     - target: {fileID: 5741204516687238791, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6414511557409183778, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 10000
-      objectReference: {fileID: 0}
-    - target: {fileID: 6414511557409183778, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8255874354787840218, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 960
-      objectReference: {fileID: 0}
-    - target: {fileID: 8559661654658200134, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: manaVisionColorIndexPrefab
-      value: 
-      objectReference: {fileID: 204579982120911310, guid: 30824c3db1600c84cbf4b1ac57de1744, type: 3}
-    - target: {fileID: 8989600390946534396, guid: f9fa04c4956ea0e41a8e3b29bd33f902, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 870
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
