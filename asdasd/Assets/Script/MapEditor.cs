@@ -567,6 +567,7 @@ public class MapEditor : MonoBehaviour
 
     public void ShortCuts()
     {
+        if (popUpHandler.popupActive) return;
         if (!menu.activeSelf)
         {
             if (Input.GetAxisRaw("Remove") == 1) currentTool = 0;
